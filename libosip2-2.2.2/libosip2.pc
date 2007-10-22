@@ -1,0 +1,11 @@
+prefix=/tmp/stage
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libosip2
+Description: GNU osip2 core library for sip protocol
+Version: 2.2.2
+Libs: -losipparser2 -losip2
+Cflags: -DOSIP_MT
+	 

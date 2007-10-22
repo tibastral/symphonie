@@ -1,0 +1,1313 @@
+for dir in pjlib pjlib-util pjmedia pjsip pjsip-apps; do \
+   if [ -d $dir ]; then \
+	if make  -C $dir/build all; then \
+	    true; \
+	else \
+	    exit 1; \
+	fi; \
+   fi; \
+done
+touch ../include/pj/config_site.h
+make -f ../../build/rules.mak APP=PJLIB app=pjlib ../lib/libpj-i386-apple-darwin8.10.1.a
+mkdir -p output/pjlib-i386-apple-darwin8.10.1 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/file_access_unistd.o \
+	../src/pj/file_access_unistd.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/file_io_ansi.o \
+	../src/pj/file_io_ansi.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/os_core_unix.o \
+	../src/pj/os_core_unix.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/os_error_unix.o \
+	../src/pj/os_error_unix.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/os_time_unix.o \
+	../src/pj/os_time_unix.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/os_timestamp_posix.o \
+	../src/pj/os_timestamp_posix.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/guid_simple.o \
+	../src/pj/guid_simple.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/ioqueue_select.o \
+	../src/pj/ioqueue_select.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/addr_resolv_sock.o \
+	../src/pj/addr_resolv_sock.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/log_writer_stdout.o \
+	../src/pj/log_writer_stdout.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/os_timestamp_common.o \
+	../src/pj/os_timestamp_common.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/pool_policy_malloc.o \
+	../src/pj/pool_policy_malloc.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/sock_bsd.o \
+	../src/pj/sock_bsd.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/sock_select.o \
+	../src/pj/sock_select.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/array.o \
+	../src/pj/array.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/config.o \
+	../src/pj/config.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/ctype.o \
+	../src/pj/ctype.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/errno.o \
+	../src/pj/errno.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/except.o \
+	../src/pj/except.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/fifobuf.o \
+	../src/pj/fifobuf.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/guid.o \
+	../src/pj/guid.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/hash.o \
+	../src/pj/hash.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/list.o \
+	../src/pj/list.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/lock.o \
+	../src/pj/lock.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/log.o \
+	../src/pj/log.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/os_time_common.o \
+	../src/pj/os_time_common.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/pool.o \
+	../src/pj/pool.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/pool_buf.o \
+	../src/pj/pool_buf.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/pool_caching.o \
+	../src/pj/pool_caching.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/pool_dbg.o \
+	../src/pj/pool_dbg.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/rand.o \
+	../src/pj/rand.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/rbtree.o \
+	../src/pj/rbtree.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/string.o \
+	../src/pj/string.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/timer.o \
+	../src/pj/timer.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/types.o \
+	../src/pj/types.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-i386-apple-darwin8.10.1/symbols.o \
+	../src/pj/symbols.c 
+ar rv ../lib/libpj-i386-apple-darwin8.10.1.a  output/pjlib-i386-apple-darwin8.10.1/file_access_unistd.o  output/pjlib-i386-apple-darwin8.10.1/file_io_ansi.o  output/pjlib-i386-apple-darwin8.10.1/os_core_unix.o  output/pjlib-i386-apple-darwin8.10.1/os_error_unix.o  output/pjlib-i386-apple-darwin8.10.1/os_time_unix.o  output/pjlib-i386-apple-darwin8.10.1/os_timestamp_posix.o  output/pjlib-i386-apple-darwin8.10.1/guid_simple.o  output/pjlib-i386-apple-darwin8.10.1/ioqueue_select.o  output/pjlib-i386-apple-darwin8.10.1/addr_resolv_sock.o  output/pjlib-i386-apple-darwin8.10.1/log_writer_stdout.o  output/pjlib-i386-apple-darwin8.10.1/os_timestamp_common.o  output/pjlib-i386-apple-darwin8.10.1/pool_policy_malloc.o  output/pjlib-i386-apple-darwin8.10.1/sock_bsd.o  output/pjlib-i386-apple-darwin8.10.1/sock_select.o  output/pjlib-i386-apple-darwin8.10.1/array.o  output/pjlib-i386-apple-darwin8.10.1/config.o  output/pjlib-i386-apple-darwin8.10.1/ctype.o  output/pjlib-i386-apple-darwin8.10.1/errno.o  output/pjlib-i386-apple-darwin8.10.1/except.o  output/pjlib-i386-apple-darwin8.10.1/fifobuf.o  output/pjlib-i386-apple-darwin8.10.1/guid.o  output/pjlib-i386-apple-darwin8.10.1/hash.o  output/pjlib-i386-apple-darwin8.10.1/list.o  output/pjlib-i386-apple-darwin8.10.1/lock.o  output/pjlib-i386-apple-darwin8.10.1/log.o  output/pjlib-i386-apple-darwin8.10.1/os_time_common.o  output/pjlib-i386-apple-darwin8.10.1/pool.o  output/pjlib-i386-apple-darwin8.10.1/pool_buf.o  output/pjlib-i386-apple-darwin8.10.1/pool_caching.o  output/pjlib-i386-apple-darwin8.10.1/pool_dbg.o  output/pjlib-i386-apple-darwin8.10.1/rand.o  output/pjlib-i386-apple-darwin8.10.1/rbtree.o  output/pjlib-i386-apple-darwin8.10.1/string.o  output/pjlib-i386-apple-darwin8.10.1/timer.o  output/pjlib-i386-apple-darwin8.10.1/types.o  output/pjlib-i386-apple-darwin8.10.1/symbols.o
+ar: creating archive ../lib/libpj-i386-apple-darwin8.10.1.a
+ranlib: file: ../lib/libpj-i386-apple-darwin8.10.1.a(pool_dbg.o) has no symbols
+ranlib: file: ../lib/libpj-i386-apple-darwin8.10.1.a(symbols.o) has no symbols
+a - output/pjlib-i386-apple-darwin8.10.1/file_access_unistd.o
+a - output/pjlib-i386-apple-darwin8.10.1/file_io_ansi.o
+a - output/pjlib-i386-apple-darwin8.10.1/os_core_unix.o
+a - output/pjlib-i386-apple-darwin8.10.1/os_error_unix.o
+a - output/pjlib-i386-apple-darwin8.10.1/os_time_unix.o
+a - output/pjlib-i386-apple-darwin8.10.1/os_timestamp_posix.o
+a - output/pjlib-i386-apple-darwin8.10.1/guid_simple.o
+a - output/pjlib-i386-apple-darwin8.10.1/ioqueue_select.o
+a - output/pjlib-i386-apple-darwin8.10.1/addr_resolv_sock.o
+a - output/pjlib-i386-apple-darwin8.10.1/log_writer_stdout.o
+a - output/pjlib-i386-apple-darwin8.10.1/os_timestamp_common.o
+a - output/pjlib-i386-apple-darwin8.10.1/pool_policy_malloc.o
+a - output/pjlib-i386-apple-darwin8.10.1/sock_bsd.o
+a - output/pjlib-i386-apple-darwin8.10.1/sock_select.o
+a - output/pjlib-i386-apple-darwin8.10.1/array.o
+a - output/pjlib-i386-apple-darwin8.10.1/config.o
+a - output/pjlib-i386-apple-darwin8.10.1/ctype.o
+a - output/pjlib-i386-apple-darwin8.10.1/errno.o
+a - output/pjlib-i386-apple-darwin8.10.1/except.o
+a - output/pjlib-i386-apple-darwin8.10.1/fifobuf.o
+a - output/pjlib-i386-apple-darwin8.10.1/guid.o
+a - output/pjlib-i386-apple-darwin8.10.1/hash.o
+a - output/pjlib-i386-apple-darwin8.10.1/list.o
+a - output/pjlib-i386-apple-darwin8.10.1/lock.o
+a - output/pjlib-i386-apple-darwin8.10.1/log.o
+a - output/pjlib-i386-apple-darwin8.10.1/os_time_common.o
+a - output/pjlib-i386-apple-darwin8.10.1/pool.o
+a - output/pjlib-i386-apple-darwin8.10.1/pool_buf.o
+a - output/pjlib-i386-apple-darwin8.10.1/pool_caching.o
+a - output/pjlib-i386-apple-darwin8.10.1/pool_dbg.o
+a - output/pjlib-i386-apple-darwin8.10.1/rand.o
+a - output/pjlib-i386-apple-darwin8.10.1/rbtree.o
+a - output/pjlib-i386-apple-darwin8.10.1/string.o
+a - output/pjlib-i386-apple-darwin8.10.1/timer.o
+a - output/pjlib-i386-apple-darwin8.10.1/types.o
+a - output/pjlib-i386-apple-darwin8.10.1/symbols.o
+ranlib ../lib/libpj-i386-apple-darwin8.10.1.a
+ranlib: file: ../lib/libpj-i386-apple-darwin8.10.1.a(pool_dbg.o) has no symbols
+ranlib: file: ../lib/libpj-i386-apple-darwin8.10.1.a(symbols.o) has no symbols
+make -f ../../build/rules.mak APP=TEST app=pjlib-test ../bin/pjlib-test-i386-apple-darwin8.10.1
+mkdir -p output/pjlib-test-i386-apple-darwin8.10.1 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-test-i386-apple-darwin8.10.1/main.o \
+	../src/pjlib-test/main.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-test-i386-apple-darwin8.10.1/atomic.o \
+	../src/pjlib-test/atomic.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-test-i386-apple-darwin8.10.1/echo_clt.o \
+	../src/pjlib-test/echo_clt.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-test-i386-apple-darwin8.10.1/errno.o \
+	../src/pjlib-test/errno.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-test-i386-apple-darwin8.10.1/exception.o \
+	../src/pjlib-test/exception.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-test-i386-apple-darwin8.10.1/fifobuf.o \
+	../src/pjlib-test/fifobuf.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-test-i386-apple-darwin8.10.1/file.o \
+	../src/pjlib-test/file.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-test-i386-apple-darwin8.10.1/ioq_perf.o \
+	../src/pjlib-test/ioq_perf.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-test-i386-apple-darwin8.10.1/ioq_udp.o \
+	../src/pjlib-test/ioq_udp.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-test-i386-apple-darwin8.10.1/ioq_unreg.o \
+	../src/pjlib-test/ioq_unreg.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-test-i386-apple-darwin8.10.1/ioq_tcp.o \
+	../src/pjlib-test/ioq_tcp.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-test-i386-apple-darwin8.10.1/list.o \
+	../src/pjlib-test/list.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-test-i386-apple-darwin8.10.1/mutex.o \
+	../src/pjlib-test/mutex.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-test-i386-apple-darwin8.10.1/os.o \
+	../src/pjlib-test/os.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-test-i386-apple-darwin8.10.1/pool.o \
+	../src/pjlib-test/pool.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-test-i386-apple-darwin8.10.1/pool_perf.o \
+	../src/pjlib-test/pool_perf.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-test-i386-apple-darwin8.10.1/rand.o \
+	../src/pjlib-test/rand.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-test-i386-apple-darwin8.10.1/rbtree.o \
+	../src/pjlib-test/rbtree.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-test-i386-apple-darwin8.10.1/select.o \
+	../src/pjlib-test/select.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-test-i386-apple-darwin8.10.1/sleep.o \
+	../src/pjlib-test/sleep.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-test-i386-apple-darwin8.10.1/sock.o \
+	../src/pjlib-test/sock.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-test-i386-apple-darwin8.10.1/sock_perf.o \
+	../src/pjlib-test/sock_perf.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-test-i386-apple-darwin8.10.1/string.o \
+	../src/pjlib-test/string.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-test-i386-apple-darwin8.10.1/test.o \
+	../src/pjlib-test/test.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-test-i386-apple-darwin8.10.1/thread.o \
+	../src/pjlib-test/thread.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-test-i386-apple-darwin8.10.1/timer.o \
+	../src/pjlib-test/timer.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-test-i386-apple-darwin8.10.1/timestamp.o \
+	../src/pjlib-test/timestamp.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-test-i386-apple-darwin8.10.1/udp_echo_srv_sync.o \
+	../src/pjlib-test/udp_echo_srv_sync.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-test-i386-apple-darwin8.10.1/udp_echo_srv_ioqueue.o \
+	../src/pjlib-test/udp_echo_srv_ioqueue.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include \
+	-o output/pjlib-test-i386-apple-darwin8.10.1/util.o \
+	../src/pjlib-test/util.c 
+gcc -o ../bin/pjlib-test-i386-apple-darwin8.10.1 \
+     output/pjlib-test-i386-apple-darwin8.10.1/main.o  output/pjlib-test-i386-apple-darwin8.10.1/atomic.o  output/pjlib-test-i386-apple-darwin8.10.1/echo_clt.o  output/pjlib-test-i386-apple-darwin8.10.1/errno.o  output/pjlib-test-i386-apple-darwin8.10.1/exception.o  output/pjlib-test-i386-apple-darwin8.10.1/fifobuf.o  output/pjlib-test-i386-apple-darwin8.10.1/file.o  output/pjlib-test-i386-apple-darwin8.10.1/ioq_perf.o  output/pjlib-test-i386-apple-darwin8.10.1/ioq_udp.o  output/pjlib-test-i386-apple-darwin8.10.1/ioq_unreg.o  output/pjlib-test-i386-apple-darwin8.10.1/ioq_tcp.o  output/pjlib-test-i386-apple-darwin8.10.1/list.o  output/pjlib-test-i386-apple-darwin8.10.1/mutex.o  output/pjlib-test-i386-apple-darwin8.10.1/os.o  output/pjlib-test-i386-apple-darwin8.10.1/pool.o  output/pjlib-test-i386-apple-darwin8.10.1/pool_perf.o  output/pjlib-test-i386-apple-darwin8.10.1/rand.o  output/pjlib-test-i386-apple-darwin8.10.1/rbtree.o  output/pjlib-test-i386-apple-darwin8.10.1/select.o  output/pjlib-test-i386-apple-darwin8.10.1/sleep.o  output/pjlib-test-i386-apple-darwin8.10.1/sock.o  output/pjlib-test-i386-apple-darwin8.10.1/sock_perf.o  output/pjlib-test-i386-apple-darwin8.10.1/string.o  output/pjlib-test-i386-apple-darwin8.10.1/test.o  output/pjlib-test-i386-apple-darwin8.10.1/thread.o  output/pjlib-test-i386-apple-darwin8.10.1/timer.o  output/pjlib-test-i386-apple-darwin8.10.1/timestamp.o  output/pjlib-test-i386-apple-darwin8.10.1/udp_echo_srv_sync.o  output/pjlib-test-i386-apple-darwin8.10.1/udp_echo_srv_ioqueue.o  output/pjlib-test-i386-apple-darwin8.10.1/util.o -lm -lpthread  -framework CoreAudio -framework CoreServices -framework AudioUnit -framework AudioToolbox -lssl -lcrypto ../lib/libpj-i386-apple-darwin8.10.1.a  -lm -lpthread  -framework CoreAudio -framework CoreServices -framework AudioUnit -framework AudioToolbox -lssl -lcrypto    
+make -f ../../build/rules.mak APP=PJLIB_UTIL app=pjlib-util ../lib/libpjlib-util-i386-apple-darwin8.10.1.a
+mkdir -p output/pjlib-util-i386-apple-darwin8.10.1 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include \
+	-o output/pjlib-util-i386-apple-darwin8.10.1/errno.o \
+	../src/pjlib-util/errno.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include \
+	-o output/pjlib-util-i386-apple-darwin8.10.1/dns.o \
+	../src/pjlib-util/dns.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include \
+	-o output/pjlib-util-i386-apple-darwin8.10.1/dns_dump.o \
+	../src/pjlib-util/dns_dump.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include \
+	-o output/pjlib-util-i386-apple-darwin8.10.1/getopt.o \
+	../src/pjlib-util/getopt.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include \
+	-o output/pjlib-util-i386-apple-darwin8.10.1/md5.o \
+	../src/pjlib-util/md5.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include \
+	-o output/pjlib-util-i386-apple-darwin8.10.1/resolver.o \
+	../src/pjlib-util/resolver.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include \
+	-o output/pjlib-util-i386-apple-darwin8.10.1/scanner.o \
+	../src/pjlib-util/scanner.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include \
+	-o output/pjlib-util-i386-apple-darwin8.10.1/stun.o \
+	../src/pjlib-util/stun.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include \
+	-o output/pjlib-util-i386-apple-darwin8.10.1/string.o \
+	../src/pjlib-util/string.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include \
+	-o output/pjlib-util-i386-apple-darwin8.10.1/stun_client.o \
+	../src/pjlib-util/stun_client.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include \
+	-o output/pjlib-util-i386-apple-darwin8.10.1/xml.o \
+	../src/pjlib-util/xml.c 
+ar rv ../lib/libpjlib-util-i386-apple-darwin8.10.1.a  output/pjlib-util-i386-apple-darwin8.10.1/errno.o  output/pjlib-util-i386-apple-darwin8.10.1/dns.o  output/pjlib-util-i386-apple-darwin8.10.1/dns_dump.o  output/pjlib-util-i386-apple-darwin8.10.1/getopt.o  output/pjlib-util-i386-apple-darwin8.10.1/md5.o  output/pjlib-util-i386-apple-darwin8.10.1/resolver.o  output/pjlib-util-i386-apple-darwin8.10.1/scanner.o  output/pjlib-util-i386-apple-darwin8.10.1/stun.o  output/pjlib-util-i386-apple-darwin8.10.1/string.o  output/pjlib-util-i386-apple-darwin8.10.1/stun_client.o  output/pjlib-util-i386-apple-darwin8.10.1/xml.o
+ar: creating archive ../lib/libpjlib-util-i386-apple-darwin8.10.1.a
+a - output/pjlib-util-i386-apple-darwin8.10.1/errno.o
+a - output/pjlib-util-i386-apple-darwin8.10.1/dns.o
+a - output/pjlib-util-i386-apple-darwin8.10.1/dns_dump.o
+a - output/pjlib-util-i386-apple-darwin8.10.1/getopt.o
+a - output/pjlib-util-i386-apple-darwin8.10.1/md5.o
+a - output/pjlib-util-i386-apple-darwin8.10.1/resolver.o
+a - output/pjlib-util-i386-apple-darwin8.10.1/scanner.o
+a - output/pjlib-util-i386-apple-darwin8.10.1/stun.o
+a - output/pjlib-util-i386-apple-darwin8.10.1/string.o
+a - output/pjlib-util-i386-apple-darwin8.10.1/stun_client.o
+a - output/pjlib-util-i386-apple-darwin8.10.1/xml.o
+ranlib ../lib/libpjlib-util-i386-apple-darwin8.10.1.a
+make -f ../../build/rules.mak APP=UTIL_TEST app=pjlib-util-test ../bin/pjlib-util-test-i386-apple-darwin8.10.1
+mkdir -p output/pjlib-util-test-i386-apple-darwin8.10.1 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include \
+	-o output/pjlib-util-test-i386-apple-darwin8.10.1/main.o \
+	../src/pjlib-util-test/main.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include \
+	-o output/pjlib-util-test-i386-apple-darwin8.10.1/xml.o \
+	../src/pjlib-util-test/xml.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include \
+	-o output/pjlib-util-test-i386-apple-darwin8.10.1/test.o \
+	../src/pjlib-util-test/test.c 
+gcc -o ../bin/pjlib-util-test-i386-apple-darwin8.10.1 \
+     output/pjlib-util-test-i386-apple-darwin8.10.1/main.o  output/pjlib-util-test-i386-apple-darwin8.10.1/xml.o  output/pjlib-util-test-i386-apple-darwin8.10.1/test.o ../lib/libpjlib-util-i386-apple-darwin8.10.1.a ../../pjlib/lib/libpj-i386-apple-darwin8.10.1.a  -lm -lpthread  -framework CoreAudio -framework CoreServices -framework AudioUnit -framework AudioToolbox -lssl -lcrypto    
+make -f ../../build/rules.mak APP=PJMEDIA app=pjmedia ../lib/libpjmedia-i386-apple-darwin8.10.1.a
+mkdir -p output/pjmedia-i386-apple-darwin8.10.1 
+mkdir -p output/pjmedia-i386-apple-darwin8.10.1/portaudio 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_mac_hostapis.o \
+	../src/pjmedia/portaudio/pa_mac_hostapis.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_unix_util.o \
+	../src/pjmedia/portaudio/pa_unix_util.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_mac_core.o \
+	../src/pjmedia/portaudio/pa_mac_core.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_mac_core_blocking.o \
+	../src/pjmedia/portaudio/pa_mac_core_blocking.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_mac_core_utilities.o \
+	../src/pjmedia/portaudio/pa_mac_core_utilities.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/portaudio/ringbuffer.o \
+	../src/pjmedia/portaudio/ringbuffer.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/alaw_ulaw.o \
+	../src/pjmedia/alaw_ulaw.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/alaw_ulaw_table.o \
+	../src/pjmedia/alaw_ulaw_table.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/clock_thread.o \
+	../src/pjmedia/clock_thread.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/codec.o \
+	../src/pjmedia/codec.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/conference.o \
+	../src/pjmedia/conference.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/echo_common.o \
+	../src/pjmedia/echo_common.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/echo_port.o \
+	../src/pjmedia/echo_port.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/echo_speex.o \
+	../src/pjmedia/echo_speex.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/echo_suppress.o \
+	../src/pjmedia/echo_suppress.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/endpoint.o \
+	../src/pjmedia/endpoint.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/errno.o \
+	../src/pjmedia/errno.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/g711.o \
+	../src/pjmedia/g711.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/jbuf.o \
+	../src/pjmedia/jbuf.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/master_port.o \
+	../src/pjmedia/master_port.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/mem_capture.o \
+	../src/pjmedia/mem_capture.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/mem_player.o \
+	../src/pjmedia/mem_player.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/mp3_writer.o \
+	../src/pjmedia/mp3_writer.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/null_port.o \
+	../src/pjmedia/null_port.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/plc_common.o \
+	../src/pjmedia/plc_common.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/plc_steveu.o \
+	../src/pjmedia/plc_steveu.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/port.o \
+	../src/pjmedia/port.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/splitcomb.o \
+	../src/pjmedia/splitcomb.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/resample.o \
+	../src/pjmedia/resample.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/resample_port.o \
+	../src/pjmedia/resample_port.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/rtcp.o \
+	../src/pjmedia/rtcp.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/rtp.o \
+	../src/pjmedia/rtp.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/sdp.o \
+	../src/pjmedia/sdp.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/sdp_cmp.o \
+	../src/pjmedia/sdp_cmp.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/sdp_neg.o \
+	../src/pjmedia/sdp_neg.c 
+../src/pjmedia/sdp_neg.c: In function 'process_m_answer':
+../src/pjmedia/sdp_neg.c:542: warning: label 'TODO___CHECK_SDP_NEGOTIATION_WHEN_ASYMETRIC_MEDIA_IS_ALLOWED' defined but not used
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/session.o \
+	../src/pjmedia/session.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/silencedet.o \
+	../src/pjmedia/silencedet.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/sound_port.o \
+	../src/pjmedia/sound_port.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/stream.o \
+	../src/pjmedia/stream.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/tonegen.o \
+	../src/pjmedia/tonegen.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/transport_udp.o \
+	../src/pjmedia/transport_udp.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/wav_player.o \
+	../src/pjmedia/wav_player.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/wav_playlist.o \
+	../src/pjmedia/wav_playlist.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/wav_writer.o \
+	../src/pjmedia/wav_writer.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/wave.o \
+	../src/pjmedia/wave.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/pasound.o \
+	../src/pjmedia/pasound.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_allocation.o \
+	../src/pjmedia/portaudio/pa_allocation.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_converters.o \
+	../src/pjmedia/portaudio/pa_converters.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_cpuload.o \
+	../src/pjmedia/portaudio/pa_cpuload.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_dither.o \
+	../src/pjmedia/portaudio/pa_dither.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_front.o \
+	../src/pjmedia/portaudio/pa_front.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_process.o \
+	../src/pjmedia/portaudio/pa_process.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_skeleton.o \
+	../src/pjmedia/portaudio/pa_skeleton.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_stream.o \
+	../src/pjmedia/portaudio/pa_stream.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_trace.o \
+	../src/pjmedia/portaudio/pa_trace.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjmedia-i386-apple-darwin8.10.1/nullsound.o \
+	../src/pjmedia/nullsound.c 
+ar rv ../lib/libpjmedia-i386-apple-darwin8.10.1.a  output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_mac_hostapis.o  output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_unix_util.o  output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_mac_core.o  output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_mac_core_blocking.o  output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_mac_core_utilities.o  output/pjmedia-i386-apple-darwin8.10.1/portaudio/ringbuffer.o  output/pjmedia-i386-apple-darwin8.10.1/alaw_ulaw.o  output/pjmedia-i386-apple-darwin8.10.1/alaw_ulaw_table.o  output/pjmedia-i386-apple-darwin8.10.1/clock_thread.o  output/pjmedia-i386-apple-darwin8.10.1/codec.o  output/pjmedia-i386-apple-darwin8.10.1/conference.o  output/pjmedia-i386-apple-darwin8.10.1/echo_common.o  output/pjmedia-i386-apple-darwin8.10.1/echo_port.o  output/pjmedia-i386-apple-darwin8.10.1/echo_speex.o  output/pjmedia-i386-apple-darwin8.10.1/echo_suppress.o  output/pjmedia-i386-apple-darwin8.10.1/endpoint.o  output/pjmedia-i386-apple-darwin8.10.1/errno.o  output/pjmedia-i386-apple-darwin8.10.1/g711.o  output/pjmedia-i386-apple-darwin8.10.1/jbuf.o  output/pjmedia-i386-apple-darwin8.10.1/master_port.o  output/pjmedia-i386-apple-darwin8.10.1/mem_capture.o  output/pjmedia-i386-apple-darwin8.10.1/mem_player.o  output/pjmedia-i386-apple-darwin8.10.1/mp3_writer.o  output/pjmedia-i386-apple-darwin8.10.1/null_port.o  output/pjmedia-i386-apple-darwin8.10.1/plc_common.o  output/pjmedia-i386-apple-darwin8.10.1/plc_steveu.o  output/pjmedia-i386-apple-darwin8.10.1/port.o  output/pjmedia-i386-apple-darwin8.10.1/splitcomb.o  output/pjmedia-i386-apple-darwin8.10.1/resample.o  output/pjmedia-i386-apple-darwin8.10.1/resample_port.o  output/pjmedia-i386-apple-darwin8.10.1/rtcp.o  output/pjmedia-i386-apple-darwin8.10.1/rtp.o  output/pjmedia-i386-apple-darwin8.10.1/sdp.o  output/pjmedia-i386-apple-darwin8.10.1/sdp_cmp.o  output/pjmedia-i386-apple-darwin8.10.1/sdp_neg.o  output/pjmedia-i386-apple-darwin8.10.1/session.o  output/pjmedia-i386-apple-darwin8.10.1/silencedet.o  output/pjmedia-i386-apple-darwin8.10.1/sound_port.o  output/pjmedia-i386-apple-darwin8.10.1/stream.o  output/pjmedia-i386-apple-darwin8.10.1/tonegen.o  output/pjmedia-i386-apple-darwin8.10.1/transport_udp.o  output/pjmedia-i386-apple-darwin8.10.1/wav_player.o  output/pjmedia-i386-apple-darwin8.10.1/wav_playlist.o  output/pjmedia-i386-apple-darwin8.10.1/wav_writer.o  output/pjmedia-i386-apple-darwin8.10.1/wave.o  output/pjmedia-i386-apple-darwin8.10.1/pasound.o  output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_allocation.o  output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_converters.o  output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_cpuload.o  output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_dither.o  output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_front.o  output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_process.o  output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_skeleton.o  output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_stream.o  output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_trace.o  output/pjmedia-i386-apple-darwin8.10.1/nullsound.o
+ar: creating archive ../lib/libpjmedia-i386-apple-darwin8.10.1.a
+ranlib: file: ../lib/libpjmedia-i386-apple-darwin8.10.1.a(alaw_ulaw.o) has no symbols
+ranlib: file: ../lib/libpjmedia-i386-apple-darwin8.10.1.a(pa_trace.o) has no symbols
+ranlib: file: ../lib/libpjmedia-i386-apple-darwin8.10.1.a(nullsound.o) has no symbols
+a - output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_mac_hostapis.o
+a - output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_unix_util.o
+a - output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_mac_core.o
+a - output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_mac_core_blocking.o
+a - output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_mac_core_utilities.o
+a - output/pjmedia-i386-apple-darwin8.10.1/portaudio/ringbuffer.o
+a - output/pjmedia-i386-apple-darwin8.10.1/alaw_ulaw.o
+a - output/pjmedia-i386-apple-darwin8.10.1/alaw_ulaw_table.o
+a - output/pjmedia-i386-apple-darwin8.10.1/clock_thread.o
+a - output/pjmedia-i386-apple-darwin8.10.1/codec.o
+a - output/pjmedia-i386-apple-darwin8.10.1/conference.o
+a - output/pjmedia-i386-apple-darwin8.10.1/echo_common.o
+a - output/pjmedia-i386-apple-darwin8.10.1/echo_port.o
+a - output/pjmedia-i386-apple-darwin8.10.1/echo_speex.o
+a - output/pjmedia-i386-apple-darwin8.10.1/echo_suppress.o
+a - output/pjmedia-i386-apple-darwin8.10.1/endpoint.o
+a - output/pjmedia-i386-apple-darwin8.10.1/errno.o
+a - output/pjmedia-i386-apple-darwin8.10.1/g711.o
+a - output/pjmedia-i386-apple-darwin8.10.1/jbuf.o
+a - output/pjmedia-i386-apple-darwin8.10.1/master_port.o
+a - output/pjmedia-i386-apple-darwin8.10.1/mem_capture.o
+a - output/pjmedia-i386-apple-darwin8.10.1/mem_player.o
+a - output/pjmedia-i386-apple-darwin8.10.1/mp3_writer.o
+a - output/pjmedia-i386-apple-darwin8.10.1/null_port.o
+a - output/pjmedia-i386-apple-darwin8.10.1/plc_common.o
+a - output/pjmedia-i386-apple-darwin8.10.1/plc_steveu.o
+a - output/pjmedia-i386-apple-darwin8.10.1/port.o
+a - output/pjmedia-i386-apple-darwin8.10.1/splitcomb.o
+a - output/pjmedia-i386-apple-darwin8.10.1/resample.o
+a - output/pjmedia-i386-apple-darwin8.10.1/resample_port.o
+a - output/pjmedia-i386-apple-darwin8.10.1/rtcp.o
+a - output/pjmedia-i386-apple-darwin8.10.1/rtp.o
+a - output/pjmedia-i386-apple-darwin8.10.1/sdp.o
+a - output/pjmedia-i386-apple-darwin8.10.1/sdp_cmp.o
+a - output/pjmedia-i386-apple-darwin8.10.1/sdp_neg.o
+a - output/pjmedia-i386-apple-darwin8.10.1/session.o
+a - output/pjmedia-i386-apple-darwin8.10.1/silencedet.o
+a - output/pjmedia-i386-apple-darwin8.10.1/sound_port.o
+a - output/pjmedia-i386-apple-darwin8.10.1/stream.o
+a - output/pjmedia-i386-apple-darwin8.10.1/tonegen.o
+a - output/pjmedia-i386-apple-darwin8.10.1/transport_udp.o
+a - output/pjmedia-i386-apple-darwin8.10.1/wav_player.o
+a - output/pjmedia-i386-apple-darwin8.10.1/wav_playlist.o
+a - output/pjmedia-i386-apple-darwin8.10.1/wav_writer.o
+a - output/pjmedia-i386-apple-darwin8.10.1/wave.o
+a - output/pjmedia-i386-apple-darwin8.10.1/pasound.o
+a - output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_allocation.o
+a - output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_converters.o
+a - output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_cpuload.o
+a - output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_dither.o
+a - output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_front.o
+a - output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_process.o
+a - output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_skeleton.o
+a - output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_stream.o
+a - output/pjmedia-i386-apple-darwin8.10.1/portaudio/pa_trace.o
+a - output/pjmedia-i386-apple-darwin8.10.1/nullsound.o
+ranlib ../lib/libpjmedia-i386-apple-darwin8.10.1.a
+ranlib: file: ../lib/libpjmedia-i386-apple-darwin8.10.1.a(alaw_ulaw.o) has no symbols
+ranlib: file: ../lib/libpjmedia-i386-apple-darwin8.10.1.a(pa_trace.o) has no symbols
+ranlib: file: ../lib/libpjmedia-i386-apple-darwin8.10.1.a(nullsound.o) has no symbols
+make -f ../../build/rules.mak APP=PJMEDIA_CODEC app=pjmedia-codec ../lib/libpjmedia-codec-i386-apple-darwin8.10.1.a
+mkdir -p output/pjmedia-codec-i386-apple-darwin8.10.1 
+mkdir -p output/pjmedia-codec-i386-apple-darwin8.10.1/gsm 
+mkdir -p output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc 
+mkdir -p output/pjmedia-codec-i386-apple-darwin8.10.1/speex 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/l16.o \
+	../src/pjmedia-codec/l16.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/gsm.o \
+	../src/pjmedia-codec/gsm.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/add.o \
+	../src/pjmedia-codec/gsm/add.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/code.o \
+	../src/pjmedia-codec/gsm/code.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/decode.o \
+	../src/pjmedia-codec/gsm/decode.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/gsm_create.o \
+	../src/pjmedia-codec/gsm/gsm_create.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/gsm_decode.o \
+	../src/pjmedia-codec/gsm/gsm_decode.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/gsm_destroy.o \
+	../src/pjmedia-codec/gsm/gsm_destroy.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/gsm_encode.o \
+	../src/pjmedia-codec/gsm/gsm_encode.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/gsm_explode.o \
+	../src/pjmedia-codec/gsm/gsm_explode.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/gsm_implode.o \
+	../src/pjmedia-codec/gsm/gsm_implode.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/gsm_option.o \
+	../src/pjmedia-codec/gsm/gsm_option.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/long_term.o \
+	../src/pjmedia-codec/gsm/long_term.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/lpc.o \
+	../src/pjmedia-codec/gsm/lpc.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/preprocess.o \
+	../src/pjmedia-codec/gsm/preprocess.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/rpe.o \
+	../src/pjmedia-codec/gsm/rpe.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/short_term.o \
+	../src/pjmedia-codec/gsm/short_term.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/table.o \
+	../src/pjmedia-codec/gsm/table.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex_codec.o \
+	../src/pjmedia-codec/speex_codec.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/bits.o \
+	../src/pjmedia-codec/speex/bits.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/cb_search.o \
+	../src/pjmedia-codec/speex/cb_search.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/exc_10_16_table.o \
+	../src/pjmedia-codec/speex/exc_10_16_table.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/exc_10_32_table.o \
+	../src/pjmedia-codec/speex/exc_10_32_table.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/exc_20_32_table.o \
+	../src/pjmedia-codec/speex/exc_20_32_table.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/exc_5_256_table.o \
+	../src/pjmedia-codec/speex/exc_5_256_table.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/exc_5_64_table.o \
+	../src/pjmedia-codec/speex/exc_5_64_table.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/exc_8_128_table.o \
+	../src/pjmedia-codec/speex/exc_8_128_table.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/fftwrap.o \
+	../src/pjmedia-codec/speex/fftwrap.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/filterbank.o \
+	../src/pjmedia-codec/speex/filterbank.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/filters.o \
+	../src/pjmedia-codec/speex/filters.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/gain_table.o \
+	../src/pjmedia-codec/speex/gain_table.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/gain_table_lbr.o \
+	../src/pjmedia-codec/speex/gain_table_lbr.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/hexc_10_32_table.o \
+	../src/pjmedia-codec/speex/hexc_10_32_table.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/hexc_table.o \
+	../src/pjmedia-codec/speex/hexc_table.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/high_lsp_tables.o \
+	../src/pjmedia-codec/speex/high_lsp_tables.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/jitter.o \
+	../src/pjmedia-codec/speex/jitter.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/kiss_fft.o \
+	../src/pjmedia-codec/speex/kiss_fft.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/kiss_fftr.o \
+	../src/pjmedia-codec/speex/kiss_fftr.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/lpc_spx.o \
+	../src/pjmedia-codec/speex/lpc_spx.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/lsp.o \
+	../src/pjmedia-codec/speex/lsp.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/lsp_tables_nb.o \
+	../src/pjmedia-codec/speex/lsp_tables_nb.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/ltp.o \
+	../src/pjmedia-codec/speex/ltp.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/math_approx.o \
+	../src/pjmedia-codec/speex/math_approx.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/misc.o \
+	../src/pjmedia-codec/speex/misc.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/mdf.o \
+	../src/pjmedia-codec/speex/mdf.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/modes.o \
+	../src/pjmedia-codec/speex/modes.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/nb_celp.o \
+	../src/pjmedia-codec/speex/nb_celp.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/preprocess_spx.o \
+	../src/pjmedia-codec/speex/preprocess_spx.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/quant_lsp.o \
+	../src/pjmedia-codec/speex/quant_lsp.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/sb_celp.o \
+	../src/pjmedia-codec/speex/sb_celp.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/smallft.o \
+	../src/pjmedia-codec/speex/smallft.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/speex.o \
+	../src/pjmedia-codec/speex/speex.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/speex_callbacks.o \
+	../src/pjmedia-codec/speex/speex_callbacks.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/speex_header.o \
+	../src/pjmedia-codec/speex/speex_header.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/stereo.o \
+	../src/pjmedia-codec/speex/stereo.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/vbr.o \
+	../src/pjmedia-codec/speex/vbr.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/vq.o \
+	../src/pjmedia-codec/speex/vq.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/speex/window.o \
+	../src/pjmedia-codec/speex/window.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc.o \
+	../src/pjmedia-codec/ilbc.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/FrameClassify.o \
+	../src/pjmedia-codec/ilbc/FrameClassify.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/LPCdecode.o \
+	../src/pjmedia-codec/ilbc/LPCdecode.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/LPCencode.o \
+	../src/pjmedia-codec/ilbc/LPCencode.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/StateConstructW.o \
+	../src/pjmedia-codec/ilbc/StateConstructW.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/StateSearchW.o \
+	../src/pjmedia-codec/ilbc/StateSearchW.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/anaFilter.o \
+	../src/pjmedia-codec/ilbc/anaFilter.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/constants.o \
+	../src/pjmedia-codec/ilbc/constants.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/createCB.o \
+	../src/pjmedia-codec/ilbc/createCB.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/doCPLC.o \
+	../src/pjmedia-codec/ilbc/doCPLC.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/enhancer.o \
+	../src/pjmedia-codec/ilbc/enhancer.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/filter.o \
+	../src/pjmedia-codec/ilbc/filter.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/gainquant.o \
+	../src/pjmedia-codec/ilbc/gainquant.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/getCBvec.o \
+	../src/pjmedia-codec/ilbc/getCBvec.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/helpfun.o \
+	../src/pjmedia-codec/ilbc/helpfun.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/hpInput.o \
+	../src/pjmedia-codec/ilbc/hpInput.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/hpOutput.o \
+	../src/pjmedia-codec/ilbc/hpOutput.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/iCBConstruct.o \
+	../src/pjmedia-codec/ilbc/iCBConstruct.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/iCBSearch.o \
+	../src/pjmedia-codec/ilbc/iCBSearch.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/iLBC_decode.o \
+	../src/pjmedia-codec/ilbc/iLBC_decode.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/iLBC_encode.o \
+	../src/pjmedia-codec/ilbc/iLBC_encode.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/lsf.o \
+	../src/pjmedia-codec/ilbc/lsf.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/packing.o \
+	../src/pjmedia-codec/ilbc/packing.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec  -DHAVE_CONFIG_H=1 -I../src/pjmedia-codec  \
+	-o output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/syntFilter.o \
+	../src/pjmedia-codec/ilbc/syntFilter.c 
+ar rv ../lib/libpjmedia-codec-i386-apple-darwin8.10.1.a  output/pjmedia-codec-i386-apple-darwin8.10.1/l16.o  output/pjmedia-codec-i386-apple-darwin8.10.1/gsm.o  output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/add.o  output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/code.o  output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/decode.o  output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/gsm_create.o  output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/gsm_decode.o  output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/gsm_destroy.o  output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/gsm_encode.o  output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/gsm_explode.o  output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/gsm_implode.o  output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/gsm_option.o  output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/long_term.o  output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/lpc.o  output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/preprocess.o  output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/rpe.o  output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/short_term.o  output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/table.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex_codec.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/bits.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/cb_search.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/exc_10_16_table.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/exc_10_32_table.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/exc_20_32_table.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/exc_5_256_table.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/exc_5_64_table.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/exc_8_128_table.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/fftwrap.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/filterbank.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/filters.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/gain_table.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/gain_table_lbr.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/hexc_10_32_table.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/hexc_table.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/high_lsp_tables.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/jitter.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/kiss_fft.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/kiss_fftr.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/lpc_spx.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/lsp.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/lsp_tables_nb.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/ltp.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/math_approx.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/misc.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/mdf.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/modes.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/nb_celp.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/preprocess_spx.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/quant_lsp.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/sb_celp.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/smallft.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/speex.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/speex_callbacks.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/speex_header.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/stereo.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/vbr.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/vq.o  output/pjmedia-codec-i386-apple-darwin8.10.1/speex/window.o  output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc.o  output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/FrameClassify.o  output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/LPCdecode.o  output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/LPCencode.o  output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/StateConstructW.o  output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/StateSearchW.o  output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/anaFilter.o  output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/constants.o  output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/createCB.o  output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/doCPLC.o  output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/enhancer.o  output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/filter.o  output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/gainquant.o  output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/getCBvec.o  output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/helpfun.o  output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/hpInput.o  output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/hpOutput.o  output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/iCBConstruct.o  output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/iCBSearch.o  output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/iLBC_decode.o  output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/iLBC_encode.o  output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/lsf.o  output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/packing.o  output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/syntFilter.o
+ar: creating archive ../lib/libpjmedia-codec-i386-apple-darwin8.10.1.a
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/l16.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/gsm.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/add.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/code.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/decode.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/gsm_create.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/gsm_decode.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/gsm_destroy.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/gsm_encode.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/gsm_explode.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/gsm_implode.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/gsm_option.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/long_term.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/lpc.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/preprocess.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/rpe.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/short_term.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/gsm/table.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex_codec.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/bits.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/cb_search.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/exc_10_16_table.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/exc_10_32_table.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/exc_20_32_table.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/exc_5_256_table.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/exc_5_64_table.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/exc_8_128_table.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/fftwrap.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/filterbank.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/filters.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/gain_table.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/gain_table_lbr.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/hexc_10_32_table.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/hexc_table.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/high_lsp_tables.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/jitter.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/kiss_fft.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/kiss_fftr.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/lpc_spx.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/lsp.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/lsp_tables_nb.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/ltp.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/math_approx.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/misc.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/mdf.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/modes.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/nb_celp.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/preprocess_spx.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/quant_lsp.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/sb_celp.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/smallft.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/speex.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/speex_callbacks.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/speex_header.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/stereo.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/vbr.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/vq.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/speex/window.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/FrameClassify.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/LPCdecode.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/LPCencode.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/StateConstructW.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/StateSearchW.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/anaFilter.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/constants.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/createCB.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/doCPLC.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/enhancer.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/filter.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/gainquant.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/getCBvec.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/helpfun.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/hpInput.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/hpOutput.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/iCBConstruct.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/iCBSearch.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/iLBC_decode.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/iLBC_encode.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/lsf.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/packing.o
+a - output/pjmedia-codec-i386-apple-darwin8.10.1/ilbc/syntFilter.o
+ranlib ../lib/libpjmedia-codec-i386-apple-darwin8.10.1.a
+make -f ../../build/rules.mak APP=PJSDP app=pjsdp ../lib/libpjsdp-i386-apple-darwin8.10.1.a
+mkdir -p output/pjsdp-i386-apple-darwin8.10.1 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjsdp-i386-apple-darwin8.10.1/errno.o \
+	../src/pjmedia/errno.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjsdp-i386-apple-darwin8.10.1/sdp.o \
+	../src/pjmedia/sdp.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjsdp-i386-apple-darwin8.10.1/sdp_cmp.o \
+	../src/pjmedia/sdp_cmp.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -DPA_USE_COREAUDIO=1 -DPJMEDIA_SOUND_IMPLEMENTATION=PJMEDIA_SOUND_PORTAUDIO_SOUND  -I../include -I../../pjlib/include -I../../pjlib-util/include -I../src/pjmedia/portaudio -I../src/pjmedia-codec \
+	-o output/pjsdp-i386-apple-darwin8.10.1/sdp_neg.o \
+	../src/pjmedia/sdp_neg.c 
+../src/pjmedia/sdp_neg.c: In function 'process_m_answer':
+../src/pjmedia/sdp_neg.c:542: warning: label 'TODO___CHECK_SDP_NEGOTIATION_WHEN_ASYMETRIC_MEDIA_IS_ALLOWED' defined but not used
+ar rv ../lib/libpjsdp-i386-apple-darwin8.10.1.a  output/pjsdp-i386-apple-darwin8.10.1/errno.o  output/pjsdp-i386-apple-darwin8.10.1/sdp.o  output/pjsdp-i386-apple-darwin8.10.1/sdp_cmp.o  output/pjsdp-i386-apple-darwin8.10.1/sdp_neg.o
+ar: creating archive ../lib/libpjsdp-i386-apple-darwin8.10.1.a
+a - output/pjsdp-i386-apple-darwin8.10.1/errno.o
+a - output/pjsdp-i386-apple-darwin8.10.1/sdp.o
+a - output/pjsdp-i386-apple-darwin8.10.1/sdp_cmp.o
+a - output/pjsdp-i386-apple-darwin8.10.1/sdp_neg.o
+ranlib ../lib/libpjsdp-i386-apple-darwin8.10.1.a
+make -f ../../build/rules.mak APP=PJSIP app=pjsip ../lib/libpjsip-i386-apple-darwin8.10.1.a
+mkdir -p output/pjsip-i386-apple-darwin8.10.1 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-i386-apple-darwin8.10.1/sip_errno.o \
+	../src/pjsip/sip_errno.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-i386-apple-darwin8.10.1/sip_msg.o \
+	../src/pjsip/sip_msg.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-i386-apple-darwin8.10.1/sip_parser.o \
+	../src/pjsip/sip_parser.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-i386-apple-darwin8.10.1/sip_tel_uri.o \
+	../src/pjsip/sip_tel_uri.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-i386-apple-darwin8.10.1/sip_uri.o \
+	../src/pjsip/sip_uri.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-i386-apple-darwin8.10.1/sip_endpoint.o \
+	../src/pjsip/sip_endpoint.c 
+../src/pjsip/sip_endpoint.c: In function 'endpt_on_rx_msg':
+../src/pjsip/sip_endpoint.c:890: warning: label 'TODO___ENDPT_RESPOND_UNHANDLED_REQUEST' defined but not used
+../src/pjsip/sip_endpoint.c:861: warning: label 'TODO___ENDPT_REPORT_WHEN_DROPPING_MESSAGE' defined but not used
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-i386-apple-darwin8.10.1/sip_util.o \
+	../src/pjsip/sip_util.c 
+../src/pjsip/sip_util.c: In function 'pjsip_get_request_dest':
+../src/pjsip/sip_util.c:673: warning: label 'TODO___SUPPORT_REQUEST_ADDR_RESOLUTION_FOR_TEL_URI' defined but not used
+../src/pjsip/sip_util.c: In function 'pjsip_process_route_set':
+../src/pjsip/sip_util.c:787: warning: label 'TODO___SUPPORT_REQUEST_ADDR_RESOLUTION_FOR_TEL_URI' defined but not used
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-i386-apple-darwin8.10.1/sip_util_proxy.o \
+	../src/pjsip/sip_util_proxy.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-i386-apple-darwin8.10.1/sip_resolve.o \
+	../src/pjsip/sip_resolve.c 
+../src/pjsip/sip_resolve.c: In function 'pjsip_resolve':
+../src/pjsip/sip_resolve.c:293: warning: label 'TODO___SUPPORT_DNS_NAPTR' defined but not used
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-i386-apple-darwin8.10.1/sip_transport.o \
+	../src/pjsip/sip_transport.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-i386-apple-darwin8.10.1/sip_transport_loop.o \
+	../src/pjsip/sip_transport_loop.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-i386-apple-darwin8.10.1/sip_transport_udp.o \
+	../src/pjsip/sip_transport_udp.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-i386-apple-darwin8.10.1/sip_transport_tcp.o \
+	../src/pjsip/sip_transport_tcp.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-i386-apple-darwin8.10.1/sip_transport_tls_ossl.o \
+	../src/pjsip/sip_transport_tls_ossl.c 
+../src/pjsip/sip_transport_tls_ossl.c: In function 'ssl_connect':
+../src/pjsip/sip_transport_tls_ossl.c:581: warning: label 'TODO___SUPPORT_SSL_ASYNCHRONOUS_CONNECT' defined but not used
+../src/pjsip/sip_transport_tls_ossl.c: In function 'ssl_write':
+../src/pjsip/sip_transport_tls_ossl.c:766: warning: label 'TODO___PARTIAL_SSL_SENT' defined but not used
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-i386-apple-darwin8.10.1/sip_auth_client.o \
+	../src/pjsip/sip_auth_client.c 
+../src/pjsip/sip_auth_client.c: In function 'pjsip_auth_clt_clone':
+../src/pjsip/sip_auth_client.c:387: warning: label 'TODO___FULL_CLONE_OF_AUTH_CLIENT_SESSION' defined but not used
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-i386-apple-darwin8.10.1/sip_auth_msg.o \
+	../src/pjsip/sip_auth_msg.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-i386-apple-darwin8.10.1/sip_auth_parser.o \
+	../src/pjsip/sip_auth_parser.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-i386-apple-darwin8.10.1/sip_auth_server.o \
+	../src/pjsip/sip_auth_server.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-i386-apple-darwin8.10.1/sip_transaction.o \
+	../src/pjsip/sip_transaction.c 
+../src/pjsip/sip_transaction.c: In function 'pjsip_tsx_layer_find_tsx':
+../src/pjsip/sip_transaction.c:606: warning: label 'TODO___FIX_RACE_CONDITION_HERE' defined but not used
+../src/pjsip/sip_transaction.c: In function 'mod_tsx_layer_on_rx_request':
+../src/pjsip/sip_transaction.c:732: warning: label 'TODO___FIX_RACE_CONDITION_HERE' defined but not used
+../src/pjsip/sip_transaction.c: In function 'mod_tsx_layer_on_rx_response':
+../src/pjsip/sip_transaction.c:780: warning: label 'TODO___FIX_RACE_CONDITION_HERE' defined but not used
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-i386-apple-darwin8.10.1/sip_util_statefull.o \
+	../src/pjsip/sip_util_statefull.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-i386-apple-darwin8.10.1/sip_dialog.o \
+	../src/pjsip/sip_dialog.c 
+../src/pjsip/sip_dialog.c: In function 'pjsip_dlg_create_uas':
+../src/pjsip/sip_dialog.c:491: warning: label 'TODO___DIALOG_APP_TIMER' defined but not used
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-i386-apple-darwin8.10.1/sip_ua_layer.o \
+	../src/pjsip/sip_ua_layer.c 
+ar rv ../lib/libpjsip-i386-apple-darwin8.10.1.a  output/pjsip-i386-apple-darwin8.10.1/sip_errno.o  output/pjsip-i386-apple-darwin8.10.1/sip_msg.o  output/pjsip-i386-apple-darwin8.10.1/sip_parser.o  output/pjsip-i386-apple-darwin8.10.1/sip_tel_uri.o  output/pjsip-i386-apple-darwin8.10.1/sip_uri.o  output/pjsip-i386-apple-darwin8.10.1/sip_endpoint.o  output/pjsip-i386-apple-darwin8.10.1/sip_util.o  output/pjsip-i386-apple-darwin8.10.1/sip_util_proxy.o  output/pjsip-i386-apple-darwin8.10.1/sip_resolve.o  output/pjsip-i386-apple-darwin8.10.1/sip_transport.o  output/pjsip-i386-apple-darwin8.10.1/sip_transport_loop.o  output/pjsip-i386-apple-darwin8.10.1/sip_transport_udp.o  output/pjsip-i386-apple-darwin8.10.1/sip_transport_tcp.o  output/pjsip-i386-apple-darwin8.10.1/sip_transport_tls_ossl.o  output/pjsip-i386-apple-darwin8.10.1/sip_auth_client.o  output/pjsip-i386-apple-darwin8.10.1/sip_auth_msg.o  output/pjsip-i386-apple-darwin8.10.1/sip_auth_parser.o  output/pjsip-i386-apple-darwin8.10.1/sip_auth_server.o  output/pjsip-i386-apple-darwin8.10.1/sip_transaction.o  output/pjsip-i386-apple-darwin8.10.1/sip_util_statefull.o  output/pjsip-i386-apple-darwin8.10.1/sip_dialog.o  output/pjsip-i386-apple-darwin8.10.1/sip_ua_layer.o
+ar: creating archive ../lib/libpjsip-i386-apple-darwin8.10.1.a
+a - output/pjsip-i386-apple-darwin8.10.1/sip_errno.o
+a - output/pjsip-i386-apple-darwin8.10.1/sip_msg.o
+a - output/pjsip-i386-apple-darwin8.10.1/sip_parser.o
+a - output/pjsip-i386-apple-darwin8.10.1/sip_tel_uri.o
+a - output/pjsip-i386-apple-darwin8.10.1/sip_uri.o
+a - output/pjsip-i386-apple-darwin8.10.1/sip_endpoint.o
+a - output/pjsip-i386-apple-darwin8.10.1/sip_util.o
+a - output/pjsip-i386-apple-darwin8.10.1/sip_util_proxy.o
+a - output/pjsip-i386-apple-darwin8.10.1/sip_resolve.o
+a - output/pjsip-i386-apple-darwin8.10.1/sip_transport.o
+a - output/pjsip-i386-apple-darwin8.10.1/sip_transport_loop.o
+a - output/pjsip-i386-apple-darwin8.10.1/sip_transport_udp.o
+a - output/pjsip-i386-apple-darwin8.10.1/sip_transport_tcp.o
+a - output/pjsip-i386-apple-darwin8.10.1/sip_transport_tls_ossl.o
+a - output/pjsip-i386-apple-darwin8.10.1/sip_auth_client.o
+a - output/pjsip-i386-apple-darwin8.10.1/sip_auth_msg.o
+a - output/pjsip-i386-apple-darwin8.10.1/sip_auth_parser.o
+a - output/pjsip-i386-apple-darwin8.10.1/sip_auth_server.o
+a - output/pjsip-i386-apple-darwin8.10.1/sip_transaction.o
+a - output/pjsip-i386-apple-darwin8.10.1/sip_util_statefull.o
+a - output/pjsip-i386-apple-darwin8.10.1/sip_dialog.o
+a - output/pjsip-i386-apple-darwin8.10.1/sip_ua_layer.o
+ranlib ../lib/libpjsip-i386-apple-darwin8.10.1.a
+make -f ../../build/rules.mak APP=PJSIP_UA app=pjsip-ua ../lib/libpjsip-ua-i386-apple-darwin8.10.1.a
+mkdir -p output/pjsip-ua-i386-apple-darwin8.10.1 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-ua-i386-apple-darwin8.10.1/sip_inv.o \
+	../src/pjsip-ua/sip_inv.c 
+../src/pjsip-ua/sip_inv.c: In function 'pjsip_inv_invite':
+../src/pjsip-ua/sip_inv.c:1132: warning: label 'TODO___INVITE_ADD_REQUIRE_HEADER' defined but not used
+../src/pjsip-ua/sip_inv.c: In function 'pjsip_inv_update':
+../src/pjsip-ua/sip_inv.c:1664: warning: label 'TODO___CREATE_UPDATE_REQUEST' defined but not used
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-ua-i386-apple-darwin8.10.1/sip_reg.o \
+	../src/pjsip-ua/sip_reg.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-ua-i386-apple-darwin8.10.1/sip_replaces.o \
+	../src/pjsip-ua/sip_replaces.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-ua-i386-apple-darwin8.10.1/sip_xfer.o \
+	../src/pjsip-ua/sip_xfer.c 
+ar rv ../lib/libpjsip-ua-i386-apple-darwin8.10.1.a  output/pjsip-ua-i386-apple-darwin8.10.1/sip_inv.o  output/pjsip-ua-i386-apple-darwin8.10.1/sip_reg.o  output/pjsip-ua-i386-apple-darwin8.10.1/sip_replaces.o  output/pjsip-ua-i386-apple-darwin8.10.1/sip_xfer.o
+ar: creating archive ../lib/libpjsip-ua-i386-apple-darwin8.10.1.a
+a - output/pjsip-ua-i386-apple-darwin8.10.1/sip_inv.o
+a - output/pjsip-ua-i386-apple-darwin8.10.1/sip_reg.o
+a - output/pjsip-ua-i386-apple-darwin8.10.1/sip_replaces.o
+a - output/pjsip-ua-i386-apple-darwin8.10.1/sip_xfer.o
+ranlib ../lib/libpjsip-ua-i386-apple-darwin8.10.1.a
+make -f ../../build/rules.mak APP=PJSIP_SIMPLE app=pjsip-simple ../lib/libpjsip-simple-i386-apple-darwin8.10.1.a
+mkdir -p output/pjsip-simple-i386-apple-darwin8.10.1 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-simple-i386-apple-darwin8.10.1/errno.o \
+	../src/pjsip-simple/errno.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-simple-i386-apple-darwin8.10.1/evsub.o \
+	../src/pjsip-simple/evsub.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-simple-i386-apple-darwin8.10.1/evsub_msg.o \
+	../src/pjsip-simple/evsub_msg.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-simple-i386-apple-darwin8.10.1/iscomposing.o \
+	../src/pjsip-simple/iscomposing.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-simple-i386-apple-darwin8.10.1/pidf.o \
+	../src/pjsip-simple/pidf.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-simple-i386-apple-darwin8.10.1/presence.o \
+	../src/pjsip-simple/presence.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-simple-i386-apple-darwin8.10.1/presence_body.o \
+	../src/pjsip-simple/presence_body.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-simple-i386-apple-darwin8.10.1/publishc.o \
+	../src/pjsip-simple/publishc.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-simple-i386-apple-darwin8.10.1/xpidf.o \
+	../src/pjsip-simple/xpidf.c 
+ar rv ../lib/libpjsip-simple-i386-apple-darwin8.10.1.a  output/pjsip-simple-i386-apple-darwin8.10.1/errno.o  output/pjsip-simple-i386-apple-darwin8.10.1/evsub.o  output/pjsip-simple-i386-apple-darwin8.10.1/evsub_msg.o  output/pjsip-simple-i386-apple-darwin8.10.1/iscomposing.o  output/pjsip-simple-i386-apple-darwin8.10.1/pidf.o  output/pjsip-simple-i386-apple-darwin8.10.1/presence.o  output/pjsip-simple-i386-apple-darwin8.10.1/presence_body.o  output/pjsip-simple-i386-apple-darwin8.10.1/publishc.o  output/pjsip-simple-i386-apple-darwin8.10.1/xpidf.o
+ar: creating archive ../lib/libpjsip-simple-i386-apple-darwin8.10.1.a
+a - output/pjsip-simple-i386-apple-darwin8.10.1/errno.o
+a - output/pjsip-simple-i386-apple-darwin8.10.1/evsub.o
+a - output/pjsip-simple-i386-apple-darwin8.10.1/evsub_msg.o
+a - output/pjsip-simple-i386-apple-darwin8.10.1/iscomposing.o
+a - output/pjsip-simple-i386-apple-darwin8.10.1/pidf.o
+a - output/pjsip-simple-i386-apple-darwin8.10.1/presence.o
+a - output/pjsip-simple-i386-apple-darwin8.10.1/presence_body.o
+a - output/pjsip-simple-i386-apple-darwin8.10.1/publishc.o
+a - output/pjsip-simple-i386-apple-darwin8.10.1/xpidf.o
+ranlib ../lib/libpjsip-simple-i386-apple-darwin8.10.1.a
+make -f ../../build/rules.mak APP=PJSUA_LIB app=pjsua-lib ../lib/libpjsua-i386-apple-darwin8.10.1.a
+mkdir -p output/pjsua-lib-i386-apple-darwin8.10.1 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsua-lib-i386-apple-darwin8.10.1/pjsua_acc.o \
+	../src/pjsua-lib/pjsua_acc.c 
+../src/pjsua-lib/pjsua_acc.c: In function 'pjsua_acc_modify':
+../src/pjsua-lib/pjsua_acc.c:405: warning: label 'TODO___pjsua_acc_modify' defined but not used
+../src/pjsua-lib/pjsua_acc.c: In function 'pjsua_acc_find_for_outgoing':
+../src/pjsua-lib/pjsua_acc.c:787: warning: label 'TODO___dont_use_pjsua_pool' defined but not used
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsua-lib-i386-apple-darwin8.10.1/pjsua_call.o \
+	../src/pjsua-lib/pjsua_call.c 
+../src/pjsua-lib/pjsua_call.c: In function 'pjsua_call_reinvite':
+../src/pjsua-lib/pjsua_call.c:1204: warning: label 'TODO___create_active_inactive_sdp_based_on_unhold_arg' defined but not used
+../src/pjsua-lib/pjsua_call.c: In function 'pjsua_call_on_forked':
+../src/pjsua-lib/pjsua_call.c:2072: warning: label 'TODO___HANDLE_FORKED_DIALOG' defined but not used
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsua-lib-i386-apple-darwin8.10.1/pjsua_core.o \
+	../src/pjsua-lib/pjsua_core.c 
+../src/pjsua-lib/pjsua_core.c: In function 'pjsua_transport_set_enable':
+../src/pjsua-lib/pjsua_core.c:1296: warning: label 'TODO___pjsua_transport_set_enable' defined but not used
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsua-lib-i386-apple-darwin8.10.1/pjsua_im.o \
+	../src/pjsua-lib/pjsua_im.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsua-lib-i386-apple-darwin8.10.1/pjsua_media.o \
+	../src/pjsua-lib/pjsua_media.c 
+../src/pjsua-lib/pjsua_media.c: In function 'pjsua_codec_set_param':
+../src/pjsua-lib/pjsua_media.c:1415: warning: label 'TODO___set_codec_param' defined but not used
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsua-lib-i386-apple-darwin8.10.1/pjsua_pres.o \
+	../src/pjsua-lib/pjsua_pres.c 
+ar rv ../lib/libpjsua-i386-apple-darwin8.10.1.a  output/pjsua-lib-i386-apple-darwin8.10.1/pjsua_acc.o  output/pjsua-lib-i386-apple-darwin8.10.1/pjsua_call.o  output/pjsua-lib-i386-apple-darwin8.10.1/pjsua_core.o  output/pjsua-lib-i386-apple-darwin8.10.1/pjsua_im.o  output/pjsua-lib-i386-apple-darwin8.10.1/pjsua_media.o  output/pjsua-lib-i386-apple-darwin8.10.1/pjsua_pres.o
+ar: creating archive ../lib/libpjsua-i386-apple-darwin8.10.1.a
+a - output/pjsua-lib-i386-apple-darwin8.10.1/pjsua_acc.o
+a - output/pjsua-lib-i386-apple-darwin8.10.1/pjsua_call.o
+a - output/pjsua-lib-i386-apple-darwin8.10.1/pjsua_core.o
+a - output/pjsua-lib-i386-apple-darwin8.10.1/pjsua_im.o
+a - output/pjsua-lib-i386-apple-darwin8.10.1/pjsua_media.o
+a - output/pjsua-lib-i386-apple-darwin8.10.1/pjsua_pres.o
+ranlib ../lib/libpjsua-i386-apple-darwin8.10.1.a
+make -f ../../build/rules.mak APP=TEST app=pjsip-test ../bin/pjsip-test-i386-apple-darwin8.10.1
+mkdir -p output/pjsip-test-i386-apple-darwin8.10.1 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-test-i386-apple-darwin8.10.1/main.o \
+	../src/test-pjsip/main.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-test-i386-apple-darwin8.10.1/dlg_core_test.o \
+	../src/test-pjsip/dlg_core_test.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-test-i386-apple-darwin8.10.1/dns_test.o \
+	../src/test-pjsip/dns_test.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-test-i386-apple-darwin8.10.1/msg_err_test.o \
+	../src/test-pjsip/msg_err_test.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-test-i386-apple-darwin8.10.1/msg_logger.o \
+	../src/test-pjsip/msg_logger.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-test-i386-apple-darwin8.10.1/msg_test.o \
+	../src/test-pjsip/msg_test.c 
+../src/test-pjsip/msg_test.c: In function 'hdr_test_content_type':
+../src/test-pjsip/msg_test.c:1279: warning: label 'TODO___FIX_PARAMETER_IN_MEDIA_TYPE' defined but not used
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-test-i386-apple-darwin8.10.1/test.o \
+	../src/test-pjsip/test.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-test-i386-apple-darwin8.10.1/transport_loop_test.o \
+	../src/test-pjsip/transport_loop_test.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-test-i386-apple-darwin8.10.1/transport_tcp_test.o \
+	../src/test-pjsip/transport_tcp_test.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-test-i386-apple-darwin8.10.1/transport_test.o \
+	../src/test-pjsip/transport_test.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-test-i386-apple-darwin8.10.1/transport_udp_test.o \
+	../src/test-pjsip/transport_udp_test.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-test-i386-apple-darwin8.10.1/tsx_basic_test.o \
+	../src/test-pjsip/tsx_basic_test.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-test-i386-apple-darwin8.10.1/tsx_bench.o \
+	../src/test-pjsip/tsx_bench.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-test-i386-apple-darwin8.10.1/tsx_uac_test.o \
+	../src/test-pjsip/tsx_uac_test.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-test-i386-apple-darwin8.10.1/tsx_uas_test.o \
+	../src/test-pjsip/tsx_uas_test.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-test-i386-apple-darwin8.10.1/txdata_test.o \
+	../src/test-pjsip/txdata_test.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsip-test-i386-apple-darwin8.10.1/uri_test.o \
+	../src/test-pjsip/uri_test.c 
+gcc -o ../bin/pjsip-test-i386-apple-darwin8.10.1 \
+     output/pjsip-test-i386-apple-darwin8.10.1/main.o  output/pjsip-test-i386-apple-darwin8.10.1/dlg_core_test.o  output/pjsip-test-i386-apple-darwin8.10.1/dns_test.o  output/pjsip-test-i386-apple-darwin8.10.1/msg_err_test.o  output/pjsip-test-i386-apple-darwin8.10.1/msg_logger.o  output/pjsip-test-i386-apple-darwin8.10.1/msg_test.o  output/pjsip-test-i386-apple-darwin8.10.1/test.o  output/pjsip-test-i386-apple-darwin8.10.1/transport_loop_test.o  output/pjsip-test-i386-apple-darwin8.10.1/transport_tcp_test.o  output/pjsip-test-i386-apple-darwin8.10.1/transport_test.o  output/pjsip-test-i386-apple-darwin8.10.1/transport_udp_test.o  output/pjsip-test-i386-apple-darwin8.10.1/tsx_basic_test.o  output/pjsip-test-i386-apple-darwin8.10.1/tsx_bench.o  output/pjsip-test-i386-apple-darwin8.10.1/tsx_uac_test.o  output/pjsip-test-i386-apple-darwin8.10.1/tsx_uas_test.o  output/pjsip-test-i386-apple-darwin8.10.1/txdata_test.o  output/pjsip-test-i386-apple-darwin8.10.1/uri_test.o ../lib/libpjsua-i386-apple-darwin8.10.1.a ../lib/libpjsip-ua-i386-apple-darwin8.10.1.a ../lib/libpjsip-simple-i386-apple-darwin8.10.1.a ../lib/libpjsip-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-i386-apple-darwin8.10.1.a ../../pjlib-util/lib/libpjlib-util-i386-apple-darwin8.10.1.a ../../pjlib/lib/libpj-i386-apple-darwin8.10.1.a  -lm -lpthread  -framework CoreAudio -framework CoreServices -framework AudioUnit -framework AudioToolbox -lssl -lcrypto   
+make -f ../../build/rules.mak APP=PJSUA app=pjsua ../bin/pjsua-i386-apple-darwin8.10.1
+mkdir -p output/pjsua-i386-apple-darwin8.10.1 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../../pjsip/include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsua-i386-apple-darwin8.10.1/main.o \
+	../src/pjsua/main.c 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../../pjsip/include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+	-o output/pjsua-i386-apple-darwin8.10.1/pjsua_app.o \
+	../src/pjsua/pjsua_app.c 
+gcc -o ../bin/pjsua-i386-apple-darwin8.10.1 \
+     output/pjsua-i386-apple-darwin8.10.1/main.o  output/pjsua-i386-apple-darwin8.10.1/pjsua_app.o ../../pjsip/lib/libpjsua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-ua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-simple-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjlib-util/lib/libpjlib-util-i386-apple-darwin8.10.1.a ../../pjlib/lib/libpj-i386-apple-darwin8.10.1.a  -lm -lpthread  -framework CoreAudio -framework CoreServices -framework AudioUnit -framework AudioToolbox -lssl -lcrypto    -lm
+make -f Samples.mak
+mkdir -p output/samples-i386-apple-darwin8.10.1 
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../../pjsip/include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+  -o output/samples-i386-apple-darwin8.10.1/confsample.o \
+  ../src/samples/confsample.c 
+gcc -o ../bin/samples/confsample-i386-apple-darwin8.10.1 \
+    output/samples-i386-apple-darwin8.10.1/confsample.o \
+    ../../pjsip/lib/libpjsua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-ua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-simple-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjlib-util/lib/libpjlib-util-i386-apple-darwin8.10.1.a ../../pjlib/lib/libpj-i386-apple-darwin8.10.1.a  -lm -lpthread  -framework CoreAudio -framework CoreServices -framework AudioUnit -framework AudioToolbox -lssl -lcrypto    -lm
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../../pjsip/include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+  -o output/samples-i386-apple-darwin8.10.1/level.o \
+  ../src/samples/level.c 
+gcc -o ../bin/samples/level-i386-apple-darwin8.10.1 \
+    output/samples-i386-apple-darwin8.10.1/level.o \
+    ../../pjsip/lib/libpjsua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-ua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-simple-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjlib-util/lib/libpjlib-util-i386-apple-darwin8.10.1.a ../../pjlib/lib/libpj-i386-apple-darwin8.10.1.a  -lm -lpthread  -framework CoreAudio -framework CoreServices -framework AudioUnit -framework AudioToolbox -lssl -lcrypto    -lm
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../../pjsip/include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+  -o output/samples-i386-apple-darwin8.10.1/pjsip-perf.o \
+  ../src/samples/pjsip-perf.c 
+gcc -o ../bin/samples/pjsip-perf-i386-apple-darwin8.10.1 \
+    output/samples-i386-apple-darwin8.10.1/pjsip-perf.o \
+    ../../pjsip/lib/libpjsua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-ua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-simple-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjlib-util/lib/libpjlib-util-i386-apple-darwin8.10.1.a ../../pjlib/lib/libpj-i386-apple-darwin8.10.1.a  -lm -lpthread  -framework CoreAudio -framework CoreServices -framework AudioUnit -framework AudioToolbox -lssl -lcrypto    -lm
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../../pjsip/include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+  -o output/samples-i386-apple-darwin8.10.1/playfile.o \
+  ../src/samples/playfile.c 
+gcc -o ../bin/samples/playfile-i386-apple-darwin8.10.1 \
+    output/samples-i386-apple-darwin8.10.1/playfile.o \
+    ../../pjsip/lib/libpjsua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-ua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-simple-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjlib-util/lib/libpjlib-util-i386-apple-darwin8.10.1.a ../../pjlib/lib/libpj-i386-apple-darwin8.10.1.a  -lm -lpthread  -framework CoreAudio -framework CoreServices -framework AudioUnit -framework AudioToolbox -lssl -lcrypto    -lm
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../../pjsip/include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+  -o output/samples-i386-apple-darwin8.10.1/playsine.o \
+  ../src/samples/playsine.c 
+gcc -o ../bin/samples/playsine-i386-apple-darwin8.10.1 \
+    output/samples-i386-apple-darwin8.10.1/playsine.o \
+    ../../pjsip/lib/libpjsua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-ua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-simple-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjlib-util/lib/libpjlib-util-i386-apple-darwin8.10.1.a ../../pjlib/lib/libpj-i386-apple-darwin8.10.1.a  -lm -lpthread  -framework CoreAudio -framework CoreServices -framework AudioUnit -framework AudioToolbox -lssl -lcrypto    -lm
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../../pjsip/include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+  -o output/samples-i386-apple-darwin8.10.1/recfile.o \
+  ../src/samples/recfile.c 
+gcc -o ../bin/samples/recfile-i386-apple-darwin8.10.1 \
+    output/samples-i386-apple-darwin8.10.1/recfile.o \
+    ../../pjsip/lib/libpjsua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-ua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-simple-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjlib-util/lib/libpjlib-util-i386-apple-darwin8.10.1.a ../../pjlib/lib/libpj-i386-apple-darwin8.10.1.a  -lm -lpthread  -framework CoreAudio -framework CoreServices -framework AudioUnit -framework AudioToolbox -lssl -lcrypto    -lm
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../../pjsip/include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+  -o output/samples-i386-apple-darwin8.10.1/resampleplay.o \
+  ../src/samples/resampleplay.c 
+gcc -o ../bin/samples/resampleplay-i386-apple-darwin8.10.1 \
+    output/samples-i386-apple-darwin8.10.1/resampleplay.o \
+    ../../pjsip/lib/libpjsua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-ua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-simple-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjlib-util/lib/libpjlib-util-i386-apple-darwin8.10.1.a ../../pjlib/lib/libpj-i386-apple-darwin8.10.1.a  -lm -lpthread  -framework CoreAudio -framework CoreServices -framework AudioUnit -framework AudioToolbox -lssl -lcrypto    -lm
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../../pjsip/include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+  -o output/samples-i386-apple-darwin8.10.1/simpleua.o \
+  ../src/samples/simpleua.c 
+gcc -o ../bin/samples/simpleua-i386-apple-darwin8.10.1 \
+    output/samples-i386-apple-darwin8.10.1/simpleua.o \
+    ../../pjsip/lib/libpjsua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-ua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-simple-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjlib-util/lib/libpjlib-util-i386-apple-darwin8.10.1.a ../../pjlib/lib/libpj-i386-apple-darwin8.10.1.a  -lm -lpthread  -framework CoreAudio -framework CoreServices -framework AudioUnit -framework AudioToolbox -lssl -lcrypto    -lm
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../../pjsip/include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+  -o output/samples-i386-apple-darwin8.10.1/simple_pjsua.o \
+  ../src/samples/simple_pjsua.c 
+gcc -o ../bin/samples/simple_pjsua-i386-apple-darwin8.10.1 \
+    output/samples-i386-apple-darwin8.10.1/simple_pjsua.o \
+    ../../pjsip/lib/libpjsua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-ua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-simple-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjlib-util/lib/libpjlib-util-i386-apple-darwin8.10.1.a ../../pjlib/lib/libpj-i386-apple-darwin8.10.1.a  -lm -lpthread  -framework CoreAudio -framework CoreServices -framework AudioUnit -framework AudioToolbox -lssl -lcrypto    -lm
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../../pjsip/include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+  -o output/samples-i386-apple-darwin8.10.1/siprtp.o \
+  ../src/samples/siprtp.c 
+../src/samples/siprtp.c: In function 'call_on_forked':
+../src/samples/siprtp.c:675: warning: label 'TODO___HANDLE_FORKING' defined but not used
+gcc -o ../bin/samples/siprtp-i386-apple-darwin8.10.1 \
+    output/samples-i386-apple-darwin8.10.1/siprtp.o \
+    ../../pjsip/lib/libpjsua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-ua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-simple-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjlib-util/lib/libpjlib-util-i386-apple-darwin8.10.1.a ../../pjlib/lib/libpj-i386-apple-darwin8.10.1.a  -lm -lpthread  -framework CoreAudio -framework CoreServices -framework AudioUnit -framework AudioToolbox -lssl -lcrypto    -lm
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../../pjsip/include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+  -o output/samples-i386-apple-darwin8.10.1/sipstateless.o \
+  ../src/samples/sipstateless.c 
+gcc -o ../bin/samples/sipstateless-i386-apple-darwin8.10.1 \
+    output/samples-i386-apple-darwin8.10.1/sipstateless.o \
+    ../../pjsip/lib/libpjsua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-ua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-simple-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjlib-util/lib/libpjlib-util-i386-apple-darwin8.10.1.a ../../pjlib/lib/libpj-i386-apple-darwin8.10.1.a  -lm -lpthread  -framework CoreAudio -framework CoreServices -framework AudioUnit -framework AudioToolbox -lssl -lcrypto    -lm
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../../pjsip/include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+  -o output/samples-i386-apple-darwin8.10.1/sndinfo.o \
+  ../src/samples/sndinfo.c 
+gcc -o ../bin/samples/sndinfo-i386-apple-darwin8.10.1 \
+    output/samples-i386-apple-darwin8.10.1/sndinfo.o \
+    ../../pjsip/lib/libpjsua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-ua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-simple-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjlib-util/lib/libpjlib-util-i386-apple-darwin8.10.1.a ../../pjlib/lib/libpj-i386-apple-darwin8.10.1.a  -lm -lpthread  -framework CoreAudio -framework CoreServices -framework AudioUnit -framework AudioToolbox -lssl -lcrypto    -lm
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../../pjsip/include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+  -o output/samples-i386-apple-darwin8.10.1/sndtest.o \
+  ../src/samples/sndtest.c 
+gcc -o ../bin/samples/sndtest-i386-apple-darwin8.10.1 \
+    output/samples-i386-apple-darwin8.10.1/sndtest.o \
+    ../../pjsip/lib/libpjsua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-ua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-simple-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjlib-util/lib/libpjlib-util-i386-apple-darwin8.10.1.a ../../pjlib/lib/libpj-i386-apple-darwin8.10.1.a  -lm -lpthread  -framework CoreAudio -framework CoreServices -framework AudioUnit -framework AudioToolbox -lssl -lcrypto    -lm
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../../pjsip/include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+  -o output/samples-i386-apple-darwin8.10.1/stateful_proxy.o \
+  ../src/samples/stateful_proxy.c 
+gcc -o ../bin/samples/stateful_proxy-i386-apple-darwin8.10.1 \
+    output/samples-i386-apple-darwin8.10.1/stateful_proxy.o \
+    ../../pjsip/lib/libpjsua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-ua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-simple-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjlib-util/lib/libpjlib-util-i386-apple-darwin8.10.1.a ../../pjlib/lib/libpj-i386-apple-darwin8.10.1.a  -lm -lpthread  -framework CoreAudio -framework CoreServices -framework AudioUnit -framework AudioToolbox -lssl -lcrypto    -lm
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../../pjsip/include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+  -o output/samples-i386-apple-darwin8.10.1/stateless_proxy.o \
+  ../src/samples/stateless_proxy.c 
+gcc -o ../bin/samples/stateless_proxy-i386-apple-darwin8.10.1 \
+    output/samples-i386-apple-darwin8.10.1/stateless_proxy.o \
+    ../../pjsip/lib/libpjsua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-ua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-simple-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjlib-util/lib/libpjlib-util-i386-apple-darwin8.10.1.a ../../pjlib/lib/libpj-i386-apple-darwin8.10.1.a  -lm -lpthread  -framework CoreAudio -framework CoreServices -framework AudioUnit -framework AudioToolbox -lssl -lcrypto    -lm
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../../pjsip/include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+  -o output/samples-i386-apple-darwin8.10.1/streamutil.o \
+  ../src/samples/streamutil.c 
+gcc -o ../bin/samples/streamutil-i386-apple-darwin8.10.1 \
+    output/samples-i386-apple-darwin8.10.1/streamutil.o \
+    ../../pjsip/lib/libpjsua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-ua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-simple-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjlib-util/lib/libpjlib-util-i386-apple-darwin8.10.1.a ../../pjlib/lib/libpj-i386-apple-darwin8.10.1.a  -lm -lpthread  -framework CoreAudio -framework CoreServices -framework AudioUnit -framework AudioToolbox -lssl -lcrypto    -lm
+gcc -c -Wall  -DPJ_AUTOCONF=1 -O2    -I../../pjsip/include -I../../pjlib/include -I../../pjlib-util/include -I../../pjmedia/include \
+  -o output/samples-i386-apple-darwin8.10.1/tonegen.o \
+  ../src/samples/tonegen.c 
+gcc -o ../bin/samples/tonegen-i386-apple-darwin8.10.1 \
+    output/samples-i386-apple-darwin8.10.1/tonegen.o \
+    ../../pjsip/lib/libpjsua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-ua-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-simple-i386-apple-darwin8.10.1.a ../../pjsip/lib/libpjsip-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-i386-apple-darwin8.10.1.a ../../pjmedia/lib/libpjmedia-codec-i386-apple-darwin8.10.1.a ../../pjlib-util/lib/libpjlib-util-i386-apple-darwin8.10.1.a ../../pjlib/lib/libpj-i386-apple-darwin8.10.1.a  -lm -lpthread  -framework CoreAudio -framework CoreServices -framework AudioUnit -framework AudioToolbox -lssl -lcrypto    -lm
+rm output/samples-i386-apple-darwin8.10.1/siprtp.o output/samples-i386-apple-darwin8.10.1/stateful_proxy.o output/samples-i386-apple-darwin8.10.1/pjsip-perf.o output/samples-i386-apple-darwin8.10.1/level.o output/samples-i386-apple-darwin8.10.1/streamutil.o output/samples-i386-apple-darwin8.10.1/simpleua.o output/samples-i386-apple-darwin8.10.1/playsine.o output/samples-i386-apple-darwin8.10.1/playfile.o output/samples-i386-apple-darwin8.10.1/confsample.o output/samples-i386-apple-darwin8.10.1/sndtest.o output/samples-i386-apple-darwin8.10.1/stateless_proxy.o output/samples-i386-apple-darwin8.10.1/sndinfo.o output/samples-i386-apple-darwin8.10.1/tonegen.o output/samples-i386-apple-darwin8.10.1/resampleplay.o output/samples-i386-apple-darwin8.10.1/sipstateless.o output/samples-i386-apple-darwin8.10.1/simple_pjsua.o output/samples-i386-apple-darwin8.10.1/recfile.o

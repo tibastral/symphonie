@@ -1,0 +1,278 @@
+eXosip.lo eXosip.o: eXosip.c eXosip2.h /usr/include/sys/types.h \
+  /usr/include/sys/appleapiopts.h /usr/include/sys/cdefs.h \
+  /usr/include/machine/types.h /usr/include/i386/types.h \
+  /usr/include/i386/_types.h /usr/include/sys/_types.h \
+  /usr/include/machine/_types.h /usr/include/machine/endian.h \
+  /usr/include/i386/endian.h /usr/include/sys/_endian.h \
+  /usr/lib/gcc/i686-apple-darwin8/4.0.1/include/stdint.h \
+  /usr/include/libkern/OSByteOrder.h \
+  /usr/include/libkern/i386/OSByteOrder.h /usr/include/sys/socket.h \
+  /usr/include/machine/param.h /usr/include/i386/param.h \
+  /usr/include/netinet/in.h /usr/include/netinet6/in6.h \
+  /usr/include/arpa/inet.h /usr/include/sys/param.h \
+  /usr/include/sys/syslimits.h \
+  /usr/lib/gcc/i686-apple-darwin8/4.0.1/include/limits.h \
+  /usr/lib/gcc/i686-apple-darwin8/4.0.1/include/syslimits.h \
+  /usr/include/limits.h /usr/include/machine/limits.h \
+  /usr/include/i386/limits.h /usr/include/i386/_limits.h \
+  /usr/include/sys/signal.h /usr/include/machine/signal.h \
+  /usr/include/i386/signal.h /usr/include/netdb.h /usr/include/_types.h \
+  /usr/include/stdio.h /tmp/stage/include/osip2/osip.h \
+  /tmp/stage/include/osipparser2/osip_const.h \
+  /tmp/stage/include/osip2/osip_time.h \
+  /tmp/stage/include/osipparser2/osip_parser.h \
+  /tmp/stage/include/osipparser2/osip_message.h \
+  /tmp/stage/include/osipparser2/osip_headers.h \
+  /tmp/stage/include/osipparser2/osip_port.h ../config.h \
+  /usr/include/string.h /usr/include/stdlib.h /usr/include/sys/wait.h \
+  /usr/include/sys/resource.h /usr/include/alloca.h \
+  /usr/lib/gcc/i686-apple-darwin8/4.0.1/include/stdarg.h \
+  /usr/include/sys/time.h /usr/include/time.h \
+  /usr/include/machine/_limits.h \
+  /tmp/stage/include/osipparser2/osip_list.h \
+  /tmp/stage/include/osipparser2/osip_uri.h \
+  /tmp/stage/include/osipparser2/headers/osip_header.h \
+  /tmp/stage/include/osipparser2/headers/osip_accept.h \
+  /tmp/stage/include/osipparser2/headers/osip_content_type.h \
+  /tmp/stage/include/osipparser2/headers/osip_accept_encoding.h \
+  /tmp/stage/include/osipparser2/headers/osip_accept_language.h \
+  /tmp/stage/include/osipparser2/headers/osip_alert_info.h \
+  /tmp/stage/include/osipparser2/headers/osip_call_info.h \
+  /tmp/stage/include/osipparser2/headers/osip_allow.h \
+  /tmp/stage/include/osipparser2/headers/osip_content_length.h \
+  /tmp/stage/include/osipparser2/headers/osip_authentication_info.h \
+  /tmp/stage/include/osipparser2/headers/osip_authorization.h \
+  /tmp/stage/include/osipparser2/headers/osip_call_id.h \
+  /tmp/stage/include/osipparser2/headers/osip_contact.h \
+  /tmp/stage/include/osipparser2/headers/osip_from.h \
+  /tmp/stage/include/osipparser2/headers/osip_content_disposition.h \
+  /tmp/stage/include/osipparser2/headers/osip_content_encoding.h \
+  /tmp/stage/include/osipparser2/headers/osip_cseq.h \
+  /tmp/stage/include/osipparser2/headers/osip_error_info.h \
+  /tmp/stage/include/osipparser2/headers/osip_mime_version.h \
+  /tmp/stage/include/osipparser2/headers/osip_proxy_authenticate.h \
+  /tmp/stage/include/osipparser2/headers/osip_www_authenticate.h \
+  /tmp/stage/include/osipparser2/headers/osip_proxy_authentication_info.h \
+  /tmp/stage/include/osipparser2/headers/osip_proxy_authorization.h \
+  /tmp/stage/include/osipparser2/headers/osip_record_route.h \
+  /tmp/stage/include/osipparser2/headers/osip_route.h \
+  /tmp/stage/include/osipparser2/headers/osip_to.h \
+  /tmp/stage/include/osipparser2/headers/osip_via.h \
+  /tmp/stage/include/osipparser2/osip_body.h \
+  /tmp/stage/include/osip2/osip_fifo.h /tmp/stage/include/osip2/osip_mt.h \
+  /usr/include/errno.h /usr/include/sys/errno.h \
+  /tmp/stage/include/osip2/osip_dialog.h ../include/eXosip2/eXosip.h \
+  ../include/eXosip2/eX_setup.h ../include/eXosip2/eX_register.h \
+  ../include/eXosip2/eX_call.h \
+  /tmp/stage/include/osipparser2/sdp_message.h \
+  ../include/eXosip2/eX_options.h ../include/eXosip2/eX_subscribe.h \
+  ../include/eXosip2/eX_refer.h ../include/eXosip2/eX_message.h \
+  ../include/eXosip2/eX_publish.h jpipe.h /usr/include/unistd.h \
+  /usr/include/sys/unistd.h /usr/include/sys/select.h \
+  /usr/include/signal.h /usr/include/memory.h
+
+eXosip2.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/sys/appleapiopts.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/machine/types.h:
+
+/usr/include/i386/types.h:
+
+/usr/include/i386/_types.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/machine/endian.h:
+
+/usr/include/i386/endian.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/lib/gcc/i686-apple-darwin8/4.0.1/include/stdint.h:
+
+/usr/include/libkern/OSByteOrder.h:
+
+/usr/include/libkern/i386/OSByteOrder.h:
+
+/usr/include/sys/socket.h:
+
+/usr/include/machine/param.h:
+
+/usr/include/i386/param.h:
+
+/usr/include/netinet/in.h:
+
+/usr/include/netinet6/in6.h:
+
+/usr/include/arpa/inet.h:
+
+/usr/include/sys/param.h:
+
+/usr/include/sys/syslimits.h:
+
+/usr/lib/gcc/i686-apple-darwin8/4.0.1/include/limits.h:
+
+/usr/lib/gcc/i686-apple-darwin8/4.0.1/include/syslimits.h:
+
+/usr/include/limits.h:
+
+/usr/include/machine/limits.h:
+
+/usr/include/i386/limits.h:
+
+/usr/include/i386/_limits.h:
+
+/usr/include/sys/signal.h:
+
+/usr/include/machine/signal.h:
+
+/usr/include/i386/signal.h:
+
+/usr/include/netdb.h:
+
+/usr/include/_types.h:
+
+/usr/include/stdio.h:
+
+/tmp/stage/include/osip2/osip.h:
+
+/tmp/stage/include/osipparser2/osip_const.h:
+
+/tmp/stage/include/osip2/osip_time.h:
+
+/tmp/stage/include/osipparser2/osip_parser.h:
+
+/tmp/stage/include/osipparser2/osip_message.h:
+
+/tmp/stage/include/osipparser2/osip_headers.h:
+
+/tmp/stage/include/osipparser2/osip_port.h:
+
+../config.h:
+
+/usr/include/string.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/sys/wait.h:
+
+/usr/include/sys/resource.h:
+
+/usr/include/alloca.h:
+
+/usr/lib/gcc/i686-apple-darwin8/4.0.1/include/stdarg.h:
+
+/usr/include/sys/time.h:
+
+/usr/include/time.h:
+
+/usr/include/machine/_limits.h:
+
+/tmp/stage/include/osipparser2/osip_list.h:
+
+/tmp/stage/include/osipparser2/osip_uri.h:
+
+/tmp/stage/include/osipparser2/headers/osip_header.h:
+
+/tmp/stage/include/osipparser2/headers/osip_accept.h:
+
+/tmp/stage/include/osipparser2/headers/osip_content_type.h:
+
+/tmp/stage/include/osipparser2/headers/osip_accept_encoding.h:
+
+/tmp/stage/include/osipparser2/headers/osip_accept_language.h:
+
+/tmp/stage/include/osipparser2/headers/osip_alert_info.h:
+
+/tmp/stage/include/osipparser2/headers/osip_call_info.h:
+
+/tmp/stage/include/osipparser2/headers/osip_allow.h:
+
+/tmp/stage/include/osipparser2/headers/osip_content_length.h:
+
+/tmp/stage/include/osipparser2/headers/osip_authentication_info.h:
+
+/tmp/stage/include/osipparser2/headers/osip_authorization.h:
+
+/tmp/stage/include/osipparser2/headers/osip_call_id.h:
+
+/tmp/stage/include/osipparser2/headers/osip_contact.h:
+
+/tmp/stage/include/osipparser2/headers/osip_from.h:
+
+/tmp/stage/include/osipparser2/headers/osip_content_disposition.h:
+
+/tmp/stage/include/osipparser2/headers/osip_content_encoding.h:
+
+/tmp/stage/include/osipparser2/headers/osip_cseq.h:
+
+/tmp/stage/include/osipparser2/headers/osip_error_info.h:
+
+/tmp/stage/include/osipparser2/headers/osip_mime_version.h:
+
+/tmp/stage/include/osipparser2/headers/osip_proxy_authenticate.h:
+
+/tmp/stage/include/osipparser2/headers/osip_www_authenticate.h:
+
+/tmp/stage/include/osipparser2/headers/osip_proxy_authentication_info.h:
+
+/tmp/stage/include/osipparser2/headers/osip_proxy_authorization.h:
+
+/tmp/stage/include/osipparser2/headers/osip_record_route.h:
+
+/tmp/stage/include/osipparser2/headers/osip_route.h:
+
+/tmp/stage/include/osipparser2/headers/osip_to.h:
+
+/tmp/stage/include/osipparser2/headers/osip_via.h:
+
+/tmp/stage/include/osipparser2/osip_body.h:
+
+/tmp/stage/include/osip2/osip_fifo.h:
+
+/tmp/stage/include/osip2/osip_mt.h:
+
+/usr/include/errno.h:
+
+/usr/include/sys/errno.h:
+
+/tmp/stage/include/osip2/osip_dialog.h:
+
+../include/eXosip2/eXosip.h:
+
+../include/eXosip2/eX_setup.h:
+
+../include/eXosip2/eX_register.h:
+
+../include/eXosip2/eX_call.h:
+
+/tmp/stage/include/osipparser2/sdp_message.h:
+
+../include/eXosip2/eX_options.h:
+
+../include/eXosip2/eX_subscribe.h:
+
+../include/eXosip2/eX_refer.h:
+
+../include/eXosip2/eX_message.h:
+
+../include/eXosip2/eX_publish.h:
+
+jpipe.h:
+
+/usr/include/unistd.h:
+
+/usr/include/sys/unistd.h:
+
+/usr/include/sys/select.h:
+
+/usr/include/signal.h:
+
+/usr/include/memory.h:

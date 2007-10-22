@@ -1,0 +1,110 @@
+port_fifo.lo port_fifo.o: port_fifo.c /usr/include/stdlib.h \
+  /usr/include/sys/cdefs.h /usr/include/_types.h \
+  /usr/include/sys/_types.h /usr/include/machine/_types.h \
+  /usr/include/i386/_types.h /usr/include/sys/wait.h \
+  /usr/include/sys/signal.h /usr/include/sys/appleapiopts.h \
+  /usr/include/machine/signal.h /usr/include/i386/signal.h \
+  /usr/include/sys/resource.h /usr/include/machine/endian.h \
+  /usr/include/i386/endian.h /usr/include/sys/_endian.h \
+  /usr/lib/gcc/i686-apple-darwin8/4.0.1/include/stdint.h \
+  /usr/include/libkern/OSByteOrder.h \
+  /usr/include/libkern/i386/OSByteOrder.h /usr/include/alloca.h \
+  /usr/include/machine/types.h /usr/include/i386/types.h \
+  /usr/include/stdio.h ../../include/osip2/internal.h \
+  ../../include/osipparser2/osip_port.h ../../config.h \
+  /usr/include/string.h /usr/include/sys/types.h \
+  /usr/lib/gcc/i686-apple-darwin8/4.0.1/include/stdarg.h \
+  /usr/include/time.h /usr/include/machine/_limits.h \
+  /usr/include/i386/_limits.h /usr/include/sys/time.h \
+  ../../include/osipparser2/osip_const.h \
+  ../../include/osipparser2/osip_list.h /usr/include/pthread.h \
+  /usr/include/pthread_impl.h /usr/include/sched.h /usr/include/sys/ipc.h \
+  /usr/include/sys/sem.h ../../include/osip2/osip_fifo.h \
+  ../../include/osip2/osip_mt.h /usr/include/errno.h \
+  /usr/include/sys/errno.h
+
+/usr/include/stdlib.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/_types.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/i386/_types.h:
+
+/usr/include/sys/wait.h:
+
+/usr/include/sys/signal.h:
+
+/usr/include/sys/appleapiopts.h:
+
+/usr/include/machine/signal.h:
+
+/usr/include/i386/signal.h:
+
+/usr/include/sys/resource.h:
+
+/usr/include/machine/endian.h:
+
+/usr/include/i386/endian.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/lib/gcc/i686-apple-darwin8/4.0.1/include/stdint.h:
+
+/usr/include/libkern/OSByteOrder.h:
+
+/usr/include/libkern/i386/OSByteOrder.h:
+
+/usr/include/alloca.h:
+
+/usr/include/machine/types.h:
+
+/usr/include/i386/types.h:
+
+/usr/include/stdio.h:
+
+../../include/osip2/internal.h:
+
+../../include/osipparser2/osip_port.h:
+
+../../config.h:
+
+/usr/include/string.h:
+
+/usr/include/sys/types.h:
+
+/usr/lib/gcc/i686-apple-darwin8/4.0.1/include/stdarg.h:
+
+/usr/include/time.h:
+
+/usr/include/machine/_limits.h:
+
+/usr/include/i386/_limits.h:
+
+/usr/include/sys/time.h:
+
+../../include/osipparser2/osip_const.h:
+
+../../include/osipparser2/osip_list.h:
+
+/usr/include/pthread.h:
+
+/usr/include/pthread_impl.h:
+
+/usr/include/sched.h:
+
+/usr/include/sys/ipc.h:
+
+/usr/include/sys/sem.h:
+
+../../include/osip2/osip_fifo.h:
+
+../../include/osip2/osip_mt.h:
+
+/usr/include/errno.h:
+
+/usr/include/sys/errno.h:

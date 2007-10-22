@@ -1,0 +1,184 @@
+osip_authentication_info.lo osip_authentication_info.o:  \
+ osip_authentication_info.c /usr/include/stdlib.h \
+  /usr/include/sys/cdefs.h /usr/include/_types.h \
+  /usr/include/sys/_types.h /usr/include/machine/_types.h \
+  /usr/include/i386/_types.h /usr/include/sys/wait.h \
+  /usr/include/sys/signal.h /usr/include/sys/appleapiopts.h \
+  /usr/include/machine/signal.h /usr/include/i386/signal.h \
+  /usr/include/sys/resource.h /usr/include/machine/endian.h \
+  /usr/include/i386/endian.h /usr/include/sys/_endian.h \
+  /usr/lib/gcc/i686-apple-darwin8/4.0.1/include/stdint.h \
+  /usr/include/libkern/OSByteOrder.h \
+  /usr/include/libkern/i386/OSByteOrder.h /usr/include/alloca.h \
+  /usr/include/machine/types.h /usr/include/i386/types.h \
+  /usr/include/stdio.h ../../include/osipparser2/osip_port.h \
+  ../../config.h /usr/include/string.h /usr/include/sys/types.h \
+  /usr/lib/gcc/i686-apple-darwin8/4.0.1/include/stdarg.h \
+  /usr/include/time.h /usr/include/machine/_limits.h \
+  /usr/include/i386/_limits.h /usr/include/sys/time.h \
+  ../../include/osipparser2/osip_const.h \
+  ../../include/osipparser2/osip_list.h \
+  ../../include/osipparser2/osip_message.h \
+  ../../include/osipparser2/osip_headers.h \
+  ../../include/osipparser2/osip_uri.h \
+  ../../include/osipparser2/headers/osip_header.h \
+  ../../include/osipparser2/headers/osip_accept.h \
+  ../../include/osipparser2/headers/osip_content_type.h \
+  ../../include/osipparser2/headers/osip_accept_encoding.h \
+  ../../include/osipparser2/headers/osip_accept_language.h \
+  ../../include/osipparser2/headers/osip_alert_info.h \
+  ../../include/osipparser2/headers/osip_call_info.h \
+  ../../include/osipparser2/headers/osip_allow.h \
+  ../../include/osipparser2/headers/osip_content_length.h \
+  ../../include/osipparser2/headers/osip_authentication_info.h \
+  ../../include/osipparser2/headers/osip_authorization.h \
+  ../../include/osipparser2/headers/osip_call_id.h \
+  ../../include/osipparser2/headers/osip_contact.h \
+  ../../include/osipparser2/headers/osip_from.h \
+  ../../include/osipparser2/headers/osip_content_disposition.h \
+  ../../include/osipparser2/headers/osip_content_encoding.h \
+  ../../include/osipparser2/headers/osip_cseq.h \
+  ../../include/osipparser2/headers/osip_error_info.h \
+  ../../include/osipparser2/headers/osip_mime_version.h \
+  ../../include/osipparser2/headers/osip_proxy_authenticate.h \
+  ../../include/osipparser2/headers/osip_www_authenticate.h \
+  ../../include/osipparser2/headers/osip_proxy_authentication_info.h \
+  ../../include/osipparser2/headers/osip_proxy_authorization.h \
+  ../../include/osipparser2/headers/osip_record_route.h \
+  ../../include/osipparser2/headers/osip_route.h \
+  ../../include/osipparser2/headers/osip_to.h \
+  ../../include/osipparser2/headers/osip_via.h \
+  ../../include/osipparser2/osip_body.h \
+  ../../include/osipparser2/osip_parser.h parser.h
+
+/usr/include/stdlib.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/_types.h:
+
+/usr/include/sys/_types.h:
+
+/usr/include/machine/_types.h:
+
+/usr/include/i386/_types.h:
+
+/usr/include/sys/wait.h:
+
+/usr/include/sys/signal.h:
+
+/usr/include/sys/appleapiopts.h:
+
+/usr/include/machine/signal.h:
+
+/usr/include/i386/signal.h:
+
+/usr/include/sys/resource.h:
+
+/usr/include/machine/endian.h:
+
+/usr/include/i386/endian.h:
+
+/usr/include/sys/_endian.h:
+
+/usr/lib/gcc/i686-apple-darwin8/4.0.1/include/stdint.h:
+
+/usr/include/libkern/OSByteOrder.h:
+
+/usr/include/libkern/i386/OSByteOrder.h:
+
+/usr/include/alloca.h:
+
+/usr/include/machine/types.h:
+
+/usr/include/i386/types.h:
+
+/usr/include/stdio.h:
+
+../../include/osipparser2/osip_port.h:
+
+../../config.h:
+
+/usr/include/string.h:
+
+/usr/include/sys/types.h:
+
+/usr/lib/gcc/i686-apple-darwin8/4.0.1/include/stdarg.h:
+
+/usr/include/time.h:
+
+/usr/include/machine/_limits.h:
+
+/usr/include/i386/_limits.h:
+
+/usr/include/sys/time.h:
+
+../../include/osipparser2/osip_const.h:
+
+../../include/osipparser2/osip_list.h:
+
+../../include/osipparser2/osip_message.h:
+
+../../include/osipparser2/osip_headers.h:
+
+../../include/osipparser2/osip_uri.h:
+
+../../include/osipparser2/headers/osip_header.h:
+
+../../include/osipparser2/headers/osip_accept.h:
+
+../../include/osipparser2/headers/osip_content_type.h:
+
+../../include/osipparser2/headers/osip_accept_encoding.h:
+
+../../include/osipparser2/headers/osip_accept_language.h:
+
+../../include/osipparser2/headers/osip_alert_info.h:
+
+../../include/osipparser2/headers/osip_call_info.h:
+
+../../include/osipparser2/headers/osip_allow.h:
+
+../../include/osipparser2/headers/osip_content_length.h:
+
+../../include/osipparser2/headers/osip_authentication_info.h:
+
+../../include/osipparser2/headers/osip_authorization.h:
+
+../../include/osipparser2/headers/osip_call_id.h:
+
+../../include/osipparser2/headers/osip_contact.h:
+
+../../include/osipparser2/headers/osip_from.h:
+
+../../include/osipparser2/headers/osip_content_disposition.h:
+
+../../include/osipparser2/headers/osip_content_encoding.h:
+
+../../include/osipparser2/headers/osip_cseq.h:
+
+../../include/osipparser2/headers/osip_error_info.h:
+
+../../include/osipparser2/headers/osip_mime_version.h:
+
+../../include/osipparser2/headers/osip_proxy_authenticate.h:
+
+../../include/osipparser2/headers/osip_www_authenticate.h:
+
+../../include/osipparser2/headers/osip_proxy_authentication_info.h:
+
+../../include/osipparser2/headers/osip_proxy_authorization.h:
+
+../../include/osipparser2/headers/osip_record_route.h:
+
+../../include/osipparser2/headers/osip_route.h:
+
+../../include/osipparser2/headers/osip_to.h:
+
+../../include/osipparser2/headers/osip_via.h:
+
+../../include/osipparser2/osip_body.h:
+
+../../include/osipparser2/osip_parser.h:
+
+parser.h:

@@ -35,5 +35,16 @@
 	}
 	return sr;
 }
+- (NSString *) cannonicalDisplayCallNumber
+{
+	NSString *s;
+	char szTmp[1024];
+
+	s=[self cannonicalCallNumber];
+	//int i;
+	//const char *z=[self cString];
+	
+	return s;
+}
 
 @end

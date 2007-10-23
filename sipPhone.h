@@ -20,19 +20,34 @@ typedef enum {
 	sip_registered,
 	sip_outgoing_call_sent,
 	sip_outgoing_call_ringing,
-	sip_online
+	sip_online,
+	sip_initiated_clearing,
+	sip_incoming_call_ringing
 } sipState_t;
+
+@class ABCache;
 
 @interface sipPhone : NSObject {
 	sipState_t state;
 	int _cid;
-	
-	IBOutlet ABPeoplePickerView *picker;
+	int _did;
+	int _tid;
+	IBOutlet NSWindow *mainWin;
+	IBOutlet NSView *popupInCallView;
+	NSWindow *popupInCall;
+	IBOutlet ABPeoplePickerView *abPicker;
+	// called number
 	NSString *selectedNumber;
 	NSString *selectedName;
+	// caller
+	NSString *callingNumber;
+	NSString *callingName;
+	
 	IBOutlet NSTabView *callView;
 	BOOL fromAB;
+	ABCache *abCache;
 	BOOL abVisible;
+	BOOL abVisibleOffline;
 	NSTimer *pollTimer;
 	
 	// userplane stuffs
@@ -66,11 +81,17 @@ typedef enum {
 - (void) setSelectedName:(NSString *)s;
 - (BOOL) fromAB;
 - (void) setFromAB:(BOOL)f;
+- (void) setCallingNumber:(NSString *)s;
+- (NSString *) callingNumber;
+- (NSString *) cannonicalCallingNumber;
+- (NSString *) displayCallingNumber;
 
 - (BOOL) incomingCallActive;
 - (BOOL) outgoingCallActive;
 - (BOOL) onCallActive;
 
 - (IBAction) dialOutCall:(id) sender;
+- (IBAction) hangUpCall:(id) sender;
+- (IBAction) acceptCall:(id) sender;
 
 @end

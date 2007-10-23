@@ -12,5 +12,6 @@
 @interface NSString (StringCallNumber)
 
 - (NSString *) cannonicalCallNumber;
+- (NSString *) cannonicalDisplayCallNumber;
 
 @end

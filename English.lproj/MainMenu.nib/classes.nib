@@ -2,10 +2,23 @@
     IBClasses = (
         {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
         {
-            ACTIONS = {dialOutCall = id; pollMe = id; test1 = id; test2 = id; testMe = id; }; 
+            ACTIONS = {
+                acceptCall = id; 
+                dialOutCall = id; 
+                hangUpCall = id; 
+                pollMe = id; 
+                test1 = id; 
+                test2 = id; 
+                testMe = id; 
+            }; 
             CLASS = sipPhone; 
             LANGUAGE = ObjC; 
-            OUTLETS = {callView = NSTabView; picker = ABPeoplePickerView; }; 
+            OUTLETS = {
+                abPicker = ABPeoplePickerView; 
+                callView = NSTabView; 
+                mainWin = NSWindow; 
+                popupInCallView = NSView; 
+            }; 
             SUPERCLASS = NSObject; 
         }
     ); 

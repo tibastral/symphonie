@@ -177,7 +177,7 @@ static const pjmedia_tone_desc _tones[]={
 	return 0;
 }
 
-- (BOOL) setupWithtLocalSdp:(NSString *)local remoteSdp:(NSString *)remote outCall:(BOOL) outCall;
+- (BOOL) setupWithtLocalSdp:(NSString *)local remoteSdp:(NSString *)remote outCall:(BOOL) outCall negociatedLocal:(NSString **)pNL;
 {
 	pjmedia_sdp_session *local_sdp;
 	pjmedia_sdp_session *remote_sdp;
@@ -207,7 +207,15 @@ static const pjmedia_tone_desc _tones[]={
 	NSAssert(!rc, @"nego failed");
 	rc = pjmedia_sdp_neg_get_active_remote(nego, &nremote_sdp);
 	rc = pjmedia_sdp_neg_get_active_local(nego, &nlocal_sdp);
-
+	
+	if (pNL) {
+		char szTmp[1024];
+		rc=pjmedia_sdp_print(nlocal_sdp, szTmp, sizeof(szTmp)-1);
+		NSAssert(rc>0, @"faild sdp print");
+		szTmp[rc]='\0';
+		*pNL=[NSString stringWithCString:szTmp];
+	}
+	
 	pjmedia_session_info sess_info;
 
 	rc = pjmedia_session_info_from_sdp(pool, med_endpt,

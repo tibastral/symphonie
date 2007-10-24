@@ -33,6 +33,6 @@
 - (void) sendDtmf:(NSString *)digits;
 
 - (NSString *) setupAndGetLocalSdp;
-- (BOOL) setupWithtLocalSdp:(NSString *)local remoteSdp:(NSString *)remote outCall:(BOOL)outCall;
+- (BOOL) setupWithtLocalSdp:(NSString *)local remoteSdp:(NSString *)remote outCall:(BOOL)outCall negociatedLocal:(NSString **)pNL;
 
 @end

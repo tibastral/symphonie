@@ -22,7 +22,8 @@ typedef enum {
 	sip_outgoing_call_ringing,
 	sip_online,
 	sip_initiated_clearing,
-	sip_incoming_call_ringing
+	sip_incoming_call_ringing,
+	sip_incoming_call_acccepted
 } sipState_t;
 
 @class ABCache;

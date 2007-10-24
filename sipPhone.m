@@ -73,6 +73,7 @@ static int initDone=0;
 		userPlane=[[UserPlane alloc]init];
 		abCache=[[ABCache alloc]init];
 		abVisibleOffline=YES;
+		[self setState:sip_off];
 	}
 	return self;
 }
@@ -275,6 +276,7 @@ static int initDone=0;
 		case sip_online: return 3;
 		case sip_initiated_clearing: return 4;
 		case sip_incoming_call_ringing: return 5;
+		case sip_incoming_call_acccepted: return 3;
 		default: return 1;
 	}
 }
@@ -303,7 +305,7 @@ static int initDone=0;
 	sipState_t olds;
 	if (state==s) return;
 	// some hook when leaving a state
-	olds=s;
+	olds=state;
 	if (state==sip_incoming_call_ringing) [popupInCall orderOut:self];
 	[self willChangeValueForKey:@"incomingCallActive"];
 	[self willChangeValueForKey:@"outgoingCallActive"];
@@ -464,21 +466,37 @@ static int initDone=0;
 					_cid=je->cid;
 					_did=je->did;
 					_tid=je->tid;
+					[self willChangeValueForKey:@"remoteSdp"];
 					[remoteSdp release];
-					remoteSdp=[eXosip_get_sdp_body(je->response) retain];
+					remoteSdp=[eXosip_get_sdp_body(je->request) retain];
 					[self didChangeValueForKey:@"remoteSdp"];
+					[self willChangeValueForKey:@"localSdp"];
 					[localSdp release];
 					localSdp=[[userPlane setupAndGetLocalSdp]retain];
-					[self didChangeValueForKey:@"remoteSdp"];
-					[self setState:sip_incoming_call_ringing];
+					NSString *nlsdp=nil;
+					BOOL ok=[userPlane setupWithtLocalSdp:localSdp remoteSdp:remoteSdp outCall:NO negociatedLocal:&nlsdp];
+					if (!ok) {
+						[self didChangeValueForKey:@"localSdp"];
+						[self hangUpCall:self];
+						break;
+					}				
+					[localSdp release];
+					localSdp=[nlsdp retain];
+					[self didChangeValueForKey:@"localSdp"];
+					osip_message_t *answer=NULL;
+					eXosip_call_build_answer(_tid, 180, &answer);
+					osip_message_set_body (answer, [localSdp cString], [localSdp length]);
+					osip_message_set_content_type (answer, "application/sdp");
 					eXosip_lock ();
-					eXosip_call_send_answer (je->tid, 180, NULL);
+					eXosip_call_send_answer (je->tid, 180, answer);
 					eXosip_unlock ();
+					[self setState:sip_incoming_call_ringing];
+
 					break;
 refuse_call:
-						eXosip_lock ();
+					eXosip_lock ();
 					eXosip_call_send_answer (je->tid, 415, NULL);
-						eXosip_unlock ();
+					eXosip_unlock ();
 					
 				}
 				rc=eXosip_default_action(je);
@@ -504,6 +522,7 @@ refuse_call:
 						break;
 					}
 					NSLog(@"EXOSIP_CALL_REQUESTFAILURE\n");
+					rc=eXosip_default_action(je);
 					[self setState:sip_initiated_clearing];
 					break;
 				case EXOSIP_CALL_SERVERFAILURE:
@@ -532,7 +551,7 @@ refuse_call:
 					remoteSdp=[eXosip_get_sdp_body(je->response) retain];
 					[self didChangeValueForKey:@"remoteSdp"];
 					
-					BOOL ok=[userPlane setupWithtLocalSdp:localSdp remoteSdp:remoteSdp outCall:YES];
+					BOOL ok=[userPlane setupWithtLocalSdp:localSdp remoteSdp:remoteSdp outCall:YES negociatedLocal:nil];
 					
 					//[self establishUserPlaneLocal:&local_med remote:&remote_med];
 					
@@ -556,15 +575,18 @@ refuse_call:
 					if (je->did) _did=je->did;
 						break;
 				case EXOSIP_CALL_RELEASED:
-					[userPlane endUserPlane];
-					[self setState:sip_registered];
 					NSLog(@"call released (EXOSIP_CALL_RELEASED)\n");
 					break;
 				case EXOSIP_CALL_CLOSED:
 					[userPlane endUserPlane];
-					[self setState:sip_registered];
+					rc=eXosip_default_action(je);
+					[self setState:sip_registered]; // XXX
 					NSLog(@"call released (EXOSIP_CALL_CLOSED)\n");
 					break;
+				case EXOSIP_CALL_ACK:
+					if (state==sip_incoming_call_acccepted) {
+						[self setState:sip_online];
+					}
 				default:
 					NSLog(@"not handled event %d (%s)\n", je->type, je->textinfo);
 					break;
@@ -629,7 +651,7 @@ refuse_call:
 		case sip_outgoing_call_sent:
 		case sip_incoming_call_ringing:
 			rc=eXosip_call_terminate(_cid, _did);
-			if (rc<0) NSLog(@"hangup failed\n");
+			if (rc<0) NSLog(@"hangup failed %d/%d\n", _cid, _did);
 			else {
 				[self setState:sip_initiated_clearing];
 			}
@@ -641,7 +663,16 @@ refuse_call:
 - (IBAction) acceptCall:(id) sender
 {
 	if (state != sip_incoming_call_ringing) return;
-	eXosip_call_send_answer(_tid,200,NULL);
+	
+	osip_message_t *answer=NULL;
+	eXosip_call_build_answer(_tid, 200, &answer);
+	osip_message_set_body (answer, [localSdp cString], [localSdp length]);
+	osip_message_set_content_type (answer, "application/sdp");
+	eXosip_lock ();
+	int rc=eXosip_call_send_answer (_tid, 200, answer);
+	eXosip_unlock ();
+	[self setState:sip_incoming_call_acccepted];
+	if (rc) NSLog(@"accept call failed\n");
 }
 
 - (IBAction) testMe:(id) sender

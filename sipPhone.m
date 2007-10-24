@@ -300,9 +300,10 @@ static int initDone=0;
 
 - (void) setState:(sipState_t) s
 {
+	sipState_t olds;
 	if (state==s) return;
 	// some hook when leaving a state
-	if (state==sip_registered) [self setAbVisible:NO];
+	olds=s;
 	if (state==sip_incoming_call_ringing) [popupInCall orderOut:self];
 	[self willChangeValueForKey:@"incomingCallActive"];
 	[self willChangeValueForKey:@"outgoingCallActive"];
@@ -310,6 +311,7 @@ static int initDone=0;
 	[self willChangeValueForKey:@"selectedViewNumber"];
 	[self willChangeValueForKey:@"isRinging"];
 	state=s;
+	if (olds==sip_registered) [self setAbVisible:NO];
 	if (state==sip_registered) [self setAbVisible:abVisibleOffline];
 	if (1 || (state==sip_incoming_call_ringing)) {
 		[mainWin makeKeyAndOrderFront:self];

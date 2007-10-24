@@ -19,6 +19,7 @@
 		1B46E7DD0CCB887C00397E41 /* UserPlane.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B46E7DC0CCB887C00397E41 /* UserPlane.m */; };
 		1B46ECEC0CCE73BA00397E41 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B46ECEB0CCE73BA00397E41 /* Carbon.framework */; };
 		1B46ED410CCE995E00397E41 /* ABCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B46ED400CCE995E00397E41 /* ABCache.m */; };
+		1B46EE080CCF1A9800397E41 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 1B46EE070CCF1A9800397E41 /* icon.icns */; };
 		1BC968310CC9F139004C0339 /* eXcall_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 1BC9680F0CC9F139004C0339 /* eXcall_api.c */; };
 		1BC968320CC9F139004C0339 /* eXconf.c in Sources */ = {isa = PBXBuildFile; fileRef = 1BC968100CC9F139004C0339 /* eXconf.c */; };
 		1BC968330CC9F139004C0339 /* eXinsubscription_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 1BC968110CC9F139004C0339 /* eXinsubscription_api.c */; };
@@ -134,6 +135,7 @@
 		1B46ECEB0CCE73BA00397E41 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		1B46ED3F0CCE995E00397E41 /* ABCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABCache.h; sourceTree = "<group>"; };
 		1B46ED400CCE995E00397E41 /* ABCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABCache.m; sourceTree = "<group>"; };
+		1B46EE070CCF1A9800397E41 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		1BC9680F0CC9F139004C0339 /* eXcall_api.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = eXcall_api.c; path = "libeXosip2-2.2.3/src/eXcall_api.c"; sourceTree = "<group>"; };
 		1BC968100CC9F139004C0339 /* eXconf.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = eXconf.c; path = "libeXosip2-2.2.3/src/eXconf.c"; sourceTree = "<group>"; };
 		1BC968110CC9F139004C0339 /* eXinsubscription_api.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = eXinsubscription_api.c; path = "libeXosip2-2.2.3/src/eXinsubscription_api.c"; sourceTree = "<group>"; };
@@ -551,6 +553,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1B46EE070CCF1A9800397E41 /* icon.icns */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				29B97318FDCFA39411CA2CEA /* MainMenu.nib */,
@@ -610,6 +613,7 @@
 			files = (
 				8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */,
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
+				1B46EE080CCF1A9800397E41 /* icon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

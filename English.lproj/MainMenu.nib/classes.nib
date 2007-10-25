@@ -4,6 +4,7 @@
         {
             ACTIONS = {
                 acceptCall = id; 
+                checkForConfig = id; 
                 dialOutCall = id; 
                 hangUpCall = id; 
                 pollMe = id; 
@@ -18,6 +19,7 @@
                 callView = NSTabView; 
                 mainWin = NSWindow; 
                 popupInCallView = NSView; 
+                prefPanel = NSPanel; 
             }; 
             SUPERCLASS = NSObject; 
         }

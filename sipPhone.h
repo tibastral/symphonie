@@ -34,9 +34,11 @@ typedef enum {
 	int _did;
 	int _tid;
 	IBOutlet NSWindow *mainWin;
+	IBOutlet NSPanel *prefPanel;
 	IBOutlet NSView *popupInCallView;
 	NSWindow *popupInCall;
 	IBOutlet ABPeoplePickerView *abPicker;
+	NSString *editedPassword;
 	// called number
 	NSString *selectedNumber;
 	NSString *selectedName;
@@ -57,6 +59,7 @@ typedef enum {
 	UserPlane *userPlane;
 	
 }
+- (IBAction) checkForConfig:(id)sender;
 
 - (int) selectedViewNumber;
 - (BOOL) abVisible;

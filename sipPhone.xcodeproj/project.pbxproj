@@ -136,6 +136,7 @@
 		1B46ED3F0CCE995E00397E41 /* ABCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABCache.h; sourceTree = "<group>"; };
 		1B46ED400CCE995E00397E41 /* ABCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABCache.m; sourceTree = "<group>"; };
 		1B46EE070CCF1A9800397E41 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
+		1B46EEE80CD0006500397E41 /* Properties.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Properties.h; sourceTree = "<group>"; };
 		1BC9680F0CC9F139004C0339 /* eXcall_api.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = eXcall_api.c; path = "libeXosip2-2.2.3/src/eXcall_api.c"; sourceTree = "<group>"; };
 		1BC968100CC9F139004C0339 /* eXconf.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = eXconf.c; path = "libeXosip2-2.2.3/src/eXconf.c"; sourceTree = "<group>"; };
 		1BC968110CC9F139004C0339 /* eXinsubscription_api.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = eXinsubscription_api.c; path = "libeXosip2-2.2.3/src/eXinsubscription_api.c"; sourceTree = "<group>"; };
@@ -290,6 +291,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				1B46EEE80CD0006500397E41 /* Properties.h */,
 				1BC968FE0CC9F78F004C0339 /* sipPhone.h */,
 				1BC968FF0CC9F78F004C0339 /* sipPhone.m */,
 				1B46E57C0CCB5B8600397E41 /* StringCallNumber.h */,

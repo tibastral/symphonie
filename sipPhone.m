@@ -17,6 +17,8 @@
 #import "UserPlane.h"
 #import "ABCache.h"
 
+#import "Properties.h"
+
 #import <AddressBook/AddressBook.h>
 
 #import <Carbon/Carbon.h>
@@ -129,13 +131,32 @@ static int initDone=0;
 	//[personImage release];
 }
 
+- (IBAction) abDClicked:(id)this
+{
+	NSLog(@"double click\n");
+}
+
 - (void) awakeFromNib
 {
 	NSAssert(abPicker, @"unconnected abPicker");
-	//[abPicker setTarget:self];
+	//[abPicker clearSearchField:self];
+
+#if 0
+	NSArray *cursel=[abPicker selectedRecords];
+	unsigned int i, count = [cursel count];
+	for (i = 0; i < count; i++) {
+		NSObject * obj = [cursel objectAtIndex:i];
+		[abPicker deselectRecord:obj];
+	}
+#endif
 	[abPicker setAllowsMultipleSelection:NO];
-	[abPicker setValueSelectionBehavior:ABSingleValueSelection];
-	//[abPicker setNameDoubleAction:@selector(abDClicked:)];
+	//[abPicker setAllowsEmptySelection:YES];
+	[abPicker deselectAll:self];
+	ABPickerDeselectAll(abPicker);
+	
+	//[abPicker setValueSelectionBehavior:ABSingleValueSelection];
+	[abPicker setTarget:self];
+	[abPicker setNameDoubleAction:@selector(abDClicked:)];
 	//Here we set up a responder for one of the four notifications,
 	//in this case to tell us when the selection in the name list
 	//has changed.
@@ -149,7 +170,8 @@ static int initDone=0;
 		       name:ABPeoplePickerValueSelectionDidChangeNotification
 		     object:abPicker];
 	
-	[abPicker deselectAll:self];
+	//[abPicker deselectSelectedCell];
+
 	[self _initExosip];
 	
 	popupInCall = [[NSWindow alloc] initWithContentRect:[popupInCallView frame]
@@ -168,9 +190,15 @@ static int initDone=0;
 	//long vol;
 	//GetDefaultOutputVolume(&vol);
 	//SetDefaultOutputVolume(vol*4);
-	[self setCallingNumber:@"01 39 46 50 50"];
+
 }
 
+- (void)windowDidBecomeMain:(NSNotification *)aNotification
+{
+	if (!getProp(@"phoneNumber",nil)) {
+		[prefPanel makeKeyAndOrderFront:self];
+	}
+}
 
 - (void) setSelectedNumber:(NSString *)s
 {
@@ -292,6 +320,7 @@ static int initDone=0;
 }
 - (void) setAbVisible:(BOOL)f
 {
+	//if (f && !abVisible) 	[abPicker deselectAll:self];
 	if (sip_registered==state) abVisibleOffline=f;
 	abVisible=f;
 }

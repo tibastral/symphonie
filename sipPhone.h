@@ -17,9 +17,15 @@ typedef enum {
 	sip_off=0,
 	sip_unregister_in_progress,
 	sip_unregister_retry,
+	
+	sip_register2call_in_progress,
+	sip_register2call_retry,
+
 	sip_register_in_progress,
 	sip_register_retry,
 	
+	sip_ondemand,
+
 	sip_registered,
 	sip_outgoing_call_sent,
 	sip_outgoing_call_ringing,
@@ -101,6 +107,7 @@ typedef enum {
 - (IBAction) acceptCall:(id) sender;
 - (IBAction) registerPhone:(id) sender;
 - (IBAction) unregisterPhone:(id) sender;
+- (IBAction) terminateCall:(id) sender;
 
 - (IBAction) pretendRegistered:(id) sender;
 @end

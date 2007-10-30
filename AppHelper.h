@@ -14,6 +14,7 @@
 	IBOutlet NSPanel *prefPanel;
 	IBOutlet NSWindow *mainWin;
 	IBOutlet sipPhone *phone;
+	BOOL onDemandRegister;
 }
 
 - (NSString *) authId;
@@ -34,6 +35,6 @@
 - (void) setPhoneNumber:(NSString *)s;
 
 - (BOOL) falseValue;
-
+- (BOOL) onDemandRegister;
 - (IBAction) goHomePage:(id)sender;
 @end

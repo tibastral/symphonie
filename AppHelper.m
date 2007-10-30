@@ -20,7 +20,7 @@
 - (id) init {
 	self = [super init];
 	if (self != nil) {
-		
+		onDemandRegister=NO; //XXX
 	}
 	return self;
 }
@@ -101,6 +101,7 @@ static void PrintReachabilityFlags(
 - (void) reachable
 {
 	NSAssert(phone, @"hu");
+	//SCNetworkProtocolGetConfiguration(<#SCNetworkProtocolRef protocol#>)
 	[phone registerPhone:self];
 }
 
@@ -285,7 +286,18 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 	return YES;
 }
 
-
+- (BOOL) onDemandRegister;
+{
+	return onDemandRegister;
+}
+- (void) setOnDemandRegister:(BOOL)f
+{
+	if (f != onDemandRegister) {
+		onDemandRegister=f;
+		if (onDemandRegister) [phone unregisterPhone:self];
+		else [phone registerPhone:self];
+	}
+}
 - (NSString *) phoneNumber
 {
 	return getProp(@"phoneNumber",nil);

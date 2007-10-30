@@ -138,6 +138,7 @@ static int initDone=0;
 
 - (void) awakeFromNib
 {
+	if ([appHelper onDemandRegister]) [self setState:sip_ondemand];
 	NSAssert(abPicker, @"unconnected abPicker");
 	//[abPicker clearSearchField:self];
 
@@ -289,8 +290,13 @@ static int initDone=0;
 {
 	switch (state) {
 		case sip_off: return 0;
+		case sip_ondemand: return 1;
 		case sip_register_in_progress: return 0;
 		case sip_register_retry: return 0;
+		case sip_register2call_in_progress: return 2;
+		case sip_register2call_retry: return 2;
+		case sip_unregister_in_progress: return 0;
+		case sip_unregister_retry: return 0;
 		case sip_registered: return 1;
 		case sip_outgoing_call_sent: return 2;
 		case sip_outgoing_call_ringing: return 2;
@@ -314,7 +320,7 @@ static int initDone=0;
 - (void) setAbVisible:(BOOL)f
 {
 	//if (f && !abVisible) 	[abPicker deselectAll:self];
-	if (sip_registered==state) abVisibleOffline=f;
+	if ((sip_registered==state)||(sip_ondemand==state)) abVisibleOffline=f;
 	abVisible=f;
 }
 - (BOOL) isRinging
@@ -337,8 +343,8 @@ static int initDone=0;
 	[self willChangeValueForKey:@"selectedViewNumber"];
 	[self willChangeValueForKey:@"isRinging"];
 	state=s;
-	if (olds==sip_registered) [self setAbVisible:NO];
-	if (state==sip_registered) [self setAbVisible:abVisibleOffline];
+	if ((olds==sip_registered) || (olds==sip_ondemand)) [self setAbVisible:NO];
+	if ((state==sip_registered)  || (state==sip_ondemand)) [self setAbVisible:abVisibleOffline];
 	if (1 || (state==sip_incoming_call_ringing)) {
 		[mainWin makeKeyAndOrderFront:self];
 	}
@@ -366,6 +372,7 @@ static int initDone=0;
 {
 	switch (state) {
 		case sip_registered:
+		case sip_ondemand:
 			return YES;
 	}
 	return NO;
@@ -418,7 +425,7 @@ int eXosip_register_build_initial_register(const char *from, const char *proxy,
 					   osip_message_t **reg);
 */
 
-- (IBAction) registerPhone:(id) sender;
+- (IBAction) registerPhoneOnDemand:(BOOL) onDemand dur:(int)dur;
 {
 	osip_message_t *reg = NULL;
 	int rc;
@@ -426,7 +433,7 @@ int eXosip_register_build_initial_register(const char *from, const char *proxy,
 	//NSAssert(state==sip_off, @"bad state for registerPhone");
 	eXosip_lock ();
 	_rid = eXosip_register_build_initial_register ([[appHelper sipFrom]cString], [[appHelper sipProxy]cString], [[appHelper sipFrom]cString],
-						     1800, &reg);
+						     dur, &reg);
 	if (_rid < 0)
 	{
 		eXosip_unlock ();
@@ -444,15 +451,34 @@ int eXosip_register_build_initial_register(const char *from, const char *proxy,
 	rc = eXosip_register_send_register (_rid, reg);
 	eXosip_unlock ();
 	NSAssert(!rc, @"eXosip_register_send_register failed\n");
-	[self setState:sip_register_in_progress];
+	if (dur) {
+		if (onDemand) {
+			[self setState:sip_register2call_in_progress];
+		} else {
+			[self setState:sip_register_in_progress];
+		}
+	} else {
+		[self setState:sip_unregister_in_progress];
+	}
 	return;
+}
+- (IBAction) registerPhone:(id) sender
+{
+	if ([appHelper onDemandRegister]) {
+		if (state<sip_ondemand) [self setState:sip_ondemand];
+		return;
+	}
+	[self registerPhoneOnDemand:NO dur:1800];
 }
 
 - (IBAction) unregisterPhone:(id) sender;
 {
 	osip_message_t *reg = NULL;
 	int rc;
-	if (state < sip_registered) return;
+	if (state < sip_registered) {
+		[self registerPhoneOnDemand:NO dur:0];
+		return;
+	}
 	[self hangUpCall:sender];
 	//NSAssert(state==sip_off, @"bad state for registerPhone");
 	eXosip_lock ();
@@ -504,9 +530,6 @@ int eXosip_register_build_initial_register(const char *from, const char *proxy,
 						case sip_register_retry:
 							[self setState:sip_off];
 							break;
-						case sip_unregister_retry:
-							//[self setState:sip_off];
-							break;
 						case sip_register_in_progress:
 							[self setState:sip_register_retry];
 							rc=eXosip_default_action(je);
@@ -514,6 +537,20 @@ int eXosip_register_build_initial_register(const char *from, const char *proxy,
 								[self setState:sip_off];
 								break;
 							}
+							break;
+						case sip_register2call_retry:
+							[self setState:sip_ondemand];
+							break;
+						case sip_register2call_in_progress:
+							[self setState:sip_register2call_retry];
+							rc=eXosip_default_action(je);
+							if (rc) {
+								//[self setState:sip_ondemand];
+								break;
+							}
+							break;
+						case sip_unregister_retry:
+							//[self setState:sip_off];
 							break;
 						case sip_unregister_in_progress:
 							[self setState:sip_unregister_retry];
@@ -536,10 +573,20 @@ int eXosip_register_build_initial_register(const char *from, const char *proxy,
 							[self setState:sip_registered];
 							NSLog(@"now registered\n");
 							break;
+						case sip_register2call_retry:
+						case sip_register2call_in_progress:
+							[self setState:sip_registered];
+							NSLog(@"now registered, mazke call\n");
+							[self makeOutCall];
+							break;
 						case sip_unregister_in_progress:
 						case sip_unregister_retry:
 							NSLog(@"now deregistered\n");
-							[self setState:sip_off];
+							if ([appHelper onDemandRegister]) {
+								[self setState:sip_ondemand];
+							} else {
+								[self setState:sip_off];
+							}
 							break;
 						default:
 							NSLog(@"registered ignore in state %d\n", state);
@@ -625,7 +672,7 @@ refuse_call:
 					      je->response ?  je->response->status_code : -1);
 					[userPlane endUserPlane];
 					rc=eXosip_default_action(je);
-					if (state>sip_registered) [self setState:sip_registered]; 
+					if (state>sip_registered) [self terminateCall:self];
 					rc=eXosip_default_action(je);
 					break;
 				case EXOSIP_CALL_SERVERFAILURE:
@@ -680,13 +727,13 @@ refuse_call:
 				case EXOSIP_CALL_RELEASED:
 					[userPlane endUserPlane];
 					rc=eXosip_default_action(je);
-					if (state>sip_registered) [self setState:sip_registered];
+					if (state>sip_registered) [self terminateCall:self];
 					NSLog(@"call released (EXOSIP_CALL_RELEASED)\n");
 					break;
 				case EXOSIP_CALL_CLOSED:
 					[userPlane endUserPlane];
 					rc=eXosip_default_action(je);
-					if (state>sip_registered) [self setState:sip_registered]; // XXX
+					if (state>sip_registered) [self terminateCall:self]; // XXX
 					NSLog(@"call released (EXOSIP_CALL_CLOSED)\n");
 					break;
 				case EXOSIP_CALL_ACK:
@@ -746,8 +793,10 @@ refuse_call:
 
 - (IBAction) dialOutCall:(id) sender
 {
-	if (state != sip_registered) return;
-	[self makeOutCall];
+	if (state==sip_ondemand) {
+		[self registerPhoneOnDemand:YES dur:1800];
+	} else if (state != sip_registered) return;
+	else [self makeOutCall];
 }
 - (IBAction) hangUpCall:(id) sender
 {
@@ -768,6 +817,31 @@ refuse_call:
 			break;
 	}
 }
+
+- (IBAction) terminateCall:(id) sender
+{
+	int rc;
+	switch (state) {
+		case sip_online:
+		case sip_outgoing_call_ringing:
+		case sip_outgoing_call_sent:
+		case sip_incoming_call_ringing:
+			NSLog(@"hang up cid %d did %d\n", _cid, _did);
+			rc=eXosip_call_terminate(_cid, _did);
+			if (rc<0) NSLog(@"hangup failed %d/%d\n", _cid, _did);
+			break;
+		default:
+			break;
+	}
+	[userPlane endUserPlane];
+	if ([appHelper onDemandRegister]) {
+		[self setState:sip_registered];
+		[self unregisterPhone:self];
+	} else {
+		[self setState:sip_registered];
+	}
+}
+
 - (IBAction) acceptCall:(id) sender
 {
 	if (state != sip_incoming_call_ringing) return;

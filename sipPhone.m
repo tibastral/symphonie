@@ -553,7 +553,7 @@ int eXosip_register_build_initial_register(const char *from, const char *proxy,
 		} else if (je->cid) {
 			if (_cid != je->cid) {
 				if (je->type==EXOSIP_CALL_INVITE) {
-					NSLog(@"incoming call\n");
+					NSLog(@"incoming new call\n");
 					if (!je->request) goto refuse_call;
 					if (!je->request->from) goto refuse_call;
 					char *f=je->request->from->displayname;
@@ -601,6 +601,9 @@ refuse_call:
 				continue;
 			}
 			switch (je->type) {
+				case EXOSIP_CALL_REINVITE:
+					NSLog(@"reinvinte (call within a call)\n");
+					break;
 				case EXOSIP_CALL_INVITE:NSLog(@"incoming call on existing call?\n");
 					eXosip_lock ();
 					eXosip_call_send_answer (je->tid, 415, NULL);
@@ -754,6 +757,7 @@ refuse_call:
 		case sip_outgoing_call_ringing:
 		case sip_outgoing_call_sent:
 		case sip_incoming_call_ringing:
+			NSLog(@"hang up cid %d did %d\n", _cid, _did);
 			rc=eXosip_call_terminate(_cid, _did);
 			if (rc<0) NSLog(@"hangup failed %d/%d\n", _cid, _did);
 			else {

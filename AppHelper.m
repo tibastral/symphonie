@@ -48,6 +48,13 @@
 	[phone unregisterPhone:self];
 
 }
+- (void) _goOff:(NSNotification*)notif 
+{
+	NSLog(@"sleeping\n");
+	[phone unregisterPhone:self];
+	
+}
+
 - (void) _other:(NSNotification*)notif 
 {
 	NSLog(@"got notification %@\n", [notif name]);
@@ -114,9 +121,15 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 	NSNotificationCenter *notCenter;
 	notCenter = [[NSWorkspace sharedWorkspace] notificationCenter];
 	[notCenter addObserver:self selector:@selector(_wakeUp:)
+			  name:NSWorkspaceSessionDidBecomeActiveNotification object:nil];
+	[notCenter addObserver:self selector:@selector(_goSleep:)
+			  name:NSWorkspaceSessionDidResignActiveNotification object:nil];
+	[notCenter addObserver:self selector:@selector(_wakeUp:)
 			  name:NSWorkspaceDidWakeNotification object:nil];
 	[notCenter addObserver:self selector:@selector(_goSleep:)
 			  name:NSWorkspaceWillSleepNotification object:nil];
+	[notCenter addObserver:self selector:@selector(_goOff:)
+			  name:NSWorkspaceWillPowerOffNotification object:nil];
 	if (0) [notCenter addObserver:self selector:@selector(_other:)
 			  name:nil object:nil];
 	SCNetworkReachabilityRef        thisTarget;
@@ -217,7 +230,7 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 {
 	OSStatus status;
 	const char *passwordUTF8 = [password UTF8String];
-	UInt32 plen=strlen(passwordUTF8);
+	UInt32 plen=(UInt32) strlen(passwordUTF8);
 	status = SecKeychainItemModifyAttributesAndData (
 							 itemRef,         // the item reference
 							 NULL,            // no change to attributes
@@ -251,7 +264,7 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 	if (!ph) return nil;
 	SecKeychainItemRef ir=nil;
 	NSString *pw=GetPasswordKeychain(ph, &ir);
-	NSLog(@"got passwd %@\n", pw);
+	//NSLog(@"got passwd %@\n", pw);
 
 	return pw;
 }

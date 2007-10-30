@@ -118,7 +118,9 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 - (void) awakeFromNib
 {
 	NSAssert(phone, @"phone not connected");
-
+	[prefPanel setLevel:NSModalPanelWindowLevel];
+	[prefPanel setAlphaValue:0.95];
+	
 	NSNotificationCenter *notCenter;
 	notCenter = [[NSWorkspace sharedWorkspace] notificationCenter];
 	[notCenter addObserver:self selector:@selector(_wakeUp:)

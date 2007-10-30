@@ -15,26 +15,31 @@
 
 typedef enum {
 	sip_off=0,
+	sip_unregister_in_progress,
+	sip_unregister_retry,
 	sip_register_in_progress,
 	sip_register_retry,
+	
 	sip_registered,
 	sip_outgoing_call_sent,
 	sip_outgoing_call_ringing,
 	sip_online,
 	sip_initiated_clearing,
 	sip_incoming_call_ringing,
-	sip_incoming_call_acccepted
+	sip_incoming_call_acccepted,
 } sipState_t;
 
 @class ABCache;
+@class AppHelper;
 
 @interface sipPhone : NSObject {
 	sipState_t state;
+	int _rid;
 	int _cid;
 	int _did;
 	int _tid;
+	IBOutlet AppHelper *appHelper;
 	IBOutlet NSWindow *mainWin;
-	IBOutlet NSPanel *prefPanel;
 	IBOutlet NSView *popupInCallView;
 	NSWindow *popupInCall;
 	IBOutlet ABPeoplePickerView *abPicker;
@@ -59,7 +64,6 @@ typedef enum {
 	UserPlane *userPlane;
 	
 }
-- (IBAction) checkForConfig:(id)sender;
 
 - (int) selectedViewNumber;
 - (BOOL) abVisible;
@@ -67,8 +71,6 @@ typedef enum {
 - (BOOL) isRinging;
 - (NSString *) windowTitle;
 
-- (IBAction) testMe:(id) sender;
-- (IBAction) pollMe:(id) sender;
 
 - (IBAction) test1:(id) sender;
 - (IBAction) test2:(id) sender;
@@ -97,5 +99,8 @@ typedef enum {
 - (IBAction) dialOutCall:(id) sender;
 - (IBAction) hangUpCall:(id) sender;
 - (IBAction) acceptCall:(id) sender;
+- (IBAction) registerPhone:(id) sender;
+- (IBAction) unregisterPhone:(id) sender;
 
+- (IBAction) pretendRegistered:(id) sender;
 @end

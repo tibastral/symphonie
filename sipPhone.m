@@ -460,7 +460,8 @@ int eXosip_register_build_initial_register(const char *from, const char *proxy,
 	if (rc < 0)
 	{
 		eXosip_unlock ();
-		NSAssert(0, @"registered failed\n");
+		//NSAssert(0, @"registered failed\n");
+		NSLog(@"unregister failed (build) rc=%d\n", rc);
 		return;
 	}
 	
@@ -518,7 +519,7 @@ int eXosip_register_build_initial_register(const char *from, const char *proxy,
 							[self setState:sip_unregister_retry];
 							rc=eXosip_default_action(je);
 							if (rc) {
-								[self setState:sip_off];
+								//[self setState:sip_off];
 								break;
 							}
 							break;

@@ -22,7 +22,7 @@
 // DB added
 #define PJ_DARWINOS 1
 #define DPJ_AUTOCONF 1
-
+#define PJ_AUTOCONF 1 
 /**
  * @file config.h
  * @brief PJLIB Main configuration settings.

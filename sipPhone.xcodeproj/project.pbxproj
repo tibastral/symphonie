@@ -1120,11 +1120,15 @@
 			path = "pjproject-0.5.10.4/pjmedia/src/pjmedia-codec/speex";
 			sourceTree = "<group>";
 		};
-		1B0BE7560CD7FAEA00ED1901 /* pjsdp */ = {
+		1B0BE7630CD7FC7000ED1901 /* pj */ = {
 			isa = PBXGroup;
 			children = (
+				1B0BE3480CD7E29C00ED1901 /* pjlib-util */,
+				1B0BE4260CD7EEC400ED1901 /* pj */,
+				1B46E4460CCB46EE00397E41 /* pjmedia */,
+				1B0BE5F70CD7F8CC00ED1901 /* pjmedia-codec */,
 			);
-			name = pjsdp;
+			name = pj;
 			sourceTree = "<group>";
 		};
 		1B46E4460CCB46EE00397E41 /* pjmedia */ = {
@@ -1181,11 +1185,7 @@
 		1BC967730CC9EA72004C0339 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
-				1B0BE3480CD7E29C00ED1901 /* pjlib-util */,
-				1B0BE4260CD7EEC400ED1901 /* pj */,
-				1B46E4460CCB46EE00397E41 /* pjmedia */,
-				1B0BE5F70CD7F8CC00ED1901 /* pjmedia-codec */,
-				1B0BE7560CD7FAEA00ED1901 /* pjsdp */,
+				1B0BE7630CD7FC7000ED1901 /* pj */,
 				1BC967750CC9EA88004C0339 /* exosip */,
 				1BC967740CC9EA7C004C0339 /* osip */,
 			);

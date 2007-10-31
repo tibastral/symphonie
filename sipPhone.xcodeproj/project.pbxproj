@@ -303,6 +303,7 @@
 		1BC969540CC9FAB7004C0339 /* port_sema.c in Sources */ = {isa = PBXBuildFile; fileRef = 1BC9693D0CC9FAB7004C0339 /* port_sema.c */; };
 		1BC969550CC9FAB7004C0339 /* port_thread.c in Sources */ = {isa = PBXBuildFile; fileRef = 1BC9693E0CC9FAB7004C0339 /* port_thread.c */; };
 		1BC96CDA0CCA3279004C0339 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BC96CD90CCA3279004C0339 /* AddressBook.framework */; };
+		1BF1349D0CD8B3B00007EF60 /* Help in Resources */ = {isa = PBXBuildFile; fileRef = 1BF134990CD8B3B00007EF60 /* Help */; };
 		8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
@@ -726,6 +727,7 @@
 		1BC969F70CCA0134004C0339 /* osip_uri.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = osip_uri.h; path = "libosip2-2.2.2/include/osipparser2/osip_uri.h"; sourceTree = "<group>"; };
 		1BC969F80CCA0134004C0339 /* sdp_message.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = sdp_message.h; path = "libosip2-2.2.2/include/osipparser2/sdp_message.h"; sourceTree = "<group>"; };
 		1BC96CD90CCA3279004C0339 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = /System/Library/Frameworks/AddressBook.framework; sourceTree = "<absolute>"; };
+		1BF1349A0CD8B3B00007EF60 /* English */ = {isa = PBXFileReference; lastKnownFileType = folder; name = English; path = English.lproj/Help; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -1366,6 +1368,7 @@
 		29B97314FDCFA39411CA2CEA /* sipPhone */ = {
 			isa = PBXGroup;
 			children = (
+				1BF134990CD8B3B00007EF60 /* Help */,
 				1BC967730CC9EA72004C0339 /* Lib */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -1453,6 +1456,7 @@
 				1B46F3780CD7106D00397E41 /* Credits.rtf in Resources */,
 				1B0BE6C50CD7F90D00ED1901 /* COPYRIGHT in Resources */,
 				1B0BE71B0CD7F90D00ED1901 /* VERSION.TXT in Resources */,
+				1BF1349D0CD8B3B00007EF60 /* Help in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1761,6 +1765,14 @@
 				089C165DFE840E0CC02AAC07 /* English */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1BF134990CD8B3B00007EF60 /* Help */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1BF1349A0CD8B3B00007EF60 /* English */,
+			);
+			name = Help;
 			sourceTree = "<group>";
 		};
 		29B97318FDCFA39411CA2CEA /* MainMenu.nib */ = {

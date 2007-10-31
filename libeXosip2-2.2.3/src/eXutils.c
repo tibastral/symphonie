@@ -387,7 +387,7 @@ ppl_dns_default_gateway_ipv4 (char *address, int size)
 #ifdef __APPLE_CC__
   int len;
 #else
-  unsigned int len;
+  socklen_t len;
 #endif
   int sock_rt, on = 1;
   struct sockaddr_in iface_out;
@@ -448,7 +448,7 @@ ppl_dns_default_gateway_ipv6 (char *address, int size)
 #ifdef __APPLE_CC__
   int len;
 #else
-  unsigned int len;
+  socklen_t len;
 #endif
   int sock_rt, on = 1;
   struct sockaddr_in6 iface_out;

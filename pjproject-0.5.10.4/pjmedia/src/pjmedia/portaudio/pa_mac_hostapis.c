@@ -41,7 +41,7 @@
 Mac OS host API initialization function table.
 */
 
-
+#define PA_USE_COREAUDIO 1
 #include "pa_hostapi.h"
 
 #ifdef __cplusplus
@@ -64,6 +64,8 @@ PaUtilHostApiInitializer *paHostApiInitializers[] =
 {
 #ifdef PA_USE_COREAUDIO
     PaMacCore_Initialize,
+#else
+#error should be defined
 #endif
     
 #ifdef PA_USE_SM

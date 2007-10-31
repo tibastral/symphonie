@@ -21,8 +21,10 @@
 
 // DB added
 #define PJ_DARWINOS 1
-#define DPJ_AUTOCONF 1
+//#define DPJ_AUTOCONF 1
 #define PJ_AUTOCONF 1 
+#define PA_USE_COREAUDIO 1
+#define DPJMEDIA_SOUND_IMPLEMENTATION PJMEDIA_SOUND_PORTAUDIO_SOUND
 /**
  * @file config.h
  * @brief PJLIB Main configuration settings.

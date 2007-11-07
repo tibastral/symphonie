@@ -15,6 +15,8 @@
 	IBOutlet NSWindow *mainWin;
 	IBOutlet sipPhone *phone;
 	BOOL onDemandRegister;
+	BOOL sleepRequested;
+	long sleepNotification;
 }
 
 - (NSString *) authId;
@@ -37,4 +39,6 @@
 - (BOOL) falseValue;
 - (BOOL) onDemandRegister;
 - (IBAction) goHomePage:(id)sender;
+
+- (IBAction) popMainWin:(id)sender;
 @end

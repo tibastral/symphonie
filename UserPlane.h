@@ -21,6 +21,9 @@
 	
 	pjmedia_transport  *rtp_transport;
 	pjmedia_session    *rtp_session;
+	
+	long normalOutputVolume;
+	long normalInputGain;
 }
 
 

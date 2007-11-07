@@ -85,6 +85,7 @@ typedef enum {
 - (void) _initExosip;
 
 - (void) setState:(sipState_t) s;
+- (sipState_t) state;
 
 - (void) setSelectedNumber:(NSString *)s;
 - (NSString*) selectedNumber;
@@ -100,8 +101,9 @@ typedef enum {
 
 - (BOOL) incomingCallActive;
 - (BOOL) outgoingCallActive;
-- (BOOL) onCallActive;
-
+//- (BOOL) onCallActive;
+- (BOOL) canChangeRegistrationScheme;
+- (BOOL) onLine;
 - (IBAction) dialOutCall:(id) sender;
 - (IBAction) hangUpCall:(id) sender;
 - (IBAction) acceptCall:(id) sender;

@@ -13,6 +13,7 @@
 
 #include <CoreFoundation/CoreFoundation.h>
 #include <SystemConfiguration/SystemConfiguration.h>
+#import <Carbon/Carbon.h>
 
 
 @implementation AppHelper
@@ -44,8 +45,19 @@
 
 - (void) _goSleep:(NSNotification*)notif 
 {
-	NSLog(@"sleeping\n");
-	[phone unregisterPhone:self];
+	NSLog(@"sleeping, notification %@, ui=%@\n", notif, [notif userInfo]);
+	switch ([phone state]) {
+		case sip_off:
+		case sip_ondemand:
+			//IOAllowPowerChange(root_port, xxx);
+			break;
+		default:
+			[phone unregisterPhone:self];
+			sleepRequested=YES;
+			// sleepNotification=....
+			break;
+	}
+	// should call IOAllowPowerChange
 
 }
 - (void) _goOff:(NSNotification*)notif 
@@ -319,4 +331,17 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 {
 	[[NSWorkspace sharedWorkspace] openURL: [NSURL URLWithString:@"http://braun.daniel.free.fr/page3/sipPhone/sipPhone.shtml"]];
 }
+
+- (IBAction) popMainWin:(id)sender
+{
+	[mainWin makeKeyAndOrderFront:self];
+}
+
+- (BOOL)applicationShouldHandleReopen:(NSApplication *)theApplication hasVisibleWindows:(BOOL)flag
+{
+	[mainWin  makeKeyAndOrderFront:self];
+	return YES;
+}
+
+
 @end

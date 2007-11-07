@@ -1,7 +1,7 @@
 {
     IBClasses = (
         {
-            ACTIONS = {goHomePage = id; }; 
+            ACTIONS = {goHomePage = id; popMainWin = id; }; 
             CLASS = AppHelper; 
             LANGUAGE = ObjC; 
             OUTLETS = {mainWin = NSWindow; phone = sipPhone; prefPanel = NSPanel; }; 

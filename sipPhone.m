@@ -21,7 +21,6 @@
 
 #import <AddressBook/AddressBook.h>
 
-#import <Carbon/Carbon.h>
 
 static NSString *
 eXosip_get_sdp_body (osip_message_t * message)
@@ -188,10 +187,7 @@ static int initDone=0;
 	[popupInCall setMovableByWindowBackground:YES];
 	[popupInCall center];
 	[popupInCall setContentView:popupInCallView];
-	//long vol;
-	//GetDefaultOutputVolume(&vol);
-	//SetDefaultOutputVolume(vol*4);
-
+	
 }
 
 - (void) setSelectedNumber:(NSString *)s
@@ -328,6 +324,10 @@ static int initDone=0;
 	return (state==sip_outgoing_call_ringing);
 }
 
+- (sipState_t) state
+{
+	return state;
+}
 - (void) setState:(sipState_t) s
 {
 	sipState_t olds;
@@ -339,9 +339,10 @@ static int initDone=0;
 	if (state==sip_incoming_call_ringing) [popupInCall orderOut:self];
 	[self willChangeValueForKey:@"incomingCallActive"];
 	[self willChangeValueForKey:@"outgoingCallActive"];
-	[self willChangeValueForKey:@"onCallActive"];
+	[self willChangeValueForKey:@"onLine"];
 	[self willChangeValueForKey:@"selectedViewNumber"];
 	[self willChangeValueForKey:@"isRinging"];
+	[self willChangeValueForKey:@"canChangeRegistrationScheme"];
 	state=s;
 	if ((olds==sip_registered) || (olds==sip_ondemand)) [self setAbVisible:NO];
 	if ((state==sip_registered)  || (state==sip_ondemand)) [self setAbVisible:abVisibleOffline];
@@ -351,13 +352,15 @@ static int initDone=0;
 	if (state==sip_incoming_call_ringing) {
 		[popupInCall makeKeyAndOrderFront:self];
 	}
+	[self didChangeValueForKey:@"canChangeRegistrationScheme"];
 	[self didChangeValueForKey:@"isRinging"];
 	[self didChangeValueForKey:@"selectedViewNumber"];
 	[self didChangeValueForKey:@"incomingCallActive"];
 	[self didChangeValueForKey:@"outgoingCallActive"];
-	[self didChangeValueForKey:@"onCallActive"];
+	[self didChangeValueForKey:@"onLine"];
 	
 }
+
 
 - (BOOL) incomingCallActive
 { 
@@ -377,15 +380,23 @@ static int initDone=0;
 	}
 	return NO;
 }
-- (BOOL) onCallActive
+
+- (BOOL) onLine;
 {
 	switch (state) {
+		case sip_online: return YES;
 		default: 
 			break;
 	}
 	return NO;
 }
 
+- (BOOL) canChangeRegistrationScheme
+{
+	if (state==sip_ondemand) return YES;
+	if (state==sip_registered) return YES;
+	return NO;
+}
 
 - (void) _initExosip
 {

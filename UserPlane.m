@@ -7,7 +7,7 @@
 //
 
 #import "UserPlane.h"
-
+#import "Properties.h"
 
 @implementation UserPlane
 
@@ -37,6 +37,24 @@ static const pjmedia_tone_desc _tones[]={
 	int rc;
 	if (output) return;
 	
+	//long vol;
+	//GetDefaultOutputVolume(&vol);
+	//SetDefaultOutputVolume(vol*4);
+	
+	int ndev=pjmedia_snd_get_dev_count();
+	int i;
+	for (i=0; i<ndev; i++) {
+		const pjmedia_snd_dev_info *dinfo;
+		dinfo=pjmedia_snd_get_dev_info(i);
+		NSLog(@"dev %d: %s\n", i, dinfo->name);
+	}
+	NSNumber *sv=getProp(@"setVolume",[NSNumber numberWithBool:YES]);
+	NSAssert(sv, @"setVolume not set");
+	if (0 && [sv boolValue]) {
+		GetDefaultOutputVolume(&normalOutputVolume);
+		NSNumber *vol=getProp(@"outputVolume", [NSNumber numberWithLong:(0x1000000)]);
+		SetDefaultOutputVolume([vol longValue]);
+	}
 	rc = pjmedia_snd_port_create_player(
 					    pool,                              /* pool                 */
 					    -1,                                /* use default dev.     */
@@ -54,6 +72,13 @@ static const pjmedia_tone_desc _tones[]={
 {
 	int rc;
 	if (input) return;
+	NSNumber *sv=getProp(@"setVolume",[NSNumber numberWithBool:YES]);
+	NSAssert(sv, @"setVolume not set");
+	if ([sv boolValue]) {
+		//GetDefaultInputGain(&normalInputGain);
+		//NSNumber *vol=getProp(@"inputGain", [NSNumber numberWithLong:(0x1000000)]);
+		//SetDefaultInputGain([vol longValue]);
+	}
 	rc = pjmedia_snd_port_create_rec(
 					 pool,                              /* pool                 */
 					 -1,                                /* use default dev.     */
@@ -103,6 +128,14 @@ static const pjmedia_tone_desc _tones[]={
 
 - (void) endUserPlane
 {
+	NSNumber *sv=getProp(@"setVolume",[NSNumber numberWithBool:YES]);
+	NSAssert(sv, @"setVolume not set");
+	if ([sv boolValue]) {
+		if (normalOutputVolume) {
+			SetDefaultOutputVolume(normalOutputVolume);
+			normalOutputVolume=0;
+		}
+	}
 	pjmedia_tonegen_stop(tone_generator);
 	if (output) {
 		pjmedia_snd_port_disconnect(output);

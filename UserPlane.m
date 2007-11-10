@@ -9,6 +9,10 @@
 #import "UserPlane.h"
 #import "Properties.h"
 
+#include <AudioUnit/AudioUnit.h>
+#include <CoreAudio/CoreAudio.h>
+#include <AudioToolbox/AudioToolbox.h>
+
 @implementation UserPlane
 
 #define SAMPLES_PER_FRAME 160
@@ -17,6 +21,8 @@
 	self = [super init];
 	if (self != nil) {
 		[self _initMedia];
+		outputDevIdx=-1;
+		inputDevIdx=-1;
 	}
 	return self;
 }
@@ -31,8 +37,72 @@ static const pjmedia_tone_desc _tones[]={
 	{880, 440, 300, 100}
 };
 
+extern AudioDeviceID *_GlobMacDevIds;
 
-- (void) _needOutput
+static int hasProperty(AudioDeviceID dev, UInt32 inChannel,
+	    int inSection,
+	    AudioHardwarePropertyID inPropertyID) 
+{
+	UInt32 siz;
+	Boolean w;
+	OSStatus theError = AudioDeviceGetPropertyInfo(dev,
+				inChannel, inSection, inPropertyID, &siz, &w);
+	return theError == 0;
+}
+
+static int hasWProperty(AudioDeviceID dev, UInt32 inChannel,
+		   int inSection,
+		   AudioHardwarePropertyID inPropertyID) 
+{
+	Boolean writable=0;
+	OSStatus theError = AudioDeviceGetPropertyInfo(dev,
+						       inChannel, inSection, 
+						       inPropertyID, NULL, &writable);
+	if (theError) return 0;
+	if (!writable) return 0;
+	return 1;
+}
+
+static float getVolume(AudioDeviceID dev, int isInput)
+{
+	//AudioDeviceID outputDevice;
+	//UInt32 size=sizeof(outputDevice);
+
+	UInt32 propSize=0;
+	OSStatus ss=AudioDeviceGetPropertyInfo(dev, 0, isInput, kAudioDevicePropertyDeviceName, &propSize, NULL);
+	NSLog(@"dev name size %d, rc=%d\n", propSize, ss);
+	float vol=0.0;
+	UInt32 s=sizeof(vol);
+	if (hasProperty(dev, 0, isInput, kAudioDevicePropertyVolumeDecibels)) {
+		AudioDeviceGetProperty(dev,0,isInput,kAudioDevicePropertyVolumeDecibels,
+				       &s ,(void*)&vol);
+	} else if (hasProperty(dev, 1, isInput, kAudioDevicePropertyVolumeDecibels)) {
+			AudioDeviceGetProperty(dev,1,isInput,kAudioDevicePropertyVolumeDecibels,
+					       &s ,(void*)&vol);
+	}
+	NSLog(@"got volume %g\n", vol);
+	return vol;
+}
+static void setVolume(AudioDeviceID dev,int isInput, float v)
+{
+	if (hasWProperty(dev, 0, isInput, kAudioDevicePropertyVolumeScalar)) {
+		AudioDeviceSetProperty(dev,NULL, 0,isInput,kAudioDevicePropertyVolumeDecibels,
+			       sizeof(v) , (void*)&v);
+	} else {
+		if (hasWProperty(dev, 1,isInput, kAudioDevicePropertyVolumeScalar)) {
+			AudioDeviceSetProperty(dev,NULL, 1,isInput,kAudioDevicePropertyVolumeDecibels,
+					       sizeof(v) , (void*)&v);
+		}
+		if (hasWProperty(dev, 2, isInput, kAudioDevicePropertyVolumeScalar)) {
+				AudioDeviceSetProperty(dev,NULL, 2,isInput,kAudioDevicePropertyVolumeDecibels,
+						       sizeof(v) , (void*)&v);
+		}
+	}
+				
+}
+
+
+- (void) _needOutput:(BOOL)ring
 {
 	int rc;
 	if (output) return;
@@ -41,23 +111,19 @@ static const pjmedia_tone_desc _tones[]={
 	//GetDefaultOutputVolume(&vol);
 	//SetDefaultOutputVolume(vol*4);
 	
+#if 0
 	int ndev=pjmedia_snd_get_dev_count();
 	int i;
-	for (i=0; i<ndev; i++) {
+	if (0) for (i=0; i<ndev; i++) {
 		const pjmedia_snd_dev_info *dinfo;
 		dinfo=pjmedia_snd_get_dev_info(i);
 		NSLog(@"dev %d: %s\n", i, dinfo->name);
 	}
-	NSNumber *sv=getProp(@"setVolume",[NSNumber numberWithBool:YES]);
-	NSAssert(sv, @"setVolume not set");
-	if (0 && [sv boolValue]) {
-		GetDefaultOutputVolume(&normalOutputVolume);
-		NSNumber *vol=getProp(@"outputVolume", [NSNumber numberWithLong:(0x1000000)]);
-		SetDefaultOutputVolume([vol longValue]);
-	}
+#endif
+	outputDevIdx=-1;
 	rc = pjmedia_snd_port_create_player(
 					    pool,                              /* pool                 */
-					    -1,                                /* use default dev.     */
+					    &outputDevIdx,                                /* use default dev.     */
 					    8000,				 /* clock rate.          */
 					    1,				 /* # of channels.       */
 					    SAMPLES_PER_FRAME,		 /* samples per frame.   */
@@ -66,22 +132,28 @@ static const pjmedia_tone_desc _tones[]={
 					    &output                          /* returned port        */
 					    );
 	NSAssert(!rc, @"pj_init failed");
+	//NSLog(@"pjmedia_snd_port_create_player devid %d\n", output->play_id);
+	//PJ_DEF(const pjmedia_snd_dev_info*) pjmedia_snd_get_dev_info(unsigned index)
+	//const void *info=pjmedia_snd_port_get_hwinfo(output);
+	NSAssert(outputDevIdx>=0, @"bad play id");
+	NSAssert(outputDevIdx<32, @"bad play id");
+	NSLog(@"using play audio id %d\n", _GlobMacDevIds[outputDevIdx]);
+	NSNumber *sv=getProp(@"setVolume",[NSNumber numberWithBool:YES]);
+	if ([sv boolValue]) {
+		normalOutputVolume=getVolume(_GlobMacDevIds[outputDevIdx], 0);
+		setVolume(_GlobMacDevIds[outputDevIdx], 0, [getProp(ring ? @"outputVolume" : @"ringVolume", [NSNumber numberWithFloat:-8]) floatValue]);
+	}
 }
 
 - (void) _needInput
 {
 	int rc;
 	if (input) return;
-	NSNumber *sv=getProp(@"setVolume",[NSNumber numberWithBool:YES]);
-	NSAssert(sv, @"setVolume not set");
-	if ([sv boolValue]) {
-		//GetDefaultInputGain(&normalInputGain);
-		//NSNumber *vol=getProp(@"inputGain", [NSNumber numberWithLong:(0x1000000)]);
-		//SetDefaultInputGain([vol longValue]);
-	}
+	
+	inputDevIdx=-1;
 	rc = pjmedia_snd_port_create_rec(
 					 pool,                              /* pool                 */
-					 -1,                                /* use default dev.     */
+					 &inputDevIdx,                                /* use default dev.     */
 					 8000,				 /* clock rate.          */
 					 1,				 /* # of channels.       */
 					 SAMPLES_PER_FRAME,		 /* samples per frame.   */
@@ -90,8 +162,31 @@ static const pjmedia_tone_desc _tones[]={
 					 &input                          /* returned port        */
 					 );
 	NSAssert(!rc, @"pj_init failed");
+	NSAssert(inputDevIdx>=0, @"bad play id");
+	NSAssert(inputDevIdx<32, @"bad play id");
+	NSLog(@"using rec audio id %d\n", _GlobMacDevIds[inputDevIdx]);
+	NSNumber *sv=getProp(@"setVolume",[NSNumber numberWithBool:YES]);
+	if ([sv boolValue]) {
+		normalInputGain=getVolume(_GlobMacDevIds[inputDevIdx], 1);
+		setVolume(_GlobMacDevIds[inputDevIdx], 1, [getProp(@"inputGain", [NSNumber numberWithFloat:100]) floatValue]);
+	}
+	
 }
 
+- (void) startRing
+{
+	/*
+	 
+	 OSStatus AudioFileCreate (
+				   const struct FSRef *inParentRef,
+				   CFStringRef  inFileName,
+				   AudioFileTypeID inFileType,
+				   const AudioStreamBasicDescription *inFormat,
+				   UInt32 inFlags,
+				   struct FSRef *outNewFileRef,
+				   AudioFileID *outAudioFile);
+	 */
+}
 - (void) _initMedia
 {
 	int rc;
@@ -131,10 +226,8 @@ static const pjmedia_tone_desc _tones[]={
 	NSNumber *sv=getProp(@"setVolume",[NSNumber numberWithBool:YES]);
 	NSAssert(sv, @"setVolume not set");
 	if ([sv boolValue]) {
-		if (normalOutputVolume) {
-			SetDefaultOutputVolume(normalOutputVolume);
-			normalOutputVolume=0;
-		}
+		if (inputDevIdx>=0) setVolume(_GlobMacDevIds[inputDevIdx], 1, normalInputGain);
+		if (outputDevIdx>=0) setVolume(_GlobMacDevIds[outputDevIdx], 0, normalOutputVolume);
 	}
 	pjmedia_tonegen_stop(tone_generator);
 	if (output) {
@@ -154,7 +247,8 @@ static const pjmedia_tone_desc _tones[]={
 }
 - (void) localTone:(int) toneNum
 {
-	[self _needOutput];
+	[self _needInput]; // debug
+	[self _needOutput:NO];
 	if (toneNum>sizeof(_tones)/sizeof(pjmedia_tone_desc)) toneNum=-1;
 	if (toneNum>0) {
 		pjmedia_tonegen_play(tone_generator, toneNum, _tones, 1);
@@ -263,9 +357,11 @@ static const pjmedia_tone_desc _tones[]={
 	pjmedia_session_get_port(rtp_session, 0, &media_port);
 
 	[self _needInput];
-	[self _needOutput];
+	[self _needOutput:NO];
 	rc=pjmedia_snd_port_connect(output, media_port);
 	rc=pjmedia_snd_port_connect(input, media_port);
+	rc=pjmedia_snd_port_set_ec(output, pool, 20, 0);
+	
 	return YES;
 }
 @end

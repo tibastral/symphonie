@@ -122,7 +122,7 @@ PJ_DECL(pj_status_t) pjmedia_snd_port_create( pj_pool_t *pool,
  *			    code.
  */
 PJ_DECL(pj_status_t) pjmedia_snd_port_create_rec(pj_pool_t *pool,
-						 int index,
+						 int *pindex,
 						 unsigned clock_rate,
 						 unsigned channel_count,
 						 unsigned samples_per_frame,
@@ -151,7 +151,7 @@ PJ_DECL(pj_status_t) pjmedia_snd_port_create_rec(pj_pool_t *pool,
  *			    code.
  */
 PJ_DECL(pj_status_t) pjmedia_snd_port_create_player(pj_pool_t *pool,
-						    int index,
+						    int *pindex,
 						    unsigned clock_rate,
 						    unsigned channel_count,
 						    unsigned samples_per_frame,
@@ -260,6 +260,7 @@ PJ_DECL(pj_status_t) pjmedia_snd_port_connect(pjmedia_snd_port *snd_port,
  */
 PJ_DECL(pjmedia_port*) pjmedia_snd_port_get_port(pjmedia_snd_port *snd_port);
 
+PJ_DECL(void*) pjmedia_snd_port_get_hwinfo(pjmedia_snd_port *snd_port);
 
 /**
  * Disconnect currently attached port from the sound device port.

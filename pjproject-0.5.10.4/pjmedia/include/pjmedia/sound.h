@@ -210,7 +210,7 @@ PJ_DECL(pj_status_t) pjmedia_snd_open(int rec_id,
  *
  * @return		    PJ_SUCCESS on success.
  */
-PJ_DECL(pj_status_t) pjmedia_snd_open_rec( int index,
+PJ_DECL(pj_status_t) pjmedia_snd_open_rec( int *pindex,
 					   unsigned clock_rate,
 					   unsigned channel_count,
 					   unsigned samples_per_frame,
@@ -239,7 +239,7 @@ PJ_DECL(pj_status_t) pjmedia_snd_open_rec( int index,
  *
  * @return		    PJ_SUCCESS on success.
  */
-PJ_DECL(pj_status_t) pjmedia_snd_open_player( int index,
+PJ_DECL(pj_status_t) pjmedia_snd_open_player( int *pindex,
 					 unsigned clock_rate,
 					 unsigned channel_count,
 					 unsigned samples_per_frame,

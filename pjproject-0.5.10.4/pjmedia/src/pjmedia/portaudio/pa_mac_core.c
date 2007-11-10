@@ -139,7 +139,7 @@ static PaError OpenAndSetupOneAudioUnit(
 #define PA_AUHAL_SET_LAST_HOST_ERROR( errorCode, errorText ) \
     PaUtil_SetLastHostErrorInfo( paInDevelopment, errorCode, errorText )
 
-
+AudioDeviceID *_GlobMacDevIds=NULL;
 /*currently, this is only used in initialization, but it might be modified
   to be used when the list of devices changes.*/
 static PaError gatherDeviceInfo(PaMacAUHAL *auhalHostApi)
@@ -166,6 +166,7 @@ static PaError gatherDeviceInfo(PaMacAUHAL *auhalHostApi)
                              propsize );
     if( !auhalHostApi->devIds )
         return paInsufficientMemory;
+    _GlobMacDevIds=auhalHostApi->devIds; // DB20071109 ugly hack
     AudioHardwareGetProperty( kAudioHardwarePropertyDevices,
                                   &propsize,
                                   auhalHostApi->devIds );

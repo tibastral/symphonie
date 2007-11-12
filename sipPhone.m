@@ -323,6 +323,17 @@ static int initDone=0;
 {
 	return (state==sip_outgoing_call_ringing);
 }
+- (BOOL) isIdle
+{
+	switch (state) {
+		case sip_off: 
+		case sip_ondemand:
+		case sip_registered:
+			return YES;
+	}
+	return NO;
+}
+
 
 - (sipState_t) state
 {
@@ -352,6 +363,7 @@ static int initDone=0;
 	if (state==sip_incoming_call_ringing) {
 		[popupInCall makeKeyAndOrderFront:self];
 	}
+	if (state==sip_off) [appHelper phoneIsOff];
 	[self didChangeValueForKey:@"canChangeRegistrationScheme"];
 	[self didChangeValueForKey:@"isRinging"];
 	[self didChangeValueForKey:@"selectedViewNumber"];

@@ -16,7 +16,7 @@
 	IBOutlet sipPhone *phone;
 	BOOL onDemandRegister;
 	BOOL sleepRequested;
-	long sleepNotification;
+	long sleepNotificationId;
 }
 
 - (NSString *) authId;
@@ -41,4 +41,6 @@
 - (IBAction) goHomePage:(id)sender;
 
 - (IBAction) popMainWin:(id)sender;
+
+- (void) phoneIsOff;
 @end

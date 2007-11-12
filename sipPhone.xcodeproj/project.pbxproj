@@ -217,6 +217,7 @@
 		1B46F3780CD7106D00397E41 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 1B46F36E0CD70FBA00397E41 /* Credits.rtf */; };
 		1BB0E7830CE8365200207E64 /* BundledScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB0E7820CE8365200207E64 /* BundledScript.m */; };
 		1BB0E7DA0CE83B6400207E64 /* sipPhoneAppCtl.scpt in Resources */ = {isa = PBXBuildFile; fileRef = 1BB0E7D90CE83B5D00207E64 /* sipPhoneAppCtl.scpt */; };
+		1BB0E8320CE8FBBE00207E64 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BB0E8310CE8FBBE00207E64 /* IOKit.framework */; };
 		1BC968310CC9F139004C0339 /* eXcall_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 1BC9680F0CC9F139004C0339 /* eXcall_api.c */; };
 		1BC968320CC9F139004C0339 /* eXconf.c in Sources */ = {isa = PBXBuildFile; fileRef = 1BC968100CC9F139004C0339 /* eXconf.c */; };
 		1BC968330CC9F139004C0339 /* eXinsubscription_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 1BC968110CC9F139004C0339 /* eXinsubscription_api.c */; };
@@ -612,6 +613,7 @@
 		1BB0E7810CE8365200207E64 /* BundledScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BundledScript.h; sourceTree = "<group>"; };
 		1BB0E7820CE8365200207E64 /* BundledScript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BundledScript.m; sourceTree = "<group>"; };
 		1BB0E7D90CE83B5D00207E64 /* sipPhoneAppCtl.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; path = sipPhoneAppCtl.scpt; sourceTree = "<group>"; };
+		1BB0E8310CE8FBBE00207E64 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		1BC9680F0CC9F139004C0339 /* eXcall_api.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = eXcall_api.c; path = "libeXosip2-2.2.3/src/eXcall_api.c"; sourceTree = "<group>"; };
 		1BC968100CC9F139004C0339 /* eXconf.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = eXconf.c; path = "libeXosip2-2.2.3/src/eXconf.c"; sourceTree = "<group>"; };
 		1BC968110CC9F139004C0339 /* eXinsubscription_api.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = eXinsubscription_api.c; path = "libeXosip2-2.2.3/src/eXinsubscription_api.c"; sourceTree = "<group>"; };
@@ -755,6 +757,7 @@
 				1B46ECEC0CCE73BA00397E41 /* Carbon.framework in Frameworks */,
 				1B46F0770CD1FEB400397E41 /* SystemConfiguration.framework in Frameworks */,
 				1B46F2260CD6431000397E41 /* Security.framework in Frameworks */,
+				1BB0E8320CE8FBBE00207E64 /* IOKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -792,6 +795,7 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1BB0E8310CE8FBBE00207E64 /* IOKit.framework */,
 				1B46F2250CD6431000397E41 /* Security.framework */,
 				1B46F0760CD1FEB400397E41 /* SystemConfiguration.framework */,
 				1B46ECEB0CCE73BA00397E41 /* Carbon.framework */,
@@ -1803,7 +1807,11 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(DEVELOPER_DIR)/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -1834,7 +1842,11 @@
 					ppc,
 					i386,
 				);
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(DEVELOPER_DIR)/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks\"";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				INFOPLIST_FILE = Info.plist;

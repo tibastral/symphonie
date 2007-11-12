@@ -16,6 +16,9 @@
 #import <Carbon/Carbon.h>
 
 
+#include <IOKit/pwr_mgt/IOPMLib.h>
+#include <IOKit/IOMessage.h>
+
 @implementation AppHelper
 
 - (id) init {
@@ -43,13 +46,52 @@
 	[phone registerPhone:self];
 }
 
-- (void) _goSleep:(NSNotification*)notif 
+static io_connect_t  root_port;   // a reference to the Root Power Domain IOService
+
+- (void) sleepOk
+{
+	NSLog(@"sleepok\n");
+	IOAllowPowerChange(root_port, sleepNotificationId);
+}
+
+- (void) phoneIsOff
+{
+	if (sleepRequested) [self sleepOk];
+}
+
+- (void) _sessionOut:(NSNotification*)notif 
 {
 	NSLog(@"sleeping, notification %@, ui=%@\n", notif, [notif userInfo]);
 	switch ([phone state]) {
 		case sip_off:
 		case sip_ondemand:
-			//IOAllowPowerChange(root_port, xxx);
+			break;
+		default:
+			[phone unregisterPhone:self];
+			//sleepRequested=YES;
+			// sleepNotification=....
+			break;
+	}
+	// should call IOAllowPowerChange
+
+}
+#if 0
+- (void) _goOff:(NSNotification*)notif 
+{
+	NSLog(@"sleeping\n");
+	[phone unregisterPhone:self];
+	
+}
+#endif
+
+- (void) _goSleep:(long)notifId
+{
+	NSLog(@"sleeping (%lX)", notifId);
+	sleepNotificationId=notifId;
+	switch ([phone state]) {
+		case sip_off:
+		case sip_ondemand:
+			[self sleepOk];
 			break;
 		default:
 			[phone unregisterPhone:self];
@@ -58,13 +100,84 @@
 			break;
 	}
 	// should call IOAllowPowerChange
-
-}
-- (void) _goOff:(NSNotification*)notif 
-{
-	NSLog(@"sleeping\n");
-	[phone unregisterPhone:self];
 	
+}
+
+- (BOOL) canSleep
+{
+	if ([phone isIdle]) return YES;
+	return NO;
+}
+
+static void MySleepCallBack( void * refCon, io_service_t service, natural_t messageType, void * messageArgument )
+{
+	NSLog(@ "messageType %08lx, arg %08lx\n",
+	       (long unsigned int)messageType,
+	       (long unsigned int)messageArgument );
+	AppHelper *me=(AppHelper *) refCon;
+
+	switch ( messageType ) {
+		case kIOMessageCanSystemSleep:
+			/*
+			 Idle sleep is about to kick in.
+			 Applications have a chance to prevent sleep by calling IOCancelPowerChange.
+			 Most applications should not prevent idle sleep.
+			 
+			 Power Management waits up to 30 seconds for you to either allow or deny idle sleep.
+			 If you don't acknowledge this power change by calling either IOAllowPowerChange
+			 or IOCancelPowerChange, the system will wait 30 seconds then go to sleep.
+			 */
+			NSLog(@"kIOMessageCanSystemSleep\n");
+			//IOCancelPowerChange(root_port, (long)messageArgument);
+			if ([me canSleep]) {
+				// we will allow idle sleep
+				IOAllowPowerChange( root_port, (long)messageArgument );
+			} else {
+				IOCancelPowerChange( root_port, (long)messageArgument );
+			}
+			break;
+			
+		case kIOMessageSystemWillSleep:
+			/* The system WILL go to sleep. If you do not call IOAllowPowerChange or
+			 IOCancelPowerChange to acknowledge this message, sleep will be
+			 delayed by 30 seconds.
+			 
+			 NOTE: If you call IOCancelPowerChange to deny sleep it returns kIOReturnSuccess,
+			 however the system WILL still go to sleep.
+			 */
+			
+			// we cannot deny forced sleep
+			[me _goSleep:(long)messageArgument];
+			
+			NSLog(@"kIOMessageSystemWillSleep\n");
+			//IOAllowPowerChange( root_port, (long)messageArgument );
+			break;
+			
+			
+		default:
+			break;
+			
+	}
+}
+
+
+- (void) addPowerNotif
+{
+	IONotificationPortRef  notifyPortRef;   // notification port allocated by IORegisterForSystemPower
+	io_object_t            notifierObject;  // notifier object, used to deregister later
+	
+	// register to receive system sleep notifications
+	root_port = IORegisterForSystemPower( (void *) self, &notifyPortRef, MySleepCallBack, &notifierObject );
+	if (!root_port)
+	{
+		printf("IORegisterForSystemPower failed\n");
+		return;
+	}
+	
+	// add the notification port to the application runloop
+	CFRunLoopAddSource( CFRunLoopGetCurrent(),
+			   IONotificationPortGetRunLoopSource(notifyPortRef),
+			   kCFRunLoopCommonModes );
 }
 
 - (void) _other:(NSNotification*)notif 
@@ -133,18 +246,19 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 	[prefPanel setLevel:NSModalPanelWindowLevel];
 	[prefPanel setAlphaValue:0.95];
 	
+	[self addPowerNotif];
 	NSNotificationCenter *notCenter;
 	notCenter = [[NSWorkspace sharedWorkspace] notificationCenter];
 	[notCenter addObserver:self selector:@selector(_wakeUp:)
 			  name:NSWorkspaceSessionDidBecomeActiveNotification object:nil];
-	[notCenter addObserver:self selector:@selector(_goSleep:)
+	[notCenter addObserver:self selector:@selector(_sessionOut:)
 			  name:NSWorkspaceSessionDidResignActiveNotification object:nil];
 	[notCenter addObserver:self selector:@selector(_wakeUp:)
 			  name:NSWorkspaceDidWakeNotification object:nil];
-	[notCenter addObserver:self selector:@selector(_goSleep:)
-			  name:NSWorkspaceWillSleepNotification object:nil];
-	[notCenter addObserver:self selector:@selector(_goOff:)
-			  name:NSWorkspaceWillPowerOffNotification object:nil];
+	//[notCenter addObserver:self selector:@selector(_goSleep:)
+	//		  name:NSWorkspaceWillSleepNotification object:nil];
+	//[notCenter addObserver:self selector:@selector(_goOff:)
+	//		  name:NSWorkspaceWillPowerOffNotification object:nil];
 	if (0) [notCenter addObserver:self selector:@selector(_other:)
 			  name:nil object:nil];
 	SCNetworkReachabilityRef        thisTarget;

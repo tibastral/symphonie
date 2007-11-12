@@ -38,7 +38,7 @@
 - (NSString *) cannonicalDisplayCallNumber
 {
 	NSString *s;
-	char szTmp[1024];
+	//char szTmp[1024];
 
 	s=[self cannonicalCallNumber];
 	//int i;

@@ -818,8 +818,8 @@ PJ_DEF(pj_status_t) pjmedia_snd_open_player( int index,
 /*
  * Open both player and recorder.
  */
-PJ_DEF(pj_status_t) pjmedia_snd_open( int rec_id,
-				      int play_id,
+PJ_DEF(pj_status_t) pjmedia_snd_open( int *prec_id,
+				      int *pplay_id,
 				      unsigned clock_rate,
 				      unsigned channel_count,
 				      unsigned samples_per_frame,

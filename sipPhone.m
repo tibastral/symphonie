@@ -713,7 +713,7 @@ refuse_call:
 					[self didChangeValueForKey:@"remoteSdp"];
 					
 					BOOL ok=[userPlane setupWithtLocalSdp:localSdp remoteSdp:remoteSdp outCall:YES negociatedLocal:nil];
-					
+					if (!ok) NSLog(@"userplane setup problem\n");
 					//[self establishUserPlaneLocal:&local_med remote:&remote_med];
 					
 					osip_message_t *ack;

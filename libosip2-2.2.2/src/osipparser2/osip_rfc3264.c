@@ -442,7 +442,7 @@ osip_rfc3264_find_video (struct osip_rfc3264 * config, char *payload, char *rtpm
 sdp_media_t *
 osip_rfc3264_find_t38 (struct osip_rfc3264 * config, char *payload)
 {
-  osip_rfc3264_t *cnf = (osip_rfc3264_t *) config;
+  //osip_rfc3264_t *cnf = (osip_rfc3264_t *) config;
 
   if (config == NULL)
     return NULL;
@@ -457,7 +457,7 @@ osip_rfc3264_find_t38 (struct osip_rfc3264 * config, char *payload)
 sdp_media_t *
 osip_rfc3264_find_app (struct osip_rfc3264 * config, char *payload)
 {
-  osip_rfc3264_t *cnf = (osip_rfc3264_t *) config;
+  //osip_rfc3264_t *cnf = (osip_rfc3264_t *) config;
 
   if (config == NULL)
     return NULL;

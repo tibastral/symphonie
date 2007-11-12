@@ -237,8 +237,8 @@ static pj_status_t start_sound_device( pj_pool_t *pool,
 					  &snd_port->snd_stream);
 
     } else if (snd_port->dir == PJMEDIA_DIR_CAPTURE_PLAYBACK) {
-	status = pjmedia_snd_open( snd_port->rec_id, 
-				   snd_port->play_id,
+	status = pjmedia_snd_open( &snd_port->rec_id, 
+				   &snd_port->play_id,
 				   snd_port->clock_rate,
 				   snd_port->channel_count,
 				   snd_port->samples_per_frame,
@@ -321,8 +321,8 @@ static pj_status_t stop_sound_device( pjmedia_snd_port *snd_port )
  * Create bidirectional port.
  */
 PJ_DEF(pj_status_t) pjmedia_snd_port_create( pj_pool_t *pool,
-					     int rec_id,
-					     int play_id,
+					     int *prec_id,
+					     int *pplay_id,
 					     unsigned clock_rate,
 					     unsigned channel_count,
 					     unsigned samples_per_frame,
@@ -337,8 +337,8 @@ PJ_DEF(pj_status_t) pjmedia_snd_port_create( pj_pool_t *pool,
     snd_port = pj_pool_zalloc(pool, sizeof(pjmedia_snd_port));
     PJ_ASSERT_RETURN(snd_port, PJ_ENOMEM);
 
-    snd_port->rec_id = rec_id;
-    snd_port->play_id = play_id;
+    snd_port->rec_id = *prec_id;
+    snd_port->play_id = *pplay_id;
     snd_port->dir = PJMEDIA_DIR_CAPTURE_PLAYBACK;
     snd_port->options = options | DEFAULT_OPTIONS;
     snd_port->clock_rate = clock_rate;
@@ -353,7 +353,10 @@ PJ_DEF(pj_status_t) pjmedia_snd_port_create( pj_pool_t *pool,
      * If there's no port connected, the sound callback will return
      * empty signal.
      */
-    return start_sound_device( pool, snd_port );
+    pj_status_t rc= start_sound_device( pool, snd_port );
+    *prec_id=snd_port->rec_id;
+    *pplay_id=snd_port->play_id;
+    return rc;
 
 }
 

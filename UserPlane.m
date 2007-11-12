@@ -8,6 +8,7 @@
 
 #import "UserPlane.h"
 #import "Properties.h"
+#import "BundledScript.h"
 
 #include <AudioUnit/AudioUnit.h>
 #include <CoreAudio/CoreAudio.h>
@@ -101,16 +102,42 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 				
 }
 
+- (BOOL) setHog:(AudioDeviceID) dev input:(int)isInput value:(BOOL)hog
+{
+	if (!hasWProperty(dev, 0, isInput,kAudioDevicePropertyHogMode)) {
+		return hogged;
+	}
+	pid_t hpid=(pid_t)getpid();
+	if (hog) {
+		if (hogged) return hogged;
+		OSStatus rc=AudioDeviceSetProperty(dev, NULL, 0, isInput, kAudioDevicePropertyHogMode, sizeof(hpid), &hpid);
+		NSLog(@"hog mode on: %d / %d - rx=%X\n", (int) hpid, getpid(), rc);
+		if (hpid==getpid()) {
+			hogged=YES;
+		}
+	} else {
+		if (!hogged) return hogged;
+		AudioDeviceSetProperty(dev, NULL, 0, isInput, kAudioDevicePropertyHogMode, sizeof(hpid), &hpid);
+		NSLog(@"hog mode off: %d / %d\n", (int) hpid, getpid());
+		if (hpid != getpid()) hogged=NO;
+	}
+	return hogged;
+}
 
-- (void) _needOutput:(BOOL)ring
+
+
+- (void) _needInputOutput:(BOOL)ring
 {
 	int rc;
-	if (output) return;
+	if (inputOutput) return;
 	
 	//long vol;
 	//GetDefaultOutputVolume(&vol);
 	//SetDefaultOutputVolume(vol*4);
-	
+	if (1) {
+		BundledScript *sc=[BundledScript bundledScript:@"sipPhoneAppCtl"];
+		[sc runEvent:@"pauseApp" withArgs:nil];
+	}
 #if 0
 	int ndev=pjmedia_snd_get_dev_count();
 	int i;
@@ -121,7 +148,9 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	}
 #endif
 	outputDevIdx=-1;
-	rc = pjmedia_snd_port_create_player(
+	inputDevIdx=-1;
+	if (ring) {
+		rc = pjmedia_snd_port_create_player(
 					    pool,                              /* pool                 */
 					    &outputDevIdx,                                /* use default dev.     */
 					    8000,				 /* clock rate.          */
@@ -129,9 +158,22 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 					    SAMPLES_PER_FRAME,		 /* samples per frame.   */
 					    16,   /* bits per sample.     */
 					    0,                                 /* options              */
-					    &output                          /* returned port        */
+					    &inputOutput                          /* returned port        */
 					    );
-	NSAssert(!rc, @"pj_init failed");
+	} else {
+		rc = pjmedia_snd_port_create(
+						    pool,                              /* pool                 */
+						    &inputDevIdx,
+						    &outputDevIdx,                                /* use default dev.     */
+						    8000,				 /* clock rate.          */
+						    1,				 /* # of channels.       */
+						    SAMPLES_PER_FRAME,		 /* samples per frame.   */
+						    16,   /* bits per sample.     */
+						    0,                                 /* options              */
+						    &inputOutput                          /* returned port        */
+						    );
+	}
+	NSAssert(!rc, @"pjmedia_snd_port_create failed");
 	//NSLog(@"pjmedia_snd_port_create_player devid %d\n", output->play_id);
 	//PJ_DEF(const pjmedia_snd_dev_info*) pjmedia_snd_get_dev_info(unsigned index)
 	//const void *info=pjmedia_snd_port_get_hwinfo(output);
@@ -139,12 +181,26 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	NSAssert(outputDevIdx<32, @"bad play id");
 	NSLog(@"using play audio id %d\n", _GlobMacDevIds[outputDevIdx]);
 	NSNumber *sv=getProp(@"setVolume",[NSNumber numberWithBool:YES]);
+	
+	normalOutputVolume=getVolume(_GlobMacDevIds[outputDevIdx], 0);
+	
 	if ([sv boolValue]) {
-		normalOutputVolume=getVolume(_GlobMacDevIds[outputDevIdx], 0);
+		
 		setVolume(_GlobMacDevIds[outputDevIdx], 0, [getProp(ring ? @"outputVolume" : @"ringVolume", [NSNumber numberWithFloat:-8]) floatValue]);
+		if (!ring) {
+			NSAssert(inputDevIdx>=0, @"bad rec id");
+			NSAssert(inputDevIdx<32, @"bad rec id");
+			normalInputGain=getVolume(_GlobMacDevIds[inputDevIdx], 1);
+			setVolume(_GlobMacDevIds[inputDevIdx], 1, [getProp(@"inputGain", [NSNumber numberWithFloat:100]) floatValue]);
+		}
+
+	}
+	if (0&& getProp(@"hogMode", [NSNumber numberWithBool:YES])) {
+		[self setHog:(AudioDeviceID) _GlobMacDevIds[outputDevIdx] input:0 value:YES];
 	}
 }
 
+#if 0
 - (void) _needInput
 {
 	int rc;
@@ -172,6 +228,7 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	}
 	
 }
+#endif
 
 - (void) startRing
 {
@@ -194,7 +251,7 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	if (!mediaInitDone) {
 		rc= pj_init();
 		NSAssert(!rc, @"pj_init failed");
-		pj_log_set_level(1);
+		pj_log_set_level(99);
 		mediaInitDone=1;
 	}
 	pj_caching_pool_init(&cp, &pj_pool_factory_default_policy, 0);
@@ -225,21 +282,26 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 {
 	NSNumber *sv=getProp(@"setVolume",[NSNumber numberWithBool:YES]);
 	NSAssert(sv, @"setVolume not set");
+	[self setHog:(AudioDeviceID) _GlobMacDevIds[outputDevIdx] input:0 value:NO];
+
 	if ([sv boolValue]) {
 		if (inputDevIdx>=0) setVolume(_GlobMacDevIds[inputDevIdx], 1, normalInputGain);
 		if (outputDevIdx>=0) setVolume(_GlobMacDevIds[outputDevIdx], 0, normalOutputVolume);
 	}
+
 	pjmedia_tonegen_stop(tone_generator);
-	if (output) {
-		pjmedia_snd_port_disconnect(output);
-		pjmedia_snd_port_destroy(output);
-		output=NULL;
+	if (inputOutput) {
+		pjmedia_snd_port_disconnect(inputOutput);
+		pjmedia_snd_port_destroy(inputOutput);
+		inputOutput=NULL;
 	}
+#if 0
 	if (input) {
 		pjmedia_snd_port_disconnect(input);
 		pjmedia_snd_port_destroy(input);
 		input=NULL;
 	}
+#endif
 }
 
 - (void) startUserPlane
@@ -247,15 +309,15 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 }
 - (void) localTone:(int) toneNum
 {
-	[self _needInput]; // debug
-	[self _needOutput:NO];
+	//[self _needInput]; // debug
+	[self _needInputOutput:NO];
 	if (toneNum>sizeof(_tones)/sizeof(pjmedia_tone_desc)) toneNum=-1;
 	if (toneNum>0) {
 		pjmedia_tonegen_play(tone_generator, toneNum, _tones, 1);
 	} else {
 		pjmedia_tonegen_stop(tone_generator);
 	}
-	pjmedia_snd_port_connect(output, tone_generator);
+	pjmedia_snd_port_connect(inputOutput, tone_generator);
 
 }
 - (void) sendDtmf:(NSString *)digits
@@ -356,11 +418,10 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	pjmedia_port *media_port;
 	pjmedia_session_get_port(rtp_session, 0, &media_port);
 
-	[self _needInput];
-	[self _needOutput:NO];
-	rc=pjmedia_snd_port_connect(output, media_port);
-	rc=pjmedia_snd_port_connect(input, media_port);
-	rc=pjmedia_snd_port_set_ec(output, pool, 20, 0);
+	[self _needInputOutput:NO];
+	rc=pjmedia_snd_port_connect(inputOutput, media_port);
+	//rc=pjmedia_snd_port_connect(input, media_port);
+	//rc=pjmedia_snd_port_set_ec(inputOutput, pool, 20, 0);
 	
 	return YES;
 }

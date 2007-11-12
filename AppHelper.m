@@ -245,7 +245,7 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 {
 	OSStatus status;
 	const char *passwordUTF8 = [password UTF8String];
-	UInt32 plen=(UInt32) strlen(passwordUTF8);
+	//UInt32 plen=(UInt32) strlen(passwordUTF8);
 	status = SecKeychainItemModifyAttributesAndData (
 							 itemRef,         // the item reference
 							 NULL,            // no change to attributes

@@ -215,6 +215,8 @@
 		1B46F0770CD1FEB400397E41 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B46F0760CD1FEB400397E41 /* SystemConfiguration.framework */; };
 		1B46F2260CD6431000397E41 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B46F2250CD6431000397E41 /* Security.framework */; };
 		1B46F3780CD7106D00397E41 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 1B46F36E0CD70FBA00397E41 /* Credits.rtf */; };
+		1BB0E7830CE8365200207E64 /* BundledScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB0E7820CE8365200207E64 /* BundledScript.m */; };
+		1BB0E7DA0CE83B6400207E64 /* sipPhoneAppCtl.scpt in Resources */ = {isa = PBXBuildFile; fileRef = 1BB0E7D90CE83B5D00207E64 /* sipPhoneAppCtl.scpt */; };
 		1BC968310CC9F139004C0339 /* eXcall_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 1BC9680F0CC9F139004C0339 /* eXcall_api.c */; };
 		1BC968320CC9F139004C0339 /* eXconf.c in Sources */ = {isa = PBXBuildFile; fileRef = 1BC968100CC9F139004C0339 /* eXconf.c */; };
 		1BC968330CC9F139004C0339 /* eXinsubscription_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 1BC968110CC9F139004C0339 /* eXinsubscription_api.c */; };
@@ -607,6 +609,9 @@
 		1B46F0760CD1FEB400397E41 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = /System/Library/Frameworks/SystemConfiguration.framework; sourceTree = "<absolute>"; };
 		1B46F2250CD6431000397E41 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
 		1B46F36E0CD70FBA00397E41 /* Credits.rtf */ = {isa = PBXFileReference; explicitFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
+		1BB0E7810CE8365200207E64 /* BundledScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BundledScript.h; sourceTree = "<group>"; };
+		1BB0E7820CE8365200207E64 /* BundledScript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BundledScript.m; sourceTree = "<group>"; };
+		1BB0E7D90CE83B5D00207E64 /* sipPhoneAppCtl.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; path = sipPhoneAppCtl.scpt; sourceTree = "<group>"; };
 		1BC9680F0CC9F139004C0339 /* eXcall_api.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = eXcall_api.c; path = "libeXosip2-2.2.3/src/eXcall_api.c"; sourceTree = "<group>"; };
 		1BC968100CC9F139004C0339 /* eXconf.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = eXconf.c; path = "libeXosip2-2.2.3/src/eXconf.c"; sourceTree = "<group>"; };
 		1BC968110CC9F139004C0339 /* eXinsubscription_api.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = eXinsubscription_api.c; path = "libeXosip2-2.2.3/src/eXinsubscription_api.c"; sourceTree = "<group>"; };
@@ -759,6 +764,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				1BB0E7810CE8365200207E64 /* BundledScript.h */,
+				1BB0E7820CE8365200207E64 /* BundledScript.m */,
 				1B46EEE80CD0006500397E41 /* Properties.h */,
 				1BC968FE0CC9F78F004C0339 /* sipPhone.h */,
 				1BC968FF0CC9F78F004C0339 /* sipPhone.m */,
@@ -1391,6 +1398,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1BB0E7D90CE83B5D00207E64 /* sipPhoneAppCtl.scpt */,
 				1B46EE070CCF1A9800397E41 /* icon.icns */,
 				1B46F36E0CD70FBA00397E41 /* Credits.rtf */,
 				8D1107310486CEB800E47090 /* Info.plist */,
@@ -1436,9 +1444,11 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "sipPhone" */;
+			compatibilityVersion = "Xcode 2.4";
 			hasScannedForEncodings = 1;
 			mainGroup = 29B97314FDCFA39411CA2CEA /* sipPhone */;
 			projectDirPath = "";
+			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* sipPhone */,
 			);
@@ -1450,6 +1460,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BB0E7DA0CE83B6400207E64 /* sipPhoneAppCtl.scpt in Resources */,
 				8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */,
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1B46EE080CCF1A9800397E41 /* icon.icns in Resources */,
@@ -1753,6 +1764,7 @@
 				1B0BE71D0CD7F90D00ED1901 /* vq.c in Sources */,
 				1B0BE71E0CD7F90D00ED1901 /* window.c in Sources */,
 				1B0BE72C0CD7F90D00ED1901 /* speex_codec.c in Sources */,
+				1BB0E7830CE8365200207E64 /* BundledScript.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

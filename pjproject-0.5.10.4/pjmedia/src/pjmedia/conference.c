@@ -420,7 +420,8 @@ static pj_status_t create_sound_port( pj_pool_t *pool,
 	 * Otherwise create bidirectional sound device port.
 	 */
 	if (conf->options & PJMEDIA_CONF_NO_MIC)  {
-	    status = pjmedia_snd_port_create_player(pool, -1, conf->clock_rate,
+		int dev=-1;
+	    status = pjmedia_snd_port_create_player(pool, &dev, conf->clock_rate,
 						    conf->channel_count,
 						    conf->samples_per_frame,
 						    conf->bits_per_sample, 
@@ -428,7 +429,9 @@ static pj_status_t create_sound_port( pj_pool_t *pool,
 						    &conf->snd_dev_port);
 
 	} else {
-	    status = pjmedia_snd_port_create( pool, -1, -1, conf->clock_rate, 
+		int devp=-1;
+		int devr=-1;
+	    status = pjmedia_snd_port_create( pool, &devr, &devp, conf->clock_rate, 
 					      conf->channel_count, 
 					      conf->samples_per_frame,
 					      conf->bits_per_sample,

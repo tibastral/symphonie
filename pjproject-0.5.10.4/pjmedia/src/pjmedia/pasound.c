@@ -517,8 +517,8 @@ PJ_DEF(pj_status_t) pjmedia_snd_open_player( int *pindex,
 /*
  * Open both player and recorder.
  */
-PJ_DEF(pj_status_t) pjmedia_snd_open( int rec_id,
-				      int play_id,
+PJ_DEF(pj_status_t) pjmedia_snd_open( int *prec_id,
+				      int *pplay_id,
 				      unsigned clock_rate,
 				      unsigned channel_count,
 				      unsigned samples_per_frame,
@@ -542,28 +542,28 @@ PJ_DEF(pj_status_t) pjmedia_snd_open( int rec_id,
     unsigned paFrames, paRate, paInputLatency, paOutputLatency;
     PaError err;
 
-    if (rec_id < 0) {
-	rec_id = pa_get_default_input_dev(channel_count);
-	if (rec_id < 0) {
+    if (*prec_id < 0) {
+	*prec_id = pa_get_default_input_dev(channel_count);
+	if (*prec_id < 0) {
 	    /* No such device. */
 	    return PJMEDIA_ENOSNDREC;
 	}
     }
-
+    int rec_id=*prec_id;
     paRecDevInfo = Pa_GetDeviceInfo(rec_id);
     if (!paRecDevInfo) {
 	/* Assumed it is "No such device" error. */
 	return PJMEDIA_ESNDINDEVID;
     }
 
-    if (play_id < 0) {
-	play_id = pa_get_default_output_dev(channel_count);
-	if (play_id < 0) {
+    if (*pplay_id < 0) {
+	*pplay_id = pa_get_default_output_dev(channel_count);
+	if (*pplay_id < 0) {
 	    /* No such device. */
 	    return PJMEDIA_ENOSNDPLAY;
 	}
     } 
-
+    int play_id=*pplay_id;
     paPlayDevInfo = Pa_GetDeviceInfo(play_id);
     if (!paPlayDevInfo) {
 	/* Assumed it is "No such device" error. */

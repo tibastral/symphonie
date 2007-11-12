@@ -96,8 +96,8 @@
 
 FILE *logfile = NULL;
 int tracing_table[END_TRACE_LEVEL];
-static int use_syslog = 0;
-static osip_trace_func_t *trace_func = 0;
+//static int use_syslog = 0;
+//static osip_trace_func_t *trace_func = 0;
 
 static unsigned int random_seed_set = 0;
 

@@ -92,8 +92,8 @@ typedef struct pjmedia_snd_port pjmedia_snd_port;
  *			    code.
  */
 PJ_DECL(pj_status_t) pjmedia_snd_port_create( pj_pool_t *pool,
-					      int rec_id,
-					      int play_id,
+					      int *prec_id,
+					      int *pplay_id,
 					      unsigned clock_rate,
 					      unsigned channel_count,
 					      unsigned samples_per_frame,

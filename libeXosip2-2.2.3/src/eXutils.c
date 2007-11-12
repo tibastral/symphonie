@@ -385,7 +385,7 @@ static int
 ppl_dns_default_gateway_ipv4 (char *address, int size)
 {
 #ifdef __APPLE_CC__
-  int len;
+  socklen_t len;
 #else
   socklen_t len;
 #endif
@@ -446,7 +446,7 @@ static int
 ppl_dns_default_gateway_ipv6 (char *address, int size)
 {
 #ifdef __APPLE_CC__
-  int len;
+  socklen_t len;
 #else
   socklen_t len;
 #endif
@@ -507,7 +507,7 @@ eXosip_get_localip_for (const char *address_to_reach, char *loc, int size)
   int sock;
 
 #ifdef __APPLE_CC__
-  int s;
+  socklen_t s;
 #else
   socklen_t s;
 #endif

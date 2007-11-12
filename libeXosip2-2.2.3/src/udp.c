@@ -1655,7 +1655,7 @@ eXosip_read_message (int max_message_nb, int sec_max, int usec_max)
 #ifdef __linux
           socklen_t slen;
 #else
-          int slen;
+          socklen_t slen;
 #endif
           if (ipv6_enable == 0)
             slen = sizeof (struct sockaddr_in);
@@ -1718,7 +1718,7 @@ eXosip_read_message (int max_message_nb, int sec_max, int usec_max)
 #ifdef __linux
           socklen_t slen;
 #else
-          int slen;
+          socklen_t slen;
 #endif
           if (ipv6_enable == 0)
             slen = sizeof (struct sockaddr_in);

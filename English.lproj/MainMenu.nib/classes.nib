@@ -1,36 +1,93 @@
-{
-    IBClasses = (
-        {
-            ACTIONS = {goHomePage = id; popMainWin = id; }; 
-            CLASS = AppHelper; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {mainWin = NSWindow; phone = sipPhone; prefPanel = NSPanel; }; 
-            SUPERCLASS = NSObject; 
-        }, 
-        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
-        {CLASS = NSSegmentedControl; LANGUAGE = ObjC; SUPERCLASS = NSControl; }, 
-        {
-            ACTIONS = {
-                acceptCall = id; 
-                dialOutCall = id; 
-                hangUpCall = id; 
-                pretendRegistered = id; 
-                registerPhone = id; 
-                test1 = id; 
-                test2 = id; 
-                unregisterPhone = id; 
-            }; 
-            CLASS = sipPhone; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {
-                abPicker = ABPeoplePickerView; 
-                appHelper = AppHelper; 
-                callView = NSTabView; 
-                mainWin = NSWindow; 
-                popupInCallView = NSView; 
-            }; 
-            SUPERCLASS = NSObject; 
-        }
-    ); 
-    IBVersion = 1; 
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IBClasses</key>
+	<array>
+		<dict>
+			<key>CLASS</key>
+			<string>NSSegmentedControl</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSControl</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>acceptCall</key>
+				<string>id</string>
+				<key>dialOutCall</key>
+				<string>id</string>
+				<key>hangUpCall</key>
+				<string>id</string>
+				<key>pretendRegistered</key>
+				<string>id</string>
+				<key>registerPhone</key>
+				<string>id</string>
+				<key>terminateCall</key>
+				<string>id</string>
+				<key>test1</key>
+				<string>id</string>
+				<key>test2</key>
+				<string>id</string>
+				<key>unregisterPhone</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>sipPhone</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>abPicker</key>
+				<string>ABPeoplePickerView</string>
+				<key>appHelper</key>
+				<string>AppHelper</string>
+				<key>callView</key>
+				<string>NSTabView</string>
+				<key>mainWin</key>
+				<string>NSWindow</string>
+				<key>popupInCallView</key>
+				<string>NSView</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>goHomePage</key>
+				<string>id</string>
+				<key>popMainWin</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>AppHelper</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>mainWin</key>
+				<string>NSWindow</string>
+				<key>phone</key>
+				<string>sipPhone</string>
+				<key>prefPanel</key>
+				<string>NSPanel</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>FirstResponder</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+	</array>
+	<key>IBVersion</key>
+	<string>1</string>
+</dict>
+</plist>

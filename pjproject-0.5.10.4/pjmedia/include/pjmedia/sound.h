@@ -179,8 +179,8 @@ PJ_DECL(const pjmedia_snd_dev_info*) pjmedia_snd_get_dev_info(unsigned index);
  *
  * @return		    PJ_SUCCESS on success.
  */
-PJ_DECL(pj_status_t) pjmedia_snd_open(int rec_id,
-				      int play_id,
+PJ_DECL(pj_status_t) pjmedia_snd_open(int *prec_id,
+				      int *pplay_id,
 				      unsigned clock_rate,
 				      unsigned channel_count,
 				      unsigned samples_per_frame,

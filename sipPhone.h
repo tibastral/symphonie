@@ -101,6 +101,8 @@ typedef enum {
 
 - (BOOL) incomingCallActive;
 - (BOOL) outgoingCallActive;
+- (void) makeOutCall;
+
 //- (BOOL) onCallActive;
 - (BOOL) canChangeRegistrationScheme;
 - (BOOL) onLine;

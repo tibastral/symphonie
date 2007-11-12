@@ -743,7 +743,7 @@ static pj_status_t put_frame( pjmedia_port *port,
     /* If VAD is temporarily disabled during creation, enable it
      * after transmitting for VAD_SUSPEND_SEC seconds.
      */
-    if (stream->vad_enabled != stream->codec_param.setting.vad &&
+    if (0 /*XXX DB*/ && stream->vad_enabled != stream->codec_param.setting.vad &&
 	(stream->tx_duration - stream->ts_vad_disabled) > 
 	stream->port.info.clock_rate * PJMEDIA_STREAM_VAD_SUSPEND_MSEC / 1000)
     {

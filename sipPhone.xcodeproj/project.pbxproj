@@ -94,7 +94,6 @@
 		1B0BE5A10CD7F63000ED1901 /* pa_stream.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0BE54E0CD7F63000ED1901 /* pa_stream.c */; };
 		1B0BE5A20CD7F63000ED1901 /* pa_trace.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0BE5500CD7F63000ED1901 /* pa_trace.c */; };
 		1B0BE5A50CD7F63000ED1901 /* pa_unix_util.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0BE5550CD7F63000ED1901 /* pa_unix_util.c */; };
-		1B0BE5AA0CD7F63000ED1901 /* pa_x86_plain_converters.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0BE55D0CD7F63000ED1901 /* pa_x86_plain_converters.c */; };
 		1B0BE5AC0CD7F63000ED1901 /* ringbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0BE5610CD7F63000ED1901 /* ringbuffer.c */; };
 		1B0BE5AE0CD7F63000ED1901 /* resample_port.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0BE5640CD7F63000ED1901 /* resample_port.c */; };
 		1B0BE5AF0CD7F63000ED1901 /* resample.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0BE5650CD7F63000ED1901 /* resample.c */; };
@@ -1669,7 +1668,6 @@
 				1B0BE5A10CD7F63000ED1901 /* pa_stream.c in Sources */,
 				1B0BE5A20CD7F63000ED1901 /* pa_trace.c in Sources */,
 				1B0BE5A50CD7F63000ED1901 /* pa_unix_util.c in Sources */,
-				1B0BE5AA0CD7F63000ED1901 /* pa_x86_plain_converters.c in Sources */,
 				1B0BE5AC0CD7F63000ED1901 /* ringbuffer.c in Sources */,
 				1B0BE5AE0CD7F63000ED1901 /* resample_port.c in Sources */,
 				1B0BE5AF0CD7F63000ED1901 /* resample.c in Sources */,

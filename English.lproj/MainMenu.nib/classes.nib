@@ -5,14 +5,6 @@
 	<key>IBClasses</key>
 	<array>
 		<dict>
-			<key>CLASS</key>
-			<string>NSSegmentedControl</string>
-			<key>LANGUAGE</key>
-			<string>ObjC</string>
-			<key>SUPERCLASS</key>
-			<string>NSControl</string>
-		</dict>
-		<dict>
 			<key>ACTIONS</key>
 			<dict>
 				<key>acceptCall</key>
@@ -20,6 +12,8 @@
 				<key>dialOutCall</key>
 				<string>id</string>
 				<key>hangUpCall</key>
+				<string>id</string>
+				<key>pauseApps</key>
 				<string>id</string>
 				<key>pretendRegistered</key>
 				<string>id</string>
@@ -35,7 +29,7 @@
 				<string>id</string>
 			</dict>
 			<key>CLASS</key>
-			<string>sipPhone</string>
+			<string>SipPhone</string>
 			<key>LANGUAGE</key>
 			<string>ObjC</string>
 			<key>OUTLETS</key>
@@ -55,6 +49,14 @@
 			<string>NSObject</string>
 		</dict>
 		<dict>
+			<key>CLASS</key>
+			<string>NSSegmentedControl</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSControl</string>
+		</dict>
+		<dict>
 			<key>ACTIONS</key>
 			<dict>
 				<key>goHomePage</key>
@@ -71,7 +73,7 @@
 				<key>mainWin</key>
 				<string>NSWindow</string>
 				<key>phone</key>
-				<string>sipPhone</string>
+				<string>SipPhone</string>
 				<key>prefPanel</key>
 				<string>NSPanel</string>
 			</dict>

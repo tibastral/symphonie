@@ -8,12 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class sipPhone;
+@class SipPhone;
 
 @interface AppHelper : NSObject {
 	IBOutlet NSPanel *prefPanel;
 	IBOutlet NSWindow *mainWin;
-	IBOutlet sipPhone *phone;
+	IBOutlet SipPhone *phone;
 	BOOL onDemandRegister;
 	BOOL sleepRequested;
 	long sleepNotificationId;

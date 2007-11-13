@@ -35,6 +35,9 @@
 
 - (void) endUserPlane;
 - (void) startUserPlane;
+- (void) pauseApps;
+
+
 - (void) localTone:(int) tone;
 - (void) sendDtmf:(NSString *)digits;
 

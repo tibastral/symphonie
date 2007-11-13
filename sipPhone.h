@@ -38,7 +38,7 @@ typedef enum {
 @class ABCache;
 @class AppHelper;
 
-@interface sipPhone : NSObject {
+@interface SipPhone : NSObject {
 	sipState_t state;
 	int _rid;
 	int _cid;
@@ -104,6 +104,7 @@ typedef enum {
 - (void) makeOutCall;
 - (BOOL) isIdle;
 
+- (IBAction) pauseApps:(id) sender;
 //- (BOOL) onCallActive;
 - (BOOL) canChangeRegistrationScheme;
 - (BOOL) onLine;

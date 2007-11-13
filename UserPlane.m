@@ -124,7 +124,11 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	return hogged;
 }
 
-
+- (void) pauseApps
+{
+	BundledScript *sc=[BundledScript bundledScript:@"sipPhoneAppCtl"];
+	[sc runEvent:@"pauseApp" withArgs:nil];
+}
 
 - (void) _needInputOutput:(BOOL)ring
 {
@@ -134,9 +138,8 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	//long vol;
 	//GetDefaultOutputVolume(&vol);
 	//SetDefaultOutputVolume(vol*4);
-	if (1) {
-		BundledScript *sc=[BundledScript bundledScript:@"sipPhoneAppCtl"];
-		[sc runEvent:@"pauseApp" withArgs:nil];
+	if (getProp(@"suspendMultimedia", [NSNumber numberWithBool:YES])) {
+		[self pauseApps];
 	}
 #if 0
 	int ndev=pjmedia_snd_get_dev_count();

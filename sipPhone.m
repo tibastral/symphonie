@@ -64,7 +64,7 @@ eXosip_get_sdp_body (osip_message_t * message)
 	return res;
 }
 
-@implementation sipPhone
+@implementation SipPhone
 
 static int initDone=0;
 
@@ -889,5 +889,9 @@ refuse_call:
 	[userPlane endUserPlane];
 }
 
+- (IBAction) pauseApps:(id) sender
+{
+	[userPlane pauseApps];
+}
 
 @end

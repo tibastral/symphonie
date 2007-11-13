@@ -10,6 +10,7 @@
 #include "pjmedia.h"
 
 @class BundledScript;
+@class QTMovie;
 
 @interface UserPlane : NSObject {
 	pj_pool_t *pool;
@@ -29,6 +30,8 @@
 	float normalOutputVolume;
 	float normalInputGain;
 	BOOL hogged;
+	
+	QTMovie *ringSequence;
 }
 
 
@@ -38,6 +41,9 @@
 - (void) endUserPlane;
 - (void) startUserPlane;
 - (void) pauseApps;
+
+- (void) startRing;
+- (void) stopRing;
 
 
 - (void) localTone:(int) tone;

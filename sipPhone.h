@@ -68,7 +68,6 @@ typedef enum {
 	NSString *localSdp;
 	NSString *remoteSdp;
 	UserPlane *userPlane;
-	
 }
 
 - (int) selectedViewNumber;
@@ -105,6 +104,9 @@ typedef enum {
 - (BOOL) isIdle;
 
 - (IBAction) pauseApps:(id) sender;
+- (IBAction) ring:(id) sender;
+- (IBAction) endRing:(id) sender;
+
 //- (BOOL) onCallActive;
 - (BOOL) canChangeRegistrationScheme;
 - (BOOL) onLine;

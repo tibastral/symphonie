@@ -11,6 +11,8 @@
 				<string>id</string>
 				<key>dialOutCall</key>
 				<string>id</string>
+				<key>endRing</key>
+				<string>id</string>
 				<key>hangUpCall</key>
 				<string>id</string>
 				<key>pauseApps</key>
@@ -18,6 +20,8 @@
 				<key>pretendRegistered</key>
 				<string>id</string>
 				<key>registerPhone</key>
+				<string>id</string>
+				<key>ring</key>
 				<string>id</string>
 				<key>terminateCall</key>
 				<string>id</string>

@@ -13,6 +13,9 @@
 #include <AudioUnit/AudioUnit.h>
 #include <CoreAudio/CoreAudio.h>
 #include <AudioToolbox/AudioToolbox.h>
+#import <QTKit/QTMovie.h>
+
+
 
 @implementation UserPlane
 
@@ -30,7 +33,8 @@
 	return self;
 }
 - (void) dealloc {
-	//<#deallocations#>
+	[ringSequence release];
+	[pauseAppScript release];
 	[super dealloc];
 }
 
@@ -237,17 +241,23 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 
 - (void) startRing
 {
-	/*
-	 
-	 OSStatus AudioFileCreate (
-				   const struct FSRef *inParentRef,
-				   CFStringRef  inFileName,
-				   AudioFileTypeID inFileType,
-				   const AudioStreamBasicDescription *inFormat,
-				   UInt32 inFlags,
-				   struct FSRef *outNewFileRef,
-				   AudioFileID *outAudioFile);
-	 */
+	NSString *ringPath = [[NSBundle mainBundle] pathForResource: @"Cornemuse.mid" 
+						       ofType: nil];
+	NSURL *ringUrl = [NSURL fileURLWithPath: ringPath];
+	NSError *err=nil;
+	if (ringSequence) {
+		[ringSequence stop];
+		[ringSequence release];
+	}
+	ringSequence = [[QTMovie alloc] initWithURL: ringUrl error:&err];
+	[ringSequence play];
+}
+
+- (void) stopRing
+{
+	[ringSequence stop];
+	[ringSequence release];
+	ringSequence=nil;
 }
 - (void) _initMedia
 {

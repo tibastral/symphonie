@@ -347,7 +347,10 @@ static int initDone=0;
 	if (state==s) return;
 	// some hook when leaving a state
 	olds=state;
-	if (state==sip_incoming_call_ringing) [popupInCall orderOut:self];
+	if (state==sip_incoming_call_ringing) {
+		[popupInCall orderOut:self];
+		[userPlane stopRing];
+	}
 	[self willChangeValueForKey:@"incomingCallActive"];
 	[self willChangeValueForKey:@"outgoingCallActive"];
 	[self willChangeValueForKey:@"onLine"];
@@ -362,6 +365,7 @@ static int initDone=0;
 	}
 	if (state==sip_incoming_call_ringing) {
 		[popupInCall makeKeyAndOrderFront:self];
+		[userPlane startRing];
 	}
 	if (state==sip_off) [appHelper phoneIsOff];
 	[self didChangeValueForKey:@"canChangeRegistrationScheme"];
@@ -893,5 +897,12 @@ refuse_call:
 {
 	[userPlane pauseApps];
 }
-
+- (IBAction) ring:(id) sender
+{
+	[userPlane startRing];
+}
+- (IBAction) endRing:(id) sender
+{
+	[userPlane stopRing];
+}
 @end

@@ -215,6 +215,8 @@
 		1B46F0770CD1FEB400397E41 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B46F0760CD1FEB400397E41 /* SystemConfiguration.framework */; };
 		1B46F2260CD6431000397E41 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B46F2250CD6431000397E41 /* Security.framework */; };
 		1B46F3780CD7106D00397E41 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 1B46F36E0CD70FBA00397E41 /* Credits.rtf */; };
+		1B751E260CE999E500BA8417 /* Cornemuse.mid in Resources */ = {isa = PBXBuildFile; fileRef = 1B751E250CE999E500BA8417 /* Cornemuse.mid */; };
+		1B751E8D0CE9A23600BA8417 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B751E8C0CE9A23600BA8417 /* QTKit.framework */; };
 		1BB0E7830CE8365200207E64 /* BundledScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB0E7820CE8365200207E64 /* BundledScript.m */; };
 		1BB0E7DA0CE83B6400207E64 /* sipPhoneAppCtl.scpt in Resources */ = {isa = PBXBuildFile; fileRef = 1BB0E7D90CE83B5D00207E64 /* sipPhoneAppCtl.scpt */; };
 		1BB0E8320CE8FBBE00207E64 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BB0E8310CE8FBBE00207E64 /* IOKit.framework */; };
@@ -610,6 +612,8 @@
 		1B46F0760CD1FEB400397E41 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = /System/Library/Frameworks/SystemConfiguration.framework; sourceTree = "<absolute>"; };
 		1B46F2250CD6431000397E41 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = /System/Library/Frameworks/Security.framework; sourceTree = "<absolute>"; };
 		1B46F36E0CD70FBA00397E41 /* Credits.rtf */ = {isa = PBXFileReference; explicitFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
+		1B751E250CE999E500BA8417 /* Cornemuse.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = Cornemuse.mid; sourceTree = "<group>"; };
+		1B751E8C0CE9A23600BA8417 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/QTKit.framework; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		1BB0E7810CE8365200207E64 /* BundledScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BundledScript.h; sourceTree = "<group>"; };
 		1BB0E7820CE8365200207E64 /* BundledScript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BundledScript.m; sourceTree = "<group>"; };
 		1BB0E7D90CE83B5D00207E64 /* sipPhoneAppCtl.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; path = sipPhoneAppCtl.scpt; sourceTree = "<group>"; };
@@ -758,6 +762,7 @@
 				1B46F0770CD1FEB400397E41 /* SystemConfiguration.framework in Frameworks */,
 				1B46F2260CD6431000397E41 /* Security.framework in Frameworks */,
 				1BB0E8320CE8FBBE00207E64 /* IOKit.framework in Frameworks */,
+				1B751E8D0CE9A23600BA8417 /* QTKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -795,6 +800,7 @@
 		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1B751E8C0CE9A23600BA8417 /* QTKit.framework */,
 				1BB0E8310CE8FBBE00207E64 /* IOKit.framework */,
 				1B46F2250CD6431000397E41 /* Security.framework */,
 				1B46F0760CD1FEB400397E41 /* SystemConfiguration.framework */,
@@ -1402,6 +1408,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1B751E250CE999E500BA8417 /* Cornemuse.mid */,
 				1BB0E7D90CE83B5D00207E64 /* sipPhoneAppCtl.scpt */,
 				1B46EE070CCF1A9800397E41 /* icon.icns */,
 				1B46F36E0CD70FBA00397E41 /* Credits.rtf */,
@@ -1472,6 +1479,7 @@
 				1B0BE6C50CD7F90D00ED1901 /* COPYRIGHT in Resources */,
 				1B0BE71B0CD7F90D00ED1901 /* VERSION.TXT in Resources */,
 				1BF1349D0CD8B3B00007EF60 /* Help in Resources */,
+				1B751E260CE999E500BA8417 /* Cornemuse.mid in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1810,8 +1818,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(DEVELOPER_DIR)/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(DEVELOPER_DIR)/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -1845,8 +1855,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_2)",
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(DEVELOPER_DIR)/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks\"";
+				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(DEVELOPER_DIR)/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks\"";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				INFOPLIST_FILE = Info.plist;

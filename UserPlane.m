@@ -130,12 +130,39 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	return hogged;
 }
 
-- (void) pauseApps
+- (void) _pauseApps
 {
+#if 0
+	AppleEvent AE;
+	OSErr AECreateAppleEvent(kCoreEventClass, 
+				 kAEQuitApplication, 
+				 <#const AEAddressDesc * target#>, 
+				 <#AEReturnID returnID#>, 
+				 <#AETransactionID transactionID#>, 
+				 <#AppleEvent * result#>)
+#endif
 	//pauseAppScript=[BundledScript bundledScript:@"sipPhoneAppCtl"];
 	[pauseAppScript runEvent:@"pauseApp" withArgs:nil];
 }
 
+- (void) pauseAppInThread
+{
+	NSAutoreleasePool *mypool=[[NSAutoreleasePool alloc]init];
+	NSLog(@"pauseAppInThread/1\n");
+	[self _pauseApps];
+	NSLog(@"pauseAppInThread/2\n");
+	[mypool release];
+}
+
+- (void) pauseApps
+{
+	if (0) {
+		[self _pauseApps];
+	} else {
+		[NSThread detachNewThreadSelector:@selector(pauseAppInThread)
+					 toTarget:self withObject:nil];
+	}
+}
 - (void) _needInputOutput:(BOOL)ring
 {
 	int rc;

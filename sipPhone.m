@@ -365,6 +365,7 @@ static int initDone=0;
 	}
 	if (state==sip_incoming_call_ringing) {
 		[popupInCall makeKeyAndOrderFront:self];
+		[userPlane pauseApps];
 		[userPlane startRing];
 	}
 	if (state==sip_off) [appHelper phoneIsOff];

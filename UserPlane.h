@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #include "pjmedia.h"
 
+@class BundledScript;
 
 @interface UserPlane : NSObject {
 	pj_pool_t *pool;
@@ -22,6 +23,7 @@
 	pjmedia_transport  *rtp_transport;
 	pjmedia_session    *rtp_session;
 	
+	BundledScript *pauseAppScript;
 	int outputDevIdx;
 	int inputDevIdx;
 	float normalOutputVolume;

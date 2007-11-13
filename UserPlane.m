@@ -25,6 +25,8 @@
 		outputDevIdx=-1;
 		inputDevIdx=-1;
 	}
+	pauseAppScript=[[BundledScript bundledScript:@"sipPhoneAppCtl"]retain];
+	[pauseAppScript runEvent:@"doNothing" withArgs:nil];
 	return self;
 }
 - (void) dealloc {
@@ -126,8 +128,8 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 
 - (void) pauseApps
 {
-	BundledScript *sc=[BundledScript bundledScript:@"sipPhoneAppCtl"];
-	[sc runEvent:@"pauseApp" withArgs:nil];
+	//pauseAppScript=[BundledScript bundledScript:@"sipPhoneAppCtl"];
+	[pauseAppScript runEvent:@"pauseApp" withArgs:nil];
 }
 
 - (void) _needInputOutput:(BOOL)ring

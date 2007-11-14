@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @class SipPhone;
+@class BundledScript;
 
 @interface AppHelper : NSObject {
 	IBOutlet NSPanel *prefPanel;
@@ -17,6 +18,8 @@
 	BOOL onDemandRegister;
 	BOOL sleepRequested;
 	long sleepNotificationId;
+	BOOL exitRequested;
+	BundledScript *pauseAppScript;
 }
 
 - (NSString *) authId;
@@ -42,5 +45,8 @@
 
 - (IBAction) popMainWin:(id)sender;
 
-- (void) phoneIsOff;
+- (void) phoneIsOff:(BOOL)unreg;
+
+- (void) pauseApps;
+
 @end

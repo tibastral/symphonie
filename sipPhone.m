@@ -19,6 +19,7 @@
 #import "AppHelper.h"
 #import "Properties.h"
 
+//#import <Foundation/NSRunLoop.h>
 #import <AddressBook/AddressBook.h>
 
 
@@ -365,10 +366,15 @@ static int initDone=0;
 	}
 	if (state==sip_incoming_call_ringing) {
 		[popupInCall makeKeyAndOrderFront:self];
-		[userPlane pauseApps];
+		[appHelper pauseApps];
 		[userPlane startRing];
 	}
-	if (state==sip_off) [appHelper phoneIsOff];
+	if ((state==sip_online) && (olds != sip_incoming_call_ringing)) {
+		[appHelper pauseApps];
+	}
+	if (state==sip_off) {
+		[appHelper phoneIsOff:YES];
+	}
 	[self didChangeValueForKey:@"canChangeRegistrationScheme"];
 	[self didChangeValueForKey:@"isRinging"];
 	[self didChangeValueForKey:@"selectedViewNumber"];
@@ -433,9 +439,19 @@ static int initDone=0;
 		return;
 	}
 	initDone=1;
-	
+	// from quit, have a different runloop
+	mainloop=[NSRunLoop currentRunLoop];//not retained
+#if 0
 	pollTimer=[NSTimer scheduledTimerWithTimeInterval:(NSTimeInterval)0.1 
 					  target:self selector:@selector(pollExosip:) userInfo:nil repeats:YES];
+#else
+	pollTimer=[NSTimer timerWithTimeInterval:(NSTimeInterval)0.1 
+						   target:self selector:@selector(pollExosip:) userInfo:nil repeats:YES];
+	[pollTimer retain];
+	[[NSRunLoop currentRunLoop] addTimer:pollTimer forMode:NSDefaultRunLoopMode];
+	[[NSRunLoop currentRunLoop] addTimer:pollTimer forMode:NSModalPanelRunLoopMode];
+
+#endif
 }
 
 
@@ -523,6 +539,14 @@ int eXosip_register_build_initial_register(const char *from, const char *proxy,
 	eXosip_unlock ();
 	NSAssert(!rc, @"eXosip_register_send_register failed\n");
 	[self setState:sip_unregister_in_progress];
+	NSRunLoop *curloop=[NSRunLoop currentRunLoop];
+	if (0 && (curloop != mainloop)) {
+		NSLog(@"new loop, restart timer\n");
+		[pollTimer invalidate];
+		[pollTimer release];
+		pollTimer=[NSTimer scheduledTimerWithTimeInterval:(NSTimeInterval)0.1 
+							   target:self selector:@selector(pollExosip:) userInfo:nil repeats:YES];
+	}
 	return;
 }
 
@@ -544,6 +568,7 @@ int eXosip_register_build_initial_register(const char *from, const char *proxy,
 	static BOOL inpoll=NO;
 	NSAssert(!inpoll, @"reentered");
 	inpoll=YES;
+	//NSLog(@"poool\n");
 	for (;;) {
 		je = eXosip_event_wait (0, 0);
 		eXosip_lock();
@@ -896,7 +921,7 @@ refuse_call:
 
 - (IBAction) pauseApps:(id) sender
 {
-	[userPlane pauseApps];
+	[appHelper pauseApps];
 }
 - (IBAction) ring:(id) sender
 {

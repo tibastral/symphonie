@@ -63,7 +63,7 @@ typedef enum {
 	BOOL abVisible;
 	BOOL abVisibleOffline;
 	NSTimer *pollTimer;
-	
+	NSRunLoop *mainloop;
 	// userplane stuffs
 	NSString *localSdp;
 	NSString *remoteSdp;

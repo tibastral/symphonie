@@ -8,7 +8,6 @@
 
 #import "UserPlane.h"
 #import "Properties.h"
-#import "BundledScript.h"
 
 #include <AudioUnit/AudioUnit.h>
 #include <CoreAudio/CoreAudio.h>
@@ -28,13 +27,11 @@
 		outputDevIdx=-1;
 		inputDevIdx=-1;
 	}
-	pauseAppScript=[[BundledScript bundledScript:@"sipPhoneAppCtl"]retain];
-	[pauseAppScript runEvent:@"doNothing" withArgs:nil];
+	
 	return self;
 }
 - (void) dealloc {
 	[ringSequence release];
-	[pauseAppScript release];
 	[super dealloc];
 }
 
@@ -130,39 +127,7 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	return hogged;
 }
 
-- (void) _pauseApps
-{
-#if 0
-	AppleEvent AE;
-	OSErr AECreateAppleEvent(kCoreEventClass, 
-				 kAEQuitApplication, 
-				 <#const AEAddressDesc * target#>, 
-				 <#AEReturnID returnID#>, 
-				 <#AETransactionID transactionID#>, 
-				 <#AppleEvent * result#>)
-#endif
-	//pauseAppScript=[BundledScript bundledScript:@"sipPhoneAppCtl"];
-	[pauseAppScript runEvent:@"pauseApp" withArgs:nil];
-}
 
-- (void) pauseAppInThread
-{
-	NSAutoreleasePool *mypool=[[NSAutoreleasePool alloc]init];
-	NSLog(@"pauseAppInThread/1\n");
-	[self _pauseApps];
-	NSLog(@"pauseAppInThread/2\n");
-	[mypool release];
-}
-
-- (void) pauseApps
-{
-	if (0) {
-		[self _pauseApps];
-	} else {
-		[NSThread detachNewThreadSelector:@selector(pauseAppInThread)
-					 toTarget:self withObject:nil];
-	}
-}
 - (void) _needInputOutput:(BOOL)ring
 {
 	int rc;
@@ -171,9 +136,7 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	//long vol;
 	//GetDefaultOutputVolume(&vol);
 	//SetDefaultOutputVolume(vol*4);
-	if (getProp(@"suspendMultimedia", [NSNumber numberWithBool:YES])) {
-		[self pauseApps];
-	}
+	
 #if 0
 	int ndev=pjmedia_snd_get_dev_count();
 	int i;

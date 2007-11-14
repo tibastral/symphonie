@@ -9,6 +9,8 @@
 #import "AppHelper.h"
 #import "sipPhone.h"
 #import "Properties.h"
+#import "BundledScript.h"
+
 #import <Security/Security.h>
 
 #include <CoreFoundation/CoreFoundation.h>
@@ -25,11 +27,15 @@
 	self = [super init];
 	if (self != nil) {
 		onDemandRegister=NO; //XXX
+		pauseAppScript=[[BundledScript bundledScript:@"sipPhoneAppCtl"]retain];
+		[pauseAppScript runEvent:@"doNothing" withArgs:nil];
 	}
 	return self;
 }
-- (void) dealloc {
-	
+- (void) dealloc 
+{
+	[pauseAppScript release];
+
 	[super dealloc];
 }
 
@@ -54,9 +60,15 @@ static io_connect_t  root_port;   // a reference to the Root Power Domain IOServ
 	IOAllowPowerChange(root_port, sleepNotificationId);
 }
 
-- (void) phoneIsOff
+- (void) phoneIsOff:(BOOL)unreg
 {
+	NSLog(@"phone is off (%s)\n", unreg?"unreg":"reg");
+	if (!unreg) return;
 	if (sleepRequested) [self sleepOk];
+	else if (exitRequested) {
+		NSLog(@"replyToApplicationShouldTerminate\n");
+		[[NSApplication sharedApplication] replyToApplicationShouldTerminate:YES];
+	}
 }
 
 - (void) _sessionOut:(NSNotification*)notif 
@@ -457,5 +469,62 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 	return YES;
 }
 
+
+- (void) _pauseApps
+{
+#if 0
+	AppleEvent AE;
+	OSErr AECreateAppleEvent(kCoreEventClass, 
+				 kAEQuitApplication, 
+				 <#const AEAddressDesc * target#>, 
+				 <#AEReturnID returnID#>, 
+				 <#AETransactionID transactionID#>, 
+				 <#AppleEvent * result#>)
+#endif
+	//pauseAppScript=[BundledScript bundledScript:@"sipPhoneAppCtl"];
+	[pauseAppScript runEvent:@"pauseApp" withArgs:nil];
+}
+
+- (void) pauseAppInThread
+{
+	NSAutoreleasePool *mypool=[[NSAutoreleasePool alloc]init];
+	NSLog(@"pauseAppInThread/1\n");
+	[self _pauseApps];
+	NSLog(@"pauseAppInThread/2\n");
+	[mypool release];
+}
+
+- (void) pauseApps
+{
+	if (0) {
+		[self _pauseApps];
+	} else {
+		[NSThread detachNewThreadSelector:@selector(pauseAppInThread)
+					 toTarget:self withObject:nil];
+	}
+}
+
+
+- (void)applicationWillTerminate:(NSNotification *)aNotification
+{
+	NSLog(@"applicationWillTerminate\n");
+}
+- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
+{
+	NSLog(@"applicationShouldTerminate\n");
+	switch ([phone state]) {
+		case sip_off:
+		case sip_ondemand:
+			return NSTerminateNow;
+			break;
+		default:
+			NSLog(@"terminate later\n");
+			exitRequested=YES;
+			[phone unregisterPhone:self];
+			return  NSTerminateLater;
+			break;
+	}
+	return  NSTerminateLater;
+}
 
 @end

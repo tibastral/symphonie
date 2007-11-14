@@ -9,7 +9,6 @@
 #import <Cocoa/Cocoa.h>
 #include "pjmedia.h"
 
-@class BundledScript;
 @class QTMovie;
 
 @interface UserPlane : NSObject {
@@ -24,7 +23,6 @@
 	pjmedia_transport  *rtp_transport;
 	pjmedia_session    *rtp_session;
 	
-	BundledScript *pauseAppScript;
 	int outputDevIdx;
 	int inputDevIdx;
 	float normalOutputVolume;
@@ -40,7 +38,6 @@
 
 - (void) endUserPlane;
 - (void) startUserPlane;
-- (void) pauseApps;
 
 - (void) startRing;
 - (void) stopRing;

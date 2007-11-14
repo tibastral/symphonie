@@ -308,6 +308,8 @@
 		1BC969550CC9FAB7004C0339 /* port_thread.c in Sources */ = {isa = PBXBuildFile; fileRef = 1BC9693E0CC9FAB7004C0339 /* port_thread.c */; };
 		1BC96CDA0CCA3279004C0339 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BC96CD90CCA3279004C0339 /* AddressBook.framework */; };
 		1BF1349D0CD8B3B00007EF60 /* Help in Resources */ = {isa = PBXBuildFile; fileRef = 1BF134990CD8B3B00007EF60 /* Help */; };
+		1BFBC7390CEB819F00CAE0B9 /* InCallPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFBC7380CEB819F00CAE0B9 /* InCallPopup.m */; };
+		1BFBC77A0CEB87C200CAE0B9 /* incallbg.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 1BFBC7790CEB87C200CAE0B9 /* incallbg.tiff */; };
 		8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
@@ -738,6 +740,9 @@
 		1BC969F80CCA0134004C0339 /* sdp_message.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = sdp_message.h; path = "libosip2-2.2.2/include/osipparser2/sdp_message.h"; sourceTree = "<group>"; };
 		1BC96CD90CCA3279004C0339 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = /System/Library/Frameworks/AddressBook.framework; sourceTree = "<absolute>"; };
 		1BF1349A0CD8B3B00007EF60 /* English */ = {isa = PBXFileReference; lastKnownFileType = folder; name = English; path = English.lproj/Help; sourceTree = "<group>"; };
+		1BFBC7370CEB819F00CAE0B9 /* InCallPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InCallPopup.h; sourceTree = "<group>"; };
+		1BFBC7380CEB819F00CAE0B9 /* InCallPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InCallPopup.m; sourceTree = "<group>"; };
+		1BFBC7790CEB87C200CAE0B9 /* incallbg.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = incallbg.tiff; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
@@ -784,6 +789,8 @@
 				1B46ED400CCE995E00397E41 /* ABCache.m */,
 				1B46EFBE0CD1C36200397E41 /* AppHelper.h */,
 				1B46EFBF0CD1C36200397E41 /* AppHelper.m */,
+				1BFBC7370CEB819F00CAE0B9 /* InCallPopup.h */,
+				1BFBC7380CEB819F00CAE0B9 /* InCallPopup.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1407,6 +1414,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1BFBC7790CEB87C200CAE0B9 /* incallbg.tiff */,
 				1B751E250CE999E500BA8417 /* Cornemuse.mid */,
 				1BB0E7D90CE83B5D00207E64 /* sipPhoneAppCtl.scpt */,
 				1B46EE070CCF1A9800397E41 /* icon.icns */,
@@ -1479,6 +1487,7 @@
 				1B0BE71B0CD7F90D00ED1901 /* VERSION.TXT in Resources */,
 				1BF1349D0CD8B3B00007EF60 /* Help in Resources */,
 				1B751E260CE999E500BA8417 /* Cornemuse.mid in Resources */,
+				1BFBC77A0CEB87C200CAE0B9 /* incallbg.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1775,6 +1784,7 @@
 				1B0BE71E0CD7F90D00ED1901 /* window.c in Sources */,
 				1B0BE72C0CD7F90D00ED1901 /* speex_codec.c in Sources */,
 				1BB0E7830CE8365200207E64 /* BundledScript.m in Sources */,
+				1BFBC7390CEB819F00CAE0B9 /* InCallPopup.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

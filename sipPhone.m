@@ -178,7 +178,7 @@ static int initDone=0;
 	popupInCall = [[NSWindow alloc] initWithContentRect:[popupInCallView frame]
 						  styleMask:NSBorderlessWindowMask
 						    backing:NSBackingStoreBuffered defer:YES];
-	[popupInCall setBackgroundColor:[NSColor blackColor]];
+	//[popupInCall setBackgroundColor:[NSColor blackColor]];
 	[popupInCall setExcludedFromWindowsMenu:YES];
 	[popupInCall setLevel:NSScreenSaverWindowLevel];
 	[popupInCall setShowsToolbarButton:NO];
@@ -930,5 +930,9 @@ refuse_call:
 - (IBAction) endRing:(id) sender
 {
 	[userPlane stopRing];
+}
+- (IBAction) fakeInCall:(id) sender
+{
+	[popupInCall makeKeyAndOrderFront:self];
 }
 @end

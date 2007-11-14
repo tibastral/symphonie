@@ -118,4 +118,6 @@ typedef enum {
 - (IBAction) terminateCall:(id) sender;
 
 - (IBAction) pretendRegistered:(id) sender;
+- (IBAction) fakeInCall:(id) sender;
+
 @end

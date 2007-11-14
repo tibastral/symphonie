@@ -7,10 +7,12 @@
 	<key>IBLastKnownRelativeProjectPath</key>
 	<string>../../sipPhone.xcodeproj</string>
 	<key>IBOldestOS</key>
-	<integer>5</integer>
+	<integer>4</integer>
 	<key>IBOpenObjects</key>
 	<array>
-		<integer>445</integer>
+		<integer>375</integer>
+		<integer>425</integer>
+		<integer>21</integer>
 	</array>
 	<key>IBSystem Version</key>
 	<string>9A581</string>

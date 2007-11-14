@@ -10,6 +10,7 @@
 #import "sipPhone.h"
 #import "Properties.h"
 #import "BundledScript.h"
+#import "StringCallNumber.h"
 
 #import <Security/Security.h>
 
@@ -444,7 +445,9 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 }
 - (void) setPhoneNumber:(NSString *)s
 {
+	[self willChangeValueForKey:@"windowTitle"];
 	setProp(@"phoneNumber",s);
+	[self didChangeValueForKey:@"windowTitle"];
 }
 
 - (BOOL) falseValue
@@ -525,6 +528,12 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 			break;
 	}
 	return  NSTerminateLater;
+}
+
+- (NSString *) windowTitle
+{
+	NSLog(@"window title\n");
+	return [NSString stringWithFormat:@"sipPhone (%@)", [[self phoneNumber]displayCallNumber]];
 }
 
 @end

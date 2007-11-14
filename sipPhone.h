@@ -74,7 +74,6 @@ typedef enum {
 - (BOOL) abVisible;
 - (void) setAbVisible:(BOOL)f;
 - (BOOL) isRinging;
-- (NSString *) windowTitle;
 
 
 - (IBAction) test1:(id) sender;
@@ -89,6 +88,7 @@ typedef enum {
 - (void) setSelectedNumber:(NSString *)s;
 - (NSString*) selectedNumber;
 - (NSString*) cannonicalSelectedNumber;
+- (NSString*) cannonicalDisplaySelectedNumber;
 - (NSString*) selectedName;
 - (void) setSelectedName:(NSString *)s;
 - (BOOL) fromAB;

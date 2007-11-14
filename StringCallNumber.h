@@ -13,5 +13,8 @@
 
 - (NSString *) cannonicalCallNumber;
 - (NSString *) cannonicalDisplayCallNumber;
+- (NSString *) callNumber;
+- (NSString *) displayCallNumber;
+
 
 @end

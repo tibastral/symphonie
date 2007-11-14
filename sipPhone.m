@@ -195,10 +195,13 @@ static int initDone=0;
 {
 	if (selectedNumber != s) {
 		[self willChangeValueForKey:@"cannonicalSelectedNumber"];
+		[self willChangeValueForKey:@"cannonicalDisplaySelectedNumber"];
 		[selectedNumber release];
 		selectedNumber=[s retain];
 		[self setFromAB:NO];
+		[self didChangeValueForKey:@"cannonicalDisplaySelectedNumber"];
 		[self didChangeValueForKey:@"cannonicalSelectedNumber"];
+
 	}
 }
 - (NSString*) selectedNumber
@@ -208,6 +211,10 @@ static int initDone=0;
 - (NSString*) cannonicalSelectedNumber
 {
 	return [selectedNumber cannonicalCallNumber];
+}
+- (NSString*) cannonicalDisplaySelectedNumber
+{
+	return [selectedNumber cannonicalDisplayCallNumber];
 }
 
 - (NSString*) selectedName
@@ -305,10 +312,6 @@ static int initDone=0;
 	}
 }
 
-- (NSString *) windowTitle
-{
-	return @"sipPhone";
-}
 
 - (BOOL) abVisible
 {

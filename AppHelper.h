@@ -22,6 +22,8 @@
 	BundledScript *pauseAppScript;
 }
 
+- (NSString *) windowTitle;
+
 - (NSString *) authId;
 - (NSString *) authPasswd;
 - (NSString *) sipFrom;

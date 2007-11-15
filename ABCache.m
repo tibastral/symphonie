@@ -3,7 +3,7 @@
 //  sipPhone
 //
 //  Created by Daniel Braun on 23/10/07.
-//  Copyright 2007 __MyCompanyName__. All rights reserved.
+//  Copyright 2007 Daniel Braun. All rights reserved.
 //
 
 #import "ABCache.h"
@@ -38,7 +38,7 @@
 		k=[phones count];
 		for (j=0; j<k; j++) {
 			NSString *s=[phones valueAtIndex:j];
-			s=[s cannonicalCallNumber];
+			s=[s internationalCallNumber];
 			[perPhone setObject:person forKey:s];
 			//NSLog(@"got %@\n", s);
 		}
@@ -62,7 +62,7 @@
 - (ABPerson *) findByPhone:(NSString *)phone
 {
 	if (!perPhone) [self _abCachePopulate];
-	phone=[phone cannonicalCallNumber];
+	phone=[phone internationalCallNumber];
 	ABPerson *p=[perPhone objectForKey:phone];
 	return p;
 }

@@ -11,8 +11,8 @@
 
 @interface NSString (StringCallNumber)
 
-- (NSString *) cannonicalCallNumber;
-- (NSString *) cannonicalDisplayCallNumber;
+- (NSString *) internationalCallNumber;
+- (NSString *) internationalDisplayCallNumber;
 - (NSString *) callNumber;
 - (NSString *) displayCallNumber;
 

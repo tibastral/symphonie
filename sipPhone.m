@@ -134,10 +134,14 @@ static int initDone=0;
 - (IBAction) abDClicked:(id)this
 {
 	NSLog(@"double click\n");
+	if (getBoolProp(@"doubleClickCall",NO)) {
+		[self dialOutCall:self];
+	}
 }
 
 - (void) awakeFromNib
 {
+	abVisibleOffline=getBoolProp(@"abVisibleOnStartup",YES);
 	if ([appHelper onDemandRegister]) [self setState:sip_ondemand];
 	NSAssert(abPicker, @"unconnected abPicker");
 	//[abPicker clearSearchField:self];
@@ -194,13 +198,13 @@ static int initDone=0;
 - (void) setSelectedNumber:(NSString *)s
 {
 	if (selectedNumber != s) {
-		[self willChangeValueForKey:@"cannonicalSelectedNumber"];
-		[self willChangeValueForKey:@"cannonicalDisplaySelectedNumber"];
+		[self willChangeValueForKey:@"internationalSelectedNumber"];
+		[self willChangeValueForKey:@"internationalDisplaySelectedNumber"];
 		[selectedNumber release];
 		selectedNumber=[s retain];
 		[self setFromAB:NO];
-		[self didChangeValueForKey:@"cannonicalDisplaySelectedNumber"];
-		[self didChangeValueForKey:@"cannonicalSelectedNumber"];
+		[self didChangeValueForKey:@"internationalDisplaySelectedNumber"];
+		[self didChangeValueForKey:@"internationalSelectedNumber"];
 
 	}
 }
@@ -208,13 +212,13 @@ static int initDone=0;
 {
 	return selectedNumber;
 }
-- (NSString*) cannonicalSelectedNumber
+- (NSString*) internationalSelectedNumber
 {
-	return [selectedNumber cannonicalCallNumber];
+	return [selectedNumber internationalCallNumber];
 }
-- (NSString*) cannonicalDisplaySelectedNumber
+- (NSString*) internationalDisplaySelectedNumber
 {
-	return [selectedNumber cannonicalDisplayCallNumber];
+	return [selectedNumber internationalDisplayCallNumber];
 }
 
 - (NSString*) selectedName
@@ -244,14 +248,14 @@ static int initDone=0;
 
 - (NSString *) displayCallingNumber
 {
-	return [callingNumber cannonicalDisplayCallNumber];
+	return [callingNumber internationalDisplayCallNumber];
 }
 
 
 - (void) setCallingNumber:(NSString *)s
 {
 	if (s!=callingNumber) {
-		[self willChangeValueForKey:@"cannonicalCallingNumber"];
+		[self willChangeValueForKey:@"internationalCallingNumber"];
 		[self willChangeValueForKey:@"displayCallingNumber"];
 
 		[callingNumber release];
@@ -266,17 +270,17 @@ static int initDone=0;
 		[self setCallingName:personName];
 		
 		[self didChangeValueForKey:@"displayCallingNumber"];
-		[self didChangeValueForKey:@"cannonicalCallingNumber"];
+		[self didChangeValueForKey:@"internationalCallingNumber"];
 
 	}
 }
-- (NSString*) cannonicalCallingNumber
+- (NSString*) internationalCallingNumber
 {
-	return [callingNumber cannonicalCallNumber];
+	return [callingNumber internationalCallNumber];
 }
 - (NSString *) callingNumber
 {
-	return [callingNumber cannonicalDisplayCallNumber];
+	return [callingNumber internationalDisplayCallNumber];
 }
 
 - (BOOL) fromAB
@@ -368,12 +372,12 @@ static int initDone=0;
 		[mainWin makeKeyAndOrderFront:self];
 	}
 	if (state==sip_incoming_call_ringing) {
-		[popupInCall makeKeyAndOrderFront:self];
-		[appHelper pauseApps];
-		[userPlane startRing];
+		if (getBoolProp(@"popupRing",  YES))	    [popupInCall makeKeyAndOrderFront:self];
+		if (getBoolProp(@"suspendMultimedia", YES)) [appHelper pauseApps];
+		if (getBoolProp(@"audioRing",  YES))	    [userPlane startRing];
 	}
 	if ((state==sip_online) && (olds != sip_incoming_call_ringing)) {
-		[appHelper pauseApps];
+		if (getBoolProp(@"suspendMultimedia", YES)) [appHelper pauseApps];
 	}
 	if (state==sip_off) {
 		[appHelper phoneIsOff:YES];
@@ -818,7 +822,7 @@ refuse_call:
 	
 	int rc;
 	rc = eXosip_call_build_initial_invite(&invite,
-						  [[NSString stringWithFormat:@"sip:%@@%@", [self cannonicalSelectedNumber], [appHelper sipDomain]]cString],
+						  [[NSString stringWithFormat:@"sip:%@@%@", [self internationalSelectedNumber], [appHelper sipDomain]]cString],
 						 [[appHelper sipFrom]cString],
 						 NULL,
 						 "phone call");

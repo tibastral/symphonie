@@ -40,24 +40,12 @@ static NSString * callNumber(NSString *self, BOOL international)
 {
 	return callNumber(self, NO);
 }
-- (NSString *) cannonicalCallNumber
+- (NSString *) internationalCallNumber
 {
 	return callNumber(self, YES);
 }
 
-#if 0
-- (NSString *) cannonicalDisplayCallNumber
-{
-	NSString *s;
-	//char szTmp[1024];
 
-	s=[self cannonicalCallNumber];
-	//int i;
-	//const char *z=[self cString];
-	
-	return s;
-}
-#endif
 static NSString * displayCallNumber(NSString *self, BOOL international)
 {
 	char szTmp[128];
@@ -98,7 +86,7 @@ static NSString * displayCallNumber(NSString *self, BOOL international)
 	return sr;
 }
 
-- (NSString *) cannonicalDisplayCallNumber
+- (NSString *) internationalDisplayCallNumber
 {
 	return displayCallNumber(self, YES);
 }

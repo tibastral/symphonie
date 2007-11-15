@@ -202,9 +202,9 @@
 	
 	// call the event in AppleScript
 	NSDictionary* errors = [NSDictionary dictionary];
-	NSLog(@"run script\n");
+	//NSLog(@"run script\n");
 	NSAppleEventDescriptor* returnDescriptor=[appleScript executeAppleEvent:event error:&errors];
-	NSLog(@"done script\n");
+	//NSLog(@"done script\n");
 	if (!returnDescriptor) {
 		// report any errors from 'errors'
 		NSLog(@"Error %@ occured the %@ call: %@",
@@ -214,7 +214,7 @@
 		[self handleError:@"execution failed"];
 		return nil;
 	}
-	NSLog(@"raise up\n");
+	//NSLog(@"raise up\n");
 	//NSWindow *mywin=[[NSApplication sharedApplication] mainWindow];
 	//[mywin makeKeyAndOrderFront:self];
 	//BOOL ac=[[NSApplication sharedApplication] isActive];

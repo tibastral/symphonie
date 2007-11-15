@@ -3,7 +3,7 @@
 //  sipPhone
 //
 //  Created by Daniel Braun on 26/10/07.
-//  Copyright 2007 __MyCompanyName__. All rights reserved.
+//  Copyright 2007 Daniel Braun. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
@@ -20,6 +20,7 @@
 	long sleepNotificationId;
 	BOOL exitRequested;
 	BundledScript *pauseAppScript;
+	BOOL historyVisible;
 }
 
 - (NSString *) windowTitle;
@@ -43,6 +44,7 @@
 
 - (BOOL) falseValue;
 - (BOOL) onDemandRegister;
+- (void) setOnDemandRegister:(BOOL)f;
 - (IBAction) goHomePage:(id)sender;
 
 - (IBAction) popMainWin:(id)sender;

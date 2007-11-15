@@ -179,22 +179,24 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	NSAssert(outputDevIdx>=0, @"bad play id");
 	NSAssert(outputDevIdx<32, @"bad play id");
 	NSLog(@"using play audio id %d\n", _GlobMacDevIds[outputDevIdx]);
-	NSNumber *sv=getProp(@"setVolume",[NSNumber numberWithBool:YES]);
 	
 	normalOutputVolume=getVolume(_GlobMacDevIds[outputDevIdx], 0);
 	
-	if ([sv boolValue]) {
-		
-		setVolume(_GlobMacDevIds[outputDevIdx], 0, [getProp(ring ? @"outputVolume" : @"ringVolume", [NSNumber numberWithFloat:-8]) floatValue]);
+	if (getBoolProp(@"setVolume",YES)) {
+		float volume=getFloatProp(ring ? @"audioOutputVolume" : @"audioRingVolume",-8);
+		NSLog(@"setting volume (%s) to %g\n", ring ? "ring":"normal", volume);
+		setVolume(_GlobMacDevIds[outputDevIdx], 0, volume);
 		if (!ring) {
 			NSAssert(inputDevIdx>=0, @"bad rec id");
 			NSAssert(inputDevIdx<32, @"bad rec id");
 			normalInputGain=getVolume(_GlobMacDevIds[inputDevIdx], 1);
-			setVolume(_GlobMacDevIds[inputDevIdx], 1, [getProp(@"inputGain", [NSNumber numberWithFloat:100]) floatValue]);
+			setVolume(_GlobMacDevIds[inputDevIdx], 1, getFloatProp(@"audioInputGain", 100));
 		}
 
+	} else {
+		NSLog(@"not setting volume (%s) to %g\n", ring ? "ring":"normal");
 	}
-	if (0&& getProp(@"hogMode", [NSNumber numberWithBool:YES])) {
+	if (0 && getBoolProp(@"hogMode", YES)) {
 		[self setHog:(AudioDeviceID) _GlobMacDevIds[outputDevIdx] input:0 value:YES];
 	}
 }
@@ -220,10 +222,9 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	NSAssert(inputDevIdx>=0, @"bad play id");
 	NSAssert(inputDevIdx<32, @"bad play id");
 	NSLog(@"using rec audio id %d\n", _GlobMacDevIds[inputDevIdx]);
-	NSNumber *sv=getProp(@"setVolume",[NSNumber numberWithBool:YES]);
-	if ([sv boolValue]) {
+	if (getBoolProp(@"setVolume", YES)) {
 		normalInputGain=getVolume(_GlobMacDevIds[inputDevIdx], 1);
-		setVolume(_GlobMacDevIds[inputDevIdx], 1, [getProp(@"inputGain", [NSNumber numberWithFloat:100]) floatValue]);
+		setVolume(_GlobMacDevIds[inputDevIdx], 1, getFloatProp(@"audioInputGain",100));
 	}
 	
 }
@@ -289,7 +290,7 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	NSAssert(sv, @"setVolume not set");
 	[self setHog:(AudioDeviceID) _GlobMacDevIds[outputDevIdx] input:0 value:NO];
 
-	if ([sv boolValue]) {
+	if (getBoolProp(@"setVolume", YES)) {
 		if (inputDevIdx>=0) setVolume(_GlobMacDevIds[inputDevIdx], 1, normalInputGain);
 		if (outputDevIdx>=0) setVolume(_GlobMacDevIds[outputDevIdx], 0, normalOutputVolume);
 	}

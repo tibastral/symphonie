@@ -3,7 +3,7 @@
 //  sipPhone
 //
 //  Created by Daniel Braun on 26/10/07.
-//  Copyright 2007 __MyCompanyName__. All rights reserved.
+//  Copyright 2007 Daniel Braun. All rights reserved.
 //
 
 #import "AppHelper.h"
@@ -38,6 +38,25 @@
 	[pauseAppScript release];
 
 	[super dealloc];
+}
+
+- (void) defaultProp
+{
+	[[NSUserDefaultsController sharedUserDefaultsController] setAppliesImmediately:YES];
+	getProp(@"phoneNumber",nil);
+	getBoolProp(@"setVolume",YES);
+	getBoolProp(@"audioRing",YES);
+	getBoolProp(@"suspendMultimedia",YES);
+	getBoolProp(@"abVisibleOnStartup",YES);
+	[self setOnDemandRegister:getBoolProp(@"onDemandRegister",NO)];
+	getBoolProp(@"doubleClickCall",NO);
+	getIntProp(@"provider",1);
+
+
+	float v1=getFloatProp(@"audioOutputVolume", -8);
+	float v2=getFloatProp(@"audioRingVolume", -8);
+	float v3=getFloatProp(@"audioInputGain",-8);
+	NSLog(@"volumes are o=%g r=%g i=%g\n", v1, v2, v3);
 }
 
 - (void)windowDidBecomeMain:(NSNotification *)aNotification
@@ -197,6 +216,28 @@ static void MySleepCallBack( void * refCon, io_service_t service, natural_t mess
 {
 	NSLog(@"got notification %@\n", [notif name]);
 }
+- (void) _other2:(NSNotification*)notif 
+{
+	NSLog(@"got notification2 %@\n", [notif name]);
+	if ([[notif name]isEqualToString:@"com.apple.ServiceConfigurationChangedNotification"]) {
+		NSLog(@"coucou\n");
+	}
+}
+- (void) confChanged:(NSNotification*)notif 
+{
+	NSLog(@"conf changed %@\n", [notif name]);
+}
+
+
+- (void) goToFrontRow:(NSNotification*)notif 
+{
+	NSLog(@"going to front row %@\n", [notif name]);
+}
+- (void) endFrontRow:(NSNotification*)notif 
+{
+	NSLog(@"ending  front row %@\n", [notif name]);
+}
+
 
 static void PrintReachabilityFlags(
 				   const char *                hostname, 
@@ -256,9 +297,10 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 - (void) awakeFromNib
 {
 	NSAssert(phone, @"phone not connected");
+	[self defaultProp];
 	[prefPanel setLevel:NSModalPanelWindowLevel];
 	[prefPanel setAlphaValue:0.95];
-	
+
 	[self addPowerNotif];
 	NSNotificationCenter *notCenter;
 	notCenter = [[NSWorkspace sharedWorkspace] notificationCenter];
@@ -274,6 +316,13 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 	//		  name:NSWorkspaceWillPowerOffNotification object:nil];
 	if (0) [notCenter addObserver:self selector:@selector(_other:)
 			  name:nil object:nil];
+	if (0) [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(_other2:) 
+								       name:nil object:nil];
+
+	[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(goToFrontRow:) 
+								name:@"com.apple.FrontRow.FrontRowWillShow" object:nil];
+	[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(endFrontRow:) 
+								name:@"com.apple.FrontRow.FrontRowDidHide" object:nil];
 	SCNetworkReachabilityRef        thisTarget;
 	SCNetworkReachabilityContext    thisContext;
 	thisContext.version         = 0;

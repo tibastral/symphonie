@@ -87,15 +87,15 @@ typedef enum {
 
 - (void) setSelectedNumber:(NSString *)s;
 - (NSString*) selectedNumber;
-- (NSString*) cannonicalSelectedNumber;
-- (NSString*) cannonicalDisplaySelectedNumber;
+- (NSString*) internationalSelectedNumber;
+- (NSString*) internationalDisplaySelectedNumber;
 - (NSString*) selectedName;
 - (void) setSelectedName:(NSString *)s;
 - (BOOL) fromAB;
 - (void) setFromAB:(BOOL)f;
 - (void) setCallingNumber:(NSString *)s;
 - (NSString *) callingNumber;
-- (NSString *) cannonicalCallingNumber;
+- (NSString *) internationalCallingNumber;
 - (NSString *) displayCallingNumber;
 
 - (BOOL) incomingCallActive;

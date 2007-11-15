@@ -338,6 +338,7 @@ static int initDone=0;
 		case sip_ondemand:
 		case sip_registered:
 			return YES;
+		default: break;
 	}
 	return NO;
 }
@@ -407,6 +408,7 @@ static int initDone=0;
 		case sip_registered:
 		case sip_ondemand:
 			return YES;
+		default: break;
 	}
 	return NO;
 }

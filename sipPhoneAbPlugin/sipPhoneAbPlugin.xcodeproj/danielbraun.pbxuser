@@ -1,0 +1,115 @@
+// !$*UTF8*$!
+{
+	0259C573FE90428111CA0C5A /* Project object */ = {
+		activeArchitecture = i386;
+		activeBuildConfigurationName = Debug;
+		activeTarget = 8D1AC9600486D14A00FE50C9 /* sipPhoneAbPlugin */;
+		addToTargets = (
+			8D1AC9600486D14A00FE50C9 /* sipPhoneAbPlugin */,
+		);
+		codeSenseManager = 1B802E260CEE4B090021CAAD /* Code sense */;
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					364,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					324,
+					60,
+					20,
+					48.16259765625,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 216943321;
+			PBXWorkspaceStateSaveDate = 216943321;
+		};
+		perUserProjectItems = {
+			1B802EB40CEE59920021CAAD /* PBXTextBookmark */ = 1B802EB40CEE59920021CAAD /* PBXTextBookmark */;
+			1B802EB50CEE59920021CAAD /* PBXTextBookmark */ = 1B802EB50CEE59920021CAAD /* PBXTextBookmark */;
+		};
+		sourceControlManager = 1B802E250CEE4B090021CAAD /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	0259C576FE90428111CA0C5A /* sipPhoneAbPlugin.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {572, 700}}";
+			sepNavSelRange = "{1214, 0}";
+			sepNavVisRange = "{781, 770}";
+		};
+	};
+	1B802E250CEE4B090021CAAD /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+		};
+	};
+	1B802E260CEE4B090021CAAD /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	1B802E4C0CEE50240021CAAD /* StringCallNumber.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {542, 294}}";
+			sepNavSelRange = "{222, 23}";
+			sepNavVisRange = "{42, 320}";
+		};
+	};
+	1B802EB40CEE59920021CAAD /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 0259C576FE90428111CA0C5A /* sipPhoneAbPlugin.m */;
+		name = "sipPhoneAbPlugin.m: 38";
+		rLen = 0;
+		rLoc = 1214;
+		rType = 0;
+		vrLen = 836;
+		vrLoc = 699;
+	};
+	1B802EB50CEE59920021CAAD /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 0259C576FE90428111CA0C5A /* sipPhoneAbPlugin.m */;
+		name = "sipPhoneAbPlugin.m: 38";
+		rLen = 0;
+		rLoc = 1214;
+		rType = 0;
+		vrLen = 770;
+		vrLoc = 781;
+	};
+	8D1AC9600486D14A00FE50C9 /* sipPhoneAbPlugin */ = {
+		activeExec = 0;
+	};
+}

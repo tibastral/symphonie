@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
+	<key>CFBundleDocumentTypes</key>
+	<array/>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleHelpBookFolder</key>
@@ -23,7 +25,22 @@
 	<key>CFBundleShortVersionString</key>
 	<string>0.1</string>
 	<key>CFBundleSignature</key>
-	<string>????</string>
+	<string>sphm</string>
+	<key>CFBundleURLTypes</key>
+        <array>
+                <dict>
+                        <key>CFBundleURLName</key>
+                        <string>sipPhone dial</string>
+                        <key>CFBundleURLSchemes</key>
+                        <array>
+                                <string>sipPhone</string>
+                                <string>dial</string>
+				<string>tel</string>
+                        </array>
+			<key>LSIsAppleDefaultForScheme</key>
+                        <true/>
+		</dict>
+        </array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>NSMainNibFile</key>

@@ -285,6 +285,14 @@ static void PrintReachabilityFlags(
 	//SCNetworkProtocolGetConfiguration(<#SCNetworkProtocolRef protocol#>)
 	[phone registerPhone:self];
 }
+- (void)dialFromUrlEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent
+{
+	NSString *sUrl = [[ event paramDescriptorForKeyword: keyDirectObject ]
+		   stringValue ];
+	NSURL *url=[NSURL URLWithString:sUrl];
+	NSLog(@"url %@/%@ sheme %@ path %@ host %@ resour %@\n", sUrl, url, [url scheme], [url path], [url host], [url resourceSpecifier]
+ );
+}
 
 static void reachabilityCallback(SCNetworkReachabilityRef	target,
 				   SCNetworkConnectionFlags	flags,
@@ -338,7 +346,9 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 	if (!SCNetworkReachabilityScheduleWithRunLoop(thisTarget,  [[NSRunLoop currentRunLoop]getCFRunLoop], kCFRunLoopDefaultMode)) {
 		NSLog (@"Failed to schedule a reacher.");
 	}
-	
+	[[NSAppleEventManager sharedAppleEventManager]
+		setEventHandler:self andSelector:@selector(dialFromUrlEvent:withReplyEvent:)
+		forEventClass:kInternetEventClass andEventID:kAEGetURL];	
 }
 
 

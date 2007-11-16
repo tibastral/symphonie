@@ -35,9 +35,15 @@
 			     num, @"number",
 			     [NSNumber numberWithDouble:dur], @"duration",
 			     nil];
-	NSMutableArray *h=getProp(@"history", [NSMutableArray arrayWithCapacity:1000]);
-	[h addObject:entry];
-	setProp(@"history", h);
+	if (1) {
+		NSMutableArray *h=getProp(@"history", [NSMutableArray arrayWithCapacity:1000]);
+		[h addObject:entry];
+		setProp(@"history", h);
+		[historyController setSelectionIndex:[h count]-1];
+	} else {
+		[historyController addObject:entry];
+	}
+	
 }
 
 - (IBAction) testEntry:(id)sender

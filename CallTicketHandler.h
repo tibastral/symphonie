@@ -10,6 +10,7 @@
 
 
 @interface CallTicketHandler : NSObject {
+	IBOutlet NSArrayController *historyController;
 
 }
 - (void) addToHistoryEvent:(NSString *)event forNum:(NSString *)num duration:(NSTimeInterval)dur;

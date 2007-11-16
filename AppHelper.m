@@ -57,6 +57,8 @@
 	float v2=getFloatProp(@"audioRingVolume", -8);
 	float v3=getFloatProp(@"audioInputGain",-8);
 	NSLog(@"volumes are o=%g r=%g i=%g\n", v1, v2, v3);
+	
+	getProp(@"history", [NSMutableArray arrayWithCapacity:1000]);
 }
 
 - (void)windowDidBecomeMain:(NSNotification *)aNotification
@@ -583,6 +585,11 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 {
 	NSLog(@"window title\n");
 	return [NSString stringWithFormat:@"sipPhone (%@)", [[self phoneNumber]displayCallNumber]];
+}
+- (NSSize)drawerWillResizeContents:(NSDrawer *)sender toSize:(NSSize)contentSize
+{
+	if (contentSize.width<500) contentSize.width=500;
+	return contentSize;
 }
 
 @end

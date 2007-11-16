@@ -10,6 +10,7 @@
 
 @class SipPhone;
 @class BundledScript;
+@class CallTicketHandler;
 
 @interface AppHelper : NSObject {
 	IBOutlet NSPanel *prefPanel;
@@ -21,6 +22,7 @@
 	BOOL exitRequested;
 	BundledScript *pauseAppScript;
 	BOOL historyVisible;
+	
 }
 
 - (NSString *) windowTitle;
@@ -52,5 +54,6 @@
 - (void) phoneIsOff:(BOOL)unreg;
 
 - (void) pauseApps;
+
 
 @end

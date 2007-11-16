@@ -18,6 +18,8 @@
 #import "ABCache.h"
 #import "AppHelper.h"
 #import "Properties.h"
+#import "CallTicketHandler.h"
+
 
 //#import <Foundation/NSRunLoop.h>
 #import <AddressBook/AddressBook.h>
@@ -146,18 +148,20 @@ static int initDone=0;
 	NSAssert(abPicker, @"unconnected abPicker");
 	//[abPicker clearSearchField:self];
 
+	//NSView *v=[abPicker accessoryView];
+	//[abPicker setAllowsMultipleSelection:NO];
+	//[abPicker setAllowsEmptySelection:YES];
+	[abPicker deselectAll:nil];
+	//ABPickerDeselectAll(abPicker);
 #if 0
-	NSArray *cursel=[abPicker selectedRecords];
+	NSArray *cursel=[abPicker selectedGroups];
 	unsigned int i, count = [cursel count];
 	for (i = 0; i < count; i++) {
-		NSObject * obj = [cursel objectAtIndex:i];
-		[abPicker deselectRecord:obj];
+		ABRecord * obj = (ABGroup *)[cursel objectAtIndex:i];
+		[abPicker deselectGroup:obj];
 	}
 #endif
-	[abPicker setAllowsMultipleSelection:NO];
-	//[abPicker setAllowsEmptySelection:YES];
-	[abPicker deselectAll:self];
-	ABPickerDeselectAll(abPicker);
+	
 	
 	//[abPicker setValueSelectionBehavior:ABSingleValueSelection];
 	[abPicker setTarget:self];

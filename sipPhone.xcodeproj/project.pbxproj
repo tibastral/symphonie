@@ -210,6 +210,7 @@
 		1B46F3780CD7106D00397E41 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 1B46F36E0CD70FBA00397E41 /* Credits.rtf */; };
 		1B751E260CE999E500BA8417 /* Cornemuse.mid in Resources */ = {isa = PBXBuildFile; fileRef = 1B751E250CE999E500BA8417 /* Cornemuse.mid */; };
 		1B751E8D0CE9A23600BA8417 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B751E8C0CE9A23600BA8417 /* QTKit.framework */; };
+		1BAA0A640CEE04BF004A9CB0 /* CallTicketHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA0A630CEE04BF004A9CB0 /* CallTicketHandler.m */; };
 		1BADA83C0CECED0B0070F0A8 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BADA83B0CECED0B0070F0A8 /* Security.framework */; };
 		1BADA8810CECED270070F0A8 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BADA8800CECED270070F0A8 /* SystemConfiguration.framework */; };
 		1BADA9560CECED450070F0A8 /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BADA9550CECED450070F0A8 /* AudioUnit.framework */; };
@@ -610,6 +611,8 @@
 		1B46F36E0CD70FBA00397E41 /* Credits.rtf */ = {isa = PBXFileReference; explicitFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
 		1B751E250CE999E500BA8417 /* Cornemuse.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = Cornemuse.mid; sourceTree = "<group>"; };
 		1B751E8C0CE9A23600BA8417 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/QTKit.framework; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		1BAA0A620CEE04BF004A9CB0 /* CallTicketHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallTicketHandler.h; sourceTree = "<group>"; };
+		1BAA0A630CEE04BF004A9CB0 /* CallTicketHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CallTicketHandler.m; sourceTree = "<group>"; };
 		1BADA83B0CECED0B0070F0A8 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/Security.framework; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		1BADA8800CECED270070F0A8 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		1BADA9550CECED450070F0A8 /* AudioUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioUnit.framework; path = SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/AudioUnit.framework; sourceTree = SYSTEM_DEVELOPER_DIR; };
@@ -794,6 +797,8 @@
 				1B46EFBF0CD1C36200397E41 /* AppHelper.m */,
 				1BFBC7370CEB819F00CAE0B9 /* InCallPopup.h */,
 				1BFBC7380CEB819F00CAE0B9 /* InCallPopup.m */,
+				1BAA0A620CEE04BF004A9CB0 /* CallTicketHandler.h */,
+				1BAA0A630CEE04BF004A9CB0 /* CallTicketHandler.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1787,6 +1792,7 @@
 				1B0BE72C0CD7F90D00ED1901 /* speex_codec.c in Sources */,
 				1BB0E7830CE8365200207E64 /* BundledScript.m in Sources */,
 				1BFBC7390CEB819F00CAE0B9 /* InCallPopup.m in Sources */,
+				1BAA0A640CEE04BF004A9CB0 /* CallTicketHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

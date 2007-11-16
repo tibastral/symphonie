@@ -37,18 +37,23 @@ typedef enum {
 
 @class ABCache;
 @class AppHelper;
+@class CallTicketHandler;
 
 @interface SipPhone : NSObject {
+	IBOutlet AppHelper *appHelper;
+	IBOutlet NSWindow *mainWin;
+	IBOutlet NSView *popupInCallView;
+	IBOutlet ABPeoplePickerView *abPicker;
+	IBOutlet NSTabView *callView;
+	IBOutlet CallTicketHandler *tickets;
+	
 	sipState_t state;
 	int _rid;
 	int _cid;
 	int _did;
 	int _tid;
-	IBOutlet AppHelper *appHelper;
-	IBOutlet NSWindow *mainWin;
-	IBOutlet NSView *popupInCallView;
+	
 	NSWindow *popupInCall;
-	IBOutlet ABPeoplePickerView *abPicker;
 	NSString *editedPassword;
 	// called number
 	NSString *selectedNumber;
@@ -57,7 +62,6 @@ typedef enum {
 	NSString *callingNumber;
 	NSString *callingName;
 	
-	IBOutlet NSTabView *callView;
 	BOOL fromAB;
 	ABCache *abCache;
 	BOOL abVisible;

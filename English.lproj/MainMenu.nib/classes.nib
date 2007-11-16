@@ -50,6 +50,8 @@
 				<string>NSWindow</string>
 				<key>popupInCallView</key>
 				<string>NSView</string>
+				<key>tickets</key>
+				<string>CallTicketHandler</string>
 			</dict>
 			<key>SUPERCLASS</key>
 			<string>NSObject</string>
@@ -61,6 +63,19 @@
 			<string>ObjC</string>
 			<key>SUPERCLASS</key>
 			<string>NSControl</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>testEntry</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>CallTicketHandler</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
 		</dict>
 		<dict>
 			<key>CLASS</key>

@@ -930,7 +930,7 @@ refuse_call:
 		audioTest=test;
 		if (test) {
 			NSLog(@"start audio test\n");
-			[userPlane startAudioTest];
+			[userPlane startAudioTestWith:appHelper];
 		} else {
 			NSLog(@"stop audio test\n");
 			[userPlane stopAudioTest];

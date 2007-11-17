@@ -323,6 +323,7 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 	NSAssert(phone, @"phone not connected");
 	[self defaultProp];
 	[prefPanel setLevel:NSModalPanelWindowLevel];
+	[audioTestPanel setLevel:NSModalPanelWindowLevel];
 	[prefPanel setAlphaValue:0.95];
 
 	[self addPowerNotif];
@@ -617,5 +618,52 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 	if (contentSize.width<500) contentSize.width=500;
 	return contentSize;
 }
+
+- (BOOL) audioTestRunning
+{
+	return audioTestStatus ? YES : NO;
+}
+- (void) setAudioTestStatus:(int)s
+{
+	[self willChangeValueForKey:@"audioTestRunning"];
+	[self willChangeValueForKey:@"atStatus"];
+	audioTestStatus=s;
+	[self didChangeValueForKey:@"audioTestRunning"];
+	[self didChangeValueForKey:@"atStatus"];
+}
+- (IBAction) startAudioTest:(id) button
+{
+	UserPlane *up=[phone valueForKey:@"userPlane"];
+	[up startAudioTestWith:self];
+	[self setAudioTestStatus:1];
+
+}
+- (void) audioTestRecoding
+{
+	[audioTestPanel makeKeyAndOrderFront:self];
+	[self setAudioTestStatus:1];
+
+}
+- (void) audioTestPlaying
+{
+	[self setAudioTestStatus:2];
+
+}
+- (void) audioTestEnded
+{
+	[self setAudioTestStatus:0];
+	[audioTestPanel orderOut:self];
+}
+
+- (NSString *) atStatus
+{
+	switch (audioTestStatus) {
+		case 0: return @"";
+		case 1: return @"Recoding voice, speak!";
+		case 2: return @"Playback, listen";
+	}
+	return @"hu?";
+}
+
 
 @end

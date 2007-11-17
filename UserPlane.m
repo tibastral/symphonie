@@ -37,6 +37,7 @@
 	if (playbackPort) pjmedia_port_destroy(playbackPort);
 	if (inputOutput) pjmedia_snd_port_destroy(inputOutput);
 	[ringSequence release];
+	[audioTestHelper release];
 	[super dealloc];
 }
 
@@ -526,9 +527,17 @@ static pj_status_t playBackEnded(pjmedia_port *port, void *usr_data)
 		[self stopAudioTest];
 		return;
 	}
-	pjmedia_mem_player_set_eof_cb(playbackPort, (void *)self, playBackEnded);
-	pjmedia_snd_port_connect(inputOutput, playbackPort);
-
+	rc=pjmedia_mem_player_set_eof_cb(playbackPort, (void *)self, playBackEnded);
+	if (rc) {
+		[self stopAudioTest];
+		return;
+	}
+	rc=pjmedia_snd_port_connect(inputOutput, playbackPort);
+	if (rc) {
+		[self stopAudioTest];
+		return;
+	}
+	[audioTestHelper audioTestPlaying];
 }
 
 static pj_status_t recordEnded(pjmedia_port *port, void *usr_data)
@@ -537,8 +546,9 @@ static pj_status_t recordEnded(pjmedia_port *port, void *usr_data)
 	[me performSelectorOnMainThread:@selector(_recordEnded:) withObject:nil waitUntilDone:NO];
 	return 0;
 }
-- (void) startAudioTest
+- (void) startAudioTestWith:(id) helper
 {
+	if (capturePort || playbackPort) return;
 	[self _needInputOutput:NO];
 	recordBuffer=NSZoneMalloc(NSDefaultMallocZone(), RECORD_BUFFER_SIZE);
 	pj_status_t rc=pjmedia_mem_capture_create(pool,
@@ -552,9 +562,21 @@ static pj_status_t recordEnded(pjmedia_port *port, void *usr_data)
 					 &capturePort);
 	if (rc) {
 		NSZoneFree(NSDefaultMallocZone(), recordBuffer); recordBuffer=NULL;
+		return;
 	}
-	pjmedia_mem_capture_set_eof_cb(capturePort, (void *)self, recordEnded);
-	pjmedia_snd_port_connect(inputOutput, capturePort);
+	NSAssert(!audioTestHelper, @"audioTestHelper should be nil");
+	audioTestHelper=[helper retain];
+	rc=pjmedia_mem_capture_set_eof_cb(capturePort, (void *)self, recordEnded);
+	if (rc) {
+		[self stopAudioTest];
+		return;
+	}
+	rc=pjmedia_snd_port_connect(inputOutput, capturePort);
+	if (rc) {
+		[self stopAudioTest];
+		return;
+	}
+	[audioTestHelper audioTestRecoding];
 }
 
 - (void) stopAudioTest
@@ -565,7 +587,9 @@ static pj_status_t recordEnded(pjmedia_port *port, void *usr_data)
 	playbackPort=NULL;
 	if (recordBuffer) NSZoneFree(NSDefaultMallocZone(), recordBuffer); 
 	recordBuffer=NULL;
-
+	[audioTestHelper audioTestEnded];
+	[audioTestHelper release];
+	audioTestHelper=nil;
 	[self endUserPlane];
 }
 

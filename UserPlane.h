@@ -11,6 +11,13 @@
 
 @class QTMovie;
 
+@protocol AudioTestHelper
+- (void) audioTestRecoding;
+- (void) audioTestPlaying;
+- (void) audioTestEnded;
+@end
+
+
 @interface UserPlane : NSObject {
 	pj_pool_t *pool;
 	pjmedia_endpt *med_endpt;
@@ -25,6 +32,7 @@
 	pjmedia_port	   *capturePort; // for audio test
 	pjmedia_port	   *playbackPort;
 	unsigned char	   *recordBuffer;
+	NSObject <AudioTestHelper> *audioTestHelper;
 
 	int outputDevIdx;
 	int inputDevIdx;
@@ -55,7 +63,7 @@
 - (NSArray *)  inputDeviceList;
 - (NSArray *)  outputDeviceList;
 
-- (void) startAudioTest;
+- (void) startAudioTestWith:(id) helper;
 - (void) stopAudioTest;
 
 @end

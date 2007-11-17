@@ -7,12 +7,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
+#import "UserPlane.h"
 @class SipPhone;
 @class BundledScript;
 @class CallTicketHandler;
 
-@interface AppHelper : NSObject {
+@interface AppHelper : NSObject <AudioTestHelper> {
 	IBOutlet NSPanel *prefPanel;
 	IBOutlet NSWindow *mainWin;
 	IBOutlet SipPhone *phone;
@@ -22,7 +22,8 @@
 	BOOL exitRequested;
 	BundledScript *pauseAppScript;
 	BOOL historyVisible;
-	
+	int audioTestStatus;
+	IBOutlet NSPanel *audioTestPanel;
 }
 
 - (NSString *) windowTitle;
@@ -54,6 +55,8 @@
 - (void) phoneIsOff:(BOOL)unreg;
 
 - (void) pauseApps;
+- (BOOL) audioTestRunning;
+- (IBAction) startAudioTest:(id)sender;
 
 
 @end

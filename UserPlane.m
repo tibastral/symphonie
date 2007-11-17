@@ -31,6 +31,11 @@
 	return self;
 }
 - (void) dealloc {
+	if (recordBuffer) NSZoneFree(NSDefaultMallocZone(), recordBuffer); recordBuffer=NULL;
+	if (tone_generator) pjmedia_port_destroy(tone_generator);
+	if (capturePort) pjmedia_port_destroy(capturePort);
+	if (playbackPort) pjmedia_port_destroy(playbackPort);
+	if (inputOutput) pjmedia_snd_port_destroy(inputOutput);
 	[ringSequence release];
 	[super dealloc];
 }
@@ -146,8 +151,24 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 		NSLog(@"dev %d: %s\n", i, dinfo->name);
 	}
 #endif
+	int ndev=pjmedia_snd_get_dev_count();
+	int inputNum=getIntProp(@"selectedInputDeviceIndex", 0);
+	int outputNum=getIntProp(@"selectedInputDeviceIndex", 0);
 	outputDevIdx=-1;
 	inputDevIdx=-1;
+	int i, ni, no;
+	for (i=0,ni=0,no=0; i<ndev; i++) {
+		const pjmedia_snd_dev_info *dinfo;
+		dinfo=pjmedia_snd_get_dev_info(i);
+		if (dinfo->input_count) {
+			if (ni==inputNum) inputDevIdx=i;
+			ni++;
+		}
+		if (dinfo->output_count) {
+			if (no==outputNum) outputDevIdx=i;
+			no++;
+		}
+	}
 	if (ring) {
 		rc = pjmedia_snd_port_create_player(
 					    pool,                              /* pool                 */
@@ -317,7 +338,7 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 {
 	//[self _needInput]; // debug
 	[self _needInputOutput:NO];
-	if (toneNum>sizeof(_tones)/sizeof(pjmedia_tone_desc)) toneNum=-1;
+	if ((unsigned int)toneNum>sizeof(_tones)/sizeof(pjmedia_tone_desc)) toneNum=-1;
 	if (toneNum>0) {
 		pjmedia_tonegen_play(tone_generator, toneNum, _tones, 1);
 	} else {
@@ -431,4 +452,124 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	
 	return YES;
 }
+
+
+- (NSArray *)  inputDeviceList
+{
+	int ndev=pjmedia_snd_get_dev_count();
+	int i;
+	NSMutableArray *res=[NSMutableArray arrayWithCapacity:3];
+	if (1) for (i=0; i<ndev; i++) {
+		const pjmedia_snd_dev_info *dinfo;
+		dinfo=pjmedia_snd_get_dev_info(i);
+		NSLog(@"dev %d: %s\n", i, dinfo->name);
+		if (dinfo->input_count) {
+			[res addObject:[NSString stringWithCString:dinfo->name]];
+		}
+	}
+	
+	return res;
+}
+
+
+- (NSArray *)  outputDeviceList
+{
+	int ndev=pjmedia_snd_get_dev_count();
+	int i;
+	NSMutableArray *res=[NSMutableArray arrayWithCapacity:3];
+	if (1) for (i=0; i<ndev; i++) {
+		const pjmedia_snd_dev_info *dinfo;
+		dinfo=pjmedia_snd_get_dev_info(i);
+		NSLog(@"dev %d: %s\n", i, dinfo->name);
+		if (dinfo->output_count) {
+			[res addObject:[NSString stringWithCString:dinfo->name]];
+		}
+	}
+	if (0) { // for debug
+		static int count=1;
+		[res addObject:[NSString stringWithFormat:@"dummy%d", count++]];
+	}
+	return res;
+}
+
+#define RECORD_BUFFER_SIZE (2*8000*5)
+- (void) _playbackEnded:(id)dummy
+{
+	NSLog(@"playBackEnded\n");
+	[self stopAudioTest];
+}
+
+static pj_status_t playBackEnded(pjmedia_port *port, void *usr_data)
+{
+	UserPlane *me=(UserPlane *)usr_data;
+	[me performSelectorOnMainThread:@selector(_playbackEnded:) withObject:nil waitUntilDone:NO];
+	return 0;
+}
+
+- (void) _recordEnded:(id)dummy
+{
+	if (!capturePort) return; // seems that pjmedia call it twice
+	NSLog(@"record ended\n");
+	pjmedia_snd_port_disconnect(inputOutput);
+	pjmedia_port_destroy(capturePort);
+	capturePort=NULL;
+	pj_status_t rc=pjmedia_mem_player_create(pool,
+						  recordBuffer,
+						  RECORD_BUFFER_SIZE,
+						  8000	/* clock_rate */,
+						  1 	/* channel_count */,
+						  SAMPLES_PER_FRAME,
+						  16	/* bits_per_sample*/,
+						  0	/* options*/,
+						  &playbackPort);
+	if (rc) {
+		[self stopAudioTest];
+		return;
+	}
+	pjmedia_mem_player_set_eof_cb(playbackPort, (void *)self, playBackEnded);
+	pjmedia_snd_port_connect(inputOutput, playbackPort);
+
+}
+
+static pj_status_t recordEnded(pjmedia_port *port, void *usr_data)
+{
+	UserPlane *me=(UserPlane *)usr_data;
+	[me performSelectorOnMainThread:@selector(_recordEnded:) withObject:nil waitUntilDone:NO];
+	return 0;
+}
+- (void) startAudioTest
+{
+	[self _needInputOutput:NO];
+	recordBuffer=NSZoneMalloc(NSDefaultMallocZone(), RECORD_BUFFER_SIZE);
+	pj_status_t rc=pjmedia_mem_capture_create(pool,
+					 recordBuffer,
+					 RECORD_BUFFER_SIZE,
+					 8000	/* clock_rate */,
+					 1 	/* channel_count */,
+					 SAMPLES_PER_FRAME,
+					 16	/* bits_per_sample*/,
+					 0	/* options*/,
+					 &capturePort);
+	if (rc) {
+		NSZoneFree(NSDefaultMallocZone(), recordBuffer); recordBuffer=NULL;
+	}
+	pjmedia_mem_capture_set_eof_cb(capturePort, (void *)self, recordEnded);
+	pjmedia_snd_port_connect(inputOutput, capturePort);
+}
+
+- (void) stopAudioTest
+{
+	if (capturePort) pjmedia_port_destroy(capturePort);
+	if (playbackPort) pjmedia_port_destroy(playbackPort);
+	capturePort=NULL;
+	playbackPort=NULL;
+	if (recordBuffer) NSZoneFree(NSDefaultMallocZone(), recordBuffer); 
+	recordBuffer=NULL;
+
+	[self endUserPlane];
+}
+
+
+
+
 @end

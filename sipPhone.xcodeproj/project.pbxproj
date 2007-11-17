@@ -319,6 +319,16 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		1BBD5A980CEE601200C5C4A1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1BBD5A910CEE601200C5C4A1 /* sipPhoneAbPlugin.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8D1AC9740486D14A00FE50C9 /* sipPhoneAbPlugin.bundle */;
+			remoteInfo = sipPhoneAbPlugin;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
@@ -626,6 +636,7 @@
 		1BB0E7820CE8365200207E64 /* BundledScript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BundledScript.m; sourceTree = "<group>"; };
 		1BB0E7D90CE83B5D00207E64 /* sipPhoneAppCtl.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; path = sipPhoneAppCtl.scpt; sourceTree = "<group>"; };
 		1BB0E8310CE8FBBE00207E64 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		1BBD5A910CEE601200C5C4A1 /* sipPhoneAbPlugin.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = sipPhoneAbPlugin.xcodeproj; path = sipPhoneAbPlugin/sipPhoneAbPlugin.xcodeproj; sourceTree = "<group>"; };
 		1BC9680F0CC9F139004C0339 /* eXcall_api.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = eXcall_api.c; path = "libeXosip2-2.2.3/src/eXcall_api.c"; sourceTree = "<group>"; };
 		1BC968100CC9F139004C0339 /* eXconf.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = eXconf.c; path = "libeXosip2-2.2.3/src/eXconf.c"; sourceTree = "<group>"; };
 		1BC968110CC9F139004C0339 /* eXinsubscription_api.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = eXinsubscription_api.c; path = "libeXosip2-2.2.3/src/eXinsubscription_api.c"; sourceTree = "<group>"; };
@@ -1214,6 +1225,14 @@
 			name = pjmedia;
 			sourceTree = "<group>";
 		};
+		1BBD5A920CEE601200C5C4A1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1BBD5A990CEE601200C5C4A1 /* sipPhoneAbPlugin.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		1BC967730CC9EA72004C0339 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
@@ -1398,6 +1417,7 @@
 		29B97314FDCFA39411CA2CEA /* sipPhone */ = {
 			isa = PBXGroup;
 			children = (
+				1BBD5A910CEE601200C5C4A1 /* sipPhoneAbPlugin.xcodeproj */,
 				1BF134990CD8B3B00007EF60 /* Help */,
 				1BC967730CC9EA72004C0339 /* Lib */,
 				080E96DDFE201D6D7F000001 /* Classes */,
@@ -1473,12 +1493,28 @@
 			hasScannedForEncodings = 1;
 			mainGroup = 29B97314FDCFA39411CA2CEA /* sipPhone */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 1BBD5A920CEE601200C5C4A1 /* Products */;
+					ProjectRef = 1BBD5A910CEE601200C5C4A1 /* sipPhoneAbPlugin.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* sipPhone */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		1BBD5A990CEE601200C5C4A1 /* sipPhoneAbPlugin.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = sipPhoneAbPlugin.bundle;
+			remoteRef = 1BBD5A980CEE601200C5C4A1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8D1107290486CEB800E47090 /* Resources */ = {

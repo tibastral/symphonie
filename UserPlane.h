@@ -22,7 +22,10 @@
 	
 	pjmedia_transport  *rtp_transport;
 	pjmedia_session    *rtp_session;
-	
+	pjmedia_port	   *capturePort; // for audio test
+	pjmedia_port	   *playbackPort;
+	unsigned char	   *recordBuffer;
+
 	int outputDevIdx;
 	int inputDevIdx;
 	float normalOutputVolume;
@@ -48,5 +51,11 @@
 
 - (NSString *) setupAndGetLocalSdp;
 - (BOOL) setupWithtLocalSdp:(NSString *)local remoteSdp:(NSString *)remote outCall:(BOOL)outCall negociatedLocal:(NSString **)pNL;
+
+- (NSArray *)  inputDeviceList;
+- (NSArray *)  outputDeviceList;
+
+- (void) startAudioTest;
+- (void) stopAudioTest;
 
 @end

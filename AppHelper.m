@@ -59,6 +59,10 @@
 	NSLog(@"volumes are o=%g r=%g i=%g\n", v1, v2, v3);
 	
 	getProp(@"history", [NSMutableArray arrayWithCapacity:1000]);
+	
+	getIntProp(@"selectedInputDeviceIndex", 0);
+	getIntProp(@"selectedOutputDeviceIndex", 0);
+
 }
 
 - (void)windowDidBecomeMain:(NSNotification *)aNotification
@@ -225,6 +229,16 @@ static void MySleepCallBack( void * refCon, io_service_t service, natural_t mess
 		NSLog(@"coucou\n");
 	}
 }
+- (void) _soundChanged:(NSNotification*)notif
+{
+	UserPlane *up=[phone valueForKey:@"userPlane"];
+	[up willChangeValueForKey:@"inputDeviceList"];
+	[up willChangeValueForKey:@"outputDeviceList"];
+	[up didChangeValueForKey:@"inputDeviceList"];
+	[up didChangeValueForKey:@"outputDeviceList"];
+}
+
+
 - (void) confChanged:(NSNotification*)notif 
 {
 	NSLog(@"conf changed %@\n", [notif name]);
@@ -324,10 +338,12 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 	//		  name:NSWorkspaceWillSleepNotification object:nil];
 	//[notCenter addObserver:self selector:@selector(_goOff:)
 	//		  name:NSWorkspaceWillPowerOffNotification object:nil];
-	if (0) [notCenter addObserver:self selector:@selector(_other:)
+	if (1) [notCenter addObserver:self selector:@selector(_other:)
 			  name:nil object:nil];
 	if (0) [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(_other2:) 
-								       name:nil object:nil];
+								       name:nil  object:nil];
+	[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(_soundChanged:) 
+								name:@"com.apple.sound.settingsChangedNotification"  object:nil];
 
 	[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(goToFrontRow:) 
 								name:@"com.apple.FrontRow.FrontRowWillShow" object:nil];

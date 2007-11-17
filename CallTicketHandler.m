@@ -20,11 +20,33 @@
 	return self;
 }
 
+- (void) clearInfo
+{
+	[name release]; name=nil;
+	[number release]; number=nil;
+	[startCall release]; startCall=nil;
+	[startOnline release]; startOnline=nil;
+}
+
+
 - (void) dealloc
 {
+	[self clearInfo];
 	[super dealloc];
 }
 
+- (void) addToHistoryTicket:(NSDictionary *)ticket
+{
+	if (1) {
+		NSMutableArray *h=getProp(@"history", [NSMutableArray arrayWithCapacity:1000]);
+		[h addObject:ticket];
+		setProp(@"history", h);
+		[historyController setSelectionIndex:[h count]-1];
+	} else {
+		[historyController addObject:ticket];
+	}
+	
+}
 
 - (void) addToHistoryEvent:(NSString *)event forNum:(NSString *)num duration:(NSTimeInterval)dur
 {
@@ -35,16 +57,33 @@
 			     num, @"number",
 			     [NSNumber numberWithDouble:dur], @"duration",
 			     nil];
-	if (1) {
-		NSMutableArray *h=getProp(@"history", [NSMutableArray arrayWithCapacity:1000]);
-		[h addObject:entry];
-		setProp(@"history", h);
-		[historyController setSelectionIndex:[h count]-1];
-	} else {
-		[historyController addObject:entry];
-	}
-	
+	[self addToHistoryTicket:entry];
 }
+
+- (void) setForeignNum:(NSString *) aNum
+{
+	if (number != aNum) {
+		[number release];
+		number=[aNum retain];
+	}
+}
+- (void) setForeignName:(NSString *) aName
+{
+}
+- (void) tickStartInRing
+{
+}
+- (void) tickStartOutCall
+{
+}
+- (void) tickOnline
+{
+}
+- (void) tickHangupCause:(int) cause info:(NSString *)info
+{
+}
+
+
 
 - (IBAction) testEntry:(id)sender
 {

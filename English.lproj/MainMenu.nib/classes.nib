@@ -74,6 +74,11 @@
 			<string>CallTicketHandler</string>
 			<key>LANGUAGE</key>
 			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>historyController</key>
+				<string>NSArrayController</string>
+			</dict>
 			<key>SUPERCLASS</key>
 			<string>NSObject</string>
 		</dict>

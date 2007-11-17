@@ -923,6 +923,25 @@ refuse_call:
 	if (rc) NSLog(@"accept call failed\n");
 }
 
+
+- (void) setAudioTest:(BOOL) test
+{
+	if (test != audioTest) {
+		audioTest=test;
+		if (test) {
+			NSLog(@"start audio test\n");
+			[userPlane startAudioTest];
+		} else {
+			NSLog(@"stop audio test\n");
+			[userPlane stopAudioTest];
+		}
+	}
+}
+- (BOOL) audioTest
+{
+	return audioTest;
+}
+
 - (IBAction) test1:(id) sender
 {
 	[userPlane localTone:3];

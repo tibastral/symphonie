@@ -240,7 +240,7 @@ typedef struct pj_in6_addr
 	pj_uint32_t u6_addr32[4];   /**< u6_addr32  */
     } in6_u;
 /** Shortcut to access in6_u.u6_addr8. */
-#define s6_addr                 in6_u.u6_addr8
+//#define s6_addr                 in6_u.u6_addr8
 /** Shortcut to access in6_u.u6_addr16. */
 #define s6_addr16               in6_u.u6_addr16
 /** Shortcut to access in6_u.u6_addr32. */

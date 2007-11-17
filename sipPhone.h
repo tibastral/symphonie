@@ -72,6 +72,7 @@ typedef enum {
 	NSString *localSdp;
 	NSString *remoteSdp;
 	UserPlane *userPlane;
+	BOOL audioTest;
 }
 
 - (int) selectedViewNumber;
@@ -120,6 +121,9 @@ typedef enum {
 - (IBAction) registerPhone:(id) sender;
 - (IBAction) unregisterPhone:(id) sender;
 - (IBAction) terminateCall:(id) sender;
+
+- (void) setAudioTest:(BOOL) test;
+- (BOOL) audioTest;
 
 - (IBAction) pretendRegistered:(id) sender;
 - (IBAction) fakeInCall:(id) sender;

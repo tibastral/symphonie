@@ -465,7 +465,7 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 		dinfo=pjmedia_snd_get_dev_info(i);
 		NSLog(@"dev %d: %s\n", i, dinfo->name);
 		if (dinfo->input_count) {
-			[res addObject:[NSString stringWithCString:dinfo->name]];
+			[res addObject:[NSString stringWithCString:dinfo->name encoding:NSUTF8StringEncoding]];
 		}
 	}
 	
@@ -483,7 +483,7 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 		dinfo=pjmedia_snd_get_dev_info(i);
 		NSLog(@"dev %d: %s\n", i, dinfo->name);
 		if (dinfo->output_count) {
-			[res addObject:[NSString stringWithCString:dinfo->name]];
+			[res addObject:[NSString stringWithCString:dinfo->name encoding:NSUTF8StringEncoding]];
 		}
 	}
 	if (0) { // for debug

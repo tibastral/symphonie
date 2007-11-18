@@ -756,6 +756,9 @@
 		1BC969F60CCA0134004C0339 /* osip_rfc3264.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = osip_rfc3264.h; path = "libosip2-2.2.2/include/osipparser2/osip_rfc3264.h"; sourceTree = "<group>"; };
 		1BC969F70CCA0134004C0339 /* osip_uri.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = osip_uri.h; path = "libosip2-2.2.2/include/osipparser2/osip_uri.h"; sourceTree = "<group>"; };
 		1BC969F80CCA0134004C0339 /* sdp_message.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = sdp_message.h; path = "libosip2-2.2.2/include/osipparser2/sdp_message.h"; sourceTree = "<group>"; };
+		1BE262410CEF970E0098C270 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/MainMenu.nib; sourceTree = "<group>"; };
+		1BE262CE0CEFA48D0098C270 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1BE263040CEFA7870098C270 /* French */ = {isa = PBXFileReference; lastKnownFileType = folder; name = French; path = French.lproj/Help; sourceTree = "<group>"; };
 		1BF1349A0CD8B3B00007EF60 /* English */ = {isa = PBXFileReference; lastKnownFileType = folder; name = English; path = English.lproj/Help; sourceTree = "<group>"; };
 		1BFBC7370CEB819F00CAE0B9 /* InCallPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InCallPopup.h; sourceTree = "<group>"; };
 		1BFBC7380CEB819F00CAE0B9 /* InCallPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InCallPopup.m; sourceTree = "<group>"; };
@@ -1839,6 +1842,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				089C165DFE840E0CC02AAC07 /* English */,
+				1BE262CE0CEFA48D0098C270 /* French */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1847,6 +1851,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				1BF1349A0CD8B3B00007EF60 /* English */,
+				1BE263040CEFA7870098C270 /* French */,
 			);
 			name = Help;
 			sourceTree = "<group>";
@@ -1855,6 +1860,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				29B97319FDCFA39411CA2CEA /* English */,
+				1BE262410CEF970E0098C270 /* French */,
 			);
 			name = MainMenu.nib;
 			sourceTree = "<group>";
@@ -1866,10 +1872,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ARCHS = (
-					i386,
-					ppc,
-				);
+				ARCHS = i386;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

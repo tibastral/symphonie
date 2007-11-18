@@ -172,7 +172,9 @@ static pj_status_t get_frame( pjmedia_port *port, pjmedia_frame *frame)
     pj_int16_t *p_out_samp;
     pj_status_t status;
 
-
+    if (!pj_thread_is_registered()) {
+		return 0; // on device change, thread used by core audio changes
+    }
     /* Return no frame is channel is paused */
     if (channel->paused) {
 	frame->type = PJMEDIA_FRAME_TYPE_NONE;

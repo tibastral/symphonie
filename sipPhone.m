@@ -24,6 +24,10 @@
 //#import <Foundation/NSRunLoop.h>
 #import <AddressBook/AddressBook.h>
 
+static int lastlock=0;
+static int lastunlock=0;
+#define EXOSIP_LOCK() do { eXosip_lock(); lastlock=__LINE__; } while(0)
+#define EXOSIP_UNLOCK() do { eXosip_unlock();lastunlock= __LINE__; } while(0)
 
 static NSString *
 eXosip_get_sdp_body (osip_message_t * message)
@@ -293,7 +297,10 @@ static int initDone=0;
 }
 - (void) setFromAB:(BOOL)f
 {
-	fromAB=f;
+	if (fromAB != f) {
+		fromAB=f;
+		if (!fromAB) [self setSelectedName:@""];
+	}
 }
 /*
  * ============== phone itself ===============
@@ -488,12 +495,12 @@ int eXosip_register_build_initial_register(const char *from, const char *proxy,
 	int rc;
 	
 	//NSAssert(state==sip_off, @"bad state for registerPhone");
-	eXosip_lock ();
+	EXOSIP_LOCK ();
 	_rid = eXosip_register_build_initial_register ([[appHelper sipFrom]cString], [[appHelper sipProxy]cString], [[appHelper sipFrom]cString],
 						     dur, &reg);
 	if (_rid < 0)
 	{
-		eXosip_unlock ();
+		EXOSIP_UNLOCK ();
 		//NSAssert(0, @"registered failed\n");
 		NSLog(@"register failed (buid initial reg)");
 		return;
@@ -506,7 +513,7 @@ int eXosip_register_build_initial_register(const char *from, const char *proxy,
 	if (1) osip_message_set_supported(reg, "path");
 	
 	rc = eXosip_register_send_register (_rid, reg);
-	eXosip_unlock ();
+	EXOSIP_UNLOCK ();
 	NSAssert(!rc, @"eXosip_register_send_register failed\n");
 	if (dur) {
 		if (onDemand) {
@@ -538,18 +545,18 @@ int eXosip_register_build_initial_register(const char *from, const char *proxy,
 	}
 	[self hangUpCall:sender];
 	//NSAssert(state==sip_off, @"bad state for registerPhone");
-	eXosip_lock ();
+	EXOSIP_LOCK ();
 	rc = eXosip_register_build_register(_rid, 0 /* expire 0= unregister*/, &reg);
 	if (rc < 0)
 	{
-		eXosip_unlock ();
+		EXOSIP_UNLOCK ();
 		//NSAssert(0, @"registered failed\n");
 		NSLog(@"unregister failed (build) rc=%d\n", rc);
 		return;
 	}
 	
 	rc = eXosip_register_send_register (_rid, reg);
-	eXosip_unlock ();
+	EXOSIP_UNLOCK ();
 	NSAssert(!rc, @"eXosip_register_send_register failed\n");
 	[self setState:sip_unregister_in_progress];
 	NSRunLoop *curloop=[NSRunLoop currentRunLoop];
@@ -584,9 +591,9 @@ int eXosip_register_build_initial_register(const char *from, const char *proxy,
 	//NSLog(@"poool\n");
 	for (;;) {
 		je = eXosip_event_wait (0, 0);
-		eXosip_lock();
+		EXOSIP_LOCK();
 		eXosip_automatic_action ();
-		eXosip_unlock();
+		EXOSIP_UNLOCK();
 		if (je == NULL) break;
 		NSLog(@"event %d (%s) tid %d cid %d rid %d did %d\n", je->type, je->textinfo, je->tid, je->cid, je->rid, je->did);
 		if (je->rid) {
@@ -697,16 +704,16 @@ int eXosip_register_build_initial_register(const char *from, const char *proxy,
 					eXosip_call_build_answer(_tid, 180, &answer);
 					osip_message_set_body (answer, [localSdp cString], [localSdp length]);
 					osip_message_set_content_type (answer, "application/sdp");
-					eXosip_lock ();
+					EXOSIP_LOCK ();
 					eXosip_call_send_answer (je->tid, 180, answer);
-					eXosip_unlock ();
+					EXOSIP_UNLOCK ();
 					[self setState:sip_incoming_call_ringing];
 
 					break;
 refuse_call:
-					eXosip_lock ();
+					EXOSIP_LOCK ();
 					eXosip_call_send_answer (je->tid, 415, NULL);
-					eXosip_unlock ();
+					EXOSIP_UNLOCK ();
 					
 				}
 				rc=eXosip_default_action(je);
@@ -718,9 +725,9 @@ refuse_call:
 					NSLog(@"reinvinte (call within a call)\n");
 					break;
 				case EXOSIP_CALL_INVITE:NSLog(@"incoming call on existing call?\n");
-					eXosip_lock ();
+					EXOSIP_LOCK ();
 					eXosip_call_send_answer (je->tid, 415, NULL);
-					eXosip_unlock ();
+					EXOSIP_UNLOCK ();
 					break;
 				case EXOSIP_CALL_PROCEEDING:
 					break;
@@ -777,10 +784,10 @@ refuse_call:
 						NSLog(@"eXosip_call_build_ack failed...\n");
 						break;
 					}
-						eXosip_lock();
+					EXOSIP_LOCK();
 					eXosip_call_send_ack(je->did, ack);
 					//eXosip_call_terminate (je->cid, je->tid);
-					eXosip_unlock();
+					EXOSIP_UNLOCK();
 					[self setState:sip_online];
 					break;
 				case EXOSIP_CALL_MESSAGE_NEW:
@@ -846,10 +853,10 @@ refuse_call:
 	osip_message_set_content_type (invite, "application/sdp");
 	
 	
-	eXosip_lock ();
+	EXOSIP_LOCK ();
 	rc = eXosip_call_send_initial_invite (invite);
 	//if (rc>0) eXosip_call_set_reference(<#int id#>,<#void * reference#>)
-	eXosip_unlock();
+	EXOSIP_UNLOCK();
 	if (rc<0) return;
 	_cid=rc;
 	_did=0;
@@ -916,9 +923,9 @@ refuse_call:
 	eXosip_call_build_answer(_tid, 200, &answer);
 	osip_message_set_body (answer, [localSdp cString], [localSdp length]);
 	osip_message_set_content_type (answer, "application/sdp");
-	eXosip_lock ();
+	EXOSIP_LOCK ();
 	int rc=eXosip_call_send_answer (_tid, 200, answer);
-	eXosip_unlock ();
+	EXOSIP_UNLOCK ();
 	[self setState:sip_incoming_call_acccepted];
 	if (rc) NSLog(@"accept call failed\n");
 }

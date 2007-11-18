@@ -7,12 +7,17 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <AddressBook/AddressBook.h>
 
-@class ABPerson;
+//@class ABPerson;
 
 @interface ABCache : NSObject {
 	NSMutableDictionary *perPhone;
 }
 
 - (ABPerson *) findByPhone:(NSString *)phone;
+@end
+
+@interface ABPerson (DBExt)
+- (NSString *) fullName;
 @end

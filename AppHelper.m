@@ -11,7 +11,7 @@
 #import "Properties.h"
 #import "BundledScript.h"
 #import "StringCallNumber.h"
-
+#import "ABCache.h"
 #import <Security/Security.h>
 
 #include <CoreFoundation/CoreFoundation.h>
@@ -299,13 +299,49 @@ static void PrintReachabilityFlags(
 	//SCNetworkProtocolGetConfiguration(<#SCNetworkProtocolRef protocol#>)
 	[phone registerPhone:self];
 }
+- (void) dialFromUrlResponse:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo;
+{
+	if ((NSAlertFirstButtonReturn == returnCode) || (1==returnCode)) {
+		[phone makeOutCall];
+	}
+}
+
 - (void)dialFromUrlEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent
 {
+	if (![phone isIdle]) return;
 	NSString *sUrl = [[ event paramDescriptorForKeyword: keyDirectObject ]
 		   stringValue ];
 	NSURL *url=[NSURL URLWithString:sUrl];
-	NSLog(@"url %@/%@ sheme %@ path %@ host %@ resour %@\n", sUrl, url, [url scheme], [url path], [url host], [url resourceSpecifier]
- );
+	NSLog(@"url %@/%@ sheme %@ path %@ host %@ resour %@\n", sUrl, url, [url scheme], [url path], [url host], [url resourceSpecifier]);
+	/* TODO popup for confirm */
+	NSString *dnum=[url resourceSpecifier];
+	NSArray *pn=[dnum componentsSeparatedByString:@";"];
+	if (![pn count]) return;
+	dnum=[[pn objectAtIndex:0]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	NSString *urlName=nil;
+	if ([pn count]>=2) {
+		urlName=[[pn objectAtIndex:1]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	}
+	ABCache *abc=[phone valueForKey:@"abCache"];
+	NSString *knownName=[[abc findByPhone:dnum] fullName];
+	if (knownName) {
+		[phone setValue:knownName forKey:@"selectedName"];
+	} else {
+		if (urlName) knownName=[NSString stringWithFormat:NSLocalizedString(@"UNKNOWN person: %@", @"unknown person"), urlName];
+		else knownName=NSLocalizedString(@"unknown person", @"unknown person");
+	}
+	[phone setValue:dnum forKey:@"selectedNumber"];
+	NSAlert *alert=[NSAlert alertWithMessageText:[NSString stringWithFormat:NSLocalizedString(@"dial %@ ?",@"dial popup"),
+						      [dnum internationalDisplayCallNumber]]
+				       defaultButton:(NSString *)NSLocalizedString(@"OK", "ok") 
+				     alternateButton:(NSString *)NSLocalizedString(@"Cancel", "cancel")
+					 otherButton:(NSString *)nil 
+			   informativeTextWithFormat:(NSString *)NSLocalizedString(@"call %@",@"call popup"), knownName];
+	
+	[alert beginSheetModalForWindow:mainWin
+			  modalDelegate:self 
+			 didEndSelector:@selector(dialFromUrlResponse:returnCode:contextInfo:)
+			    contextInfo:nil];
 }
 
 static void reachabilityCallback(SCNetworkReachabilityRef	target,
@@ -339,7 +375,7 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 	//		  name:NSWorkspaceWillSleepNotification object:nil];
 	//[notCenter addObserver:self selector:@selector(_goOff:)
 	//		  name:NSWorkspaceWillPowerOffNotification object:nil];
-	if (1) [notCenter addObserver:self selector:@selector(_other:)
+	if (0) [notCenter addObserver:self selector:@selector(_other:)
 			  name:nil object:nil];
 	if (0) [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(_other2:) 
 								       name:nil  object:nil];
@@ -659,8 +695,8 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 {
 	switch (audioTestStatus) {
 		case 0: return @"";
-		case 1: return @"Recoding voice, speak!";
-		case 2: return @"Playback, listen";
+		case 1: return NSLocalizedString(@"Recoding voice, speak!", @"recording started");
+		case 2: return NSLocalizedString(@"Playback, listen", @"playback started");
 	}
 	return @"hu?";
 }

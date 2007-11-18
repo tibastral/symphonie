@@ -312,7 +312,7 @@ static PaError InitializeDeviceInfo( PaMacAUHAL *auhalHostApi,
     Float64 sampleRate;
     char *name;
     PaError err = paNoError;
-    UInt32 propSize;
+    UInt32 propSize=0;
 
     VVDBUG(("InitializeDeviceInfo(): macCoreDeviceId=%ld\n", macCoreDeviceId));
 
@@ -326,7 +326,8 @@ static PaError InitializeDeviceInfo( PaMacAUHAL *auhalHostApi,
     if (err)
         return err;
 
-    name = PaUtil_GroupAllocateMemory(auhalHostApi->allocations,propSize);
+    propSize+=8; // DB bug in core audio ? returned propsize are truncated
+    name = PaUtil_GroupAllocateMemory(auhalHostApi->allocations,propSize+1 /* DB for 0 */);
     if ( !name )
         return paInsufficientMemory;
     err = ERR(AudioDeviceGetProperty(macCoreDeviceId, 0, 0, kAudioDevicePropertyDeviceName, &propSize, name));

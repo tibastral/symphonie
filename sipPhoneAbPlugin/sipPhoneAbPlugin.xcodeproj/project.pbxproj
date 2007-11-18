@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1B802E4E0CEE50240021CAAD /* StringCallNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B802E4D0CEE50240021CAAD /* StringCallNumber.m */; };
-		72E3845E04BE07B500C808FE /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72E3845D04BE07B500C808FE /* AddressBook.framework */; };
+		1BE2639C0CF0B6E30098C270 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BE2639B0CF0B6E30098C270 /* AddressBook.framework */; };
+		1BE263C20CF0B7190098C270 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BE263C10CF0B7190098C270 /* Cocoa.framework */; };
 		8D1AC96B0486D14A00FE50C9 /* sipPhoneAbPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 0259C576FE90428111CA0C5A /* sipPhoneAbPlugin.m */; settings = {ATTRIBUTES = (); }; };
-		8D1AC9700486D14A00FE50C9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD92D38A0106425D02CA0E72 /* Cocoa.framework */; };
 		8D1AC9800486D23B00FE50C9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8D1AC97F0486D23B00FE50C9 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
@@ -19,12 +19,12 @@
 		0259C57AFE90428111CA0C5A /* sipPhoneAbPlugin.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = sipPhoneAbPlugin.h; sourceTree = "<group>"; };
 		1B802E4C0CEE50240021CAAD /* StringCallNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StringCallNumber.h; path = ../StringCallNumber.h; sourceTree = SOURCE_ROOT; };
 		1B802E4D0CEE50240021CAAD /* StringCallNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StringCallNumber.m; path = ../StringCallNumber.m; sourceTree = SOURCE_ROOT; };
+		1BE2639B0CF0B6E30098C270 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/AddressBook.framework; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		1BE263C10CF0B7190098C270 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		32DBCF980370C29C00C91783 /* sipPhoneAbPlugin_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sipPhoneAbPlugin_Prefix.pch; sourceTree = "<group>"; };
-		72E3845D04BE07B500C808FE /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = /System/Library/Frameworks/AddressBook.framework; sourceTree = "<absolute>"; };
 		8D1AC9730486D14A00FE50C9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D1AC9740486D14A00FE50C9 /* sipPhoneAbPlugin.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = sipPhoneAbPlugin.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D1AC97B0486D23100FE50C9 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		DD92D38A0106425D02CA0E72 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,8 +32,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D1AC9700486D14A00FE50C9 /* Cocoa.framework in Frameworks */,
-				72E3845E04BE07B500C808FE /* AddressBook.framework in Frameworks */,
+				1BE2639C0CF0B6E30098C270 /* AddressBook.framework in Frameworks */,
+				1BE263C20CF0B7190098C270 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,8 +72,8 @@
 		2E58F364FFB232C311CA0CBA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DD92D38A0106425D02CA0E72 /* Cocoa.framework */,
-				72E3845D04BE07B500C808FE /* AddressBook.framework */,
+				1BE263C10CF0B7190098C270 /* Cocoa.framework */,
+				1BE2639B0CF0B6E30098C270 /* AddressBook.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -174,6 +174,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(DEVELOPER_DIR)/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks\"";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -192,6 +197,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+				);
+				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(DEVELOPER_DIR)/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks\"";
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = sipPhoneAbPlugin_Prefix.pch;
@@ -205,11 +215,14 @@
 		C027D11E08A954E7001699E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(NATIVE_ARCH)";
+				ARCHS = (
+					i386,
+					ppc,
+				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
 			name = Debug;
 		};

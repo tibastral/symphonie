@@ -67,3 +67,22 @@
 	return p;
 }
 @end
+
+
+@implementation ABPerson (DBExt)
+
+- (NSString *) fullName
+{
+	NSString *personName;
+	NSString *n1=[self valueForProperty:kABFirstNameProperty];
+	NSString *n2=[self valueForProperty:kABLastNameProperty];
+	if (!n2) personName=n1;
+	else if (!n1) personName=n2;
+	else personName  = [NSString stringWithFormat:@"%@ %@",n1,n2];
+	return personName;
+}
+
+@end
+
+
+

@@ -259,6 +259,12 @@ eXosip_register_build_initial_register (const char *from, const char *proxy,
           return i;
         }
       ADD_ELEMENT (eXosip.j_reg, jr);
+    } else {
+	    // DB 20071120
+	    jr->r_retry=0;
+	    __eXosip_delete_jinfo (jr->r_last_tr);
+	    jr->r_last_tr=NULL;
+
     }
 
   /* Guess transport from existing connections */

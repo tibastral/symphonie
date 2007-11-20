@@ -14,6 +14,7 @@
 
 @interface AppHelper : NSObject <AudioTestHelper> {
 	IBOutlet NSPanel *prefPanel;
+	IBOutlet NSTabView *prefTabView;
 	IBOutlet NSWindow *mainWin;
 	IBOutlet SipPhone *phone;
 	BOOL onDemandRegister;
@@ -24,6 +25,7 @@
 	BOOL historyVisible;
 	int audioTestStatus;
 	IBOutlet NSPanel *audioTestPanel;
+	BOOL dtmfVisible;
 }
 
 - (NSString *) windowTitle;
@@ -58,5 +60,6 @@
 - (BOOL) audioTestRunning;
 - (IBAction) startAudioTest:(id)sender;
 
+- (void) setError:(NSString *)error diag:(NSString *)diag openAccountPref:(BOOL)gotopref;
 
 @end

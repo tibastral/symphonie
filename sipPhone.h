@@ -14,25 +14,25 @@
 @class UserPlane;
 
 typedef enum {
-	sip_off=0,
-	sip_unregister_in_progress,
-	sip_unregister_retry,
+	sip_off=0,				//0	
+	sip_unregister_in_progress,		//1
+	sip_unregister_retry,			//2
 	
-	sip_register2call_in_progress,
-	sip_register2call_retry,
+	sip_register2call_in_progress,		//3
+	sip_register2call_retry,		//4
 
-	sip_register_in_progress,
-	sip_register_retry,
+	sip_register_in_progress,		//5
+	sip_register_retry,			//6
 	
-	sip_ondemand,
+	sip_ondemand,				//7
 
-	sip_registered,
-	sip_outgoing_call_sent,
-	sip_outgoing_call_ringing,
-	sip_online,
-	sip_initiated_clearing,
-	sip_incoming_call_ringing,
-	sip_incoming_call_acccepted,
+	sip_registered,				//8
+	sip_outgoing_call_sent,			//9
+	sip_outgoing_call_ringing,		//10
+	sip_online,				//11
+	sip_initiated_clearing,			//12
+	sip_incoming_call_ringing,		//13
+	sip_incoming_call_acccepted,		//14
 } sipState_t;
 
 @class ABCache;
@@ -121,6 +121,7 @@ typedef enum {
 - (IBAction) registerPhone:(id) sender;
 - (IBAction) unregisterPhone:(id) sender;
 - (IBAction) terminateCall:(id) sender;
+- (void) authInfoChanged;
 
 - (void) setAudioTest:(BOOL) test;
 - (BOOL) audioTest;

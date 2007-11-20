@@ -24,9 +24,13 @@
 
 @implementation AppHelper
 
+static int _debugAudio=0;
+static int _debugMisc=0;
+
 - (id) init {
 	self = [super init];
 	if (self != nil) {
+		if (1) NSLog(@"build %s\n", __DATE__);
 		onDemandRegister=NO; //XXX
 		pauseAppScript=[[BundledScript bundledScript:@"sipPhoneAppCtl"]retain];
 		[pauseAppScript runEvent:@"doNothing" withArgs:nil];
@@ -42,6 +46,8 @@
 
 - (void) defaultProp
 {
+	_debugAudio=getBoolProp(@"debugAudio", NO);
+	_debugMisc=getBoolProp(@"debugMisc", NO);
 	[[NSUserDefaultsController sharedUserDefaultsController] setAppliesImmediately:YES];
 	getProp(@"phoneNumber",nil);
 	getBoolProp(@"setVolume",YES);
@@ -56,7 +62,7 @@
 	float v1=getFloatProp(@"audioOutputVolume", -8);
 	float v2=getFloatProp(@"audioRingVolume", -8);
 	float v3=getFloatProp(@"audioInputGain",-8);
-	NSLog(@"volumes are o=%g r=%g i=%g\n", v1, v2, v3);
+	if (_debugAudio) NSLog(@"volumes are o=%g r=%g i=%g\n", v1, v2, v3);
 	
 	getProp(@"history", [NSMutableArray arrayWithCapacity:1000]);
 	
@@ -65,16 +71,21 @@
 
 }
 
+- (void) openAccountPref
+{
+	[prefTabView selectTabViewItemWithIdentifier:@"account"];
+	[prefPanel makeKeyAndOrderFront:self];
+}
 - (void)windowDidBecomeMain:(NSNotification *)aNotification
 {
 	if (!getProp(@"phoneNumber",nil)) {
-		[prefPanel makeKeyAndOrderFront:self];
+		[self openAccountPref];
 	}
 }
 
 - (void) _wakeUp:(NSNotification*)notif 
 {
-	NSLog(@"wake up\n");
+	if (_debugMisc) NSLog(@"wake up\n");
 	[phone registerPhone:self];
 }
 
@@ -82,24 +93,25 @@ static io_connect_t  root_port;   // a reference to the Root Power Domain IOServ
 
 - (void) sleepOk
 {
-	NSLog(@"sleepok\n");
+	sleepRequested=NO;
+	if (_debugMisc) NSLog(@"sleepok\n");
 	IOAllowPowerChange(root_port, sleepNotificationId);
 }
 
 - (void) phoneIsOff:(BOOL)unreg
 {
-	NSLog(@"phone is off (%s)\n", unreg?"unreg":"reg");
+	if (_debugMisc) NSLog(@"phone is off (%s)\n", unreg?"unreg":"reg");
 	if (!unreg) return;
 	if (sleepRequested) [self sleepOk];
-	else if (exitRequested) {
-		NSLog(@"replyToApplicationShouldTerminate\n");
+	if (exitRequested) {
+		if (_debugMisc) NSLog(@"replyToApplicationShouldTerminate\n");
 		[[NSApplication sharedApplication] replyToApplicationShouldTerminate:YES];
 	}
 }
 
 - (void) _sessionOut:(NSNotification*)notif 
 {
-	NSLog(@"sleeping, notification %@, ui=%@\n", notif, [notif userInfo]);
+	if (_debugMisc) NSLog(@"sleeping, notification %@, ui=%@\n", notif, [notif userInfo]);
 	switch ([phone state]) {
 		case sip_off:
 		case sip_ondemand:
@@ -116,7 +128,7 @@ static io_connect_t  root_port;   // a reference to the Root Power Domain IOServ
 #if 0
 - (void) _goOff:(NSNotification*)notif 
 {
-	NSLog(@"sleeping\n");
+	if (_debugMisc) NSLog(@"sleeping\n");
 	[phone unregisterPhone:self];
 	
 }
@@ -124,7 +136,7 @@ static io_connect_t  root_port;   // a reference to the Root Power Domain IOServ
 
 - (void) _goSleep:(long)notifId
 {
-	NSLog(@"sleeping (%lX)", notifId);
+	if (_debugMisc) NSLog(@"sleeping (%lX)", notifId);
 	sleepNotificationId=notifId;
 	switch ([phone state]) {
 		case sip_off:
@@ -149,7 +161,7 @@ static io_connect_t  root_port;   // a reference to the Root Power Domain IOServ
 
 static void MySleepCallBack( void * refCon, io_service_t service, natural_t messageType, void * messageArgument )
 {
-	NSLog(@ "messageType %08lx, arg %08lx\n",
+	if (_debugMisc) NSLog(@ "messageType %08lx, arg %08lx\n",
 	       (long unsigned int)messageType,
 	       (long unsigned int)messageArgument );
 	AppHelper *me=(AppHelper *) refCon;
@@ -165,7 +177,7 @@ static void MySleepCallBack( void * refCon, io_service_t service, natural_t mess
 			 If you don't acknowledge this power change by calling either IOAllowPowerChange
 			 or IOCancelPowerChange, the system will wait 30 seconds then go to sleep.
 			 */
-			NSLog(@"kIOMessageCanSystemSleep\n");
+			if (_debugMisc) NSLog(@"kIOMessageCanSystemSleep\n");
 			//IOCancelPowerChange(root_port, (long)messageArgument);
 			if ([me canSleep]) {
 				// we will allow idle sleep
@@ -187,7 +199,7 @@ static void MySleepCallBack( void * refCon, io_service_t service, natural_t mess
 			// we cannot deny forced sleep
 			[me _goSleep:(long)messageArgument];
 			
-			NSLog(@"kIOMessageSystemWillSleep\n");
+			if (_debugMisc) NSLog(@"kIOMessageSystemWillSleep\n");
 			//IOAllowPowerChange( root_port, (long)messageArgument );
 			break;
 			
@@ -220,13 +232,13 @@ static void MySleepCallBack( void * refCon, io_service_t service, natural_t mess
 
 - (void) _other:(NSNotification*)notif 
 {
-	NSLog(@"got notification %@\n", [notif name]);
+	if (_debugMisc) NSLog(@"got notification %@\n", [notif name]);
 }
 - (void) _other2:(NSNotification*)notif 
 {
-	NSLog(@"got notification2 %@\n", [notif name]);
+	if (_debugMisc) NSLog(@"got notification2 %@\n", [notif name]);
 	if ([[notif name]isEqualToString:@"com.apple.ServiceConfigurationChangedNotification"]) {
-		NSLog(@"coucou\n");
+		if (_debugMisc) NSLog(@"coucou\n");
 	}
 }
 - (void) _soundChanged:(NSNotification*)notif
@@ -241,17 +253,17 @@ static void MySleepCallBack( void * refCon, io_service_t service, natural_t mess
 
 - (void) confChanged:(NSNotification*)notif 
 {
-	NSLog(@"conf changed %@\n", [notif name]);
+	if (_debugMisc) NSLog(@"conf changed %@\n", [notif name]);
 }
 
 
 - (void) goToFrontRow:(NSNotification*)notif 
 {
-	NSLog(@"going to front row %@\n", [notif name]);
+	if (_debugMisc) NSLog(@"going to front row %@\n", [notif name]);
 }
 - (void) endFrontRow:(NSNotification*)notif 
 {
-	NSLog(@"ending  front row %@\n", [notif name]);
+	if (_debugMisc) NSLog(@"ending  front row %@\n", [notif name]);
 }
 
 
@@ -312,7 +324,7 @@ static void PrintReachabilityFlags(
 	NSString *sUrl = [[ event paramDescriptorForKeyword: keyDirectObject ]
 		   stringValue ];
 	NSURL *url=[NSURL URLWithString:sUrl];
-	NSLog(@"url %@/%@ sheme %@ path %@ host %@ resour %@\n", sUrl, url, [url scheme], [url path], [url host], [url resourceSpecifier]);
+	if (_debugMisc) NSLog(@"url %@/%@ sheme %@ path %@ host %@ resour %@\n", sUrl, url, [url scheme], [url path], [url host], [url resourceSpecifier]);
 	/* TODO popup for confirm */
 	NSString *dnum=[url resourceSpecifier];
 	NSArray *pn=[dnum componentsSeparatedByString:@";"];
@@ -348,7 +360,7 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 				   SCNetworkConnectionFlags	flags,
 				   void *                      info)
 {
-	NSLog(@"callbacked\n");
+	if (_debugMisc) NSLog(@"callbacked\n");
 	PrintReachabilityFlags(" for freephonie.net", flags, "");
 	AppHelper *s=(AppHelper *)info;
 	[s reachable];
@@ -397,7 +409,7 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 	thisTarget = SCNetworkReachabilityCreateWithName(NULL, "freephonie.net");
 	SCNetworkReachabilitySetCallback (thisTarget, reachabilityCallback, &thisContext);
 	if (!SCNetworkReachabilityScheduleWithRunLoop(thisTarget,  [[NSRunLoop currentRunLoop]getCFRunLoop], kCFRunLoopDefaultMode)) {
-		NSLog (@"Failed to schedule a reacher.");
+		if (_debugMisc) NSLog (@"Failed to schedule a reacher.");
 	}
 	[[NSAppleEventManager sharedAppleEventManager]
 		setEventHandler:self andSelector:@selector(dialFromUrlEvent:withReplyEvent:)
@@ -501,7 +513,7 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 {
 	OSStatus status;
 	//SecKeychainRef kref;
-	NSLog(@"set passwd %@\n", s);
+	if (_debugMisc) NSLog(@"set passwd %@\n", s);
 	NSString *ph=[self phoneNumber];
 	if (!ph) return;
 	SecKeychainItemRef ir=nil;
@@ -512,7 +524,9 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 		//NSAssert(!ir, @"strange");
 		status=StorePasswordKeychain(ph,s);
 	}
-	[phone registerPhone:self];
+	[phone authInfoChanged];
+	if (onDemandRegister) [phone unregisterPhone:self];
+	else [phone registerPhone:self];
 }
 - (NSString *) password
 {
@@ -520,7 +534,7 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 	if (!ph) return nil;
 	SecKeychainItemRef ir=nil;
 	NSString *pw=GetPasswordKeychain(ph, &ir);
-	//NSLog(@"got passwd %@\n", pw);
+	//if (_debugMisc) NSLog(@"got passwd %@\n", pw);
 
 	return pw;
 }
@@ -533,6 +547,7 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 
 - (void) setProvider:(int)tag
 {
+	[phone authInfoChanged];
 	// ignore and go back to freephonie for now
 }
 
@@ -562,6 +577,7 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 	[self willChangeValueForKey:@"windowTitle"];
 	setProp(@"phoneNumber",s);
 	[self didChangeValueForKey:@"windowTitle"];
+	[phone authInfoChanged];
 }
 
 - (BOOL) falseValue
@@ -605,9 +621,9 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 - (void) pauseAppInThread
 {
 	NSAutoreleasePool *mypool=[[NSAutoreleasePool alloc]init];
-	NSLog(@"pauseAppInThread/1\n");
+	if (_debugMisc) NSLog(@"pauseAppInThread/1\n");
 	[self _pauseApps];
-	NSLog(@"pauseAppInThread/2\n");
+	if (_debugMisc) NSLog(@"pauseAppInThread/2\n");
 	[mypool release];
 }
 
@@ -624,18 +640,18 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification
 {
-	NSLog(@"applicationWillTerminate\n");
+	if (_debugMisc) NSLog(@"applicationWillTerminate\n");
 }
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
 {
-	NSLog(@"applicationShouldTerminate\n");
+	if (_debugMisc) NSLog(@"applicationShouldTerminate\n");
 	switch ([phone state]) {
 		case sip_off:
 		case sip_ondemand:
 			return NSTerminateNow;
 			break;
 		default:
-			NSLog(@"terminate later\n");
+			if (_debugMisc) NSLog(@"terminate later\n");
 			exitRequested=YES;
 			[phone unregisterPhone:self];
 			return  NSTerminateLater;
@@ -646,7 +662,7 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 
 - (NSString *) windowTitle
 {
-	NSLog(@"window title\n");
+	if (_debugMisc) NSLog(@"window title\n");
 	return [NSString stringWithFormat:@"sipPhone (%@)", [[self phoneNumber]displayCallNumber]];
 }
 - (NSSize)drawerWillResizeContents:(NSDrawer *)sender toSize:(NSSize)contentSize
@@ -699,6 +715,11 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 		case 2: return NSLocalizedString(@"Playback, listen", @"playback started");
 	}
 	return @"hu?";
+}
+
+- (void) setError:(NSString *)error diag:(NSString *)diag openAccountPref:(BOOL)gotopref
+{
+	if (gotopref) [self openAccountPref];
 }
 
 

@@ -29,6 +29,11 @@ static int lastunlock=0;
 #define EXOSIP_LOCK() do { eXosip_lock(); lastlock=__LINE__; } while(0)
 #define EXOSIP_UNLOCK() do { eXosip_unlock();lastunlock= __LINE__; } while(0)
 
+int _debugFsm=0;
+int _debugAudio=0;
+int _debugMisc=0;
+int _debugCauses=0;
+
 static NSString *
 eXosip_get_sdp_body (osip_message_t * message)
 {
@@ -147,6 +152,11 @@ static int initDone=0;
 
 - (void) awakeFromNib
 {
+	_debugFsm=getBoolProp(@"debugFsm", NO);
+	_debugAudio=getBoolProp(@"debugAudio", NO);
+	_debugMisc=getBoolProp(@"debugMisc", NO);
+	_debugCauses=getBoolProp(@"debugCauses", NO);
+
 	abVisibleOffline=getBoolProp(@"abVisibleOnStartup",YES);
 	if ([appHelper onDemandRegister]) [self setState:sip_ondemand];
 	NSAssert(abPicker, @"unconnected abPicker");
@@ -362,7 +372,7 @@ static int initDone=0;
 - (void) setState:(sipState_t) s
 {
 	sipState_t olds;
-	NSLog(@"== state %d->%d\n", state,s);
+	if (_debugFsm) NSLog(@"== state %d->%d\n", state,s);
 
 	if (state==s) return;
 	// some hook when leaving a state
@@ -475,19 +485,12 @@ static int initDone=0;
 }
 
 
-/**
-* Build initial REGISTER request.
- * 
- * @param from      SIP url for caller.
- * @param proxy     Proxy used for registration.
- * @param contact   Contact address. (optional)
- * @param expires   The expires value for registration.
- * @param reg       The SIP request to build.
- *
-int eXosip_register_build_initial_register(const char *from, const char *proxy,
-					   const char *contact, int expires,
-					   osip_message_t **reg);
-*/
+- (void) authInfoChanged
+{
+	eXosip_clear_authentication_info();
+	eXosip_add_authentication_info([[appHelper authId]cString], [[appHelper authId]cString], [[appHelper authPasswd]cString],
+			       NULL, NULL);
+}
 
 - (IBAction) registerPhoneOnDemand:(BOOL) onDemand dur:(int)dur;
 {
@@ -505,7 +508,8 @@ int eXosip_register_build_initial_register(const char *from, const char *proxy,
 		NSLog(@"register failed (buid initial reg)");
 		return;
 	}
-	
+	//NSLog(@"password %@\n",[appHelper authPasswd]);
+	eXosip_clear_authentication_info();
 	eXosip_add_authentication_info([[appHelper authId]cString], [[appHelper authId]cString], [[appHelper authPasswd]cString],
 					    NULL, NULL);
 	
@@ -595,10 +599,21 @@ int eXosip_register_build_initial_register(const char *from, const char *proxy,
 		eXosip_automatic_action ();
 		EXOSIP_UNLOCK();
 		if (je == NULL) break;
-		NSLog(@"event %d (%s) tid %d cid %d rid %d did %d\n", je->type, je->textinfo, je->tid, je->cid, je->rid, je->did);
+		if (_debugFsm) NSLog(@"event %d (%s) tid %d cid %d rid %d did %d\n", je->type, je->textinfo, je->tid, je->cid, je->rid, je->did);
 		if (je->rid) {
 			switch (je->type) {
 				case EXOSIP_REGISTRATION_FAILURE:
+					if (je->response) NSLog(@"got status: %d / %s\n", je->response->status_code, 
+					      je->response->reason_phrase);
+					int satus_code=je->response ? je->response->status_code : 0;
+					if (403 /*wrong password*/==satus_code) {
+						[self setState:sip_off];
+						[appHelper setError:NSLocalizedString(@"Registration failed", @"Registration failed")
+							     diag:NSLocalizedString(@"Wrong Password", @"Wrong Password")
+						    openAccountPref:YES];
+						rc=eXosip_default_action(je);
+						break;
+					}
 					switch (state) {
 						case sip_register_retry:
 							[self setState:sip_off];
@@ -607,7 +622,7 @@ int eXosip_register_build_initial_register(const char *from, const char *proxy,
 							[self setState:sip_register_retry];
 							rc=eXosip_default_action(je);
 							if (rc) {
-								[self setState:sip_off];
+								//[self setState:sip_off];
 								break;
 							}
 							break;
@@ -623,13 +638,13 @@ int eXosip_register_build_initial_register(const char *from, const char *proxy,
 							}
 							break;
 						case sip_unregister_retry:
-							//[self setState:sip_off];
+							[self setState:sip_off];
 							break;
 						case sip_unregister_in_progress:
 							[self setState:sip_unregister_retry];
 							rc=eXosip_default_action(je);
 							if (rc) {
-								//[self setState:sip_off];
+								[self setState:sip_off];
 								break;
 							}
 							break;
@@ -638,23 +653,23 @@ int eXosip_register_build_initial_register(const char *from, const char *proxy,
 					}
 					break;
 				case EXOSIP_REGISTRATION_SUCCESS:
-					NSLog(@"registration ok\n");
+					if (_debugFsm) NSLog(@"registration ok\n");
 					switch (state) {
 						case sip_off:
 						case sip_register_retry:
 						case sip_register_in_progress:
 							[self setState:sip_registered];
-							NSLog(@"now registered\n");
+							if (_debugFsm) NSLog(@"now registered\n");
 							break;
 						case sip_register2call_retry:
 						case sip_register2call_in_progress:
 							[self setState:sip_registered];
-							NSLog(@"now registered, mazke call\n");
+							if (_debugFsm) NSLog(@"now registered, mazke call\n");
 							[self makeOutCall];
 							break;
 						case sip_unregister_in_progress:
 						case sip_unregister_retry:
-							NSLog(@"now deregistered\n");
+							if (_debugFsm) NSLog(@"now deregistered\n");
 							if ([appHelper onDemandRegister]) {
 								[self setState:sip_ondemand];
 							} else {
@@ -662,7 +677,7 @@ int eXosip_register_build_initial_register(const char *from, const char *proxy,
 							}
 							break;
 						default:
-							NSLog(@"registered ignore in state %d\n", state);
+							if (_debugFsm) NSLog(@"registered ignore in state %d\n", state);
 							break;
 					}
 					break;
@@ -671,9 +686,31 @@ int eXosip_register_build_initial_register(const char *from, const char *proxy,
 					break;
 			}
 		} else if (je->cid) {
+			if (je->response) {
+				osip_header_t *hdr;
+				int s=je->response->headers ? osip_list_size(je->response->headers):0;
+				int i;
+				for (i=0; i<s; i++) {
+					hdr=(osip_header_t *)osip_list_get(je->response->headers, i);
+					if (!strcmp(hdr->hname, "reason")) {
+						if (_debugCauses) NSLog(@"XXX got reason %s\n", hdr->hvalue);
+					}
+				}
+			} 
+			if (je->request) {
+				osip_header_t *hdr;
+				int s=je->request->headers ? osip_list_size(je->request->headers):0;
+				int i;
+				for (i=0; i<s; i++) {
+					hdr=(osip_header_t *)osip_list_get(je->request->headers, i);
+					if (!strcmp(hdr->hname, "reason")) {
+						if (_debugCauses) NSLog(@"XXX (req) got reason %s\n", hdr->hvalue);
+					}
+				}
+			}
 			if (_cid != je->cid) {
 				if (je->type==EXOSIP_CALL_INVITE) {
-					NSLog(@"incoming new call\n");
+					if (_debugFsm) NSLog(@"incoming new call\n");
 					if (!je->request) goto refuse_call;
 					if (!je->request->from) goto refuse_call;
 					char *f=je->request->from->displayname;
@@ -720,11 +757,12 @@ refuse_call:
 				eXosip_event_free(je);
 				continue;
 			}
+			
 			switch (je->type) {
 				case EXOSIP_CALL_REINVITE:
-					NSLog(@"reinvinte (call within a call)\n");
+					if (_debugFsm) NSLog(@"reinvinte (call within a call)\n");
 					break;
-				case EXOSIP_CALL_INVITE:NSLog(@"incoming call on existing call?\n");
+				case EXOSIP_CALL_INVITE:if (_debugFsm) NSLog(@"incoming call on existing call?\n");
 					EXOSIP_LOCK ();
 					eXosip_call_send_answer (je->tid, 415, NULL);
 					EXOSIP_UNLOCK ();
@@ -736,13 +774,37 @@ refuse_call:
 					if (je->did) _did=je->did;
 						break;
 				case EXOSIP_CALL_REQUESTFAILURE:
-					if ((je->response != NULL && je->response->status_code == 407)
-					    || (je->response != NULL && je->response->status_code == 401)) {
-						rc=eXosip_default_action(je);
-						break;
+					if (_debugFsm) NSLog(@"EXOSIP_CALL_REQUESTFAILURE %d / %s\n",
+					      je->response ?  je->response->status_code : -1,
+					      je->response ? je->response->reason_phrase : "?");					
+					if (je->response != NULL) {
+						BOOL keepcall=NO;
+						
+						switch (je->response->status_code) {
+							case 403:
+								[appHelper setError:NSLocalizedString(@"Call failed", @"Call failed")
+									       diag:NSLocalizedString(@"Wrong Password", @"Wrong Password")
+								    openAccountPref:YES];
+								break;
+							case 401:
+							case 407:
+								rc=eXosip_default_action(je);
+								keepcall=YES;
+								break;
+							case 487:
+								// user cancel
+								break;
+							case 486:
+								// intern serv error
+								if (_debugFsm) NSLog(@"486 here\n");
+								break;
+							default:
+								break;
+						}
+						if (keepcall) break;
+
 					}
-					NSLog(@"EXOSIP_CALL_REQUESTFAILURE %d\n",
-					      je->response ?  je->response->status_code : -1);
+					
 					[userPlane endUserPlane];
 					rc=eXosip_default_action(je);
 					if (state>sip_registered) [self terminateCall:self];
@@ -755,7 +817,7 @@ refuse_call:
 					NSLog(@"EXOSIP_CALL_GLOBALFAILURE\n");
 					break;
 				case EXOSIP_CALL_ANSWERED:
-					NSLog(@"call answered\n");
+					if (_debugFsm) NSLog(@"call answered\n");
 					if (je->did) _did=je->did;
 						
 #if 0
@@ -791,30 +853,30 @@ refuse_call:
 					[self setState:sip_online];
 					break;
 				case EXOSIP_CALL_MESSAGE_NEW:
-					NSLog(@"msg new (EXOSIP_CALL_MESSAGE_NEW)\n");
+					if (_debugFsm) NSLog(@"msg new (EXOSIP_CALL_MESSAGE_NEW)\n");
 					break;
 				case EXOSIP_CALL_MESSAGE_PROCEEDING:
-					NSLog(@"call proceed\n");
+					if (_debugFsm) NSLog(@"call proceed\n");
 					if (je->did) _did=je->did;
 						break;
 				case EXOSIP_CALL_RELEASED:
 					[userPlane endUserPlane];
 					rc=eXosip_default_action(je);
 					if (state>sip_registered) [self terminateCall:self];
-					NSLog(@"call released (EXOSIP_CALL_RELEASED)\n");
+					if (_debugFsm) NSLog(@"call released (EXOSIP_CALL_RELEASED)\n");
 					break;
 				case EXOSIP_CALL_CLOSED:
 					[userPlane endUserPlane];
 					rc=eXosip_default_action(je);
 					if (state>sip_registered) [self terminateCall:self]; // XXX
-					NSLog(@"call released (EXOSIP_CALL_CLOSED)\n");
+					if (_debugFsm) NSLog(@"call released (EXOSIP_CALL_CLOSED)\n");
 					break;
 				case EXOSIP_CALL_ACK:
 					if (state==sip_incoming_call_acccepted) {
 						[self setState:sip_online];
 					}
 				default:
-					NSLog(@"not handled event %d (%s)\n", je->type, je->textinfo);
+					if (_debugFsm) NSLog(@"not handled event %d (%s)\n", je->type, je->textinfo);
 					break;
 			}
 		} else {
@@ -841,7 +903,7 @@ refuse_call:
 						 "phone call");
 	if (rc) return;
 	osip_message_set_supported (invite, "100rel");
-	//NSLog(@"invite tid %d cid %d\n", invite->tid, invite->cid);
+	//if (_debugFsm) NSLog(@"invite tid %d cid %d\n", invite->tid, invite->cid);
 	[userPlane endUserPlane];
 	
 	[self willChangeValueForKey:@"localSdp"];
@@ -879,9 +941,9 @@ refuse_call:
 		case sip_outgoing_call_ringing:
 		case sip_outgoing_call_sent:
 		case sip_incoming_call_ringing:
-			NSLog(@"hang up cid %d did %d\n", _cid, _did);
+			if (_debugFsm) NSLog(@"hang up cid %d did %d\n", _cid, _did);
 			rc=eXosip_call_terminate(_cid, _did);
-			if (rc<0) NSLog(@"hangup failed %d/%d\n", _cid, _did);
+			if (rc<0) NSLog(@"hangup failed %d/%d rc=%d\n", _cid, _did, rc);
 			else {
 				[self setState:sip_initiated_clearing];
 			}
@@ -899,7 +961,7 @@ refuse_call:
 		case sip_outgoing_call_ringing:
 		case sip_outgoing_call_sent:
 		case sip_incoming_call_ringing:
-			NSLog(@"hang up cid %d did %d\n", _cid, _did);
+			if (_debugFsm) NSLog(@"hang up cid %d did %d\n", _cid, _did);
 			rc=eXosip_call_terminate(_cid, _did);
 			if (rc<0) NSLog(@"hangup failed %d/%d\n", _cid, _did);
 			break;

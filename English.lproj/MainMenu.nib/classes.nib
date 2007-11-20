@@ -114,6 +114,8 @@
 				<string>SipPhone</string>
 				<key>prefPanel</key>
 				<string>NSPanel</string>
+				<key>prefTabView</key>
+				<string>NSTabView</string>
 			</dict>
 			<key>SUPERCLASS</key>
 			<string>NSObject</string>

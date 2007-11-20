@@ -20,6 +20,8 @@
 
 #define SAMPLES_PER_FRAME 160
 
+static int _debugAudio=0;
+
 - (id) init {
 	self = [super init];
 	if (self != nil) {
@@ -80,7 +82,7 @@ static float getVolume(AudioDeviceID dev, int isInput)
 
 	UInt32 propSize=0;
 	OSStatus ss=AudioDeviceGetPropertyInfo(dev, 0, isInput, kAudioDevicePropertyDeviceName, &propSize, NULL);
-	NSLog(@"dev name size %d, rc=%d\n", propSize, ss);
+	if (_debugAudio) NSLog(@"dev name size %d, rc=%d\n", propSize, ss);
 	float vol=0.0;
 	UInt32 s=sizeof(vol);
 	if (hasProperty(dev, 0, isInput, kAudioDevicePropertyVolumeDecibels)) {
@@ -90,7 +92,7 @@ static float getVolume(AudioDeviceID dev, int isInput)
 			AudioDeviceGetProperty(dev,1,isInput,kAudioDevicePropertyVolumeDecibels,
 					       &s ,(void*)&vol);
 	}
-	NSLog(@"got volume %g\n", vol);
+	if (_debugAudio) NSLog(@"got volume %g\n", vol);
 	return vol;
 }
 static void setVolume(AudioDeviceID dev,int isInput, float v)
@@ -120,14 +122,14 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	if (hog) {
 		if (hogged) return hogged;
 		OSStatus rc=AudioDeviceSetProperty(dev, NULL, 0, isInput, kAudioDevicePropertyHogMode, sizeof(hpid), &hpid);
-		NSLog(@"hog mode on: %d / %d - rx=%X\n", (int) hpid, getpid(), rc);
+		if (_debugAudio) NSLog(@"hog mode on: %d / %d - rx=%X\n", (int) hpid, getpid(), rc);
 		if (hpid==getpid()) {
 			hogged=YES;
 		}
 	} else {
 		if (!hogged) return hogged;
 		AudioDeviceSetProperty(dev, NULL, 0, isInput, kAudioDevicePropertyHogMode, sizeof(hpid), &hpid);
-		NSLog(@"hog mode off: %d / %d\n", (int) hpid, getpid());
+		if (_debugAudio) NSLog(@"hog mode off: %d / %d\n", (int) hpid, getpid());
 		if (hpid != getpid()) hogged=NO;
 	}
 	return hogged;
@@ -149,7 +151,7 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	if (0) for (i=0; i<ndev; i++) {
 		const pjmedia_snd_dev_info *dinfo;
 		dinfo=pjmedia_snd_get_dev_info(i);
-		NSLog(@"dev %d: %s\n", i, dinfo->name);
+		if (_debugAudio) NSLog(@"dev %d: %s\n", i, dinfo->name);
 	}
 #endif
 	int ndev=pjmedia_snd_get_dev_count();
@@ -195,18 +197,18 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 						    );
 	}
 	NSAssert(!rc, @"pjmedia_snd_port_create failed");
-	//NSLog(@"pjmedia_snd_port_create_player devid %d\n", output->play_id);
+	//if (_debugAudio) NSLog(@"pjmedia_snd_port_create_player devid %d\n", output->play_id);
 	//PJ_DEF(const pjmedia_snd_dev_info*) pjmedia_snd_get_dev_info(unsigned index)
 	//const void *info=pjmedia_snd_port_get_hwinfo(output);
 	NSAssert(outputDevIdx>=0, @"bad play id");
 	NSAssert(outputDevIdx<32, @"bad play id");
-	NSLog(@"using play audio id %d\n", _GlobMacDevIds[outputDevIdx]);
+	if (_debugAudio) NSLog(@"using play audio id %d\n", _GlobMacDevIds[outputDevIdx]);
 	
 	normalOutputVolume=getVolume(_GlobMacDevIds[outputDevIdx], 0);
 	
 	if (getBoolProp(@"setVolume",YES)) {
 		float volume=getFloatProp(ring ? @"audioOutputVolume" : @"audioRingVolume",-8);
-		NSLog(@"setting volume (%s) to %g\n", ring ? "ring":"normal", volume);
+		if (_debugAudio) NSLog(@"setting volume (%s) to %g\n", ring ? "ring":"normal", volume);
 		setVolume(_GlobMacDevIds[outputDevIdx], 0, volume);
 		if (!ring) {
 			NSAssert(inputDevIdx>=0, @"bad rec id");
@@ -216,7 +218,7 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 		}
 
 	} else {
-		NSLog(@"not setting volume (%s) to %g\n", ring ? "ring":"normal");
+		if (_debugAudio) NSLog(@"not setting volume (%s) to %g\n", ring ? "ring":"normal");
 	}
 	if (0 && getBoolProp(@"hogMode", YES)) {
 		[self setHog:(AudioDeviceID) _GlobMacDevIds[outputDevIdx] input:0 value:YES];
@@ -243,7 +245,7 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	NSAssert(!rc, @"pj_init failed");
 	NSAssert(inputDevIdx>=0, @"bad play id");
 	NSAssert(inputDevIdx<32, @"bad play id");
-	NSLog(@"using rec audio id %d\n", _GlobMacDevIds[inputDevIdx]);
+	if (_debugAudio) NSLog(@"using rec audio id %d\n", _GlobMacDevIds[inputDevIdx]);
 	if (getBoolProp(@"setVolume", YES)) {
 		normalInputGain=getVolume(_GlobMacDevIds[inputDevIdx], 1);
 		setVolume(_GlobMacDevIds[inputDevIdx], 1, getFloatProp(@"audioInputGain",100));
@@ -276,10 +278,11 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 {
 	int rc;
 	static int mediaInitDone=0;
+	_debugAudio=getBoolProp(@"debugAudio", NO);
 	if (!mediaInitDone) {
 		rc= pj_init();
 		NSAssert(!rc, @"pj_init failed");
-		pj_log_set_level(99);
+		pj_log_set_level(_debugAudio ? 99: 0);
 		mediaInitDone=1;
 	}
 	pj_caching_pool_init(&cp, &pj_pool_factory_default_policy, 0);
@@ -371,7 +374,7 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	//info.ssrc = pj_rand();
 	
 	for (port=30000;  port<30100; port+=2) {
-		NSLog(@"trying port %d\n", port);
+		if (_debugAudio) NSLog(@"trying port %d\n", port);
 		rc=pjmedia_transport_udp_create(med_endpt, "rx", port, 0, &rtp_transport);
 		if (rc) continue;
 		pjmedia_transport_udp_info udp_info;
@@ -463,7 +466,7 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	if (1) for (i=0; i<ndev; i++) {
 		const pjmedia_snd_dev_info *dinfo;
 		dinfo=pjmedia_snd_get_dev_info(i);
-		NSLog(@"dev %d: %s\n", i, dinfo->name);
+		if (_debugAudio) NSLog(@"dev %d: %s\n", i, dinfo->name);
 		if (dinfo->input_count) {
 			[res addObject:[NSString stringWithCString:dinfo->name encoding:NSUTF8StringEncoding]];
 		}
@@ -481,7 +484,7 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	if (1) for (i=0; i<ndev; i++) {
 		const pjmedia_snd_dev_info *dinfo;
 		dinfo=pjmedia_snd_get_dev_info(i);
-		NSLog(@"dev %d: %s\n", i, dinfo->name);
+		if (_debugAudio) NSLog(@"dev %d: %s\n", i, dinfo->name);
 		if (dinfo->output_count) {
 			[res addObject:[NSString stringWithCString:dinfo->name encoding:NSUTF8StringEncoding]];
 		}
@@ -496,7 +499,7 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 #define RECORD_BUFFER_SIZE (2*8000*5)
 - (void) _playbackEnded:(id)dummy
 {
-	NSLog(@"playBackEnded\n");
+	if (_debugAudio) NSLog(@"playBackEnded\n");
 	[self stopAudioTest];
 }
 
@@ -510,7 +513,7 @@ static pj_status_t playBackEnded(pjmedia_port *port, void *usr_data)
 - (void) _recordEnded:(id)dummy
 {
 	if (!capturePort) return; // seems that pjmedia call it twice
-	NSLog(@"record ended\n");
+	if (_debugAudio) NSLog(@"record ended\n");
 	pjmedia_snd_port_disconnect(inputOutput);
 	pjmedia_port_destroy(capturePort);
 	capturePort=NULL;

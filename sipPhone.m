@@ -1036,4 +1036,9 @@ refuse_call:
 {
 	[popupInCall makeKeyAndOrderFront:self];
 }
+- (IBAction) dtmf:(id) sender
+{
+	int tag=[sender tag];
+	NSLog(@"dtmf %d\n", tag);
+}
 @end

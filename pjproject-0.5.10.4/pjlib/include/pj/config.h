@@ -132,6 +132,7 @@
     /*
      * Generic i386 processor family, little-endian
      */
+
 #   undef PJ_M_I386
 #   define PJ_M_I386		1
 #   define PJ_M_NAME		"i386"
@@ -236,6 +237,7 @@
     /*
      * PowerPC, big endian
      */
+
 #   undef PJ_M_POWERPC
 #   define PJ_M_POWERPC		1
 #   define PJ_M_NAME		"powerpc"

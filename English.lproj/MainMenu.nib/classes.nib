@@ -11,6 +11,8 @@
 				<string>id</string>
 				<key>dialOutCall</key>
 				<string>id</string>
+				<key>dtmf</key>
+				<string>id</string>
 				<key>endRing</key>
 				<string>id</string>
 				<key>fakeInCall</key>

@@ -20,6 +20,8 @@
 #ifndef __PJ_COMPAT_M_AUTO_H__
 #define __PJ_COMPAT_M_AUTO_H__
 
+#ifndef __ppc__
+//#error x
 /**
  * @file m_auto.h
  * @brief Automatically generated process definition file.
@@ -45,5 +47,21 @@
 
 /* Deprecated */
 #define PJ_HAS_PENTIUM		0
+
+#else
+// ppc
+#define PJ_M_NAME "ppc"
+#ifdef WORDS_BIGENDIAN
+#  define PJ_IS_LITTLE_ENDIAN	0
+#  define PJ_IS_BIG_ENDIAN	1
+#else
+//#error y
+#  define PJ_IS_LITTLE_ENDIAN	0
+#  define PJ_IS_BIG_ENDIAN	1
+#endif
+#define PJ_HAS_FLOATING_POINT 1
+#define PJ_HAS_PENTIUM		0
+
+#endif //ppc
 
 #endif	/* __PJ_COMPAT_M_AUTO_H__ */

@@ -80,7 +80,7 @@ typedef enum {
 - (void) setAbVisible:(BOOL)f;
 - (BOOL) isRinging;
 
-
+- (IBAction) dtmf:(id) sender;
 - (IBAction) test1:(id) sender;
 - (IBAction) test2:(id) sender;
 

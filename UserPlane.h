@@ -32,6 +32,11 @@
 	pjmedia_port	   *capturePort; // for audio test
 	pjmedia_port	   *playbackPort;
 	unsigned char	   *recordBuffer;
+	//pjmedia_port	   *tonegen;
+	//pjsua_conf_port_id toneslot;
+	pjmedia_conf	   *confbridge;
+	unsigned int	   cb_session_slot;
+
 	NSObject <AudioTestHelper> *audioTestHelper;
 
 	int outputDevIdx;
@@ -41,6 +46,8 @@
 	BOOL hogged;
 	
 	QTMovie *ringSequence;
+	
+	
 }
 
 
@@ -65,5 +72,7 @@
 
 - (void) startAudioTestWith:(id) helper;
 - (void) stopAudioTest;
+
+- (void) dtmf:(NSString *)dtmf;
 
 @end

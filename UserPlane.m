@@ -38,6 +38,8 @@ static int _debugAudio=0;
 	if (capturePort) pjmedia_port_destroy(capturePort);
 	if (playbackPort) pjmedia_port_destroy(playbackPort);
 	if (inputOutput) pjmedia_snd_port_destroy(inputOutput);
+	if (confbridge) pjmedia_conf_destroy(confbridge);
+
 	[ringSequence release];
 	[audioTestHelper release];
 	[super dealloc];
@@ -321,6 +323,10 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	}
 
 	pjmedia_tonegen_stop(tone_generator);
+	if (confbridge) {
+		pjmedia_conf_destroy(confbridge);
+		confbridge=NULL;
+	}
 	if (inputOutput) {
 		pjmedia_snd_port_disconnect(inputOutput);
 		pjmedia_snd_port_destroy(inputOutput);
@@ -450,8 +456,29 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	pjmedia_session_get_port(rtp_session, 0, &media_port);
 
 	[self _needInputOutput:NO];
+
+#if 0
 	rc=pjmedia_snd_port_connect(inputOutput, media_port);
-	//rc=pjmedia_snd_port_connect(input, media_port);
+#else
+	NSLog(@"conf create\n");
+	rc=pjmedia_conf_create(pool,2,8000, 1, SAMPLES_PER_FRAME,
+			       16, PJMEDIA_CONF_NO_DEVICE, &confbridge);
+	NSAssert(!rc, @"conf bridge create failed\n");
+	pj_str_t port_name= pj_str("call");
+	
+	pjmedia_port *mport;
+	NSLog(@"conf get master\n");
+	mport=pjmedia_conf_get_master_port(confbridge);
+	NSLog(@"pjmedia_snd_port_connect\n");
+	rc=pjmedia_snd_port_connect(inputOutput, mport);
+	NSLog(@"pjmedia_snd_port_connect rc=%d\n",rc);
+	NSLog(@"add port\n");
+	rc=pjmedia_conf_add_port(confbridge, pool, media_port, &port_name, &cb_session_slot);
+	NSLog(@"add port rc=%d slot=%d\n", rc,cb_session_slot);
+	pjmedia_conf_connect_port(confbridge, cb_session_slot,0, 0);
+	pjmedia_conf_connect_port(confbridge, 0,cb_session_slot, 0);
+	
+#endif
 	//rc=pjmedia_snd_port_set_ec(inputOutput, pool, 20, 0);
 	
 	return YES;
@@ -596,7 +623,37 @@ static pj_status_t recordEnded(pjmedia_port *port, void *usr_data)
 	[self endUserPlane];
 }
 
-
-
+#if 0
+- (void) initToneGen
+{
+	pjmedia_tonegen_create(pool, 8000, 1, 160, 16, 0, &dtmftonegen);
+	pjsua_conf_add_port(pool, tonegen, &toneslot);
+	
+	pjsua_call_get_info(call_id, &ci);
+	pjsua_conf_connect(cd->toneslot, ci.conf_slot);
+	
+	pjsua_call_set_user_data(call_id, (void*) cd);
+	
+	
+}
+#endif
+- (void) dtmf:(NSString *)dtmf
+{
+	
+	pj_status_t rc=pjmedia_session_dial_dtmf(rtp_session,0, "1234");
+	NSLog(@"dial drfm rc%d\n", rc);
+	if (rc==PJMEDIA_RTP_EREMNORFC2833) {
+		const pjmedia_tone_digit digits[]={0,1,2};
+		pj_status_t rc=pjmedia_tonegen_play_digits(pjmedia_tonegen_play,2, digits,0);
+		//pjmedia_con
+	}
+#if 0
+						   pjmedia_tonegen_play(tone_generator, toneNum, _tones, 1);
+						   } else {
+						   pjmedia_tonegen_stop(tone_generator);
+						   }
+						   pjmedia_snd_port_connect(inputOutput, tone_generator);
+#endif
+}
 
 @end

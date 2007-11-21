@@ -1040,5 +1040,6 @@ refuse_call:
 {
 	int tag=[sender tag];
 	NSLog(@"dtmf %d\n", tag);
+	[userPlane dtmf:@"111"];
 }
 @end

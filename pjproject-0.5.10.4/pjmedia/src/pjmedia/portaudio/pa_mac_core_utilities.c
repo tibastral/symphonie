@@ -476,7 +476,7 @@ PaError setBestSampleRateForDevice( const AudioDeviceID device,
    VDBUG(("-----\n"));
    
    /* -- now pick the best available sample rate -- */
-   for( i=0; i<propsize/sizeof(AudioValueRange); ++i )
+   for( i=0; i<propsize/(int)sizeof(AudioValueRange); ++i )
    {
       if( ranges[i].mMaximum > max ) max = ranges[i].mMaximum;
       if( ranges[i].mMinimum > desiredSrate ) {

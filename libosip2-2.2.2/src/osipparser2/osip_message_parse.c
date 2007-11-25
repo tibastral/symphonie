@@ -755,7 +755,7 @@ msg_osip_body_parse (osip_message_t * sip, const char *start_of_buf,
               && 0 == osip_strcasecmp (sip->content_type->subtype, "sdp"))
             {
               osip_body_len = strlen (start_of_body);
-              sprintf (tmp, "%i", osip_body_len);
+              sprintf (tmp, "%i", (int)osip_body_len);
               i = osip_message_set_content_length (sip, tmp);
               if (i != 0)
                 return -1;

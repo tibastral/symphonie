@@ -520,7 +520,7 @@ eXosip_get_localip_for (const char *address_to_reach, char *loc, int size)
 #endif
   if (eXosip.forced_localip)
     {
-      if (size > sizeof (eXosip.net_interfaces[0].net_firewall_ip))
+      if (size > (int)sizeof (eXosip.net_interfaces[0].net_firewall_ip))
         size = sizeof (eXosip.net_interfaces[0].net_firewall_ip);
       strncpy (loc, eXosip.net_interfaces[0].net_firewall_ip, size);
       return 0;

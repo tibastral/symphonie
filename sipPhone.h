@@ -13,6 +13,15 @@
 
 @class UserPlane;
 
+/*
+ * sipState_t, our finate state machine states
+ * obviously we handle here two differents things: the registration
+ * state and the call state. SIP mix both in an unpleasant way (eg
+ * compared to GMM/SM GPRS/3G) 
+ * We target only single call phone, though it is safe for now
+ * to keep a single fsm, though we may evolve to 2 separate fsm
+ */
+
 typedef enum {
 	sip_off=0,				//0	
 	sip_unregister_in_progress,		//1
@@ -46,39 +55,66 @@ typedef enum {
 	IBOutlet ABPeoplePickerView *abPicker;
 	IBOutlet NSTabView *callView;
 	IBOutlet CallTicketHandler *tickets;
-	
+	NSWindow *popupInCall;
+
 	sipState_t state;
 	int _rid;
 	int _cid;
 	int _did;
 	int _tid;
+	NSTimer *pollTimer;
+	//NSRunLoop *mainloop;
+
 	
-	NSWindow *popupInCall;
-	NSString *editedPassword;
-	// called number
+	//NSString *editedPassword;
+	// called number (out call), and its AB name
 	NSString *selectedNumber;
 	NSString *selectedName;
-	// caller
+	// caller (in call)
 	NSString *callingNumber;
 	NSString *callingName;
 	
-	BOOL fromAB;
+	BOOL fromAB;	// true if selectedNumber comes from AddressBook (and has not been changed)
 	ABCache *abCache;
-	BOOL abVisible;
-	BOOL abVisibleOffline;
-	NSTimer *pollTimer;
-	NSRunLoop *mainloop;
+	BOOL abVisible;		// bound to ABPeoplePickerView drawer visibility
+	BOOL abVisibleOffline;  // remind picker visibility when in "offline" state
+	
 	// userplane stuffs
 	NSString *localSdp;
 	NSString *remoteSdp;
 	UserPlane *userPlane;
-	BOOL audioTest;
+	BOOL audioTest;		// should be moved to AppHelper
 }
 
-- (int) selectedViewNumber;
-- (BOOL) abVisible;
-- (void) setAbVisible:(BOOL)f;
+
+
+- (void) setState:(sipState_t) s;
+- (sipState_t) state;
+
+- (int) selectedViewNumber;	// bound to tabview - selects the current view (unreg, offline,...)
+
+// some flags, usable in bindings, that depends on state
 - (BOOL) isRinging;
+- (BOOL) canChangeRegistrationScheme;
+- (BOOL) onLine;
+
+// called / calling number, usable in bindings, with different formats
+- (void) setSelectedNumber:(NSString *)s;
+- (NSString*) selectedNumber;
+- (NSString*) internationalSelectedNumber;
+- (NSString*) internationalDisplaySelectedNumber;
+- (NSString*) selectedName;
+- (void) setSelectedName:(NSString *)s;
+- (void) setCallingNumber:(NSString *)s;
+- (NSString *) callingNumber;
+- (NSString *) internationalCallingNumber;
+- (NSString *) displayCallingNumber;
+
+- (BOOL) fromAB;
+- (void) setFromAB:(BOOL)f;
+- (BOOL) abVisible;		// bound to AB picker view drawer
+- (void) setAbVisible:(BOOL)f;
+
 
 - (IBAction) dtmf:(id) sender;
 - (IBAction) test1:(id) sender;
@@ -86,22 +122,6 @@ typedef enum {
 
 - (void) pollExosip:(NSTimer *)t;
 - (void) _initExosip;
-
-- (void) setState:(sipState_t) s;
-- (sipState_t) state;
-
-- (void) setSelectedNumber:(NSString *)s;
-- (NSString*) selectedNumber;
-- (NSString*) internationalSelectedNumber;
-- (NSString*) internationalDisplaySelectedNumber;
-- (NSString*) selectedName;
-- (void) setSelectedName:(NSString *)s;
-- (BOOL) fromAB;
-- (void) setFromAB:(BOOL)f;
-- (void) setCallingNumber:(NSString *)s;
-- (NSString *) callingNumber;
-- (NSString *) internationalCallingNumber;
-- (NSString *) displayCallingNumber;
 
 - (BOOL) incomingCallActive;
 - (BOOL) outgoingCallActive;
@@ -113,19 +133,22 @@ typedef enum {
 - (IBAction) endRing:(id) sender;
 
 //- (BOOL) onCallActive;
-- (BOOL) canChangeRegistrationScheme;
-- (BOOL) onLine;
+
 - (IBAction) dialOutCall:(id) sender;
 - (IBAction) hangUpCall:(id) sender;
 - (IBAction) acceptCall:(id) sender;
 - (IBAction) registerPhone:(id) sender;
 - (IBAction) unregisterPhone:(id) sender;
 - (IBAction) terminateCall:(id) sender;
-- (void) authInfoChanged;
+
+
+- (void) authInfoChanged; // invoked by AppHelper when user/passwd had been changed,
+			  // thus sipPhone shall re-register
 
 - (void) setAudioTest:(BOOL) test;
 - (BOOL) audioTest;
 
+// used for debug only
 - (IBAction) pretendRegistered:(id) sender;
 - (IBAction) fakeInCall:(id) sender;
 

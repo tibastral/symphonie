@@ -470,7 +470,7 @@ static int initDone=0;
 	}
 	initDone=1;
 	// from quit, have a different runloop
-	mainloop=[NSRunLoop currentRunLoop];//not retained
+	// mainloop=[NSRunLoop currentRunLoop];//not retained
 #if 0
 	pollTimer=[NSTimer scheduledTimerWithTimeInterval:(NSTimeInterval)0.1 
 					  target:self selector:@selector(pollExosip:) userInfo:nil repeats:YES];
@@ -505,7 +505,7 @@ static int initDone=0;
 	{
 		EXOSIP_UNLOCK ();
 		//NSAssert(0, @"registered failed\n");
-		NSLog(@"register failed (buid initial reg)");
+		NSLog(@"register failed (buid initial reg) %d", _rid);
 		return;
 	}
 	//NSLog(@"password %@\n",[appHelper authPasswd]);
@@ -513,8 +513,8 @@ static int initDone=0;
 	eXosip_add_authentication_info([[appHelper authId]cString], [[appHelper authId]cString], [[appHelper authPasswd]cString],
 					    NULL, NULL);
 	
-	if (1) osip_message_set_supported (reg, "100rel");
-	if (1) osip_message_set_supported(reg, "path");
+	if (0) osip_message_set_supported (reg, "100rel");
+	if (0) osip_message_set_supported(reg, "path");
 	
 	rc = eXosip_register_send_register (_rid, reg);
 	EXOSIP_UNLOCK ();
@@ -550,12 +550,13 @@ static int initDone=0;
 	[self hangUpCall:sender];
 	//NSAssert(state==sip_off, @"bad state for registerPhone");
 	EXOSIP_LOCK ();
+	// TODO should use initial register ?
 	rc = eXosip_register_build_register(_rid, 0 /* expire 0= unregister*/, &reg);
 	if (rc < 0)
 	{
 		EXOSIP_UNLOCK ();
 		//NSAssert(0, @"registered failed\n");
-		NSLog(@"unregister failed (build) rc=%d\n", rc);
+		NSLog(@"unregister failed (build) rc=%d, _rid=%d\n", rc);
 		return;
 	}
 	
@@ -563,6 +564,7 @@ static int initDone=0;
 	EXOSIP_UNLOCK ();
 	NSAssert(!rc, @"eXosip_register_send_register failed\n");
 	[self setState:sip_unregister_in_progress];
+#if 0
 	NSRunLoop *curloop=[NSRunLoop currentRunLoop];
 	if (0 && (curloop != mainloop)) {
 		NSLog(@"new loop, restart timer\n");
@@ -571,6 +573,7 @@ static int initDone=0;
 		pollTimer=[NSTimer scheduledTimerWithTimeInterval:(NSTimeInterval)0.1 
 							   target:self selector:@selector(pollExosip:) userInfo:nil repeats:YES];
 	}
+#endif
 	return;
 }
 
@@ -580,19 +583,24 @@ static int initDone=0;
 	if (state<sip_registered) [self setState:sip_registered];
 }
 
+/*
+ * the main finate state machine - most of the phone is here
+ * exosip is called by polling - polling at 10Hz - more than enough for sip-
+ * cost nothing in cpu and is much more simpler/safer than any other
+ * mechanism - specifically
+ * not knowing the internal of exosip 
+ */
 - (void) pollExosip:(NSTimer *)t
 {
 	eXosip_event_t *je;
 	int rc;
-	//sdp_connection_t *conn=NULL;
-	//sdp_media_t *local_med=NULL;
-	//sdp_media_t *remote_med=NULL;
-	//sdp_message_t *remote_sdp = NULL;
-	
+		
 	static BOOL inpoll=NO;
-	NSAssert(!inpoll, @"reentered");
+	// check we are not re-entered - indeed we are not, but if an exception occurs
+	// (in this case we brutaly leave pollExosip letting the inpoll flag to yes
+	if (0) NSAssert(!inpoll, @"reentered");
 	inpoll=YES;
-	//NSLog(@"poool\n");
+
 	for (;;) {
 		je = eXosip_event_wait (0, 0);
 		EXOSIP_LOCK();
@@ -600,19 +608,31 @@ static int initDone=0;
 		EXOSIP_UNLOCK();
 		if (je == NULL) break;
 		if (_debugFsm) NSLog(@"event %d (%s) tid %d cid %d rid %d did %d\n", je->type, je->textinfo, je->tid, je->cid, je->rid, je->did);
-		if (je->rid) {
+		if (je->rid) { 
+			
+			// handle registration events
+			// --------------------------
+			
+			// TODO check rid is current rid
+			int status_code;
 			switch (je->type) {
 				case EXOSIP_REGISTRATION_FAILURE:
 					if (je->response) NSLog(@"got status: %d / %s\n", je->response->status_code, 
 					      je->response->reason_phrase);
-					int satus_code=je->response ? je->response->status_code : 0;
-					if (403 /*wrong password*/==satus_code) {
+					status_code=je->response ? je->response->status_code : 0;
+					if (403 /*TODO this is not only wrong password*/==status_code) {
 						[self setState:sip_off];
 						[appHelper setError:NSLocalizedString(@"Registration failed", @"Registration failed")
 							     diag:NSLocalizedString(@"Wrong Password", @"Wrong Password")
-						    openAccountPref:YES];
+						    openAccountPref:YES
+							     domain:0];
 						rc=eXosip_default_action(je);
 						break;
+					} else if (!je->response) {
+						[appHelper setError:NSLocalizedString(@"Registration failed", @"Registration failed")
+							       diag:NSLocalizedString(@"no reply", @"no reply")
+						    openAccountPref:NO
+							     domain:0];
 					}
 					switch (state) {
 						case sip_register_retry:
@@ -632,8 +652,8 @@ static int initDone=0;
 						case sip_register2call_in_progress:
 							[self setState:sip_register2call_retry];
 							rc=eXosip_default_action(je);
-							if (rc) {
-								//[self setState:sip_ondemand];
+							if (rc && (401!=status_code)) {
+								[self setState:sip_ondemand];
 								break;
 							}
 							break;
@@ -643,7 +663,7 @@ static int initDone=0;
 						case sip_unregister_in_progress:
 							[self setState:sip_unregister_retry];
 							rc=eXosip_default_action(je);
-							if (rc) {
+							if (rc && (401!=status_code)) {
 								[self setState:sip_off];
 								break;
 							}
@@ -686,6 +706,8 @@ static int initDone=0;
 					break;
 			}
 		} else if (je->cid) {
+			// handle call events
+			// ------------------
 			if (je->response) {
 				osip_header_t *hdr;
 				int s=je->response->headers ? osip_list_size(je->response->headers):0;
@@ -761,6 +783,7 @@ refuse_call:
 			switch (je->type) {
 				case EXOSIP_CALL_REINVITE:
 					if (_debugFsm) NSLog(@"reinvinte (call within a call)\n");
+					rc=eXosip_default_action(je);
 					break;
 				case EXOSIP_CALL_INVITE:if (_debugFsm) NSLog(@"incoming call on existing call?\n");
 					EXOSIP_LOCK ();
@@ -784,7 +807,8 @@ refuse_call:
 							case 403:
 								[appHelper setError:NSLocalizedString(@"Call failed", @"Call failed")
 									       diag:NSLocalizedString(@"Wrong Password", @"Wrong Password")
-								    openAccountPref:YES];
+								    openAccountPref:YES
+									     domain:1];
 								break;
 							case 401:
 							case 407:
@@ -956,23 +980,28 @@ refuse_call:
 - (IBAction) terminateCall:(id) sender
 {
 	int rc;
+	if (_debugFsm) NSLog(@"terminate call cid %d did %d\n", _cid, _did);
+
+	[userPlane endUserPlane];
+
 	switch (state) {
 		case sip_online:
 		case sip_outgoing_call_ringing:
 		case sip_outgoing_call_sent:
 		case sip_incoming_call_ringing:
-			if (_debugFsm) NSLog(@"hang up cid %d did %d\n", _cid, _did);
+			if (_debugFsm) NSLog(@"eXosip_call_terminate up cid %d did %d\n", _cid, _did);
 			rc=eXosip_call_terminate(_cid, _did);
 			if (rc<0) NSLog(@"hangup failed %d/%d\n", _cid, _did);
 			break;
 		default:
 			break;
 	}
-	[userPlane endUserPlane];
 	if ([appHelper onDemandRegister]) {
+		if (_debugFsm) NSLog(@"terminateCall/onDemandRegister\n", _cid, _did);
 		[self setState:sip_registered];
 		[self unregisterPhone:self];
 	} else {
+		if (_debugFsm) NSLog(@"terminateCall/normalreg\n", _cid, _did);
 		[self setState:sip_registered];
 	}
 }

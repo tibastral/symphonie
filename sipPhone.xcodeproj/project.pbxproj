@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B0B9B7C0CF8989000E011F3 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 1B0B9B7B0CF8989000E011F3 /* Credits.rtf */; };
 		1B0BE3590CD7E58C00ED1901 /* errno.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0BE34B0CD7E58C00ED1901 /* errno.c */; };
 		1B0BE35A0CD7E58C00ED1901 /* getopt.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0BE34C0CD7E58C00ED1901 /* getopt.c */; };
 		1B0BE35B0CD7E58C00ED1901 /* md5.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0BE34D0CD7E58C00ED1901 /* md5.c */; };
@@ -207,7 +208,6 @@
 		1B46ED410CCE995E00397E41 /* ABCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B46ED400CCE995E00397E41 /* ABCache.m */; };
 		1B46EE080CCF1A9800397E41 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 1B46EE070CCF1A9800397E41 /* icon.icns */; };
 		1B46EFC00CD1C36200397E41 /* AppHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B46EFBF0CD1C36200397E41 /* AppHelper.m */; };
-		1B46F3780CD7106D00397E41 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 1B46F36E0CD70FBA00397E41 /* Credits.rtf */; };
 		1B751E260CE999E500BA8417 /* Cornemuse.mid in Resources */ = {isa = PBXBuildFile; fileRef = 1B751E250CE999E500BA8417 /* Cornemuse.mid */; };
 		1B751E8D0CE9A23600BA8417 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B751E8C0CE9A23600BA8417 /* QTKit.framework */; };
 		1BAA0A640CEE04BF004A9CB0 /* CallTicketHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA0A630CEE04BF004A9CB0 /* CallTicketHandler.m */; };
@@ -332,6 +332,7 @@
 /* Begin PBXFileReference section */
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		1B0B9B7D0CF898A700E011F3 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = French; path = French.lproj/Credits.rtf; sourceTree = "<group>"; };
 		1B0BE34B0CD7E58C00ED1901 /* errno.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = errno.c; path = "pjproject-0.5.10.4/pjlib-util/src/pjlib-util/errno.c"; sourceTree = "<group>"; };
 		1B0BE34C0CD7E58C00ED1901 /* getopt.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = getopt.c; path = "pjproject-0.5.10.4/pjlib-util/src/pjlib-util/getopt.c"; sourceTree = "<group>"; };
 		1B0BE34D0CD7E58C00ED1901 /* md5.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = md5.c; path = "pjproject-0.5.10.4/pjlib-util/src/pjlib-util/md5.c"; sourceTree = "<group>"; };
@@ -618,7 +619,7 @@
 		1B46EEE80CD0006500397E41 /* Properties.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Properties.h; sourceTree = "<group>"; };
 		1B46EFBE0CD1C36200397E41 /* AppHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppHelper.h; sourceTree = "<group>"; };
 		1B46EFBF0CD1C36200397E41 /* AppHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppHelper.m; sourceTree = "<group>"; };
-		1B46F36E0CD70FBA00397E41 /* Credits.rtf */ = {isa = PBXFileReference; explicitFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
+		1B46F36E0CD70FBA00397E41 /* English */ = {isa = PBXFileReference; explicitFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
 		1B751E250CE999E500BA8417 /* Cornemuse.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = Cornemuse.mid; sourceTree = "<group>"; };
 		1B751E8C0CE9A23600BA8417 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/QTKit.framework; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		1BAA0A620CEE04BF004A9CB0 /* CallTicketHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CallTicketHandler.h; sourceTree = "<group>"; };
@@ -767,7 +768,7 @@
 		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* sipPhone_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sipPhone_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		8D1107320486CEB800E47090 /* sipPhone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sipPhone.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D1107320486CEB800E47090 /* symPhonie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = symPhonie.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -796,19 +797,19 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				1BC968FE0CC9F78F004C0339 /* sipPhone.h */,
+				1BC968FF0CC9F78F004C0339 /* sipPhone.m */,
+				1B46EFBE0CD1C36200397E41 /* AppHelper.h */,
+				1B46EFBF0CD1C36200397E41 /* AppHelper.m */,
 				1BB0E7810CE8365200207E64 /* BundledScript.h */,
 				1BB0E7820CE8365200207E64 /* BundledScript.m */,
 				1B46EEE80CD0006500397E41 /* Properties.h */,
-				1BC968FE0CC9F78F004C0339 /* sipPhone.h */,
-				1BC968FF0CC9F78F004C0339 /* sipPhone.m */,
 				1B46E57C0CCB5B8600397E41 /* StringCallNumber.h */,
 				1B46E57D0CCB5B8600397E41 /* StringCallNumber.m */,
 				1B46E7DB0CCB887C00397E41 /* UserPlane.h */,
 				1B46E7DC0CCB887C00397E41 /* UserPlane.m */,
 				1B46ED3F0CCE995E00397E41 /* ABCache.h */,
 				1B46ED400CCE995E00397E41 /* ABCache.m */,
-				1B46EFBE0CD1C36200397E41 /* AppHelper.h */,
-				1B46EFBF0CD1C36200397E41 /* AppHelper.m */,
 				1BFBC7370CEB819F00CAE0B9 /* InCallPopup.h */,
 				1BFBC7380CEB819F00CAE0B9 /* InCallPopup.m */,
 				1BAA0A620CEE04BF004A9CB0 /* CallTicketHandler.h */,
@@ -846,7 +847,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D1107320486CEB800E47090 /* sipPhone.app */,
+				8D1107320486CEB800E47090 /* symPhonie.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1448,7 +1449,7 @@
 				1B751E250CE999E500BA8417 /* Cornemuse.mid */,
 				1BB0E7D90CE83B5D00207E64 /* sipPhoneAppCtl.scpt */,
 				1B46EE070CCF1A9800397E41 /* icon.icns */,
-				1B46F36E0CD70FBA00397E41 /* Credits.rtf */,
+				1B0B9B7B0CF8989000E011F3 /* Credits.rtf */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				29B97318FDCFA39411CA2CEA /* MainMenu.nib */,
@@ -1483,7 +1484,7 @@
 			name = sipPhone;
 			productInstallPath = "$(HOME)/Applications";
 			productName = sipPhone;
-			productReference = 8D1107320486CEB800E47090 /* sipPhone.app */;
+			productReference = 8D1107320486CEB800E47090 /* symPhonie.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1528,7 +1529,7 @@
 				8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */,
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1B46EE080CCF1A9800397E41 /* icon.icns in Resources */,
-				1B46F3780CD7106D00397E41 /* Credits.rtf in Resources */,
+				1B0B9B7C0CF8989000E011F3 /* Credits.rtf in Resources */,
 				1B0BE6C50CD7F90D00ED1901 /* COPYRIGHT in Resources */,
 				1B0BE71B0CD7F90D00ED1901 /* VERSION.TXT in Resources */,
 				1BF1349D0CD8B3B00007EF60 /* Help in Resources */,
@@ -1847,6 +1848,15 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
+		1B0B9B7B0CF8989000E011F3 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1B46F36E0CD70FBA00397E41 /* English */,
+				1B0B9B7D0CF898A700E011F3 /* French */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
 		1BF134990CD8B3B00007EF60 /* Help */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1911,7 +1921,7 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/pjproject/pjmedia/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/pjproject/pjlib/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/pjproject/pjlib-util/lib\"";
-				PRODUCT_NAME = sipPhone;
+				PRODUCT_NAME = symPhonie;
 				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/libeXosip2-2.2.3/include $(PROJECT_DIR)/libosip2-2.2.2/include $(PROJECT_DIR)/pjproject/pjlib/include $(PROJECT_DIR)/pjproject/pjlib-util/include $(PROJECT_DIR)/pjproject/pjmedia/src/pjmedia-codec/ $(PROJECT_DIR)/pjproject/pjmedia/src/pjmedia/portaudio/ $(PROJECT_DIR)/pjproject/pjmedia/include/ $(inherited)";
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
@@ -1960,7 +1970,7 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/pjproject-0.5.10.4/pjmedia/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/pjproject-0.5.10.4/pjlib/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/pjproject-0.5.10.4/pjlib-util/lib\"";
-				PRODUCT_NAME = sipPhone;
+				PRODUCT_NAME = symPhonie;
 				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/libeXosip2-2.2.3/include $(PROJECT_DIR)/libosip2-2.2.2/include $(inherited) $(PROJECT_DIR)/pjproject/pjlib/include $(PROJECT_DIR)/pjproject/pjlib-util/include $(PROJECT_DIR)/pjproject/pjmedia/src/pjmedia-codec/ $(PROJECT_DIR)/pjproject/pjmedia/src/pjmedia/portaudio/ $(PROJECT_DIR)/pjproject/pjmedia/include/";
 				WRAPPER_EXTENSION = app;
 			};

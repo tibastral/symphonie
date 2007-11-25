@@ -11,11 +11,11 @@
 	<key>CFBundleHelpBookFolder</key>
 	<string>Help</string>
 	<key>CFBundleHelpBookName</key>
-	<string>sipPhone Help</string>
+	<string>symPhonie Help</string>
 	<key>CFBundleIconFile</key>
 	<string>icon</string>
 	<key>CFBundleIdentifier</key>
-	<string>fr.free.daniel.braun.sipPhone</string>
+	<string>fr.free.daniel.braun.symphonie</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -27,20 +27,21 @@
 	<key>CFBundleSignature</key>
 	<string>sphm</string>
 	<key>CFBundleURLTypes</key>
-        <array>
-                <dict>
-                        <key>CFBundleURLName</key>
-                        <string>sipPhone dial</string>
-                        <key>CFBundleURLSchemes</key>
-                        <array>
-                                <string>sipPhone</string>
-                                <string>dial</string>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>symPhonie dial</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>sipPhone</string>
+				<string>symPhonie</string>
+				<string>dial</string>
 				<string>tel</string>
-                        </array>
+			</array>
 			<key>LSIsAppleDefaultForScheme</key>
-                        <true/>
+			<true/>
 		</dict>
-        </array>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>NSMainNibFile</key>

@@ -26,10 +26,13 @@
 
 static int _debugAudio=0;
 static int _debugMisc=0;
+static int _debugAuth=0;
 
 - (id) init {
 	self = [super init];
 	if (self != nil) {
+		PhoneNumberConverter *pc=[[PhoneNumberConverter alloc]init];
+		[pc setIsDefault];
 		if (1) NSLog(@"build %s\n", __DATE__);
 		onDemandRegister=NO; //XXX
 		pauseAppScript=[[BundledScript bundledScript:@"sipPhoneAppCtl"]retain];
@@ -48,6 +51,7 @@ static int _debugMisc=0;
 {
 	_debugAudio=getBoolProp(@"debugAudio", NO);
 	_debugMisc=getBoolProp(@"debugMisc", NO);
+	_debugAuth=getBoolProp(@"debugAuth", NO);
 	[[NSUserDefaultsController sharedUserDefaultsController] setAppliesImmediately:YES];
 	getProp(@"phoneNumber",nil);
 	getBoolProp(@"setVolume",YES);
@@ -256,6 +260,11 @@ static void MySleepCallBack( void * refCon, io_service_t service, natural_t mess
 	if (_debugMisc) NSLog(@"conf changed %@\n", [notif name]);
 }
 
+/*
+ * frontrow notification - not yet handled
+ * TODO : i dont know exaclty what to do, in-call wont be seen if in frontrow
+ * since frontrow can get exclusive audio access, and.. is on the front
+ */
 
 - (void) goToFrontRow:(NSNotification*)notif 
 {
@@ -311,6 +320,12 @@ static void PrintReachabilityFlags(
 	//SCNetworkProtocolGetConfiguration(<#SCNetworkProtocolRef protocol#>)
 	[phone registerPhone:self];
 }
+
+/*
+ * dialFromUrlEvent: dial invoqued from sipphone: or tel: url
+ * mostly parse the url, invoke a popup, and dial (in dialFromUrlResponse, the popup callback)
+ * the number if user is ok
+ */
 - (void) dialFromUrlResponse:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo;
 {
 	if ((NSAlertFirstButtonReturn == returnCode) || (1==returnCode)) {
@@ -320,12 +335,13 @@ static void PrintReachabilityFlags(
 
 - (void)dialFromUrlEvent:(NSAppleEventDescriptor *)event withReplyEvent:(NSAppleEventDescriptor *)replyEvent
 {
-	if (![phone isIdle]) return;
+	if ([phone state]>sip_registered) return; // already have an active call
 	NSString *sUrl = [[ event paramDescriptorForKeyword: keyDirectObject ]
 		   stringValue ];
 	NSURL *url=[NSURL URLWithString:sUrl];
 	if (_debugMisc) NSLog(@"url %@/%@ sheme %@ path %@ host %@ resour %@\n", sUrl, url, [url scheme], [url path], [url host], [url resourceSpecifier]);
-	/* TODO popup for confirm */
+// TODO untested with real tel: URI. Furthermore I've almost not read the rfc about tel:uri, thus there are
+// chances that is does not work!!!
 	NSString *dnum=[url resourceSpecifier];
 	NSArray *pn=[dnum componentsSeparatedByString:@";"];
 	if (![pn count]) return;
@@ -334,6 +350,11 @@ static void PrintReachabilityFlags(
 	if ([pn count]>=2) {
 		urlName=[[pn objectAtIndex:1]stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	}
+	
+	// look for number in AB. If number is in AB, use AB name value
+	// if not, used name value provided in URL, and advised the user
+	// that user is unknown
+	
 	ABCache *abc=[phone valueForKey:@"abCache"];
 	NSString *knownName=[[abc findByPhone:dnum] fullName];
 	if (knownName) {
@@ -343,6 +364,8 @@ static void PrintReachabilityFlags(
 		else knownName=NSLocalizedString(@"unknown person", @"unknown person");
 	}
 	[phone setValue:dnum forKey:@"selectedNumber"];
+	
+	if ([phone state]<sip_ondemand) return; // not fully registered
 	NSAlert *alert=[NSAlert alertWithMessageText:[NSString stringWithFormat:NSLocalizedString(@"dial %@ ?",@"dial popup"),
 						      [dnum internationalDisplayCallNumber]]
 				       defaultButton:(NSString *)NSLocalizedString(@"OK", "ok") 
@@ -356,6 +379,10 @@ static void PrintReachabilityFlags(
 			    contextInfo:nil];
 }
 
+/* network change callback
+ * we actually dont check reachability but try to register at
+ * any network change - and this appears to be very fine
+ */
 static void reachabilityCallback(SCNetworkReachabilityRef	target,
 				   SCNetworkConnectionFlags	flags,
 				   void *                      info)
@@ -365,6 +392,10 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 	AppHelper *s=(AppHelper *)info;
 	[s reachable];
 }
+
+/*
+ * lots of init here, mostly registration for network, power status change.
+ */
 
 - (void) awakeFromNib
 {
@@ -416,15 +447,29 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 		forEventClass:kInternetEventClass andEventID:kAEGetURL];	
 }
 
+/*
+ * auth info handling. mostly proxy request from user to preferances and keyring
+ * and trigger re-registration on any change
+ */
 
 - (NSString *) authId
 {
-	return [self phoneNumber];
+	NSString *s=[self phoneNumber];
+	if (_debugAuth) NSLog(@"authId:[%@]\n", s);
+	return s;
 }
 - (NSString *) authPasswd
 {
-	return [self password];
+	NSString *s=[self password];
+	if (_debugAuth) NSLog(@"authPasswd:[%@]\n", s);
+	return s;
 }
+
+
+/*
+ * get domain info, free is hardcoded for now
+ * TODO: user provider to find these info
+ */
 
 - (NSString *) sipFrom
 {
@@ -450,7 +495,7 @@ static OSStatus StorePasswordKeychain(NSString *account, NSString* password)
 	status = SecKeychainAddGenericPassword (
 						NULL,            // default keychain
 						8,              // length of service name
-						"sipPhone",    // service name
+						"symPhonie",    // service name
 						strlen(accountUTF8),              // length of account name
 						accountUTF8,    // account name
 						strlen(passwordUTF8),  // length of password
@@ -472,7 +517,7 @@ static NSString *GetPasswordKeychain (NSString *account,
 	status1 = SecKeychainFindGenericPassword (
 						  NULL,           // default keychain
 						  8,             // length of service name
-						  "sipPhone",   // service name
+						  "symPhonie",   // service name
 						  strlen(accountUTF8),              // length of account name
 						  accountUTF8,    // account name
 						  &plen,  // length of password
@@ -513,7 +558,7 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 {
 	OSStatus status;
 	//SecKeychainRef kref;
-	if (_debugMisc) NSLog(@"set passwd %@\n", s);
+	if (_debugAuth) NSLog(@"set passwd %@\n", s);
 	NSString *ph=[self phoneNumber];
 	if (!ph) return;
 	SecKeychainItemRef ir=nil;
@@ -538,7 +583,18 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 
 	return pw;
 }
-	
+- (NSString *) phoneNumber
+{
+	return getProp(@"phoneNumber",nil);
+}
+- (void) setPhoneNumber:(NSString *)s
+{
+	[self willChangeValueForKey:@"windowTitle"];
+	setProp(@"phoneNumber",s);
+	[self didChangeValueForKey:@"windowTitle"];
+	[phone authInfoChanged];
+}
+
 
 - (int) provider
 {
@@ -553,8 +609,10 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 
 - (BOOL) isFreephonie
 {
-	return YES;
+	return ([self provider]==1);
 }
+
+// misc stufs
 
 - (BOOL) onDemandRegister;
 {
@@ -567,17 +625,6 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 		if (onDemandRegister) [phone unregisterPhone:self];
 		else [phone registerPhone:self];
 	}
-}
-- (NSString *) phoneNumber
-{
-	return getProp(@"phoneNumber",nil);
-}
-- (void) setPhoneNumber:(NSString *)s
-{
-	[self willChangeValueForKey:@"windowTitle"];
-	setProp(@"phoneNumber",s);
-	[self didChangeValueForKey:@"windowTitle"];
-	[phone authInfoChanged];
 }
 
 - (BOOL) falseValue
@@ -614,12 +661,17 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 				 <#AETransactionID transactionID#>, 
 				 <#AppleEvent * result#>)
 #endif
-	//pauseAppScript=[BundledScript bundledScript:@"sipPhoneAppCtl"];
 	[pauseAppScript runEvent:@"pauseApp" withArgs:nil];
 }
 
 - (void) pauseAppInThread
 {
+	/* 
+	 * yes, normally, applescript can only be launched from main thread
+	 * it is safe - at least there is a, hmm, large consensus on that - to call
+	 * it from other thread if you do not invoke specific code and do not
+	 * use any GUI stuffs (eg dialog)
+	 */
 	NSAutoreleasePool *mypool=[[NSAutoreleasePool alloc]init];
 	if (_debugMisc) NSLog(@"pauseAppInThread/1\n");
 	[self _pauseApps];
@@ -637,7 +689,11 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 	}
 }
 
-
+/*
+ * notification on quit : unregister before quiting
+ * this is a bit tricky, because applicationShouldTerminate is invoked
+ * from a specific runloop. We HAVE to reply NSTerminateLater
+ */
 - (void)applicationWillTerminate:(NSNotification *)aNotification
 {
 	if (_debugMisc) NSLog(@"applicationWillTerminate\n");
@@ -660,13 +716,19 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 	return  NSTerminateLater;
 }
 
+/*
+ * misc stuff
+ */
+
 - (NSString *) windowTitle
 {
 	if (_debugMisc) NSLog(@"window title\n");
-	return [NSString stringWithFormat:@"sipPhone (%@)", [[self phoneNumber]displayCallNumber]];
+	return [NSString stringWithFormat:@"symPhonie (%@)", [[self phoneNumber]displayCallNumber]];
 }
 - (NSSize)drawerWillResizeContents:(NSDrawer *)sender toSize:(NSSize)contentSize
 {
+	// quite ugly, but since our drawer is larger than main window
+	// which is quite forbiden i guess, we must disallow some resizing
 	if (contentSize.width<500) contentSize.width=500;
 	return contentSize;
 }
@@ -717,10 +779,42 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 	return @"hu?";
 }
 
-- (void) setError:(NSString *)error diag:(NSString *)diag openAccountPref:(BOOL)gotopref
+/*
+ * call/registration failures
+ * TODO
+ */
+- (void) setError:(NSString *)error diag:(NSString *)diag openAccountPref:(BOOL)gotopref domain:(int)d
 {
+	[self setErrorMsg:error];
+	[self setDiagMsg:diag];
 	if (gotopref) [self openAccountPref];
 }
+
+
+- (void) setErrorMsg:(NSString *)str
+{
+	if (str!=errorMsg) {
+		[errorMsg release];
+		errorMsg=[str retain];
+	}
+}
+- (NSString *)errorMsg
+{
+	return errorMsg;
+}
+
+- (void) setDiagMsg:(NSString *)str
+{
+	if (str != diagMsg) {
+		[diagMsg release];
+		diagMsg=[str retain];
+	}
+}
+- (NSString *)diagMsg
+{
+	return diagMsg;
+}
+
 
 
 @end

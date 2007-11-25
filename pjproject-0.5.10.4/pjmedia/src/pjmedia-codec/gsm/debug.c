@@ -63,14 +63,14 @@ void gsm_debug_longword P2(  (name, value),
 	char		* name,
 	longword	  value	)
 {
-	fprintf(stderr, "%s: %d\n", name, (long)value );
+	fprintf(stderr, "%s: %d\n", name, (int)value );
 }
 
 void gsm_debug_word P2(  (name, value),
 	char	* name,
 	word	  value	)
 {
-	fprintf(stderr, "%s: %d\n", name, (long)value);
+	fprintf(stderr, "%s: %d\n", name, (int)value);
 }
 
 #endif

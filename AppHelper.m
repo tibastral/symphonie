@@ -473,15 +473,39 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 
 - (NSString *) sipFrom
 {
-	return [NSString stringWithFormat:@"sip:%@@freephonie.net",[self phoneNumber]]; 
+	int provider=[self provider];
+	switch (provider) {
+		default:
+		case 1: 
+			return [NSString stringWithFormat:@"sip:%@@freephonie.net",[self phoneNumber]]; 
+			break;
+		case 99: // test
+			return [NSString stringWithFormat:@"sip:%@@localhost",[self phoneNumber]]; 
+			break;
+	}
 }
 - (NSString *) sipProxy
 {
-	return @"sip:freephonie.net";
+	int provider=[self provider];
+	switch (provider) {
+		default:
+		case 1: 
+			return @"sip:freephonie.net";
+		case 99:
+			return @"sip:localhost";
+	}
+			
 }
 - (NSString *) sipDomain
 {
-	return @"freephonie.net";
+	int provider=[self provider];
+	switch (provider) {
+		default:
+		case 1: 
+			return @"freephonie.net";
+		case 99:
+			return @"localhost";
+	}
 }
 
 // from apple doc
@@ -598,12 +622,18 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 
 - (int) provider
 {
-	return 1;
+	int prov=getIntProp(@"provider",1);
+	if (_debugMisc) NSLog(@"provider %d\n", prov);
+	return prov;
 }
 
 - (void) setProvider:(int)tag
 {
+	[self willChangeValueForKey:@"isFreephonie"];
+	setProp(@"provider", [NSNumber numberWithInt:tag]);
+	[self didChangeValueForKey:@"isFreephonie"];
 	[phone authInfoChanged];
+
 	// ignore and go back to freephonie for now
 }
 
@@ -733,6 +763,16 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 	return contentSize;
 }
 
+- (void)drawerWillOpen:(NSNotification *)notification
+{
+	NSDrawer *sender=[notification object];
+	NSDrawer *other;
+	if (sender==drawer1) other=drawer2;
+	else if (sender==drawer2) other=drawer1;
+	[other close];	
+}
+
+
 - (BOOL) audioTestRunning
 {
 	return audioTestStatus ? YES : NO;
@@ -815,6 +855,11 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 	return diagMsg;
 }
 
+- (IBAction) dialPad:(id)sender
+{
+	int tag=[sender tag];
+	NSLog(@"dialpad %d\n", tag);
 
+}
 
 @end

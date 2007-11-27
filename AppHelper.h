@@ -22,6 +22,9 @@
 	IBOutlet NSTabView *prefTabView;
 	IBOutlet NSWindow *mainWin;
 	IBOutlet SipPhone *phone;
+	IBOutlet NSDrawer *drawer1;
+	IBOutlet NSDrawer *drawer2;
+
 	
 	BOOL onDemandRegister;	// the "receive calls on box"
 	
@@ -93,5 +96,6 @@
 - (IBAction) popMainWin:(id)sender;	// open back main window (eg on state change)
 - (void) pauseApps;			// launch pause script (pause dvd player, etc..)
 
+- (IBAction) dialPad:(id)sender;
 
 @end

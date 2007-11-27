@@ -95,6 +95,8 @@
 		<dict>
 			<key>ACTIONS</key>
 			<dict>
+				<key>dialPad</key>
+				<string>id</string>
 				<key>goHomePage</key>
 				<string>id</string>
 				<key>popMainWin</key>
@@ -110,6 +112,10 @@
 			<dict>
 				<key>audioTestPanel</key>
 				<string>NSPanel</string>
+				<key>drawer1</key>
+				<string>NSDrawer</string>
+				<key>drawer2</key>
+				<string>NSDrawer</string>
 				<key>mainWin</key>
 				<string>NSWindow</string>
 				<key>phone</key>

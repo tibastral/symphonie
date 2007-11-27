@@ -84,7 +84,6 @@ static int initDone=0;
 	self = [super init];
 	if (self != nil) {
 		userPlane=[[UserPlane alloc]init];
-		abCache=[[ABCache alloc]init];
 		abVisibleOffline=YES;
 		[self setState:sip_off];
 	}
@@ -156,6 +155,8 @@ static int initDone=0;
 	_debugAudio=getBoolProp(@"debugAudio", NO);
 	_debugMisc=getBoolProp(@"debugMisc", NO);
 	_debugCauses=getBoolProp(@"debugCauses", NO);
+
+	abCache=[[ABCache alloc]init];
 
 	abVisibleOffline=getBoolProp(@"abVisibleOnStartup",YES);
 	if ([appHelper onDemandRegister]) [self setState:sip_ondemand];
@@ -460,7 +461,9 @@ static int initDone=0;
 	rc=eXosip_init();
 	if (rc!=0) return;
 	
-	rc = eXosip_listen_addr (IPPROTO_UDP, NULL, 5060, AF_INET, 0);
+	int localport=5060;
+	if (99==[appHelper provider]) localport=5062;
+	rc = eXosip_listen_addr (IPPROTO_UDP, NULL, localport, AF_INET, 0);
 	if (rc!=0)
 	{
 		eXosip_quit();
@@ -554,10 +557,11 @@ static int initDone=0;
 	rc = eXosip_register_build_register(_rid, 0 /* expire 0= unregister*/, &reg);
 	if (rc < 0)
 	{
-		EXOSIP_UNLOCK ();
 		//NSAssert(0, @"registered failed\n");
 		NSLog(@"unregister failed (build) rc=%d, _rid=%d\n", rc);
-		return;
+		_rid = eXosip_register_build_initial_register ([[appHelper sipFrom]cString], [[appHelper sipProxy]cString],
+							       [[appHelper sipFrom]cString],
+							       0, &reg);
 	}
 	
 	rc = eXosip_register_send_register (_rid, reg);
@@ -915,7 +919,10 @@ refuse_call:
 
 - (void) makeOutCall
 {
-	NSAssert(sip_registered==state, @"bad state for ocall");
+	if ((sip_registered!=state) && (sip_ondemand!=state)) {
+		NSLog(@"bad state %d for ocall\n", state);
+		return;
+	}
 	
 	osip_message_t *invite = NULL;
 	

@@ -43,7 +43,10 @@ static int _debugAuth=0;
 - (void) dealloc 
 {
 	[pauseAppScript release];
-
+	[regErrorMsg release];
+	[regDiagMsg release];
+	[callErrorMsg release];
+	[callDiagMsg release];
 	[super dealloc];
 }
 
@@ -57,7 +60,7 @@ static int _debugAuth=0;
 	getBoolProp(@"setVolume",YES);
 	getBoolProp(@"audioRing",YES);
 	getBoolProp(@"suspendMultimedia",YES);
-	getBoolProp(@"abVisibleOnStartup",YES);
+	getBoolProp(@"abVisibleOffLineOnStartup",NO);
 	[self setOnDemandRegister:getBoolProp(@"onDemandRegister",NO)];
 	getBoolProp(@"doubleClickCall",NO);
 	getIntProp(@"provider",1);
@@ -321,6 +324,11 @@ static void PrintReachabilityFlags(
 	[phone registerPhone:self];
 }
 
+- (void) quitFromAlertResponse:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo
+{
+	exit(1);
+}
+
 /*
  * dialFromUrlEvent: dial invoqued from sipphone: or tel: url
  * mostly parse the url, invoke a popup, and dial (in dialFromUrlResponse, the popup callback)
@@ -518,7 +526,7 @@ static OSStatus StorePasswordKeychain(NSString *account, NSString* password)
 
 	status = SecKeychainAddGenericPassword (
 						NULL,            // default keychain
-						8,              // length of service name
+						9,              // length of service name
 						"symPhonie",    // service name
 						strlen(accountUTF8),              // length of account name
 						accountUTF8,    // account name
@@ -540,7 +548,7 @@ static NSString *GetPasswordKeychain (NSString *account,
 
 	status1 = SecKeychainFindGenericPassword (
 						  NULL,           // default keychain
-						  8,             // length of service name
+						  9,             // length of service name
 						  "symPhonie",   // service name
 						  strlen(accountUTF8),              // length of account name
 						  accountUTF8,    // account name
@@ -823,43 +831,78 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
  * call/registration failures
  * TODO
  */
+
+- (void) resetErrorForDomain:(int)d
+{
+	if (!d) {
+		[self setRegErrorMsg:nil];
+		[self setRegDiagMsg:nil];
+	} else {
+		[self setCallErrorMsg:nil];
+		[self setCallDiagMsg:nil];
+	}	
+}
 - (void) setError:(NSString *)error diag:(NSString *)diag openAccountPref:(BOOL)gotopref domain:(int)d
 {
-	[self setErrorMsg:error];
-	[self setDiagMsg:diag];
+	if (!d) {
+		[self setRegErrorMsg:error];
+		[self setRegDiagMsg:diag];
+	} else {
+		[self setCallErrorMsg:error];
+		[self setCallDiagMsg:diag];
+	}
 	if (gotopref) [self openAccountPref];
 }
 
 
-- (void) setErrorMsg:(NSString *)str
+- (void) setRegErrorMsg:(NSString *)str
 {
-	if (str!=errorMsg) {
-		[errorMsg release];
-		errorMsg=[str retain];
+	if (str!=regErrorMsg) {
+		[regErrorMsg release];
+		regErrorMsg=[str retain];
 	}
 }
-- (NSString *)errorMsg
+- (NSString *)regErrorMsg
 {
-	return errorMsg;
+	return regErrorMsg;
 }
 
-- (void) setDiagMsg:(NSString *)str
+- (void) setRegDiagMsg:(NSString *)str
 {
-	if (str != diagMsg) {
-		[diagMsg release];
-		diagMsg=[str retain];
+	if (str != regDiagMsg) {
+		[regDiagMsg release];
+		regDiagMsg=[str retain];
 	}
 }
-- (NSString *)diagMsg
+- (NSString *)regDiagMsg
 {
-	return diagMsg;
+	return regDiagMsg;
 }
 
-- (IBAction) dialPad:(id)sender
-{
-	int tag=[sender tag];
-	NSLog(@"dialpad %d\n", tag);
+//
 
+- (void) setCallErrorMsg:(NSString *)str
+{
+	if (str!=callErrorMsg) {
+		[callErrorMsg release];
+		callErrorMsg=[str retain];
+	}
+}
+- (NSString *)callErrorMsg
+{
+	return callErrorMsg;
+}
+
+- (void) setCallDiagMsg:(NSString *)str
+{
+	if (str != callDiagMsg) {
+		[callDiagMsg release];
+		callDiagMsg=[str retain];
+	}
+}
+- (NSString *)callDiagMsg
+{
+	return callDiagMsg;
 }
 
 @end

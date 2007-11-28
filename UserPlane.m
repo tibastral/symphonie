@@ -357,9 +357,7 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	pjmedia_snd_port_connect(inputOutput, tone_generator);
 
 }
-- (void) sendDtmf:(NSString *)digits
-{
-}
+
 
 
 - (NSString *) setupAndGetLocalSdp
@@ -461,7 +459,7 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	rc=pjmedia_snd_port_connect(inputOutput, media_port);
 #else
 	NSLog(@"conf create\n");
-	rc=pjmedia_conf_create(pool,2,8000, 1, SAMPLES_PER_FRAME,
+	rc=pjmedia_conf_create(pool,3,8000, 1, SAMPLES_PER_FRAME,
 			       16, PJMEDIA_CONF_NO_DEVICE, &confbridge);
 	NSAssert(!rc, @"conf bridge create failed\n");
 	pj_str_t port_name= pj_str("call");
@@ -477,6 +475,13 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	NSLog(@"add port rc=%d slot=%d\n", rc,cb_session_slot);
 	pjmedia_conf_connect_port(confbridge, cb_session_slot,0, 0);
 	pjmedia_conf_connect_port(confbridge, 0,cb_session_slot, 0);
+	pj_str_t tport_name= pj_str("ton");
+	rc=pjmedia_conf_add_port(confbridge, pool, tone_generator, &tport_name, &cb_tone_slot);
+	NSLog(@"add tone port rc=%d slot=%d\n", rc,cb_tone_slot);
+	pjmedia_conf_connect_port(confbridge, cb_tone_slot, cb_session_slot, 0);
+	if (1) {
+		pjmedia_conf_connect_port(confbridge, cb_tone_slot, 0, 0);
+	}
 	
 #endif
 	//rc=pjmedia_snd_port_set_ec(inputOutput, pool, 20, 0);
@@ -639,12 +644,16 @@ static pj_status_t recordEnded(pjmedia_port *port, void *usr_data)
 #endif
 - (void) dtmf:(NSString *)dtmf
 {
-	
-	pj_status_t rc=pjmedia_session_dial_dtmf(rtp_session,0, "1234");
-	NSLog(@"dial drfm rc%d\n", rc);
+	pj_str_t pdigits= pj_str( ( char *) [dtmf cString]);
+
+	pj_status_t rc=pjmedia_session_dial_dtmf(rtp_session,0, &pdigits);
+	NSLog(@"dial dtfm rc=0x%X\n", rc);
 	if (rc==PJMEDIA_RTP_EREMNORFC2833) {
-		const pjmedia_tone_digit digits[]={0,1,2};
-		pj_status_t rc=pjmedia_tonegen_play_digits(pjmedia_tonegen_play,2, digits,0);
+		pjmedia_tone_digit digits[1]={{'1', 300,100}};
+		digits[0].digit=[dtmf characterAtIndex:0];
+		pjmedia_tonegen_stop(tone_generator);
+		pj_status_t rc=pjmedia_tonegen_play_digits(tone_generator ,1, digits,0);
+		NSLog(@"play digit rc=0x%X\n", rc);
 		//pjmedia_con
 	}
 #if 0

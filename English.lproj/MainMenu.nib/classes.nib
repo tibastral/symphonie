@@ -11,6 +11,8 @@
 				<string>id</string>
 				<key>dialOutCall</key>
 				<string>id</string>
+				<key>dialPad</key>
+				<string>id</string>
 				<key>dtmf</key>
 				<string>id</string>
 				<key>endRing</key>
@@ -67,6 +69,14 @@
 			<string>NSControl</string>
 		</dict>
 		<dict>
+			<key>CLASS</key>
+			<string>InCallPopup</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSView</string>
+		</dict>
+		<dict>
 			<key>ACTIONS</key>
 			<dict>
 				<key>testEntry</key>
@@ -85,18 +95,8 @@
 			<string>NSObject</string>
 		</dict>
 		<dict>
-			<key>CLASS</key>
-			<string>InCallPopup</string>
-			<key>LANGUAGE</key>
-			<string>ObjC</string>
-			<key>SUPERCLASS</key>
-			<string>NSView</string>
-		</dict>
-		<dict>
 			<key>ACTIONS</key>
 			<dict>
-				<key>dialPad</key>
-				<string>id</string>
 				<key>goHomePage</key>
 				<string>id</string>
 				<key>popMainWin</key>

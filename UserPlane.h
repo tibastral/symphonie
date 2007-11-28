@@ -36,6 +36,7 @@
 	//pjsua_conf_port_id toneslot;
 	pjmedia_conf	   *confbridge;
 	unsigned int	   cb_session_slot;
+	unsigned int	   cb_tone_slot;
 
 	NSObject <AudioTestHelper> *audioTestHelper;
 
@@ -62,7 +63,6 @@
 
 
 - (void) localTone:(int) tone;
-- (void) sendDtmf:(NSString *)digits;
 
 - (NSString *) setupAndGetLocalSdp;
 - (BOOL) setupWithtLocalSdp:(NSString *)local remoteSdp:(NSString *)remote outCall:(BOOL)outCall negociatedLocal:(NSString **)pNL;

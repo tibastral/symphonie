@@ -41,8 +41,11 @@
 	BOOL dtmfVisible;
 	
 	// failure notification messages
-	NSString *errorMsg;
-	NSString *diagMsg;
+	NSString *regErrorMsg;
+	NSString *regDiagMsg;
+	NSString *callErrorMsg;
+	NSString *callDiagMsg;
+
 }
 
 - (NSString *) windowTitle;	// bound to main window title
@@ -83,19 +86,28 @@
 
 // failure notifications
 - (void) setError:(NSString *)error diag:(NSString *)diag openAccountPref:(BOOL)gotopref domain:(int)d;
+- (void) resetErrorForDomain:(int)d;
 
-- (void) setErrorMsg:(NSString *)str;
-- (NSString *)errorMsg;
+- (void) setRegErrorMsg:(NSString *)str;
+- (NSString *)regErrorMsg;
 
-- (void) setDiagMsg:(NSString *)str;
-- (NSString *) diagMsg;
+- (void) setRegDiagMsg:(NSString *)str;
+- (NSString *) regDiagMsg;
+
+- (void) setCallErrorMsg:(NSString *)str;
+- (NSString *)callErrorMsg;
+
+- (void) setCallDiagMsg:(NSString *)str;
+- (NSString *) callDiagMsg;
+
 
 // misc
+- (void) quitFromAlertResponse:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo;
+
 - (IBAction) goHomePage:(id)sender;	// open home page site with eg safari
 - (BOOL) falseValue;			// return always false, just a binding facility
 - (IBAction) popMainWin:(id)sender;	// open back main window (eg on state change)
 - (void) pauseApps;			// launch pause script (pause dvd player, etc..)
 
-- (IBAction) dialPad:(id)sender;
 
 @end

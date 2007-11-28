@@ -29,10 +29,11 @@ static int lastunlock=0;
 #define EXOSIP_LOCK() do { eXosip_lock(); lastlock=__LINE__; } while(0)
 #define EXOSIP_UNLOCK() do { eXosip_unlock();lastunlock= __LINE__; } while(0)
 
-int _debugFsm=0;
-int _debugAudio=0;
-int _debugMisc=0;
-int _debugCauses=0;
+static int _debugFsm=0;
+static int _debugAudio=0;
+static int _debugMisc=0;
+static int _debugCauses=0;
+static int _debugAuth=0;
 
 static NSString *
 eXosip_get_sdp_body (osip_message_t * message)
@@ -155,10 +156,11 @@ static int initDone=0;
 	_debugAudio=getBoolProp(@"debugAudio", NO);
 	_debugMisc=getBoolProp(@"debugMisc", NO);
 	_debugCauses=getBoolProp(@"debugCauses", NO);
+	_debugAuth=getBoolProp(@"debugAuth", NO);
 
 	abCache=[[ABCache alloc]init];
 
-	abVisibleOffline=getBoolProp(@"abVisibleOnStartup",YES);
+	abVisibleOffline=getBoolProp(@"abVisibleOffLineOnStartup",NO);
 	if ([appHelper onDemandRegister]) [self setState:sip_ondemand];
 	NSAssert(abPicker, @"unconnected abPicker");
 	//[abPicker clearSearchField:self];
@@ -184,6 +186,10 @@ static int initDone=0;
 	//Here we set up a responder for one of the four notifications,
 	//in this case to tell us when the selection in the name list
 	//has changed.
+	
+	int rc=[self _initExosip];
+	if (rc) return;
+	
 	NSNotificationCenter* center = [NSNotificationCenter defaultCenter];
 	if (0) [center addObserver:self
 		   selector:@selector(recordChange:)
@@ -196,7 +202,6 @@ static int initDone=0;
 	
 	//[abPicker deselectSelectedCell];
 
-	[self _initExosip];
 	
 	popupInCall = [[NSWindow alloc] initWithContentRect:[popupInCallView frame]
 						  styleMask:NSBorderlessWindowMask
@@ -216,7 +221,10 @@ static int initDone=0;
 
 - (void) setSelectedNumber:(NSString *)s
 {
+	[appHelper resetErrorForDomain:1];
+
 	if (selectedNumber != s) {
+
 		[self willChangeValueForKey:@"internationalSelectedNumber"];
 		[self willChangeValueForKey:@"internationalDisplaySelectedNumber"];
 		[selectedNumber release];
@@ -387,6 +395,7 @@ static int initDone=0;
 	[self willChangeValueForKey:@"onLine"];
 	[self willChangeValueForKey:@"selectedViewNumber"];
 	[self willChangeValueForKey:@"isRinging"];
+	[self willChangeValueForKey:@"isIdle"];
 	[self willChangeValueForKey:@"canChangeRegistrationScheme"];
 	state=s;
 	if ((olds==sip_registered) || (olds==sip_ondemand)) [self setAbVisible:NO];
@@ -407,6 +416,7 @@ static int initDone=0;
 	}
 	[self didChangeValueForKey:@"canChangeRegistrationScheme"];
 	[self didChangeValueForKey:@"isRinging"];
+	[self didChangeValueForKey:@"isIdle"];
 	[self didChangeValueForKey:@"selectedViewNumber"];
 	[self didChangeValueForKey:@"incomingCallActive"];
 	[self didChangeValueForKey:@"outgoingCallActive"];
@@ -452,25 +462,48 @@ static int initDone=0;
 	return NO;
 }
 
-- (void) _initExosip
+- (int) _initExosip
 {
 	int rc;
-	if (initDone) return;
+	if (initDone) return 0;
 	TRACE_INITIALIZE (6, stdout);
 	
 	rc=eXosip_init();
-	if (rc!=0) return;
+	if (rc!=0)  {
+		NSAlert *alert=[NSAlert alertWithMessageText:NSLocalizedString(@"symPhonie Initialisation failed",@"initialisation failed")
+					       defaultButton:(NSString *)NSLocalizedString(@"Quit", "quit") 
+					     alternateButton:(NSString *)nil
+						 otherButton:(NSString *)nil 
+				   informativeTextWithFormat:(NSString *)NSLocalizedString(@"internal error",@"internal error")];
+		
+		[alert beginSheetModalForWindow:mainWin
+				  modalDelegate:appHelper 
+				 didEndSelector:@selector(quitFromAlertResponse:returnCode:contextInfo:)
+				    contextInfo:nil];
+		return -1;
+	}
+	eXosip_set_user_agent("symPhonie Mac Softphone");
 	
 	int localport=5060;
 	if (99==[appHelper provider]) localport=5062;
 	rc = eXosip_listen_addr (IPPROTO_UDP, NULL, localport, AF_INET, 0);
-	if (rc!=0)
-	{
+	if (rc!=0) {
 		eXosip_quit();
-		NSAssert(0, @"init failed\n");
-		fprintf (stderr, "could not initialize transport layer\n");
-		return;
+		NSLog(@"could not initialize transport layer\n");
+		NSAlert *alert=[NSAlert alertWithMessageText:NSLocalizedString(@"symPhonie Initialisation failed",@"initialisation failed")
+				defaultButton:(NSString *)NSLocalizedString(@"Quit", "quit") 
+			      alternateButton:(NSString *)nil
+				  otherButton:(NSString *)nil 
+		    informativeTextWithFormat:(NSString *)NSLocalizedString(@"possibly an other SIP phone is running ?",@"possibly an other SIP phone is running ?")];
+		
+		[alert beginSheetModalForWindow:mainWin
+				  modalDelegate:appHelper 
+				 didEndSelector:@selector(quitFromAlertResponse:returnCode:contextInfo:)
+				    contextInfo:nil];
+		return -1;
 	}
+	int kms=5000;
+	//eXosip_set_option(EXOSIP_OPT_UDP_KEEP_ALIVE, &kms);
 	initDone=1;
 	// from quit, have a different runloop
 	// mainloop=[NSRunLoop currentRunLoop];//not retained
@@ -485,11 +518,13 @@ static int initDone=0;
 	[[NSRunLoop currentRunLoop] addTimer:pollTimer forMode:NSModalPanelRunLoopMode];
 
 #endif
+	return 0;
 }
 
 
 - (void) authInfoChanged
 {
+	if (_debugAuth) NSLog(@"authInfoChanged\n");
 	eXosip_clear_authentication_info();
 	eXosip_add_authentication_info([[appHelper authId]cString], [[appHelper authId]cString], [[appHelper authPasswd]cString],
 			       NULL, NULL);
@@ -500,6 +535,7 @@ static int initDone=0;
 	osip_message_t *reg = NULL;
 	int rc;
 	
+	[appHelper resetErrorForDomain:0];
 	//NSAssert(state==sip_off, @"bad state for registerPhone");
 	EXOSIP_LOCK ();
 	_rid = eXosip_register_build_initial_register ([[appHelper sipFrom]cString], [[appHelper sipProxy]cString], [[appHelper sipFrom]cString],
@@ -536,7 +572,8 @@ static int initDone=0;
 - (IBAction) registerPhone:(id) sender
 {
 	if ([appHelper onDemandRegister]) {
-		if (state<sip_ondemand) [self setState:sip_ondemand];
+		//if (state<sip_ondemand) [self setState:sip_ondemand];
+		if (state<=sip_ondemand) [self registerPhoneOnDemand:NO dur:0];
 		return;
 	}
 	[self registerPhoneOnDemand:NO dur:1800];
@@ -546,6 +583,8 @@ static int initDone=0;
 {
 	osip_message_t *reg = NULL;
 	int rc;
+	[appHelper resetErrorForDomain:0];
+
 	if (state < sip_registered) {
 		[self registerPhoneOnDemand:NO dur:0];
 		return;
@@ -585,6 +624,7 @@ static int initDone=0;
 - (IBAction) pretendRegistered:(id) sender
 {
 	if (state<sip_registered) [self setState:sip_registered];
+	[appHelper resetErrorForDomain:0];
 }
 
 /*
@@ -611,7 +651,9 @@ static int initDone=0;
 		eXosip_automatic_action ();
 		EXOSIP_UNLOCK();
 		if (je == NULL) break;
-		if (_debugFsm) NSLog(@"event %d (%s) tid %d cid %d rid %d did %d\n", je->type, je->textinfo, je->tid, je->cid, je->rid, je->did);
+		if (_debugFsm) NSLog(@"event %d (%s) tid %d cid %d rid %d did %d / state %d\n", 
+				     je->type, je->textinfo, je->tid, je->cid, je->rid, je->did,
+				     state);
 		if (je->rid) { 
 			
 			// handle registration events
@@ -662,14 +704,23 @@ static int initDone=0;
 							}
 							break;
 						case sip_unregister_retry:
-							[self setState:sip_off];
+							// 404 is not found, thus already unregistered
+							if (404==status_code && [appHelper onDemandRegister]) {
+								[self setState:sip_ondemand];
+							} else {
+								[self setState:sip_off];
+							}
 							break;
 						case sip_unregister_in_progress:
-							[self setState:sip_unregister_retry];
-							rc=eXosip_default_action(je);
-							if (rc && (401!=status_code)) {
-								[self setState:sip_off];
-								break;
+							if (404==status_code && [appHelper onDemandRegister]) {
+								[self setState:sip_ondemand];
+							} else {
+								[self setState:sip_unregister_retry];
+								rc=eXosip_default_action(je);
+								if (rc && (401!=status_code)) {
+									[self setState:sip_off];
+									break;
+								}
 							}
 							break;
 						default:
@@ -677,6 +728,7 @@ static int initDone=0;
 					}
 					break;
 				case EXOSIP_REGISTRATION_SUCCESS:
+					[appHelper resetErrorForDomain:0];
 					if (_debugFsm) NSLog(@"registration ok\n");
 					switch (state) {
 						case sip_off:
@@ -789,7 +841,9 @@ refuse_call:
 					if (_debugFsm) NSLog(@"reinvinte (call within a call)\n");
 					rc=eXosip_default_action(je);
 					break;
-				case EXOSIP_CALL_INVITE:if (_debugFsm) NSLog(@"incoming call on existing call?\n");
+				case EXOSIP_CALL_INVITE:
+					if (_debugFsm) NSLog(@"incoming call on existing call?\n");
+					[appHelper resetErrorForDomain:1];
 					EXOSIP_LOCK ();
 					eXosip_call_send_answer (je->tid, 415, NULL);
 					EXOSIP_UNLOCK ();
@@ -803,7 +857,7 @@ refuse_call:
 				case EXOSIP_CALL_REQUESTFAILURE:
 					if (_debugFsm) NSLog(@"EXOSIP_CALL_REQUESTFAILURE %d / %s\n",
 					      je->response ?  je->response->status_code : -1,
-					      je->response ? je->response->reason_phrase : "?");					
+					      je->response ? je->response->reason_phrase : "?");	
 					if (je->response != NULL) {
 						BOOL keepcall=NO;
 						
@@ -813,14 +867,35 @@ refuse_call:
 									       diag:NSLocalizedString(@"Wrong Password", @"Wrong Password")
 								    openAccountPref:YES
 									     domain:1];
+								rc=eXosip_default_action(je);
+								break;
+							case 480:
+								[appHelper setError:NSLocalizedString(@"Call failed", @"Call failed")
+									       diag:NSLocalizedString(@"Temporarly not available", @"Temporarly not available")
+								    openAccountPref:NO
+									     domain:1];
+								
+								rc=eXosip_default_action(je);
+								break;
+							case 487:
+								[appHelper setError:NSLocalizedString(@"Call canceled", @"Call canceld")
+									       diag:NSLocalizedString(@"", @"call cancel diag")
+								    openAccountPref:NO
+									     domain:1];
+								
+								rc=eXosip_default_action(je);
+								break;
+							case 408:
+								[appHelper setError:NSLocalizedString(@"No answer", @"No answer")
+									       diag:NSLocalizedString(@"", @"no answer diag")
+								    openAccountPref:NO
+									     domain:1];
+								rc=eXosip_default_action(je);
 								break;
 							case 401:
 							case 407:
 								rc=eXosip_default_action(je);
 								keepcall=YES;
-								break;
-							case 487:
-								// user cancel
 								break;
 							case 486:
 								// intern serv error
@@ -845,6 +920,7 @@ refuse_call:
 					NSLog(@"EXOSIP_CALL_GLOBALFAILURE\n");
 					break;
 				case EXOSIP_CALL_ANSWERED:
+					[appHelper resetErrorForDomain:1];
 					if (_debugFsm) NSLog(@"call answered\n");
 					if (je->did) _did=je->did;
 						
@@ -890,8 +966,15 @@ refuse_call:
 				case EXOSIP_CALL_RELEASED:
 					[userPlane endUserPlane];
 					rc=eXosip_default_action(je);
+					if (!je->response && !je->request && (sip_outgoing_call_sent==state)) {
+						[appHelper setError:NSLocalizedString(@"call failed", @"call failed")
+							       diag:NSLocalizedString(@"SIP service not responding", @"no reply")
+						    openAccountPref:NO domain:1];
+					}
 					if (state>sip_registered) [self terminateCall:self];
 					if (_debugFsm) NSLog(@"call released (EXOSIP_CALL_RELEASED)\n");
+					
+
 					break;
 				case EXOSIP_CALL_CLOSED:
 					[userPlane endUserPlane];
@@ -923,7 +1006,8 @@ refuse_call:
 		NSLog(@"bad state %d for ocall\n", state);
 		return;
 	}
-	
+	[appHelper resetErrorForDomain:1];
+
 	osip_message_t *invite = NULL;
 	
 	int rc;
@@ -998,7 +1082,7 @@ refuse_call:
 		case sip_incoming_call_ringing:
 			if (_debugFsm) NSLog(@"eXosip_call_terminate up cid %d did %d\n", _cid, _did);
 			rc=eXosip_call_terminate(_cid, _did);
-			if (rc<0) NSLog(@"hangup failed %d/%d\n", _cid, _did);
+			if (rc<0) NSLog(@"hangup failed %d/%d rc=%d\n", _cid, _did, rc);
 			break;
 		default:
 			break;
@@ -1072,10 +1156,60 @@ refuse_call:
 {
 	[popupInCall makeKeyAndOrderFront:self];
 }
+/*
 - (IBAction) dtmf:(id) sender
 {
 	int tag=[sender tag];
 	NSLog(@"dtmf %d\n", tag);
 	[userPlane dtmf:@"111"];
 }
+ */
+
+static const char *padDigits[16]={
+	"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",  "*", "#", "A", "B", "C", "D"
+};
+
+- (IBAction) dialPad:(id)sender
+{
+	int tag=[sender tag];
+	NSLog(@"dialpad %d\n", tag);
+	if (tag>15) return;
+	NSString *s=nil;
+	switch (state) {
+		default: return;
+		case sip_registered:
+		case sip_ondemand:
+			if (tag>9) return; // or should we allow # * ?
+			// append to selected number
+			if (tag<0) {
+				if (-1==tag) {
+					NSString *s=[self selectedNumber];
+					int l=[s length];
+					if (l<=1) {
+						[self setSelectedNumber:nil];
+					} else {
+						[self setSelectedNumber:[s substringToIndex:l-1]];
+					}
+				} else if (-2 ==tag) {
+					[self setSelectedNumber:nil];
+				} else return;
+			}
+			s=[self selectedNumber];
+			if (!s) {
+				s=[NSString stringWithCString:padDigits[tag]];
+			} else {
+				s=[s stringByAppendingString:[NSString stringWithCString:padDigits[tag]]];
+			}
+			[self setSelectedNumber:s];
+			break;
+		case sip_online:
+			// DTMF
+			if (tag<0) return;
+			s=[NSString stringWithCString:padDigits[tag]];
+			[userPlane dtmf:s];
+			break;
+	}
+	
+}
+
 @end

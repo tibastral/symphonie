@@ -116,12 +116,12 @@ typedef enum {
 - (void) setAbVisible:(BOOL)f;
 
 
-- (IBAction) dtmf:(id) sender;
+//- (IBAction) dtmf:(id) sender;
 - (IBAction) test1:(id) sender;
 - (IBAction) test2:(id) sender;
 
 - (void) pollExosip:(NSTimer *)t;
-- (void) _initExosip;
+- (int) _initExosip;
 
 - (BOOL) incomingCallActive;
 - (BOOL) outgoingCallActive;
@@ -147,6 +147,8 @@ typedef enum {
 
 - (void) setAudioTest:(BOOL) test;
 - (BOOL) audioTest;
+
+- (IBAction) dialPad:(id)sender;
 
 // used for debug only
 - (IBAction) pretendRegistered:(id) sender;

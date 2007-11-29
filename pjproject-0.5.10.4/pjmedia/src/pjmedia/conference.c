@@ -585,7 +585,6 @@ PJ_DEF(pj_status_t) pjmedia_conf_destroy( pjmedia_conf *conf )
 	pjmedia_snd_port_destroy(conf->snd_dev_port);
 	conf->snd_dev_port = NULL;
     }
-
     /* Destroy mutex */
     pj_mutex_destroy(conf->mutex);
 

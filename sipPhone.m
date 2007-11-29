@@ -647,12 +647,15 @@ static int initDone=0;
 	if (0) NSAssert(!inpoll, @"reentered");
 	inpoll=YES;
 
+	static int __fe=0;
+	static int __fa=0;
 	for (;;) {
 		je = eXosip_event_wait (0, 0);
 		EXOSIP_LOCK();
 		eXosip_automatic_action ();
 		EXOSIP_UNLOCK();
 		if (je == NULL) break;
+		__fa++;
 		if (_debugFsm) NSLog(@"event %d (%s) tid %d cid %d rid %d did %d / state %d\n", 
 				     je->type, je->textinfo, je->tid, je->cid, je->rid, je->did,
 				     state);
@@ -851,6 +854,7 @@ refuse_call:
 					
 				}
 				rc=eXosip_default_action(je);
+				__fe++;
 				eXosip_event_free(je);
 				continue;
 			}
@@ -996,9 +1000,10 @@ refuse_call:
 			
 			rc=eXosip_default_action(je);
 		}
-		
+		__fe++;
 		eXosip_event_free(je);
 	}
+	//NSLog(@"fa=%d/fe=%d\n", __fa, __fe);
 	inpoll=NO;
 }
 
@@ -1059,7 +1064,9 @@ refuse_call:
 		case sip_outgoing_call_sent:
 		case sip_incoming_call_ringing:
 			if (_debugFsm) NSLog(@"hang up cid %d did %d\n", _cid, _did);
+			EXOSIP_LOCK();
 			rc=eXosip_call_terminate(_cid, _did);
+			EXOSIP_UNLOCK();
 			if (rc<0) NSLog(@"hangup failed %d/%d rc=%d\n", _cid, _did, rc);
 			else {
 				[self setState:sip_initiated_clearing];

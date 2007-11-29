@@ -19,7 +19,8 @@
 
 
 @interface UserPlane : NSObject {
-	pj_pool_t *pool;
+	pj_pool_t *gpool;
+	pj_pool_t *callpool;
 	pjmedia_endpt *med_endpt;
 	pj_caching_pool cp;
 

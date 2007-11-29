@@ -142,11 +142,13 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 {
 	int rc;
 	if (inputOutput) return;
-	
+	[self stopRing];
+
 	//long vol;
 	//GetDefaultOutputVolume(&vol);
 	//SetDefaultOutputVolume(vol*4);
-	
+	if (!callpool) callpool = pj_pool_create( &cp.factory, "call", 4000, 4000, NULL);
+
 #if 0
 	int ndev=pjmedia_snd_get_dev_count();
 	int i;
@@ -176,7 +178,7 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	}
 	if (ring) {
 		rc = pjmedia_snd_port_create_player(
-					    pool,                              /* pool                 */
+					    callpool,                              /* pool                 */
 					    &outputDevIdx,                                /* use default dev.     */
 					    8000,				 /* clock rate.          */
 					    1,				 /* # of channels.       */
@@ -186,8 +188,7 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 					    &inputOutput                          /* returned port        */
 					    );
 	} else {
-		rc = pjmedia_snd_port_create(
-						    pool,                              /* pool                 */
+		rc = pjmedia_snd_port_create(callpool,                              /* pool                 */
 						    &inputDevIdx,
 						    &outputDevIdx,                                /* use default dev.     */
 						    8000,				 /* clock rate.          */
@@ -296,9 +297,9 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 
 	
 	
-	pool = pj_pool_create( &cp.factory, "app", 4000, 4000, NULL);
+	gpool = pj_pool_create( &cp.factory, "app", 4000, 4000, NULL);
 
-	rc = pjmedia_tonegen_create(pool, 8000, 1, SAMPLES_PER_FRAME, 16, 0, &tone_generator);
+	rc = pjmedia_tonegen_create(gpool, 8000, 1, SAMPLES_PER_FRAME, 16, 0, &tone_generator);
 	NSAssert(!rc, @"pj_init failed");
 
 	//[self _needInput];
@@ -323,15 +324,24 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	}
 
 	pjmedia_tonegen_stop(tone_generator);
-	if (confbridge) {
-		pjmedia_conf_destroy(confbridge);
-		confbridge=NULL;
-	}
 	if (inputOutput) {
 		pjmedia_snd_port_disconnect(inputOutput);
 		pjmedia_snd_port_destroy(inputOutput);
 		inputOutput=NULL;
 	}
+	if (rtp_session) {
+		pjmedia_session_destroy(rtp_session);
+		rtp_session=NULL;
+	}
+	if (confbridge) {
+		pjmedia_conf_destroy(confbridge);
+		confbridge=NULL;
+	}
+	if (rtp_transport) {
+		pjmedia_transport_udp_close(rtp_transport);
+		rtp_transport=NULL;
+	}
+	
 #if 0
 	if (input) {
 		pjmedia_snd_port_disconnect(input);
@@ -339,6 +349,8 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 		input=NULL;
 	}
 #endif
+	[self stopRing];
+	if (callpool) pj_pool_reset(callpool);
 }
 
 - (void) startUserPlane
@@ -377,6 +389,8 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	//info.tx_pt = codec_info->pt;
 	//info.ssrc = pj_rand();
 	
+	if (!callpool) callpool = pj_pool_create( &cp.factory, "call", 4000, 4000, NULL);
+	
 	for (port=30000;  port<30100; port+=2) {
 		if (_debugAudio) NSLog(@"trying port %d\n", port);
 		rc=pjmedia_transport_udp_create(med_endpt, "rx", port, 0, &rtp_transport);
@@ -387,7 +401,7 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 		
 		pjmedia_sdp_session *local_sdp;
 		rc = pjmedia_endpt_create_sdp( med_endpt,     /* the media endpt  */
-			pool,       /* pool.            */
+			callpool,       /* pool.            */
 			1,               /* # of streams     */
 			&(udp_info.skinfo),   /* RTP sock info    */
 			&local_sdp);     /* the SDP result   */
@@ -409,28 +423,29 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	const pjmedia_sdp_session *nremote_sdp;
 
 	int rc;
-	rc=pjmedia_sdp_parse(pool, (char *) [local cString], [local length], &local_sdp);
+	rc=pjmedia_sdp_parse(callpool, (char *) [local cString], [local length], &local_sdp);
 	NSAssert(!rc, @"failed parsing sdp");
-	rc=pjmedia_sdp_parse(pool, (char *) [remote cString], [remote length], &remote_sdp);
+	rc=pjmedia_sdp_parse(callpool, (char *) [remote cString], [remote length], &remote_sdp);
 	NSAssert(!rc, @"failed parsing remote sdp");
 
 	// negociate sdp
-	pjmedia_sdp_neg *nego;
+	pjmedia_sdp_neg *nego=NULL;
 	if (outCall) {
-		rc=pjmedia_sdp_neg_create_w_local_offer(pool, local_sdp, &nego);
+		rc=pjmedia_sdp_neg_create_w_local_offer(callpool, local_sdp, &nego);
 		NSAssert(!rc, @"nego failed");
 		pjmedia_sdp_neg_set_prefer_remote_codec_order(nego, 0);
-		pjmedia_sdp_neg_set_remote_answer(pool, nego, remote_sdp);
+		pjmedia_sdp_neg_set_remote_answer(callpool, nego, remote_sdp);
 	} else {
-		rc=pjmedia_sdp_neg_create_w_remote_offer(pool, local_sdp, remote_sdp, &nego);
+		rc=pjmedia_sdp_neg_create_w_remote_offer(callpool, local_sdp, remote_sdp, &nego);
 		NSAssert(!rc, @"nego failed");
 		pjmedia_sdp_neg_set_prefer_remote_codec_order(nego, 1);
-		//pjmedia_sdp_neg_set_local_answer(pool, nego, local_sdp);
+		//pjmedia_sdp_neg_set_local_answer(callpool, nego, local_sdp);
 	}
-	rc=pjmedia_sdp_neg_negotiate(pool, nego, 0);
+	rc=pjmedia_sdp_neg_negotiate(callpool, nego, 0);
 	NSAssert(!rc, @"nego failed");
 	rc = pjmedia_sdp_neg_get_active_remote(nego, &nremote_sdp);
 	rc = pjmedia_sdp_neg_get_active_local(nego, &nlocal_sdp);
+	
 	
 	if (pNL) {
 		char szTmp[1024];
@@ -442,7 +457,7 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	
 	pjmedia_session_info sess_info;
 
-	rc = pjmedia_session_info_from_sdp(pool, med_endpt,
+	rc = pjmedia_session_info_from_sdp(callpool, med_endpt,
 					       1, &sess_info,
 					       nlocal_sdp, nremote_sdp);
 	NSAssert(!rc, @"failed creating SDP session info");
@@ -459,7 +474,7 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	rc=pjmedia_snd_port_connect(inputOutput, media_port);
 #else
 	NSLog(@"conf create\n");
-	rc=pjmedia_conf_create(pool,3,8000, 1, SAMPLES_PER_FRAME,
+	rc=pjmedia_conf_create(callpool,3,8000, 1, SAMPLES_PER_FRAME,
 			       16, PJMEDIA_CONF_NO_DEVICE, &confbridge);
 	NSAssert(!rc, @"conf bridge create failed\n");
 	pj_str_t port_name= pj_str("call");
@@ -471,12 +486,12 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	rc=pjmedia_snd_port_connect(inputOutput, mport);
 	NSLog(@"pjmedia_snd_port_connect rc=%d\n",rc);
 	NSLog(@"add port\n");
-	rc=pjmedia_conf_add_port(confbridge, pool, media_port, &port_name, &cb_session_slot);
+	rc=pjmedia_conf_add_port(confbridge, callpool, media_port, &port_name, &cb_session_slot);
 	NSLog(@"add port rc=%d slot=%d\n", rc,cb_session_slot);
 	pjmedia_conf_connect_port(confbridge, cb_session_slot,0, 0);
 	pjmedia_conf_connect_port(confbridge, 0,cb_session_slot, 0);
 	pj_str_t tport_name= pj_str("ton");
-	rc=pjmedia_conf_add_port(confbridge, pool, tone_generator, &tport_name, &cb_tone_slot);
+	rc=pjmedia_conf_add_port(confbridge, callpool, tone_generator, &tport_name, &cb_tone_slot);
 	NSLog(@"add tone port rc=%d slot=%d\n", rc,cb_tone_slot);
 	pjmedia_conf_connect_port(confbridge, cb_tone_slot, cb_session_slot, 0);
 	if (1) {
@@ -549,7 +564,7 @@ static pj_status_t playBackEnded(pjmedia_port *port, void *usr_data)
 	pjmedia_snd_port_disconnect(inputOutput);
 	pjmedia_port_destroy(capturePort);
 	capturePort=NULL;
-	pj_status_t rc=pjmedia_mem_player_create(pool,
+	pj_status_t rc=pjmedia_mem_player_create(callpool,
 						  recordBuffer,
 						  RECORD_BUFFER_SIZE,
 						  8000	/* clock_rate */,
@@ -586,7 +601,7 @@ static pj_status_t recordEnded(pjmedia_port *port, void *usr_data)
 	if (capturePort || playbackPort) return;
 	[self _needInputOutput:NO];
 	recordBuffer=NSZoneMalloc(NSDefaultMallocZone(), RECORD_BUFFER_SIZE);
-	pj_status_t rc=pjmedia_mem_capture_create(pool,
+	pj_status_t rc=pjmedia_mem_capture_create(callpool,
 					 recordBuffer,
 					 RECORD_BUFFER_SIZE,
 					 8000	/* clock_rate */,
@@ -628,20 +643,6 @@ static pj_status_t recordEnded(pjmedia_port *port, void *usr_data)
 	[self endUserPlane];
 }
 
-#if 0
-- (void) initToneGen
-{
-	pjmedia_tonegen_create(pool, 8000, 1, 160, 16, 0, &dtmftonegen);
-	pjsua_conf_add_port(pool, tonegen, &toneslot);
-	
-	pjsua_call_get_info(call_id, &ci);
-	pjsua_conf_connect(cd->toneslot, ci.conf_slot);
-	
-	pjsua_call_set_user_data(call_id, (void*) cd);
-	
-	
-}
-#endif
 - (void) dtmf:(NSString *)dtmf
 {
 	pj_str_t pdigits= pj_str( ( char *) [dtmf cString]);

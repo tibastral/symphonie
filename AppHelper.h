@@ -85,6 +85,8 @@
 
 
 // failure notifications
+- (void) sipError:(int)status_code phrase:(char *)reason_phrase reason:(char *)reason domain:(int)d;
+
 - (void) setError:(NSString *)error diag:(NSString *)diag openAccountPref:(BOOL)gotopref domain:(int)d;
 - (void) resetErrorForDomain:(int)d;
 

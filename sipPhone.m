@@ -502,8 +502,10 @@ static int initDone=0;
 				    contextInfo:nil];
 		return -1;
 	}
-	int kms=5000;
-	//eXosip_set_option(EXOSIP_OPT_UDP_KEEP_ALIVE, &kms);
+	if (0) {
+		int kms=5000;
+		eXosip_set_option(EXOSIP_OPT_UDP_KEEP_ALIVE, &kms);
+	}
 	initDone=1;
 	// from quit, have a different runloop
 	// mainloop=[NSRunLoop currentRunLoop];//not retained
@@ -654,24 +656,62 @@ static int initDone=0;
 		if (_debugFsm) NSLog(@"event %d (%s) tid %d cid %d rid %d did %d / state %d\n", 
 				     je->type, je->textinfo, je->tid, je->cid, je->rid, je->did,
 				     state);
+		// global handling of status/reason phrase / reason header
+		// will then be used if applicable
+		int status_code=0;
+		char *reason_phrase=NULL;
+		char *reason=NULL;
+		if (je->response) {
+			status_code=je->response->status_code;
+			reason_phrase=je->response->reason_phrase;
+			osip_header_t *hdr;
+			int s=je->response->headers ? osip_list_size(je->response->headers):0;
+			int i;
+			for (i=0; i<s; i++) {
+				hdr=(osip_header_t *)osip_list_get(je->response->headers, i);
+				if (!strcmp(hdr->hname, "reason")) {
+					if (_debugCauses) NSLog(@"XXX got reason %s\n", hdr->hvalue);
+					reason=hdr->hvalue;
+				}
+			}
+		} 
+		if (je->request) {
+			osip_header_t *hdr;
+			int s=je->request->headers ? osip_list_size(je->request->headers):0;
+			int i;
+			if (!reason) {
+				for (i=0; i<s; i++) {
+					hdr=(osip_header_t *)osip_list_get(je->request->headers, i);
+					if (!strcmp(hdr->hname, "reason")) {
+						if (_debugCauses) NSLog(@"XXX (req) got reason %s\n", hdr->hvalue);
+						reason=hdr->hvalue;
+					}
+				}
+			}
+		}
+		
+		
 		if (je->rid) { 
 			
 			// handle registration events
 			// --------------------------
 			
 			// TODO check rid is current rid
-			int status_code;
 			switch (je->type) {
 				case EXOSIP_REGISTRATION_FAILURE:
 					if (je->response) NSLog(@"got status: %d / %s\n", je->response->status_code, 
 					      je->response->reason_phrase);
-					status_code=je->response ? je->response->status_code : 0;
+					switch (status_code) {
+						case 401: // unauthorized
+						case 407: // Proxy Authentication Required
+						case 404:
+							break;
+						default:
+							[appHelper sipError:status_code phrase:reason_phrase reason:reason domain:0];
+							break;
+					}
 					if (403 /*TODO this is not only wrong password*/==status_code) {
 						[self setState:sip_off];
-						[appHelper setError:NSLocalizedString(@"Registration failed", @"Registration failed")
-							     diag:NSLocalizedString(@"Wrong Password", @"Wrong Password")
-						    openAccountPref:YES
-							     domain:0];
 						rc=eXosip_default_action(je);
 						break;
 					} else if (!je->response) {
@@ -764,28 +804,7 @@ static int initDone=0;
 		} else if (je->cid) {
 			// handle call events
 			// ------------------
-			if (je->response) {
-				osip_header_t *hdr;
-				int s=je->response->headers ? osip_list_size(je->response->headers):0;
-				int i;
-				for (i=0; i<s; i++) {
-					hdr=(osip_header_t *)osip_list_get(je->response->headers, i);
-					if (!strcmp(hdr->hname, "reason")) {
-						if (_debugCauses) NSLog(@"XXX got reason %s\n", hdr->hvalue);
-					}
-				}
-			} 
-			if (je->request) {
-				osip_header_t *hdr;
-				int s=je->request->headers ? osip_list_size(je->request->headers):0;
-				int i;
-				for (i=0; i<s; i++) {
-					hdr=(osip_header_t *)osip_list_get(je->request->headers, i);
-					if (!strcmp(hdr->hname, "reason")) {
-						if (_debugCauses) NSLog(@"XXX (req) got reason %s\n", hdr->hvalue);
-					}
-				}
-			}
+			
 			if (_cid != je->cid) {
 				if (je->type==EXOSIP_CALL_INVITE) {
 					if (_debugFsm) NSLog(@"incoming new call\n");
@@ -849,6 +868,7 @@ refuse_call:
 					EXOSIP_UNLOCK ();
 					break;
 				case EXOSIP_CALL_PROCEEDING:
+					if (_debugFsm) NSLog(@"call proceeding \n");
 					break;
 				case EXOSIP_CALL_RINGING:
 					[self setState:sip_outgoing_call_ringing];
@@ -857,51 +877,26 @@ refuse_call:
 				case EXOSIP_CALL_REQUESTFAILURE:
 					if (_debugFsm) NSLog(@"EXOSIP_CALL_REQUESTFAILURE %d / %s\n",
 					      je->response ?  je->response->status_code : -1,
-					      je->response ? je->response->reason_phrase : "?");	
+					      je->response ? je->response->reason_phrase : "?");
+					switch (status_code) {
+						case 401: // unauthorized
+						case 407: // Proxy Authentication Required
+							break;
+						default:
+							[appHelper sipError:status_code phrase:reason_phrase reason:reason domain:1];
+							break;
+					}
 					if (je->response != NULL) {
 						BOOL keepcall=NO;
 						
 						switch (je->response->status_code) {
-							case 403:
-								[appHelper setError:NSLocalizedString(@"Call failed", @"Call failed")
-									       diag:NSLocalizedString(@"Wrong Password", @"Wrong Password")
-								    openAccountPref:YES
-									     domain:1];
-								rc=eXosip_default_action(je);
-								break;
-							case 480:
-								[appHelper setError:NSLocalizedString(@"Call failed", @"Call failed")
-									       diag:NSLocalizedString(@"Temporarly not available", @"Temporarly not available")
-								    openAccountPref:NO
-									     domain:1];
-								
-								rc=eXosip_default_action(je);
-								break;
-							case 487:
-								[appHelper setError:NSLocalizedString(@"Call canceled", @"Call canceld")
-									       diag:NSLocalizedString(@"", @"call cancel diag")
-								    openAccountPref:NO
-									     domain:1];
-								
-								rc=eXosip_default_action(je);
-								break;
-							case 408:
-								[appHelper setError:NSLocalizedString(@"No answer", @"No answer")
-									       diag:NSLocalizedString(@"", @"no answer diag")
-								    openAccountPref:NO
-									     domain:1];
+							default:
 								rc=eXosip_default_action(je);
 								break;
 							case 401:
 							case 407:
 								rc=eXosip_default_action(je);
 								keepcall=YES;
-								break;
-							case 486:
-								// intern serv error
-								if (_debugFsm) NSLog(@"486 here\n");
-								break;
-							default:
 								break;
 						}
 						if (keepcall) break;
@@ -915,9 +910,11 @@ refuse_call:
 					break;
 				case EXOSIP_CALL_SERVERFAILURE:
 					NSLog(@"EXOSIP_CALL_SERVERFAILURE\n");
+					[appHelper sipError:status_code phrase:reason_phrase reason:reason domain:1];
 					break;
 				case EXOSIP_CALL_GLOBALFAILURE:
 					NSLog(@"EXOSIP_CALL_GLOBALFAILURE\n");
+					[appHelper sipError:status_code phrase:reason_phrase reason:reason domain:1];
 					break;
 				case EXOSIP_CALL_ANSWERED:
 					[appHelper resetErrorForDomain:1];
@@ -970,6 +967,7 @@ refuse_call:
 						[appHelper setError:NSLocalizedString(@"call failed", @"call failed")
 							       diag:NSLocalizedString(@"SIP service not responding", @"no reply")
 						    openAccountPref:NO domain:1];
+					} else {
 					}
 					if (state>sip_registered) [self terminateCall:self];
 					if (_debugFsm) NSLog(@"call released (EXOSIP_CALL_RELEASED)\n");
@@ -977,6 +975,7 @@ refuse_call:
 
 					break;
 				case EXOSIP_CALL_CLOSED:
+					[appHelper sipError:status_code phrase:reason_phrase reason:reason domain:1];
 					[userPlane endUserPlane];
 					rc=eXosip_default_action(je);
 					if (state>sip_registered) [self terminateCall:self]; // XXX
@@ -985,7 +984,10 @@ refuse_call:
 				case EXOSIP_CALL_ACK:
 					if (state==sip_incoming_call_acccepted) {
 						[self setState:sip_online];
+					} else {
+						NSLog(@"bad state for call ack\n");
 					}
+					break;
 				default:
 					if (_debugFsm) NSLog(@"not handled event %d (%s)\n", je->type, je->textinfo);
 					break;
@@ -1172,14 +1174,14 @@ static const char *padDigits[16]={
 - (IBAction) dialPad:(id)sender
 {
 	int tag=[sender tag];
-	NSLog(@"dialpad %d\n", tag);
+	if (_debugMisc) NSLog(@"dialpad %d\n", tag);
 	if (tag>15) return;
 	NSString *s=nil;
 	switch (state) {
 		default: return;
 		case sip_registered:
 		case sip_ondemand:
-			if (tag>9) return; // or should we allow # * ?
+			if (tag>11) return; // # * ?
 			// append to selected number
 			if (tag<0) {
 				if (-1==tag) {
@@ -1192,7 +1194,8 @@ static const char *padDigits[16]={
 					}
 				} else if (-2 ==tag) {
 					[self setSelectedNumber:nil];
-				} else return;
+				} 
+				return;
 			}
 			s=[self selectedNumber];
 			if (!s) {

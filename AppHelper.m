@@ -376,8 +376,8 @@ static void PrintReachabilityFlags(
 	if ([phone state]<sip_ondemand) return; // not fully registered
 	NSAlert *alert=[NSAlert alertWithMessageText:[NSString stringWithFormat:NSLocalizedString(@"dial %@ ?",@"dial popup"),
 						      [dnum internationalDisplayCallNumber]]
-				       defaultButton:(NSString *)NSLocalizedString(@"OK", "ok") 
-				     alternateButton:(NSString *)NSLocalizedString(@"Cancel", "cancel")
+				       defaultButton:(NSString *)NSLocalizedString(@"OK", @"ok") 
+				     alternateButton:(NSString *)NSLocalizedString(@"Cancel", @"cancel")
 					 otherButton:(NSString *)nil 
 			   informativeTextWithFormat:(NSString *)NSLocalizedString(@"call %@",@"call popup"), knownName];
 	
@@ -829,8 +829,104 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 
 /*
  * call/registration failures
- * TODO
  */
+
+static NSString *q850(int c)
+{
+	switch (c) {
+		default: return [NSString stringWithFormat:@"Q850/%d", c];
+		case 1: return NSLocalizedString(@"unaffected numner", @"Q850/1");
+		case 2: return NSLocalizedString(@"routing not possible", @"Q850/2");
+		case 3: return NSLocalizedString(@"routing not possible", @"Q850/3");
+		case 5: return NSLocalizedString(@"incorrect number (bad prefix)", @"Q850/5");
+		case 16: return NSLocalizedString(@"normal clearing", @"Q850/16");
+		case 17: return NSLocalizedString(@"busy", @"Q850/17");
+		case 18: return  NSLocalizedString(@"no reply", @"Q850/18");
+		case 19: return  NSLocalizedString(@"no reply", @"Q850/19");
+		case 20: return  NSLocalizedString(@"not present", @"Q850/20");
+		case 21: return  NSLocalizedString(@"call refused", @"Q850/21");
+		case 22: return  NSLocalizedString(@"number has changed", @"Q850/22");
+		case 25: return  NSLocalizedString(@"routing error", @"Q850/25");
+		case 26: return  NSLocalizedString(@"call cleared", @"Q850/26");
+		case 27: return  NSLocalizedString(@"line disturbed", @"Q850/27");
+		case 28: return  NSLocalizedString(@"incorrect number", @"Q850/28");
+		case 29: return  NSLocalizedString(@"call refused", @"Q850/29");
+		case 31: return  NSLocalizedString(@"unspecified failure", @"Q850/31");
+		case 34: return  NSLocalizedString(@"no channel", @"Q850/34");
+		case 38: return  NSLocalizedString(@"network disturbed", @"Q850/38");
+		case 41: return  NSLocalizedString(@"network temporarly disturbed", @"Q850/41");
+		case 42: return  NSLocalizedString(@"no channel in network", @"Q850/42");
+		case 47: return  NSLocalizedString(@"resource not available", @"Q850/47");
+		case 51: return  NSLocalizedString(@"busy", @"Q850/51"); // non standard / used by free at least
+
+		case 57:
+		case 58:
+		case 49: return  NSLocalizedString(@"QoS not available", @"Q850/49");
+		case 50: return  NSLocalizedString(@"service not subscribed", @"Q850/50");
+	}
+}
+
+- (void) sipError:(int)status_code phrase:(char *)reason_phrase reason:(char *)reason domain:(int)d
+{
+	NSString *cause=nil;
+	NSString *err=nil;
+	int cse=0;
+	BOOL authErr=NO;
+
+	if (reason) {
+		if (!strncmp(reason, "q.850;", 6) || !strncmp(reason, "Q.850;", 6)) {
+			char *r=strchr(reason, '=');
+			if (r) {
+				r++;
+				cse=atoi(r);
+				cause=q850(cse);
+				NSLog(@"Q.850 : (%d) %@\n",cse, cause);
+			}
+		}
+	}
+	NSLog(@"====> d=%d st=%d cause %d (%@) / %s\n", d,status_code,
+	      cse, 
+	      cause ? cause : @"", 
+	      reason_phrase ? reason_phrase : "");
+	BOOL abnormal=YES;
+	switch (status_code) {
+		case 401: return;
+		case 407: return;
+		case 0: return;
+		case 486: 
+			if (!cause) cause=NSLocalizedString(@"busy", "@busy 486");
+			//abnormal=NO;
+			break;
+		case 600:
+			if (!cause) cause=NSLocalizedString(@"busy", @"busy 600");
+			//abnormal=NO;
+			break;
+		case 403:
+			if (21==cse) {
+				if (reason_phrase && strcasecmp(reason_phrase, "Too many")) {
+					cause=NSLocalizedString(@"already on line",@"303/21");
+				}
+			} else  if (!cause) {
+				cause=NSLocalizedString(@"incorrect password",@"303");
+				authErr=YES;
+			}
+			break;
+		case 404:
+			if (d && !cause) cause=NSLocalizedString(@"user not found",@"404");
+			break;
+		case 200:
+			abnormal=NO;
+			break;
+	}
+	if (abnormal) {
+		if (d) err=NSLocalizedString(@"call failed", @"call failed");
+		else  err=NSLocalizedString(@"registration failed", @"registration failed");
+	}
+	if (cause || err) {
+		[self setError:err diag:cause openAccountPref:authErr domain:d];
+	}
+	
+}
 
 - (void) resetErrorForDomain:(int)d
 {

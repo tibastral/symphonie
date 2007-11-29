@@ -23,7 +23,7 @@
 		1BE263C10CF0B7190098C270 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		32DBCF980370C29C00C91783 /* sipPhoneAbPlugin_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sipPhoneAbPlugin_Prefix.pch; sourceTree = "<group>"; };
 		8D1AC9730486D14A00FE50C9 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		8D1AC9740486D14A00FE50C9 /* sipPhoneAbPlugin.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = sipPhoneAbPlugin.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D1AC9740486D14A00FE50C9 /* symPhonieAbPlugin.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = symPhonieAbPlugin.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D1AC97B0486D23100FE50C9 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -64,7 +64,7 @@
 		1ED78706FE9D4A0611CA0C5A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8D1AC9740486D14A00FE50C9 /* sipPhoneAbPlugin.bundle */,
+				8D1AC9740486D14A00FE50C9 /* symPhonieAbPlugin.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -100,9 +100,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8D1AC9600486D14A00FE50C9 /* sipPhoneAbPlugin */ = {
+		8D1AC9600486D14A00FE50C9 /* symPhonieAbPlugin */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C027D11908A954E7001699E2 /* Build configuration list for PBXNativeTarget "sipPhoneAbPlugin" */;
+			buildConfigurationList = C027D11908A954E7001699E2 /* Build configuration list for PBXNativeTarget "symPhonieAbPlugin" */;
 			buildPhases = (
 				8D1AC9660486D14A00FE50C9 /* Resources */,
 				8D1AC96A0486D14A00FE50C9 /* Sources */,
@@ -112,10 +112,10 @@
 			);
 			dependencies = (
 			);
-			name = sipPhoneAbPlugin;
+			name = symPhonieAbPlugin;
 			productInstallPath = "$(HOME)/Developer/Palettes";
 			productName = sipPhoneAbPlugin;
-			productReference = 8D1AC9740486D14A00FE50C9 /* sipPhoneAbPlugin.bundle */;
+			productReference = 8D1AC9740486D14A00FE50C9 /* symPhonieAbPlugin.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -130,7 +130,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8D1AC9600486D14A00FE50C9 /* sipPhoneAbPlugin */,
+				8D1AC9600486D14A00FE50C9 /* symPhonieAbPlugin */,
 			);
 		};
 /* End PBXProject section */
@@ -187,7 +187,7 @@
 				GCC_PREFIX_HEADER = sipPhoneAbPlugin_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Developer/Palettes";
-				PRODUCT_NAME = sipPhoneAbPlugin;
+				PRODUCT_NAME = symPhonieAbPlugin;
 				WRAPPER_EXTENSION = bundle;
 				ZERO_LINK = YES;
 			};
@@ -207,7 +207,7 @@
 				GCC_PREFIX_HEADER = sipPhoneAbPlugin_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Developer/Palettes";
-				PRODUCT_NAME = sipPhoneAbPlugin;
+				PRODUCT_NAME = symPhonieAbPlugin;
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
@@ -236,14 +236,14 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C027D11908A954E7001699E2 /* Build configuration list for PBXNativeTarget "sipPhoneAbPlugin" */ = {
+		C027D11908A954E7001699E2 /* Build configuration list for PBXNativeTarget "symPhonieAbPlugin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C027D11A08A954E7001699E2 /* Debug */,

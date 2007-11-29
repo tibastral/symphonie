@@ -1,6 +1,6 @@
 //
 //  AppHelper.m
-//  sipPhone
+//  symPhonie
 //
 //  Created by Daniel Braun on 26/10/07.
 //  Copyright 2007 Daniel Braun. All rights reserved.
@@ -42,6 +42,10 @@ static int _debugAuth=0;
 }
 - (void) dealloc 
 {
+	[clrMsgTimer0 invalidate];
+	[clrMsgTimer0 release];
+	[clrMsgTimer1 invalidate];
+	[clrMsgTimer1 release];
 	[pauseAppScript release];
 	[regErrorMsg release];
 	[regDiagMsg release];
@@ -450,6 +454,7 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 	if (!SCNetworkReachabilityScheduleWithRunLoop(thisTarget,  [[NSRunLoop currentRunLoop]getCFRunLoop], kCFRunLoopDefaultMode)) {
 		if (_debugMisc) NSLog (@"Failed to schedule a reacher.");
 	}
+	
 	[[NSAppleEventManager sharedAppleEventManager]
 		setEventHandler:self andSelector:@selector(dialFromUrlEvent:withReplyEvent:)
 		forEventClass:kInternetEventClass andEventID:kAEGetURL];	
@@ -673,7 +678,7 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 
 - (IBAction) goHomePage:(id)sender
 {
-	[[NSWorkspace sharedWorkspace] openURL: [NSURL URLWithString:@"http://braun.daniel.free.fr/page3/sipPhone/sipPhone.shtml"]];
+	[[NSWorkspace sharedWorkspace] openURL: [NSURL URLWithString:@"http://braun.daniel.free.fr/symphonie/index.html"]];
 }
 
 - (IBAction) popMainWin:(id)sender
@@ -901,7 +906,7 @@ static NSString *q850(int c)
 			break;
 		case 487: 
 			if (d) {
-				if (!cause) cause=NSLocalizedString(@"Incoming call canceled", "terminated 487");
+				if (!cause) cause=NSLocalizedString(@"Call canceled", "terminated 487");
 				abnormal=NO;
 				break;
 			}
@@ -944,21 +949,51 @@ static NSString *q850(int c)
 - (void) resetErrorForDomain:(int)d
 {
 	if (!d) {
+		[clrMsgTimer0 invalidate];
 		[self setRegErrorMsg:nil];
 		[self setRegDiagMsg:nil];
 	} else {
+		[clrMsgTimer1 invalidate];
 		[self setCallErrorMsg:nil];
 		[self setCallDiagMsg:nil];
 	}	
 }
+
+- (void) clrTimer0:(NSTimer *)t
+{
+	[self resetErrorForDomain:0];
+}
+
+- (void) clrTimer1:(NSTimer *)t
+{
+	[self resetErrorForDomain:1];
+}
+
 - (void) setError:(NSString *)error diag:(NSString *)diag openAccountPref:(BOOL)gotopref domain:(int)d
 {
 	if (!d) {
 		[self setRegErrorMsg:error];
 		[self setRegDiagMsg:diag];
+		[clrMsgTimer0 invalidate];
+		[clrMsgTimer0 release];
+		clrMsgTimer0=[NSTimer timerWithTimeInterval:(NSTimeInterval) (error ? 10 : 4)
+					target:self selector:@selector(clrTimer0:) 
+				   userInfo:nil repeats:NO];
+		[clrMsgTimer0 retain];
+		[[NSRunLoop currentRunLoop] addTimer:clrMsgTimer0 forMode:NSDefaultRunLoopMode];
+
+		
 	} else {
 		[self setCallErrorMsg:error];
 		[self setCallDiagMsg:diag];
+		[clrMsgTimer1 invalidate];
+		[clrMsgTimer1 release];
+		clrMsgTimer1=[NSTimer timerWithTimeInterval:(NSTimeInterval) (error ? 10:4)
+				     target:self selector:@selector(clrTimer1:) 
+				   userInfo:nil repeats:NO];
+		[clrMsgTimer1 retain];
+		[[NSRunLoop currentRunLoop] addTimer:clrMsgTimer1 forMode:NSDefaultRunLoopMode];
+
 	}
 	if (gotopref) [self openAccountPref];
 }

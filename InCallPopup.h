@@ -1,6 +1,6 @@
 //
 //  InCallPopup.h
-//  sipPhone
+//  symPhonie
 //
 //  Created by Daniel Braun on 14/11/07.
 //  Copyright 2007 Daniel Braun. All rights reserved.

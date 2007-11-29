@@ -1,6 +1,6 @@
 //
 //  UserPlane.m
-//  sipPhone
+//  symPhonie
 //
 //  Created by Daniel Braun on 21/10/07.
 //  Copyright 2007 Daniel Braun. All rights reserved.

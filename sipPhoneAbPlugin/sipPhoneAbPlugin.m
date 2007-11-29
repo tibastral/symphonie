@@ -35,7 +35,7 @@
 	//NSLog(@"titleForPerson/id=%@\n", identifier);
 	NSString* cnum = [self phoneNum:person forId:identifier intl:NO];
 
-	return [NSString stringWithFormat:@"sipPhone: %@", cnum];    
+	return [NSString stringWithFormat:@"symPhonie: %@", cnum];    
 }
 
 // This method is called when the user selects your action. As above, this method
@@ -58,7 +58,7 @@
 	
 	NSString *cnum=[[self phoneNum:person forId:identifier intl:NO]stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	personName=[personName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	NSURL *dialUrl=[NSURL URLWithString:[NSString stringWithFormat:@"sipPhone:%@;%@", cnum,personName]];
+	NSURL *dialUrl=[NSURL URLWithString:[NSString stringWithFormat:@"symPhonie:%@;%@", cnum,personName]];
 	NSLog(@"built url: %@\n", dialUrl);
 	[[NSWorkspace sharedWorkspace] openURL:dialUrl];
 }

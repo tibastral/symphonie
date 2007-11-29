@@ -1,6 +1,6 @@
 //
 //  AppHelper.h
-//  sipPhone
+//  symPhonie
 //
 //  Created by Daniel Braun on 26/10/07.
 //  Copyright 2007 Daniel Braun. All rights reserved.
@@ -45,7 +45,8 @@
 	NSString *regDiagMsg;
 	NSString *callErrorMsg;
 	NSString *callDiagMsg;
-
+	NSTimer *clrMsgTimer0;
+	NSTimer *clrMsgTimer1;
 }
 
 - (NSString *) windowTitle;	// bound to main window title

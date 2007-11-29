@@ -1469,9 +1469,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8D1107260486CEB800E47090 /* sipPhone */ = {
+		8D1107260486CEB800E47090 /* symPhonie */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "sipPhone" */;
+			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "symPhonie" */;
 			buildPhases = (
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
@@ -1481,7 +1481,7 @@
 			);
 			dependencies = (
 			);
-			name = sipPhone;
+			name = symPhonie;
 			productInstallPath = "$(HOME)/Applications";
 			productName = sipPhone;
 			productReference = 8D1107320486CEB800E47090 /* symPhonie.app */;
@@ -1505,7 +1505,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				8D1107260486CEB800E47090 /* sipPhone */,
+				8D1107260486CEB800E47090 /* symPhonie */,
 			);
 		};
 /* End PBXProject section */
@@ -1935,8 +1935,6 @@
 				ARCHS = (
 					i386,
 					ppc,
-					ppc64,
-					x86_64,
 				);
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1993,6 +1991,10 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					"$(NATIVE_ARCH)",
+					ppc,
+				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
@@ -2003,7 +2005,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "sipPhone" */ = {
+		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "symPhonie" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4B08A954540054247B /* Debug */,

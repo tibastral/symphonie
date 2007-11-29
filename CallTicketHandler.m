@@ -1,6 +1,6 @@
 //
 //  CallTicketHandler.m
-//  sipPhone
+//  symPhonie
 //
 //  Created by Daniel Braun on 16/11/07.
 //  Copyright 2007 __MyCompanyName__. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  ABCache.h
-//  sipPhone
+//  symPhonie
 //
 //  Created by Daniel Braun on 23/10/07.
 //  Copyright 2007 Daniel Braun. All rights reserved.

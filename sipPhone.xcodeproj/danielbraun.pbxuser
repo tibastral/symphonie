@@ -1738,6 +1738,7 @@
 		fallbackIsa = XCSourceControlManager;
 		isSCMEnabled = 0;
 		scmConfiguration = {
+			repositoryName = sipPhone;
 		};
 		scmType = "";
 	};

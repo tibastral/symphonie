@@ -893,6 +893,19 @@ static NSString *q850(int c)
 		case 401: return;
 		case 407: return;
 		case 0: return;
+		case 603:
+			if (d) {
+				cause=NSLocalizedString(@"Incoming call refuses", "decline 603");
+				abnormal=NO;
+			}
+			break;
+		case 487: 
+			if (d) {
+				if (!cause) cause=NSLocalizedString(@"Incoming call canceled", "terminated 487");
+				abnormal=NO;
+				break;
+			}
+			break;
 		case 486: 
 			if (!cause) cause=NSLocalizedString(@"busy", "@busy 486");
 			//abnormal=NO;

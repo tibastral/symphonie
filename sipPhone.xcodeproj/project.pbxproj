@@ -1232,7 +1232,7 @@
 		1BBD5A920CEE601200C5C4A1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1BBD5A990CEE601200C5C4A1 /* sipPhoneAbPlugin.bundle */,
+				1BBD5A990CEE601200C5C4A1 /* symPhonieAbPlugin.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1511,10 +1511,10 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		1BBD5A990CEE601200C5C4A1 /* sipPhoneAbPlugin.bundle */ = {
+		1BBD5A990CEE601200C5C4A1 /* symPhonieAbPlugin.bundle */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = sipPhoneAbPlugin.bundle;
+			path = symPhonieAbPlugin.bundle;
 			remoteRef = 1BBD5A980CEE601200C5C4A1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1887,6 +1887,7 @@
 					ppc,
 				);
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 0.2.2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
@@ -1901,7 +1902,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
 				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
 				GCC_WARN_MISSING_PARENTHESES = YES;
@@ -1923,6 +1924,8 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/pjproject/pjlib-util/lib\"";
 				PRODUCT_NAME = symPhonie;
 				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/libeXosip2-2.2.3/include $(PROJECT_DIR)/libosip2-2.2.2/include $(PROJECT_DIR)/pjproject/pjlib/include $(PROJECT_DIR)/pjproject/pjlib-util/include $(PROJECT_DIR)/pjproject/pjmedia/src/pjmedia-codec/ $(PROJECT_DIR)/pjproject/pjmedia/src/pjmedia/portaudio/ $(PROJECT_DIR)/pjproject/pjmedia/include/ $(inherited)";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_EXPORT_DECL = "";
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
 			};
@@ -1936,6 +1939,7 @@
 					i386,
 					ppc,
 				);
+				CURRENT_PROJECT_VERSION = 0.2.2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
@@ -1948,7 +1952,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
-				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
 				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
 				GCC_WARN_MISSING_PARENTHESES = YES;
@@ -1970,6 +1974,8 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/pjproject-0.5.10.4/pjlib-util/lib\"";
 				PRODUCT_NAME = symPhonie;
 				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/libeXosip2-2.2.3/include $(PROJECT_DIR)/libosip2-2.2.2/include $(inherited) $(PROJECT_DIR)/pjproject/pjlib/include $(PROJECT_DIR)/pjproject/pjlib-util/include $(PROJECT_DIR)/pjproject/pjmedia/src/pjmedia-codec/ $(PROJECT_DIR)/pjproject/pjmedia/src/pjmedia/portaudio/ $(PROJECT_DIR)/pjproject/pjmedia/include/";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_EXPORT_DECL = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1985,6 +1991,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -1999,6 +2006,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
 				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};

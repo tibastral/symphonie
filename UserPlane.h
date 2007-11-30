@@ -52,6 +52,8 @@
 	
 }
 
+- (void) pjassertfailed;
+
 
 - (void) _initMedia;
 

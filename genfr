@@ -1,0 +1,4 @@
+#!/bin/sh
+ibtool --generate-stringsfile MainMenu.strings English.lproj/MainMenu.nib
+ibtool --strings-file MainMenu.strings --write French.lproj/MainMenu.nib English.lproj/MainMenu.nib
+

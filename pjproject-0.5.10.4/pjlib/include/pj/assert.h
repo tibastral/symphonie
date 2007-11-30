@@ -44,7 +44,10 @@
  *
  * @param expr	    The expression to be evaluated.
  */
-#define pj_assert(expr)   assert(expr)
+//#define pj_assert(expr)   assert(expr)
+
+void _externalAssert(int l, char *f, char *e);
+#define pj_assert(expr) do { if (!(expr)) _externalAssert(__LINE__, __FILE__, #expr); } while(0)
 
 
 /**

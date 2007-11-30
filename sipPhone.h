@@ -53,9 +53,12 @@ typedef enum {
 	IBOutlet NSWindow *mainWin;
 	IBOutlet NSView *popupInCallView;
 	IBOutlet ABPeoplePickerView *abPicker;
-	IBOutlet NSTabView *callView;
+	//IBOutlet NSTabView *callView;
 	IBOutlet CallTicketHandler *tickets;
 	NSWindow *popupInCall;
+	IBOutlet NSTextField *numberTextView;
+	IBOutlet NSButton *callbutton;
+	IBOutlet NSView *offlineView;
 
 	sipState_t state;
 	int _rid;

@@ -13,8 +13,6 @@
 				<string>id</string>
 				<key>dialPad</key>
 				<string>id</string>
-				<key>dtmf</key>
-				<string>id</string>
 				<key>endRing</key>
 				<string>id</string>
 				<key>fakeInCall</key>
@@ -48,10 +46,14 @@
 				<string>ABPeoplePickerView</string>
 				<key>appHelper</key>
 				<string>AppHelper</string>
-				<key>callView</key>
-				<string>NSTabView</string>
+				<key>callbutton</key>
+				<string>NSButton</string>
 				<key>mainWin</key>
 				<string>NSWindow</string>
+				<key>numberTextView</key>
+				<string>NSTextField</string>
+				<key>offlineView</key>
+				<string>NSView</string>
 				<key>popupInCallView</key>
 				<string>NSView</string>
 				<key>tickets</key>
@@ -67,14 +69,6 @@
 			<string>ObjC</string>
 			<key>SUPERCLASS</key>
 			<string>NSControl</string>
-		</dict>
-		<dict>
-			<key>CLASS</key>
-			<string>InCallPopup</string>
-			<key>LANGUAGE</key>
-			<string>ObjC</string>
-			<key>SUPERCLASS</key>
-			<string>NSView</string>
 		</dict>
 		<dict>
 			<key>ACTIONS</key>
@@ -93,6 +87,14 @@
 			</dict>
 			<key>SUPERCLASS</key>
 			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>InCallPopup</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSView</string>
 		</dict>
 		<dict>
 			<key>ACTIONS</key>

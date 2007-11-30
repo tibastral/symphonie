@@ -217,6 +217,8 @@ static int initDone=0;
 	[popupInCall center];
 	[popupInCall setContentView:popupInCallView];
 	
+	//[offlineView setDefaultButtonCell
+	
 }
 
 - (void) setSelectedNumber:(NSString *)s
@@ -326,24 +328,30 @@ static int initDone=0;
  */
 - (int) selectedViewNumber
 {
+	int sn=0;
 	switch (state) {
-		case sip_off: return 0;
-		case sip_ondemand: return 1;
-		case sip_register_in_progress: return 0;
-		case sip_register_retry: return 0;
-		case sip_register2call_in_progress: return 2;
-		case sip_register2call_retry: return 2;
-		case sip_unregister_in_progress: return 0;
-		case sip_unregister_retry: return 0;
-		case sip_registered: return 1;
-		case sip_outgoing_call_sent: return 2;
-		case sip_outgoing_call_ringing: return 2;
-		case sip_online: return 3;
-		case sip_initiated_clearing: return 4;
-		case sip_incoming_call_ringing: return 5;
-		case sip_incoming_call_acccepted: return 3;
-		default: return 1;
+		case sip_off: sn = 0; break;
+		case sip_ondemand: sn = 1;  break;
+		case sip_register_in_progress: sn = 0;  break;
+		case sip_register_retry: sn = 0; break;
+		case sip_register2call_in_progress: sn = 2; break;
+		case sip_register2call_retry: sn = 2; break;
+		case sip_unregister_in_progress: sn = 0; break;
+		case sip_unregister_retry: sn = 0; break;
+		case sip_registered: sn = 1; break;
+		case sip_outgoing_call_sent: sn = 2; break;
+		case sip_outgoing_call_ringing: sn = 2; break;
+		case sip_online: sn = 3; break;
+		case sip_initiated_clearing: sn = 4; break;
+		case sip_incoming_call_ringing: sn = 5; break;
+		case sip_incoming_call_acccepted: sn = 3; break;
+		default: sn = 1; break;
 	}
+	if (1 && (1==sn)) {
+		[mainWin makeFirstResponder:numberTextView];
+		//[numberTextView performClick:self];
+	}
+	return sn;
 }
 
 
@@ -862,7 +870,47 @@ refuse_call:
 			switch (je->type) {
 				case EXOSIP_CALL_REINVITE:
 					if (_debugFsm) NSLog(@"reinvinte (call within a call)\n");
-					rc=eXosip_default_action(je);
+					//rc=eXosip_default_action(je);
+					NSString *newRemoteSdp=eXosip_get_sdp_body(je->request);
+					BOOL rok=YES;
+					if (!newRemoteSdp) { 
+						if (_debugFsm) NSLog(@"reinvite/no sdp\n");
+					} else if ( [newRemoteSdp isEqualToString:remoteSdp]) {
+						if (_debugFsm) NSLog(@"reinvite/same sdp\n");
+					} else if (0) {
+						// XXX TODO this does not work ok
+						// hwo
+						if (_debugFsm) NSLog(@"reinvite/change sdp\n");
+						[self willChangeValueForKey:@"remoteSdp"];
+						[remoteSdp release];
+						remoteSdp=[newRemoteSdp retain];
+						[self didChangeValueForKey:@"remoteSdp"];
+						[userPlane endUserPlane];
+						rok=[userPlane setupWithtLocalSdp:localSdp remoteSdp:remoteSdp outCall:NO negociatedLocal:nil];
+						if (!rok) NSLog(@"userplane setup problem\n");
+					} else rok=YES;
+					osip_message_t *answer;
+					if (rok) {
+						_tid=je->tid;
+						rc = eXosip_call_build_answer(_tid, 200, &answer);
+						if (rc != 0) {
+							NSLog(@"eXosip_call_build_answer failed...\n");
+							break;
+						}
+						EXOSIP_LOCK ();
+						rc=eXosip_call_send_answer (_tid, 200, answer);
+						EXOSIP_UNLOCK ();
+					} else {
+						rc=eXosip_call_build_answer(je->tid, 480, &answer);
+						if (rc != 0) {
+							NSLog(@"eXosip_call_build_answer failed...\n");
+							break;
+						}
+						EXOSIP_LOCK ();
+						rc=eXosip_call_send_answer (je->tid, 480, answer);
+						EXOSIP_UNLOCK ();
+					}
+					if (rc) NSLog(@"eXosip_call_send_answer failed\n");
 					break;
 				case EXOSIP_CALL_INVITE:
 					if (_debugFsm) NSLog(@"incoming call on existing call?\n");
@@ -988,6 +1036,7 @@ refuse_call:
 				case EXOSIP_CALL_ACK:
 					if (state==sip_incoming_call_acccepted) {
 						[self setState:sip_online];
+					} else if (state==sip_online) {
 					} else {
 						NSLog(@"bad state for call ack\n");
 					}
@@ -1109,7 +1158,8 @@ refuse_call:
 - (IBAction) acceptCall:(id) sender
 {
 	if (state != sip_incoming_call_ringing) return;
-	
+	[self setSelectedNumber:[self callingNumber]];
+	[self setSelectedName:callingName];
 	osip_message_t *answer=NULL;
 	eXosip_call_build_answer(_tid, 200, &answer);
 	osip_message_set_body (answer, [localSdp cString], [localSdp length]);

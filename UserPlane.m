@@ -14,7 +14,7 @@
 #include <AudioToolbox/AudioToolbox.h>
 #import <QTKit/QTMovie.h>
 
-
+#import "pj/assert.h"
 
 @implementation UserPlane
 
@@ -22,9 +22,22 @@
 
 static int _debugAudio=0;
 
+static UserPlane *aUp=nil;
+// pj_assert changed so it goes here
+void _externalAssert(int l, char *f, char *e)
+{
+	NSLog(@"pj assertion failuer in %s:%d expr: %s\n", f, l, e);
+	[aUp pjassertfailed];
+}
+
+- (void) pjassertfailed
+{
+	NSAssert(0, @"pjassert failed\n");
+}
 - (id) init {
 	self = [super init];
 	if (self != nil) {
+		if (!aUp) aUp=self;
 		[self _initMedia];
 		outputDevIdx=-1;
 		inputDevIdx=-1;
@@ -32,6 +45,7 @@ static int _debugAudio=0;
 	
 	return self;
 }
+
 - (void) dealloc {
 	if (recordBuffer) NSZoneFree(NSDefaultMallocZone(), recordBuffer); recordBuffer=NULL;
 	if (tone_generator) pjmedia_port_destroy(tone_generator);

@@ -306,7 +306,7 @@
 							<real>199</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>662 7 1032 635 0 0 1280 778 </string>
+						<string>440 143 1032 635 0 0 1280 778 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -336,7 +336,7 @@
 										<key>_historyCapacity</key>
 										<integer>40</integer>
 										<key>bookmark</key>
-										<string>1BEAC0DE0CFF85B5001DEC89</string>
+										<string>1BEAC2370D003527001DEC89</string>
 										<key>history</key>
 										<array>
 											<string>1BE265270CF0D4910098C270</string>
@@ -367,7 +367,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {811, 378}}</string>
 								<key>RubberWindowFrame</key>
-								<string>662 7 1032 635 0 0 1280 778 </string>
+								<string>440 143 1032 635 0 0 1280 778 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -392,7 +392,7 @@
 										<key>Frame</key>
 										<string>{{10, 27}, {811, 184}}</string>
 										<key>RubberWindowFrame</key>
-										<string>662 7 1032 635 0 0 1280 778 </string>
+										<string>440 143 1032 635 0 0 1280 778 </string>
 									</dict>
 									<key>Module</key>
 									<string>XCDetailModule</string>
@@ -647,7 +647,7 @@
 		<string>/Users/danielbraun/devel/sipPhone/sipPhoneAbPlugin/sipPhoneAbPlugin.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>662 7 1032 635 0 0 1280 778 </string>
+	<string>440 143 1032 635 0 0 1280 778 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>

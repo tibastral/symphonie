@@ -419,7 +419,7 @@ static int initDone=0;
 	if ((state==sip_online) && (olds != sip_incoming_call_ringing)) {
 		if (getBoolProp(@"suspendMultimedia", YES)) [appHelper pauseApps];
 	}
-	if (state==sip_off) {
+	if ((state==sip_off) || (state==sip_ondemand)) {
 		[appHelper phoneIsOff:YES];
 	}
 	[self didChangeValueForKey:@"canChangeRegistrationScheme"];
@@ -524,6 +524,7 @@ static int initDone=0;
 	pollTimer=[NSTimer timerWithTimeInterval:(NSTimeInterval)0.1 
 						   target:self selector:@selector(pollExosip:) userInfo:nil repeats:YES];
 	[pollTimer retain];
+	NSAssert(pollTimer, @"should have a polltimer");
 	[[NSRunLoop currentRunLoop] addTimer:pollTimer forMode:NSDefaultRunLoopMode];
 	[[NSRunLoop currentRunLoop] addTimer:pollTimer forMode:NSModalPanelRunLoopMode];
 
@@ -710,7 +711,7 @@ static int initDone=0;
 			// TODO check rid is current rid
 			switch (je->type) {
 				case EXOSIP_REGISTRATION_FAILURE:
-					if (je->response) NSLog(@"got status: %d / %s\n", je->response->status_code, 
+					if (0 && je->response) NSLog(@"got status: %d / %s\n", je->response->status_code, 
 					      je->response->reason_phrase);
 					switch (status_code) {
 						case 401: // unauthorized
@@ -1000,9 +1001,9 @@ refuse_call:
 						break;
 					}
 					EXOSIP_LOCK();
-					eXosip_call_send_ack(je->did, ack);
-					//eXosip_call_terminate (je->cid, je->tid);
+					rc=eXosip_call_send_ack(je->did, ack);
 					EXOSIP_UNLOCK();
+					if (rc) NSLog(@"send ack failed\n");
 					[self setState:sip_online];
 					break;
 				case EXOSIP_CALL_MESSAGE_NEW:

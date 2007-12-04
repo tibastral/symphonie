@@ -22,6 +22,7 @@
 #include <IOKit/pwr_mgt/IOPMLib.h>
 #include <IOKit/IOMessage.h>
 
+
 @implementation AppHelper
 
 static int _debugAudio=0;
@@ -980,9 +981,7 @@ static NSString *q850(int c)
 					target:self selector:@selector(clrTimer0:) 
 				   userInfo:nil repeats:NO];
 		[clrMsgTimer0 retain];
-		[[NSRunLoop currentRunLoop] addTimer:clrMsgTimer0 forMode:NSDefaultRunLoopMode];
-
-		
+		if (clrMsgTimer0) [[NSRunLoop currentRunLoop] addTimer:clrMsgTimer0 forMode:NSDefaultRunLoopMode];
 	} else {
 		[self setCallErrorMsg:error];
 		[self setCallDiagMsg:diag];
@@ -992,7 +991,7 @@ static NSString *q850(int c)
 				     target:self selector:@selector(clrTimer1:) 
 				   userInfo:nil repeats:NO];
 		[clrMsgTimer1 retain];
-		[[NSRunLoop currentRunLoop] addTimer:clrMsgTimer1 forMode:NSDefaultRunLoopMode];
+		if (clrMsgTimer1) [[NSRunLoop currentRunLoop] addTimer:clrMsgTimer1 forMode:NSDefaultRunLoopMode];
 
 	}
 	if (gotopref) [self openAccountPref];

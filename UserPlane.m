@@ -336,7 +336,7 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 		if (inputDevIdx>=0) setVolume(_GlobMacDevIds[inputDevIdx], 1, normalInputGain);
 		if (outputDevIdx>=0) setVolume(_GlobMacDevIds[outputDevIdx], 0, normalOutputVolume);
 	}
-
+	NSAssert(tone_generator, @"nil tone gen");
 	pjmedia_tonegen_stop(tone_generator);
 	if (inputOutput) {
 		pjmedia_snd_port_disconnect(inputOutput);
@@ -666,6 +666,7 @@ static pj_status_t recordEnded(pjmedia_port *port, void *usr_data)
 	if (rc==PJMEDIA_RTP_EREMNORFC2833) {
 		pjmedia_tone_digit digits[1]={{'1', 300,100}};
 		digits[0].digit=[dtmf characterAtIndex:0];
+		NSAssert(tone_generator, @"nil tone gen");
 		pjmedia_tonegen_stop(tone_generator);
 		pj_status_t rc=pjmedia_tonegen_play_digits(tone_generator ,1, digits,0);
 		NSLog(@"play digit rc=0x%X\n", rc);

@@ -223,6 +223,7 @@
 		1BB0E7830CE8365200207E64 /* BundledScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BB0E7820CE8365200207E64 /* BundledScript.m */; };
 		1BB0E7DA0CE83B6400207E64 /* sipPhoneAppCtl.scpt in Resources */ = {isa = PBXBuildFile; fileRef = 1BB0E7D90CE83B5D00207E64 /* sipPhoneAppCtl.scpt */; };
 		1BB0E8320CE8FBBE00207E64 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BB0E8310CE8FBBE00207E64 /* IOKit.framework */; };
+		1BC4760E0D02CF2800E04A41 /* symPhonie Help in Resources */ = {isa = PBXBuildFile; fileRef = 1BC4760C0D02CF2800E04A41 /* symPhonie Help */; };
 		1BC968310CC9F139004C0339 /* eXcall_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 1BC9680F0CC9F139004C0339 /* eXcall_api.c */; };
 		1BC968320CC9F139004C0339 /* eXconf.c in Sources */ = {isa = PBXBuildFile; fileRef = 1BC968100CC9F139004C0339 /* eXconf.c */; };
 		1BC968330CC9F139004C0339 /* eXinsubscription_api.c in Sources */ = {isa = PBXBuildFile; fileRef = 1BC968110CC9F139004C0339 /* eXinsubscription_api.c */; };
@@ -310,7 +311,6 @@
 		1BC969530CC9FAB7004C0339 /* port_fifo.c in Sources */ = {isa = PBXBuildFile; fileRef = 1BC9693C0CC9FAB7004C0339 /* port_fifo.c */; };
 		1BC969540CC9FAB7004C0339 /* port_sema.c in Sources */ = {isa = PBXBuildFile; fileRef = 1BC9693D0CC9FAB7004C0339 /* port_sema.c */; };
 		1BC969550CC9FAB7004C0339 /* port_thread.c in Sources */ = {isa = PBXBuildFile; fileRef = 1BC9693E0CC9FAB7004C0339 /* port_thread.c */; };
-		1BF1349D0CD8B3B00007EF60 /* Help in Resources */ = {isa = PBXBuildFile; fileRef = 1BF134990CD8B3B00007EF60 /* Help */; };
 		1BFBC7390CEB819F00CAE0B9 /* InCallPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFBC7380CEB819F00CAE0B9 /* InCallPopup.m */; };
 		1BFBC77A0CEB87C200CAE0B9 /* incallbg.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 1BFBC7790CEB87C200CAE0B9 /* incallbg.tiff */; };
 		8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
@@ -609,6 +609,10 @@
 		1B0BE6AC0CD7F90D00ED1901 /* vq_sse.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = vq_sse.h; sourceTree = "<group>"; };
 		1B0BE6AD0CD7F90D00ED1901 /* window.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = window.c; sourceTree = "<group>"; };
 		1B0BE6C10CD7F90D00ED1901 /* speex_codec.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = speex_codec.c; path = "pjproject-0.5.10.4/pjmedia/src/pjmedia-codec/speex_codec.c"; sourceTree = "<group>"; };
+		1B3D420E0D01CF0900AD2EF1 /* UKCrashReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKCrashReporter.m; sourceTree = "<group>"; };
+		1B3D420F0D01CF0900AD2EF1 /* UKCrashReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKCrashReporter.h; sourceTree = "<group>"; };
+		1B3D423A0D01D3CA00AD2EF1 /* MiscDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MiscDebug.h; sourceTree = "<group>"; };
+		1B3D423B0D01D3CA00AD2EF1 /* MiscDebug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MiscDebug.m; sourceTree = "<group>"; };
 		1B46E57C0CCB5B8600397E41 /* StringCallNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringCallNumber.h; sourceTree = "<group>"; };
 		1B46E57D0CCB5B8600397E41 /* StringCallNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringCallNumber.m; sourceTree = "<group>"; };
 		1B46E7DB0CCB887C00397E41 /* UserPlane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPlane.h; sourceTree = "<group>"; };
@@ -638,6 +642,8 @@
 		1BB0E7D90CE83B5D00207E64 /* sipPhoneAppCtl.scpt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.scpt; path = sipPhoneAppCtl.scpt; sourceTree = "<group>"; };
 		1BB0E8310CE8FBBE00207E64 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		1BBD5A910CEE601200C5C4A1 /* sipPhoneAbPlugin.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = sipPhoneAbPlugin.xcodeproj; path = sipPhoneAbPlugin/sipPhoneAbPlugin.xcodeproj; sourceTree = "<group>"; };
+		1BC4760D0D02CF2800E04A41 /* English */ = {isa = PBXFileReference; lastKnownFileType = folder; name = English; path = "English.lproj/symPhonie Help"; sourceTree = "<group>"; };
+		1BC4760F0D02CF4100E04A41 /* French */ = {isa = PBXFileReference; lastKnownFileType = folder; name = French; path = "French.lproj/symPhonie Help"; sourceTree = "<group>"; };
 		1BC9680F0CC9F139004C0339 /* eXcall_api.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = eXcall_api.c; path = "libeXosip2-2.2.3/src/eXcall_api.c"; sourceTree = "<group>"; };
 		1BC968100CC9F139004C0339 /* eXconf.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = eXconf.c; path = "libeXosip2-2.2.3/src/eXconf.c"; sourceTree = "<group>"; };
 		1BC968110CC9F139004C0339 /* eXinsubscription_api.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = eXinsubscription_api.c; path = "libeXosip2-2.2.3/src/eXinsubscription_api.c"; sourceTree = "<group>"; };
@@ -759,8 +765,6 @@
 		1BC969F80CCA0134004C0339 /* sdp_message.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = sdp_message.h; path = "libosip2-2.2.2/include/osipparser2/sdp_message.h"; sourceTree = "<group>"; };
 		1BE262410CEF970E0098C270 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		1BE262CE0CEFA48D0098C270 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		1BE263040CEFA7870098C270 /* French */ = {isa = PBXFileReference; lastKnownFileType = folder; name = French; path = French.lproj/Help; sourceTree = "<group>"; };
-		1BF1349A0CD8B3B00007EF60 /* English */ = {isa = PBXFileReference; lastKnownFileType = folder; name = English; path = English.lproj/Help; sourceTree = "<group>"; };
 		1BFBC7370CEB819F00CAE0B9 /* InCallPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InCallPopup.h; sourceTree = "<group>"; };
 		1BFBC7380CEB819F00CAE0B9 /* InCallPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InCallPopup.m; sourceTree = "<group>"; };
 		1BFBC7790CEB87C200CAE0B9 /* incallbg.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = incallbg.tiff; sourceTree = "<group>"; };
@@ -1178,6 +1182,17 @@
 			name = pj;
 			sourceTree = "<group>";
 		};
+		1B3D420B0D01CEE800AD2EF1 /* CrashReport */ = {
+			isa = PBXGroup;
+			children = (
+				1B3D420E0D01CF0900AD2EF1 /* UKCrashReporter.m */,
+				1B3D420F0D01CF0900AD2EF1 /* UKCrashReporter.h */,
+				1B3D423A0D01D3CA00AD2EF1 /* MiscDebug.h */,
+				1B3D423B0D01D3CA00AD2EF1 /* MiscDebug.m */,
+			);
+			name = CrashReport;
+			sourceTree = "<group>";
+		};
 		1B46E4460CCB46EE00397E41 /* pjmedia */ = {
 			isa = PBXGroup;
 			children = (
@@ -1422,7 +1437,8 @@
 			isa = PBXGroup;
 			children = (
 				1BBD5A910CEE601200C5C4A1 /* sipPhoneAbPlugin.xcodeproj */,
-				1BF134990CD8B3B00007EF60 /* Help */,
+				1BC4760C0D02CF2800E04A41 /* symPhonie Help */,
+				1B3D420B0D01CEE800AD2EF1 /* CrashReport */,
 				1BC967730CC9EA72004C0339 /* Lib */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
@@ -1532,9 +1548,9 @@
 				1B0B9B7C0CF8989000E011F3 /* Credits.rtf in Resources */,
 				1B0BE6C50CD7F90D00ED1901 /* COPYRIGHT in Resources */,
 				1B0BE71B0CD7F90D00ED1901 /* VERSION.TXT in Resources */,
-				1BF1349D0CD8B3B00007EF60 /* Help in Resources */,
 				1B751E260CE999E500BA8417 /* Cornemuse.mid in Resources */,
 				1BFBC77A0CEB87C200CAE0B9 /* incallbg.tiff in Resources */,
+				1BC4760E0D02CF2800E04A41 /* symPhonie Help in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1857,13 +1873,13 @@
 			name = Credits.rtf;
 			sourceTree = "<group>";
 		};
-		1BF134990CD8B3B00007EF60 /* Help */ = {
+		1BC4760C0D02CF2800E04A41 /* symPhonie Help */ = {
 			isa = PBXVariantGroup;
 			children = (
-				1BF1349A0CD8B3B00007EF60 /* English */,
-				1BE263040CEFA7870098C270 /* French */,
+				1BC4760D0D02CF2800E04A41 /* English */,
+				1BC4760F0D02CF4100E04A41 /* French */,
 			);
-			name = Help;
+			name = "symPhonie Help";
 			sourceTree = "<group>";
 		};
 		29B97318FDCFA39411CA2CEA /* MainMenu.nib */ = {

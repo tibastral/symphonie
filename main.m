@@ -7,8 +7,18 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
+#import "MiscDebug.h"
 int main(int argc, char *argv[])
 {
-    return NSApplicationMain(argc,  (const char **) argv);
+#if 0	
+	if (0) {
+		NSAutoreleasePool *pool=[[NSAutoreleasePool alloc]init];
+		UKCrashReporterCheckForCrash();
+		[pool release];
+	}
+	if (1) {
+		[XMenuItem initialize];
+	}
+#endif
+	return NSApplicationMain(argc,  (const char **) argv);
 }

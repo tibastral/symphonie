@@ -841,7 +841,7 @@ static NSString *q850(int c)
 {
 	switch (c) {
 		default: return [NSString stringWithFormat:@"Q850/%d", c];
-		case 1: return NSLocalizedString(@"unaffected numner", @"Q850/1");
+		case 1: return NSLocalizedString(@"unaffected number", @"Q850/1");
 		case 2: return NSLocalizedString(@"routing not possible", @"Q850/2");
 		case 3: return NSLocalizedString(@"routing not possible", @"Q850/3");
 		case 5: return NSLocalizedString(@"incorrect number (bad prefix)", @"Q850/5");

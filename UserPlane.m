@@ -504,12 +504,16 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	NSLog(@"add port rc=%d slot=%d\n", rc,cb_session_slot);
 	pjmedia_conf_connect_port(confbridge, cb_session_slot,0, 0);
 	pjmedia_conf_connect_port(confbridge, 0,cb_session_slot, 0);
-	pj_str_t tport_name= pj_str("ton");
-	rc=pjmedia_conf_add_port(confbridge, callpool, tone_generator, &tport_name, &cb_tone_slot);
-	NSLog(@"add tone port rc=%d slot=%d\n", rc,cb_tone_slot);
-	pjmedia_conf_connect_port(confbridge, cb_tone_slot, cb_session_slot, 0);
 	if (1) {
-		pjmedia_conf_connect_port(confbridge, cb_tone_slot, 0, 0);
+		pj_str_t tport_name= pj_str("ton");
+		rc=pjmedia_conf_add_port(confbridge, callpool, tone_generator, &tport_name, &cb_tone_slot);
+		NSLog(@"add tone port rc=%d slot=%d\n", rc,cb_tone_slot);
+		if (0) rc=pjmedia_conf_configure_port(confbridge, cb_tone_slot, PJMEDIA_PORT_NO_CHANGE , PJMEDIA_PORT_DISABLE);
+
+		pjmedia_conf_connect_port(confbridge, cb_tone_slot, cb_session_slot, 0);
+		if (1) { // local echo
+			pjmedia_conf_connect_port(confbridge, cb_tone_slot, 0, 0);
+		}
 	}
 	
 #endif

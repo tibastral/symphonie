@@ -376,6 +376,7 @@ static pj_status_t tonegen_get_frame(pjmedia_port *port,
 
     if (tonegen->count == 0) {
 	/* We don't have digits to play */
+	memset(frame->buf, 0, frame->size); // DB20071208 make sure it is 0, for conf bridge does not handle type none frame
 	frame->type = PJMEDIA_FRAME_TYPE_NONE;
 	return PJ_SUCCESS;
     }

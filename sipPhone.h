@@ -65,6 +65,7 @@ typedef enum {
 	int _cid;
 	int _did;
 	int _tid;
+	NSString *serviceRoute;
 	NSTimer *pollTimer;
 	//NSRunLoop *mainloop;
 

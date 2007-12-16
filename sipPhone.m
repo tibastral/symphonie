@@ -91,7 +91,8 @@ static int initDone=0;
 	return self;
 }
 - (void) dealloc {
-	[ABCache release];
+	[serviceRoute release];
+	[abCache release];
 	[selectedNumber release];
 	[selectedName release];
 	[callingNumber release];
@@ -494,6 +495,8 @@ static int initDone=0;
 	
 	int localport=5060;
 	if (99==[appHelper provider]) localport=5062;
+	//if (2==[appHelper provider]) localport=5062;
+
 	rc = eXosip_listen_addr (IPPROTO_UDP, NULL, localport, AF_INET, 0);
 	if (rc!=0) {
 		eXosip_quit();
@@ -556,6 +559,7 @@ static int initDone=0;
 		EXOSIP_UNLOCK ();
 		//NSAssert(0, @"registered failed\n");
 		NSLog(@"register failed (buid initial reg) %d", _rid);
+		[appHelper sipError:-2 phrase:"cannot send register" reason:nil domain:0];
 		return;
 	}
 	//NSLog(@"password %@\n",[appHelper authPasswd]);
@@ -716,6 +720,14 @@ static int initDone=0;
 					switch (status_code) {
 						case 401: // unauthorized
 						case 407: // Proxy Authentication Required
+							switch (state) {
+								case sip_register_retry:
+								case sip_unregister_retry:
+								case sip_register2call_retry:
+									[appHelper sipError:status_code phrase:reason_phrase reason:reason domain:0];
+									break;
+								default: break;
+							}
 						case 404:
 							break;
 						default:
@@ -808,6 +820,28 @@ static int initDone=0;
 							if (_debugFsm) NSLog(@"registered ignore in state %d\n", state);
 							break;
 					}
+					if (getBoolProp(@"useServiceRoute", NO)) {
+						// get service route
+						osip_header_t *hservroute;
+						int pos=0;
+						pos = osip_message_header_get_byname (je->response, "service-route",
+										      pos, &hservroute);
+						[serviceRoute release]; serviceRoute=nil;
+						while (pos >= 0) {
+							if (!hservroute->hvalue) {
+								NSLog(@"no srv route/empty path\n");
+							} else {
+								if (_debugFsm) NSLog(@"got srvroute %s\n", hservroute->hvalue);
+								if (!serviceRoute) serviceRoute=[NSString stringWithCString:hservroute->hvalue];
+								else serviceRoute=[serviceRoute stringByAppendingFormat:@",%s", hservroute->hvalue];
+							}
+							pos++;
+							pos = osip_message_header_get_byname (je->response, "service-route", pos,
+											&hservroute);
+						}
+						[serviceRoute retain];
+					}
+
 					break;
 				default:
 					rc=eXosip_default_action(je);
@@ -1071,7 +1105,7 @@ refuse_call:
 	rc = eXosip_call_build_initial_invite(&invite,
 						  [[NSString stringWithFormat:@"sip:%@@%@", [self internationalSelectedNumber], [appHelper sipDomain]]cString],
 						 [[appHelper sipFrom]cString],
-						 NULL,
+						 [serviceRoute cString],
 						 "phone call");
 	if (rc) return;
 	osip_message_set_supported (invite, "100rel");

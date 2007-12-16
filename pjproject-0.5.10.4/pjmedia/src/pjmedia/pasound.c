@@ -148,6 +148,12 @@ static int PaPlayerCallback( const void *input,
 	stream->play_thread_initialized = 1;
 	PJ_LOG(5,(THIS_FILE, "Player thread started"));
     }
+    if (!pj_thread_is_registered()) {
+	    // DB20071209 register if thread changed
+	    // probably a memory leak here
+	    pj_thread_register("portaudio", stream->play_thread_desc,
+			       &stream->play_thread);
+    }
 
     if (statusFlags & paOutputUnderflow)
 	++stream->underflow;

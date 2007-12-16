@@ -73,11 +73,6 @@
 	
 	return theEventList;
 }
-+ (id)descriptorWithDictionary:(NSDictionary *)aDictionary {
-	NSAppleEventDescriptor *theRecordDescriptor = [self recordDescriptor];
-	[theRecordDescriptor setDescriptor:[NSAppleEventDescriptor userRecordDescriptorWithDictionary:aDictionary] forKeyword:keyASUserRecordFields];
-	return theRecordDescriptor;
-}
 
 + (NSAppleEventDescriptor *)userRecordDescriptorWithDictionary:(NSDictionary *)aDictionary {
 	NSAppleEventDescriptor *theUserRecord = nil;
@@ -94,6 +89,11 @@
 	}
 	
 	return theUserRecord;
+}
++ (id)descriptorWithDictionary:(NSDictionary *)aDictionary {
+	NSAppleEventDescriptor *theRecordDescriptor = [self recordDescriptor];
+	[theRecordDescriptor setDescriptor:[NSAppleEventDescriptor userRecordDescriptorWithDictionary:aDictionary] forKeyword:keyASUserRecordFields];
+	return theRecordDescriptor;
 }
 
 + (id)descriptorWithObject:(id)anObject

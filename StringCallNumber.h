@@ -10,13 +10,17 @@
 
 @interface PhoneNumberConverter : NSObject
 {
-	NSString *nationalPrefix;
-	NSString *internationalPrefix;
-	NSArray *converterDef;
+	NSString *_nationalPrefix;
+	NSString *_internationalPrefix;
+	NSArray *_converterDef;
 }
 - (void) setConverterDef:(NSArray *)def;
 - (void) setInternationalPrefix:(NSString *)num;	// e.g; +33
 - (void) setNationalPrefix:(NSString *)n;		// e.g. 0
+- (NSString *) nationalPrefix;
+- (NSString *) internationalPrefix;
+- (NSArray *) converterDef;
+
 - (NSString *) callNumberFor:(NSString *)n;
 - (NSString *) displayCallNumberFor:(NSString *)n;
 - (NSString *) internationalCallNumberFor:(NSString *)n;

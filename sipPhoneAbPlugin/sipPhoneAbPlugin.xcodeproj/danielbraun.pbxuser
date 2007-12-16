@@ -2,7 +2,7 @@
 {
 	0259C573FE90428111CA0C5A /* Project object */ = {
 		activeArchitecture = i386;
-		activeBuildConfigurationName = Debug;
+		activeBuildConfigurationName = Release;
 		activeTarget = 8D1AC9600486D14A00FE50C9 /* symPhonieAbPlugin */;
 		addToTargets = (
 			8D1AC9600486D14A00FE50C9 /* symPhonieAbPlugin */,
@@ -71,10 +71,11 @@
 					PBXFileDataSource_Warnings_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 218070178;
-			PBXWorkspaceStateSaveDate = 218070178;
+			PBXPerProjectTemplateStateSaveDate = 218963547;
+			PBXWorkspaceStateSaveDate = 218963547;
 		};
 		perUserProjectItems = {
+			1B3048740D0D251200DC5A31 /* PBXTextBookmark */ = 1B3048740D0D251200DC5A31 /* PBXTextBookmark */;
 			1BE265270CF0D4910098C270 /* PBXTextBookmark */ = 1BE265270CF0D4910098C270 /* PBXTextBookmark */;
 			1BE2652D0CF0D4910098C270 /* PBXTextBookmark */ = 1BE2652D0CF0D4910098C270 /* PBXTextBookmark */;
 			1BE2652E0CF0D4910098C270 /* PBXTextBookmark */ = 1BE2652E0CF0D4910098C270 /* PBXTextBookmark */;
@@ -84,7 +85,6 @@
 			1BEAC05F0CFF7C9C001DEC89 /* PBXTextBookmark */ = 1BEAC05F0CFF7C9C001DEC89 /* PBXTextBookmark */;
 			1BEAC0600CFF7C9C001DEC89 /* PBXTextBookmark */ = 1BEAC0600CFF7C9C001DEC89 /* PBXTextBookmark */;
 			1BEAC0610CFF7C9C001DEC89 /* PBXTextBookmark */ = 1BEAC0610CFF7C9C001DEC89 /* PBXTextBookmark */;
-			1BEAC0690CFF7C9C001DEC89 /* PBXTextBookmark */ = 1BEAC0690CFF7C9C001DEC89 /* PBXTextBookmark */;
 			1BEAC2370D003527001DEC89 /* PBXTextBookmark */ = 1BEAC2370D003527001DEC89 /* PBXTextBookmark */;
 		};
 		sourceControlManager = 1B802E250CEE4B090021CAAD /* Source Control */;
@@ -102,8 +102,18 @@
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {750, 490}}";
 			sepNavSelRange = "{338, 0}";
-			sepNavVisRange = "{219, 964}";
+			sepNavVisRange = "{190, 993}";
 		};
+	};
+	1B3048740D0D251200DC5A31 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 0259C57AFE90428111CA0C5A /* sipPhoneAbPlugin.h */;
+		name = "sipPhoneAbPlugin.h: 18";
+		rLen = 0;
+		rLoc = 338;
+		rType = 0;
+		vrLen = 993;
+		vrLoc = 190;
 	};
 	1B802E250CEE4B090021CAAD /* Source Control */ = {
 		isa = PBXSourceControlManager;
@@ -189,7 +199,7 @@
 		fRef = 1B802E4C0CEE50240021CAAD /* StringCallNumber.h */;
 		name = "StringCallNumber.h: 14";
 		rLen = 23;
-		rLoc = 799;
+		rLoc = 898;
 		rType = 0;
 		vrLen = 323;
 		vrLoc = 39;
@@ -209,7 +219,7 @@
 		fRef = 1B802E4C0CEE50240021CAAD /* StringCallNumber.h */;
 		name = "StringCallNumber.h: 32";
 		rLen = 23;
-		rLoc = 799;
+		rLoc = 898;
 		rType = 0;
 		vrLen = 743;
 		vrLoc = 0;
@@ -233,16 +243,6 @@
 		rType = 0;
 		vrLen = 714;
 		vrLoc = 91;
-	};
-	1BEAC0690CFF7C9C001DEC89 /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 0259C57AFE90428111CA0C5A /* sipPhoneAbPlugin.h */;
-		name = "sipPhoneAbPlugin.h: 18";
-		rLen = 0;
-		rLoc = 338;
-		rType = 0;
-		vrLen = 1026;
-		vrLoc = 150;
 	};
 	1BEAC2370D003527001DEC89 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;

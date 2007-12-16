@@ -64,6 +64,7 @@
 - (void) setProvider:(int)tag;
 - (BOOL) isFreephonie;
 
+- (int) providerTabIdx;
 
 // password handling, AppHelper handles keyring storage
 // and other preference settinig handling (gui is bound
@@ -112,5 +113,6 @@
 - (IBAction) popMainWin:(id)sender;	// open back main window (eg on state change)
 - (void) pauseApps;			// launch pause script (pause dvd player, etc..)
 
+- (IBAction) setDefaultNumber:(id)sender;
 
 @end

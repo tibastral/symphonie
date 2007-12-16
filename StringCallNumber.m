@@ -15,9 +15,9 @@ static PhoneNumberConverter *defaultConverter=NULL;
 
 - (void) dealloc
 {
-	[nationalPrefix release];
-	[internationalPrefix release];
-	[converterDef release];
+	[_nationalPrefix release];
+	[_internationalPrefix release];
+	[_converterDef release];
 	if (self==defaultConverter) defaultConverter=NULL;
 	[super dealloc];
 }
@@ -27,13 +27,20 @@ static PhoneNumberConverter *defaultConverter=NULL;
 {
 	self = [super init];
 	if (self != nil) {
-		nationalPrefix=@"0";
-		internationalPrefix=@"+33";
-		converterDef=[[NSArray arrayWithObjects:
+		_nationalPrefix=@"0";
+		_internationalPrefix=@"+33";
+		_converterDef=[[NSArray arrayWithObjects:
 			       @"I # ## ## ## ##",
 			       @"0 82# ### ###",
 			       @"I 82# ### ###",
 			       @"## ## ## ## ##",
+			       @"## ## ## ## #",
+			       @"## ## ## ##",
+			       @"## ## ## #",
+			       @"## ## ##",
+			       @"## ## #",
+			       @"## ##",
+			       @"###",
 			       NULL]retain];
 		if (!defaultConverter) defaultConverter=self;
 	}
@@ -42,23 +49,37 @@ static PhoneNumberConverter *defaultConverter=NULL;
 
 - (void) setConverterDef:(NSArray *)def
 {
-	if (def != converterDef) {
-		[converterDef release];
-		converterDef=[def retain];
+	if (def != _converterDef) {
+		[_converterDef release];
+		_converterDef=[def retain];
 	}
+}
+
+- (NSArray *) converterDef
+{
+	return _converterDef;
+}
+- (NSString *) nationalPrefix
+{
+	return _nationalPrefix;
+}
+
+- (NSString *) internationalPrefix
+{
+	return _internationalPrefix;
 }
 - (void) setInternationalPrefix:(NSString *)num	// e.g; +33
 {
-	if (num != internationalPrefix) {
-		[internationalPrefix release];
-		internationalPrefix=[num retain];
+	if (num != _internationalPrefix) {
+		[_internationalPrefix release];
+		_internationalPrefix=[num retain];
 	}
 }
 - (void) setNationalPrefix:(NSString *)num		// e.g. 0
 {
-	if (num != nationalPrefix) {
-		[nationalPrefix release];
-		nationalPrefix=[num retain];
+	if (num != _nationalPrefix) {
+		[_nationalPrefix release];
+		_nationalPrefix=[num retain];
 	}
 }
 
@@ -99,9 +120,12 @@ static NSString * _callNumber(NSString *str)
 - (NSString *) internationalCallNumberFor:(NSString *)n
 {
 	NSString *s=_callNumber(n);
-	if (nationalPrefix && internationalPrefix && [s hasPrefix:nationalPrefix]) {
-		NSString *r=[s substringFromIndex:[nationalPrefix length]];
-		r=[internationalPrefix stringByAppendingString:r];
+	NSString *np, *ip;
+	np=[self nationalPrefix];
+	ip=[self internationalPrefix];
+	if (np && ip && [s hasPrefix:np]) {
+		NSString *r=[s substringFromIndex:[np length]];
+		r=[ip stringByAppendingString:r];
 		return r;
 	}
 	return s;
@@ -109,9 +133,13 @@ static NSString * _callNumber(NSString *str)
 - (NSString *) nationalCallNumberFor:(NSString *)n
 {
 	NSString *s=_callNumber(n);
-	if (nationalPrefix && internationalPrefix && [s hasPrefix:internationalPrefix]) {
-		NSString *r=[s substringFromIndex:[internationalPrefix length]];
-		r=[nationalPrefix stringByAppendingString:r];
+	NSString *np, *ip;
+	np=[self nationalPrefix];
+	ip=[self internationalPrefix];
+	
+	if (np && ip && [s hasPrefix:ip]) {
+		NSString *r=[s substringFromIndex:[ip length]];
+		r=[np stringByAppendingString:r];
 		return r;
 	}
 	return s;
@@ -136,6 +164,14 @@ static NSString * _callNumber(NSString *str)
 			continue;
 		} 
 		if ('I'==*pt) {
+			const char *z=[[self internationalPrefix] cString];
+			if (!z) continue;
+			if (!strncmp(z, pn, strlen(z))) {
+				strcpy(r, z);
+				r+=strlen(z);
+				pn+=strlen(z);
+				continue;
+			}
 		} else if ('#'==*pt) {
 			if (isdigit(*pn)) {
 				*r=*pn;
@@ -155,6 +191,9 @@ static NSString * _callNumber(NSString *str)
 				r++; pn++;
 				continue;
 			}
+		} else {
+			*r=*pt; r++;
+			continue;
 		} 
 		return NULL;
 	}
@@ -166,9 +205,10 @@ static NSString * _callNumber(NSString *str)
 
 - (NSString *) _applyFormatFor:(NSString *)n
 {
-	unsigned int i, count = [converterDef count];
+	NSArray *cd=[self converterDef];
+	unsigned int i, count = [cd count];
 	for (i = 0; i < count; i++) {
-		NSString * def = [converterDef objectAtIndex:i];
+		NSString * def = [cd objectAtIndex:i];
 		NSString *r=[self _match:n template:def];
 		if (r) return r;
 	}

@@ -203,6 +203,7 @@
 		1B0BE71D0CD7F90D00ED1901 /* vq.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0BE6A80CD7F90D00ED1901 /* vq.c */; };
 		1B0BE71E0CD7F90D00ED1901 /* window.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0BE6AD0CD7F90D00ED1901 /* window.c */; };
 		1B0BE72C0CD7F90D00ED1901 /* speex_codec.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0BE6C10CD7F90D00ED1901 /* speex_codec.c */; };
+		1B30485A0D0D235300DC5A31 /* PrefPhoneNumberConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3048590D0D235300DC5A31 /* PrefPhoneNumberConverter.m */; };
 		1B46E57E0CCB5B8600397E41 /* StringCallNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B46E57D0CCB5B8600397E41 /* StringCallNumber.m */; };
 		1B46E7DD0CCB887C00397E41 /* UserPlane.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B46E7DC0CCB887C00397E41 /* UserPlane.m */; };
 		1B46ED410CCE995E00397E41 /* ABCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B46ED400CCE995E00397E41 /* ABCache.m */; };
@@ -609,6 +610,8 @@
 		1B0BE6AC0CD7F90D00ED1901 /* vq_sse.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = vq_sse.h; sourceTree = "<group>"; };
 		1B0BE6AD0CD7F90D00ED1901 /* window.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = window.c; sourceTree = "<group>"; };
 		1B0BE6C10CD7F90D00ED1901 /* speex_codec.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = speex_codec.c; path = "pjproject-0.5.10.4/pjmedia/src/pjmedia-codec/speex_codec.c"; sourceTree = "<group>"; };
+		1B3048580D0D235300DC5A31 /* PrefPhoneNumberConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefPhoneNumberConverter.h; sourceTree = "<group>"; };
+		1B3048590D0D235300DC5A31 /* PrefPhoneNumberConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefPhoneNumberConverter.m; sourceTree = "<group>"; };
 		1B3D420E0D01CF0900AD2EF1 /* UKCrashReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKCrashReporter.m; sourceTree = "<group>"; };
 		1B3D420F0D01CF0900AD2EF1 /* UKCrashReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKCrashReporter.h; sourceTree = "<group>"; };
 		1B3D423A0D01D3CA00AD2EF1 /* MiscDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MiscDebug.h; sourceTree = "<group>"; };
@@ -810,6 +813,8 @@
 				1B46EEE80CD0006500397E41 /* Properties.h */,
 				1B46E57C0CCB5B8600397E41 /* StringCallNumber.h */,
 				1B46E57D0CCB5B8600397E41 /* StringCallNumber.m */,
+				1B3048580D0D235300DC5A31 /* PrefPhoneNumberConverter.h */,
+				1B3048590D0D235300DC5A31 /* PrefPhoneNumberConverter.m */,
 				1B46E7DB0CCB887C00397E41 /* UserPlane.h */,
 				1B46E7DC0CCB887C00397E41 /* UserPlane.m */,
 				1B46ED3F0CCE995E00397E41 /* ABCache.h */,
@@ -1849,6 +1854,7 @@
 				1BB0E7830CE8365200207E64 /* BundledScript.m in Sources */,
 				1BFBC7390CEB819F00CAE0B9 /* InCallPopup.m in Sources */,
 				1BAA0A640CEE04BF004A9CB0 /* CallTicketHandler.m in Sources */,
+				1B30485A0D0D235300DC5A31 /* PrefPhoneNumberConverter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1903,7 +1909,7 @@
 					ppc,
 				);
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 0.2.2;
+				CURRENT_PROJECT_VERSION = 0.2.4;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
@@ -1955,7 +1961,8 @@
 					i386,
 					ppc,
 				);
-				CURRENT_PROJECT_VERSION = 0.2.2;
+				CURRENT_PROJECT_VERSION = 0.2.4;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_1)",
@@ -1972,8 +1979,8 @@
 				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
 				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
 				GCC_WARN_MISSING_PARENTHESES = YES;
-				GCC_WARN_PROTOTYPE_CONVERSION = YES;
-				GCC_WARN_SHADOW = YES;
+				GCC_WARN_PROTOTYPE_CONVERSION = NO;
+				GCC_WARN_SHADOW = NO;
 				GCC_WARN_SIGN_COMPARE = YES;
 				GCC_WARN_TYPECHECK_CALLS_TO_PRINTF = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;

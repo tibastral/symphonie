@@ -49,7 +49,7 @@ void gsm_debug_longwords P4( (name, from, to, ptr),
 	fprintf( stderr, "%s [%d .. %d]: ", name, from, to );
 	while (from <= to) {
 
-		fprintf(stderr, "%d ", ptr[ from ] );
+		fprintf(stderr, "%ld ", ptr[ from ] );
 		from++;
 		if (nprinted++ >= 7) {
 			nprinted = 0;

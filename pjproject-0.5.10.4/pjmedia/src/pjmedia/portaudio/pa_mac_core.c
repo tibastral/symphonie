@@ -1679,7 +1679,7 @@ static OSStatus AudioIOProc( void *inRefCon,
                                        inChan*frames*flsz,
                                        &data1, &size1,
                                        &data2, &size2 );
-            if( size1 / ( flsz * inChan ) == frames ) {
+            if( size1 / ( flsz * inChan ) == (long)frames ) {
                /* simplest case: all in first buffer */
                PaUtil_SetInputFrameCount( &(stream->bufferProcessor), frames );
                PaUtil_SetInterleavedInputChannels( &(stream->bufferProcessor),
@@ -1690,7 +1690,7 @@ static OSStatus AudioIOProc( void *inRefCon,
                     PaUtil_EndBufferProcessing( &(stream->bufferProcessor),
                                                 &callbackResult );
                RingBuffer_AdvanceReadIndex(&stream->inputRingBuffer, size1 );
-            } else if( ( size1 + size2 ) / ( flsz * inChan ) < frames ) {
+            } else if( ( size1 + size2 ) / ( flsz * inChan ) < (long)frames ) {
                /*we underflowed. take what data we can, zero the rest.*/
                float data[frames*inChan];
                if( size1 )

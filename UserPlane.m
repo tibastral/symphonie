@@ -224,14 +224,18 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	normalOutputVolume=getVolume(_GlobMacDevIds[outputDevIdx], 0);
 	
 	if (getBoolProp(@"setVolume",YES)) {
-		float volume=getFloatProp(ring ? @"audioOutputVolume" : @"audioRingVolume",-8);
+		//float volume=getFloatProp(ring ? @"audioOutputVolume" : @"audioRingVolume",-8);
+		float volume=getFloatProp(@"audioOutputVolume",-8);
 		if (_debugAudio) NSLog(@"setting volume (%s) to %g\n", ring ? "ring":"normal", volume);
 		setVolume(_GlobMacDevIds[outputDevIdx], 0, volume);
 		if (!ring) {
 			NSAssert(inputDevIdx>=0, @"bad rec id");
 			NSAssert(inputDevIdx<32, @"bad rec id");
 			normalInputGain=getVolume(_GlobMacDevIds[inputDevIdx], 1);
-			setVolume(_GlobMacDevIds[inputDevIdx], 1, getFloatProp(@"audioInputGain", 100));
+			double newg=getFloatProp(@"audioInputGain", 100);
+			setVolume(_GlobMacDevIds[inputDevIdx], 1, newg);
+			if (_debugAudio) NSLog(@"setting input gain from %g to %g\n", normalInputGain, newg);
+
 		}
 
 	} else {
@@ -487,27 +491,28 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 #if 0
 	rc=pjmedia_snd_port_connect(inputOutput, media_port);
 #else
-	NSLog(@"conf create\n");
+	if (_debugAudio) NSLog(@"conf create\n");
 	rc=pjmedia_conf_create(callpool,3,8000, 1, SAMPLES_PER_FRAME,
 			       16, PJMEDIA_CONF_NO_DEVICE, &confbridge);
 	NSAssert(!rc, @"conf bridge create failed\n");
 	pj_str_t port_name= pj_str("call");
 	
 	pjmedia_port *mport;
-	NSLog(@"conf get master\n");
+	if (_debugAudio) NSLog(@"conf get master\n");
 	mport=pjmedia_conf_get_master_port(confbridge);
-	NSLog(@"pjmedia_snd_port_connect\n");
+	if (_debugAudio) NSLog(@"pjmedia_snd_port_connect\n");
 	rc=pjmedia_snd_port_connect(inputOutput, mport);
-	NSLog(@"pjmedia_snd_port_connect rc=%d\n",rc);
-	NSLog(@"add port\n");
+	if (_debugAudio) NSLog(@"pjmedia_snd_port_connect rc=%d\n",rc);
+	if (_debugAudio) NSLog(@"add port\n");
 	rc=pjmedia_conf_add_port(confbridge, callpool, media_port, &port_name, &cb_session_slot);
-	NSLog(@"add port rc=%d slot=%d\n", rc,cb_session_slot);
+	if (_debugAudio) NSLog(@"add port rc=%d slot=%d\n", rc,cb_session_slot);
 	pjmedia_conf_connect_port(confbridge, cb_session_slot,0, 0);
 	pjmedia_conf_connect_port(confbridge, 0,cb_session_slot, 0);
+	if (getBoolProp(@"txboost", YES)) pjmedia_conf_adjust_tx_level(confbridge, cb_session_slot, 1024*2);
 	if (1) {
 		pj_str_t tport_name= pj_str("ton");
 		rc=pjmedia_conf_add_port(confbridge, callpool, tone_generator, &tport_name, &cb_tone_slot);
-		NSLog(@"add tone port rc=%d slot=%d\n", rc,cb_tone_slot);
+		if (_debugAudio) NSLog(@"add tone port rc=%d slot=%d\n", rc,cb_tone_slot);
 		if (0) rc=pjmedia_conf_configure_port(confbridge, cb_tone_slot, PJMEDIA_PORT_NO_CHANGE , PJMEDIA_PORT_DISABLE);
 
 		pjmedia_conf_connect_port(confbridge, cb_tone_slot, cb_session_slot, 0);
@@ -666,14 +671,14 @@ static pj_status_t recordEnded(pjmedia_port *port, void *usr_data)
 	pj_str_t pdigits= pj_str( ( char *) [dtmf cString]);
 
 	pj_status_t rc=pjmedia_session_dial_dtmf(rtp_session,0, &pdigits);
-	NSLog(@"dial dtfm rc=0x%X\n", rc);
+	if (_debugAudio) NSLog(@"dial dtfm rc=0x%X\n", rc);
 	if (rc==PJMEDIA_RTP_EREMNORFC2833) {
 		pjmedia_tone_digit digits[1]={{'1', 300,100}};
 		digits[0].digit=[dtmf characterAtIndex:0];
 		NSAssert(tone_generator, @"nil tone gen");
 		pjmedia_tonegen_stop(tone_generator);
 		pj_status_t rc=pjmedia_tonegen_play_digits(tone_generator ,1, digits,0);
-		NSLog(@"play digit rc=0x%X\n", rc);
+		if (_debugAudio) NSLog(@"play digit rc=0x%X\n", rc);
 		//pjmedia_con
 	}
 #if 0

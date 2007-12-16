@@ -375,10 +375,10 @@ PaError Pa_Initialize( void )
     }
     else
     {
-	    printf("Pa_Initialize\n");
+	//printf("Pa_Initialize\n");
         PA_VALIDATE_TYPE_SIZES;
         PA_VALIDATE_ENDIANNESS;
-	    printf("Pa_Initialize/endien ok\n");
+	//printf("Pa_Initialize/endien ok\n");
 
         PaUtil_InitializeClock();
         PaUtil_ResetTraceMessages();

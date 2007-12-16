@@ -631,7 +631,7 @@ PJ_DEF(pj_status_t) pjmedia_conf_set_port0_name(pjmedia_conf *conf,
     PJ_ASSERT_RETURN(conf != NULL && name != NULL, PJ_EINVAL);
 
     len = name->slen;
-    if (len > sizeof(conf->master_name_buf))
+    if (len > (int)sizeof(conf->master_name_buf))
 	len = sizeof(conf->master_name_buf);
     
     if (len > 0) pj_memcpy(conf->master_name_buf, name->ptr, len);
@@ -1603,7 +1603,7 @@ static pj_status_t get_frame(pjmedia_port *this_port,
     pjmedia_conf *conf = this_port->port_data.pdata;
     pjmedia_frame_type speaker_frame_type = PJMEDIA_FRAME_TYPE_NONE;
     unsigned ci, cj, i, j;
-    
+ 
     TRACE_((THIS_FILE, "- clock -"));
 
     /* Check that correct size is specified. */

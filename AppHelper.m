@@ -10,7 +10,7 @@
 #import "sipPhone.h"
 #import "Properties.h"
 #import "BundledScript.h"
-#import "StringCallNumber.h"
+#import "PrefPhoneNumberConverter.h"
 #import "ABCache.h"
 #import <Security/Security.h>
 
@@ -28,11 +28,12 @@
 static int _debugAudio=0;
 static int _debugMisc=0;
 static int _debugAuth=0;
+static int _debugCauses=0;
 
 - (id) init {
 	self = [super init];
 	if (self != nil) {
-		PhoneNumberConverter *pc=[[PhoneNumberConverter alloc]init];
+		PhoneNumberConverter *pc=[[PrefPhoneNumberConverter alloc]init];
 		[pc setIsDefault];
 		if (1) NSLog(@"build %s\n", __DATE__);
 		onDemandRegister=NO; //XXX
@@ -57,9 +58,10 @@ static int _debugAuth=0;
 
 - (void) defaultProp
 {
-	_debugAudio=getBoolProp(@"debugAudio", NO);
+	_debugAudio=getBoolProp(@"debugAudio", NO); 
 	_debugMisc=getBoolProp(@"debugMisc", NO);
 	_debugAuth=getBoolProp(@"debugAuth", NO);
+	_debugCauses=getBoolProp(@"debugCauses", NO);
 	[[NSUserDefaultsController sharedUserDefaultsController] setAppliesImmediately:YES];
 	getProp(@"phoneNumber",nil);
 	getBoolProp(@"setVolume",YES);
@@ -69,12 +71,17 @@ static int _debugAuth=0;
 	[self setOnDemandRegister:getBoolProp(@"onDemandRegister",NO)];
 	getBoolProp(@"doubleClickCall",NO);
 	getIntProp(@"provider",1);
-
+	getBoolProp(@"txboost", YES);
+	
+	getProp(@"numberRulesPref", [PrefPhoneNumberConverter defaultPrefValue]);
+	getProp(@"numberNationalPrefix", @"0");
+	getProp(@"numberInternationalPrefix", @"+33");
+	getIntProp(@"numberNationalPreference", 0);
 
 	float v1=getFloatProp(@"audioOutputVolume", -8);
-	float v2=getFloatProp(@"audioRingVolume", -8);
+	//float v2=getFloatProp(@"audioRingVolume", -8);
 	float v3=getFloatProp(@"audioInputGain",-8);
-	if (_debugAudio) NSLog(@"volumes are o=%g r=%g i=%g\n", v1, v2, v3);
+	if (_debugAudio) NSLog(@"volumes are o=%g r=%g i=%g\n", v1, v1, v3);
 	
 	getProp(@"history", [NSMutableArray arrayWithCapacity:1000]);
 	
@@ -82,7 +89,10 @@ static int _debugAuth=0;
 	getIntProp(@"selectedOutputDeviceIndex", 0);
 
 }
-
+- (IBAction) setDefaultNumber:(id)sender
+{
+	setProp(@"numberRulesPref", [PrefPhoneNumberConverter defaultPrefValue]);
+}
 - (void) openAccountPref
 {
 	[prefTabView selectTabViewItemWithIdentifier:@"account"];
@@ -401,7 +411,7 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 				   void *                      info)
 {
 	if (_debugMisc) NSLog(@"callbacked\n");
-	PrintReachabilityFlags(" for freephonie.net", flags, "");
+	if (_debugMisc) PrintReachabilityFlags(" for freephonie.net", flags, "");
 	AppHelper *s=(AppHelper *)info;
 	[s reachable];
 }
@@ -491,6 +501,7 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 	switch (provider) {
 		default:
 		case 1: 
+		case 2:
 			return [NSString stringWithFormat:@"sip:%@@freephonie.net",[self phoneNumber]]; 
 			break;
 		case 99: // test
@@ -505,6 +516,8 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 		default:
 		case 1: 
 			return @"sip:freephonie.net";
+		case 2:
+			return @"sip:172.17.20.241";
 		case 99:
 			return @"sip:localhost";
 	}
@@ -515,8 +528,10 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 	int provider=[self provider];
 	switch (provider) {
 		default:
-		case 1: 
+		case 1:
 			return @"freephonie.net";
+		case 2:
+			return @"172.17.20.241";
 		case 99:
 			return @"localhost";
 	}
@@ -641,11 +656,27 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 	return prov;
 }
 
+- (int) providerTabIdx
+{
+	int p=[self provider];
+	switch (p) {
+		case 1:
+		case 2:
+			return 0;
+		case 99:
+			return 3;
+		default:
+			return 3;
+	}
+}
+
 - (void) setProvider:(int)tag
 {
 	[self willChangeValueForKey:@"isFreephonie"];
+	[self willChangeValueForKey:@"providerTabIdx"];
 	setProp(@"provider", [NSNumber numberWithInt:tag]);
 	[self didChangeValueForKey:@"isFreephonie"];
+	[self didChangeValueForKey:@"providerTabIdx"];
 	[phone authInfoChanged];
 
 	// ignore and go back to freephonie for now
@@ -751,7 +782,7 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 			return NSTerminateNow;
 			break;
 		default:
-			if (_debugMisc) NSLog(@"terminate later\n");
+			if (_debugMisc) NSLog(@"terminate later %d\n", [phone state]);
 			exitRequested=YES;
 			[phone unregisterPhone:self];
 			return  NSTerminateLater;
@@ -780,7 +811,7 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 - (void)drawerWillOpen:(NSNotification *)notification
 {
 	NSDrawer *sender=[notification object];
-	NSDrawer *other;
+	NSDrawer *other=nil;
 	if (sender==drawer1) other=drawer2;
 	else if (sender==drawer2) other=drawer1;
 	[other close];	
@@ -886,18 +917,25 @@ static NSString *q850(int c)
 				r++;
 				cse=atoi(r);
 				cause=q850(cse);
-				NSLog(@"Q.850 : (%d) %@\n",cse, cause);
+				if (_debugCauses) NSLog(@"Q.850 : (%d) %@\n",cse, cause);
 			}
 		}
 	}
-	NSLog(@"====> d=%d st=%d cause %d (%@) / %s\n", d,status_code,
+	if (_debugCauses) NSLog(@"====> d=%d st=%d cause %d (%@) / %s\n", d,status_code,
 	      cse, 
 	      cause ? cause : @"", 
 	      reason_phrase ? reason_phrase : "");
 	BOOL abnormal=YES;
 	switch (status_code) {
-		case 401: return;
-		case 407: return;
+		case -2:
+			cause=NSLocalizedString(@"Cannot build register (error in config)", @"cannot build reg");
+			break;
+		//case 401: return;
+		//case 407: return;
+		case 401: // FALLTHRU
+		case 407:
+			cause=NSLocalizedString(@"Unauthorized (no password?)", @"unauthorized 401,407");
+			break;
 		case 0: return;
 		case 603:
 			if (d) {

@@ -63,6 +63,7 @@ PJ_DEF(pj_status_t) pjmedia_port_get_frame( pjmedia_port *port,
 {
     PJ_ASSERT_RETURN(port && frame, PJ_EINVAL);
 
+  
     if (port->get_frame)
 	return port->get_frame(port, frame);
     else {

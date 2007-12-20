@@ -352,7 +352,7 @@ static void PrintReachabilityFlags(
 - (void) dialFromUrlResponse:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo;
 {
 	if ((NSAlertFirstButtonReturn == returnCode) || (1==returnCode)) {
-		[phone makeOutCall];
+		[phone dialOutCall:self];
 	}
 }
 

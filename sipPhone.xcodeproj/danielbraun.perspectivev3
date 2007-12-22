@@ -236,8 +236,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -277,8 +275,6 @@
 								<string>29B97314FDCFA39411CA2CEA</string>
 								<string>1BBD5A910CEE601200C5C4A1</string>
 								<string>1BD0A1B80D1C665F00AF0A60</string>
-								<string>1BC4760D0D02CF2800E04A41</string>
-								<string>1BD11A110D1C72B60049C13B</string>
 								<string>1B3D420B0D01CEE800AD2EF1</string>
 								<string>1BC967730CC9EA72004C0339</string>
 								<string>080E96DDFE201D6D7F000001</string>
@@ -293,14 +289,13 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>8</integer>
-									<integer>4</integer>
-									<integer>3</integer>
+									<integer>50</integer>
+									<integer>49</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 0}, {260, 526}}</string>
+							<string>{{0, 579}, {260, 526}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -345,7 +340,7 @@
 										<key>_historyCapacity</key>
 										<integer>40</integer>
 										<key>bookmark</key>
-										<string>1BD11B080D1CFA1A0049C13B</string>
+										<string>1B2E3B170D1CFBE9000E21FD</string>
 										<key>history</key>
 										<array>
 											<string>1B228BBA0D1407C90097D0B4</string>
@@ -386,7 +381,7 @@
 											<string>1BD11AC50D1CFA090049C13B</string>
 											<string>1BD11AC60D1CFA090049C13B</string>
 											<string>1BD11AC80D1CFA090049C13B</string>
-											<string>1BD11AD70D1CFA090049C13B</string>
+											<string>1BD11B1D0D1CFBC50049C13B</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -456,6 +451,8 @@
 							<key>Tabs</key>
 							<array>
 								<dict>
+									<key>BecomeActive</key>
+									<true/>
 									<key>ContentConfiguration</key>
 									<dict>
 										<key>PBXProjectModuleGUID</key>
@@ -550,11 +547,11 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>1BD11B090D1CFA1A0049C13B</string>
+				<string>1B2E3B180D1CFBE9000E21FD</string>
 				<string>1CA23ED40692098700951B8B</string>
-				<string>1BD11B0A0D1CFA1A0049C13B</string>
+				<string>1B2E3B190D1CFBE9000E21FD</string>
 				<string>1BC967680CC9E8E1004C0339</string>
-				<string>1BD11B0B0D1CFA1A0049C13B</string>
+				<string>1B2E3B1A0D1CFBE9000E21FD</string>
 				<string>1CA23EDF0692099D00951B8B</string>
 				<string>1CA23EE00692099D00951B8B</string>
 				<string>1CA23EE10692099D00951B8B</string>
@@ -815,11 +812,11 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>1BD11A6D0D1C72D40049C13B</string>
+				<string>1B2E3B1B0D1CFBE9000E21FD</string>
 				<string>1CA23EE50692099D00951B8B</string>
-				<string>1BD11A6E0D1C72D40049C13B</string>
+				<string>1B2E3B1C0D1CFBE9000E21FD</string>
 				<string>1BC967760CC9EA90004C0339</string>
-				<string>1BD11A6F0D1C72D40049C13B</string>
+				<string>1B2E3B1D0D1CFBE9000E21FD</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
 			<key>ToolbarConfiguration</key>
@@ -961,14 +958,14 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>1BD11A700D1C72D40049C13B</string>
+				<string>1BD11B1F0D1CFBC50049C13B</string>
 				<string>1CCC7628064C1048000F2A68</string>
 				<string>1CCC7629064C1048000F2A68</string>
-				<string>1BD11A710D1C72D40049C13B</string>
-				<string>1BD11A720D1C72D40049C13B</string>
-				<string>1BD11A730D1C72D40049C13B</string>
-				<string>1BD11A740D1C72D40049C13B</string>
-				<string>1BD11A750D1C72D40049C13B</string>
+				<string>1BD11B200D1CFBC50049C13B</string>
+				<string>1BD11B210D1CFBC50049C13B</string>
+				<string>1BD11B220D1CFBC50049C13B</string>
+				<string>1BD11B230D1CFBC50049C13B</string>
+				<string>1BD11B240D1CFBC50049C13B</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>

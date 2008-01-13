@@ -777,6 +777,11 @@
 		name = index.html;
 		path = /Users/danielbraun/devel/sipPhone/French.lproj/symPhonieHelp/index.html;
 		sourceTree = "<absolute>";
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {668, 1680}}";
+			sepNavSelRange = "{481, 10}";
+			sepNavVisRange = "{195, 618}";
+		};
 	};
 	1B2A064D0D3A635D009182E7 /* configurefree.html */ = {
 		isa = PBXFileReference;
@@ -1825,6 +1830,11 @@
 		name = about.html;
 		path = /Users/danielbraun/devel/sipPhone/English.lproj/symPhonieHelp/pgs/about.html;
 		sourceTree = "<absolute>";
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {668, 4410}}";
+			sepNavSelRange = "{14818, 0}";
+			sepNavVisRange = "{445, 784}";
+		};
 	};
 	1B3D420E0D01CF0900AD2EF1 /* UKCrashReporter.m */ = {
 		uiCtxt = {
@@ -3856,6 +3866,56 @@
 		vrLen = 865;
 		vrLoc = 11595;
 	};
+	1BF4C4B40D3A82C700FB112F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1BE262CE0CEFA48D0098C270 /* French */;
+		name = "InfoPlist.strings: 17";
+		rLen = 0;
+		rLoc = 393;
+		rType = 0;
+		vrLen = 396;
+		vrLoc = 0;
+	};
+	1BF4C4B50D3A82C700FB112F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1B2A05710D3A6359009182E7 /* index.html */;
+		name = "index.html: 15";
+		rLen = 10;
+		rLoc = 481;
+		rType = 0;
+		vrLen = 618;
+		vrLoc = 195;
+	};
+	1BF4C4B60D3A82C700FB112F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1BE262CE0CEFA48D0098C270 /* French */;
+		name = "InfoPlist.strings: 17";
+		rLen = 0;
+		rLoc = 393;
+		rType = 0;
+		vrLen = 396;
+		vrLoc = 0;
+	};
+	1BF4C4B70D3A82C700FB112F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1B2A05710D3A6359009182E7 /* index.html */;
+		name = "index.html: 15";
+		rLen = 10;
+		rLoc = 481;
+		rType = 0;
+		vrLen = 618;
+		vrLoc = 195;
+	};
+	1BF4C4B80D3A82C700FB112F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1B33A1C00D3A5B7F006B7BE1 /* about.html */;
+		name = "about.html: 305";
+		rLen = 0;
+		rLoc = 14818;
+		rType = 0;
+		vrLen = 784;
+		vrLoc = 445;
+	};
 	1BFBC7370CEB819F00CAE0B9 /* InCallPopup.h */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {707, 313}}";
@@ -4203,6 +4263,11 @@
 			1BD97C150D3A7943006FB995 = 1BD97C150D3A7943006FB995 /* PBXTextBookmark */;
 			1BDA87440D36B0A70082EDC5 = 1BDA87440D36B0A70082EDC5 /* PBXTextBookmark */;
 			1BDA874A0D36B0A70082EDC5 = 1BDA874A0D36B0A70082EDC5 /* PBXTextBookmark */;
+			1BF4C4B40D3A82C700FB112F /* PBXTextBookmark */ = 1BF4C4B40D3A82C700FB112F /* PBXTextBookmark */;
+			1BF4C4B50D3A82C700FB112F /* PBXTextBookmark */ = 1BF4C4B50D3A82C700FB112F /* PBXTextBookmark */;
+			1BF4C4B60D3A82C700FB112F /* PBXTextBookmark */ = 1BF4C4B60D3A82C700FB112F /* PBXTextBookmark */;
+			1BF4C4B70D3A82C700FB112F /* PBXTextBookmark */ = 1BF4C4B70D3A82C700FB112F /* PBXTextBookmark */;
+			1BF4C4B80D3A82C700FB112F /* PBXTextBookmark */ = 1BF4C4B80D3A82C700FB112F /* PBXTextBookmark */;
 		};
 		sourceControlManager = 1BC9676E0CC9E8E1004C0339 /* Source Control */;
 		userBookmarkGroup = 1BF133FF0CD8AED20007EF60 /* PBXBookmarkGroup */;

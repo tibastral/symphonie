@@ -38,8 +38,10 @@
 		k=[phones count];
 		for (j=0; j<k; j++) {
 			NSString *s=[phones valueAtIndex:j];
-			s=[s internationalCallNumber];
-			[perPhone setObject:person forKey:s];
+			NSString *s2=[s internationalCallNumber];
+			//if (!s2) s2=s; // useless
+			if (!s2) continue;
+			[perPhone setObject:person forKey:s2];
 			//NSLog(@"got %@\n", s);
 		}
 		

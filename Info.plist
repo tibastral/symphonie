@@ -9,9 +9,9 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleHelpBookFolder</key>
-	<string>symPhonie Help</string>
+	<string>symPhonieHelp</string>
 	<key>CFBundleHelpBookName</key>
-	<string>symPhonie Help</string>
+	<string>symPhonieHelp</string>
 	<key>CFBundleIconFile</key>
 	<string>icon</string>
 	<key>CFBundleIdentifier</key>

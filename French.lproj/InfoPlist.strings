@@ -13,3 +13,5 @@ NSHumanReadableCopyright = "© Daniel Braun, 2007";
 
 /* unknown person */
 "UNKNOWN person: %@" = "personne inconnue: %@";
+
+CFBundleHelpBookName =  "Aide symPhonie";

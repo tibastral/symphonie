@@ -236,8 +236,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -291,12 +289,15 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>74</integer>
-									<integer>73</integer>
+									<integer>6</integer>
+									<integer>5</integer>
+									<integer>2</integer>
+									<integer>1</integer>
+									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 953}, {260, 526}}</string>
+							<string>{{0, 0}, {260, 526}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -313,7 +314,7 @@
 							<real>260</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>313 184 938 585 0 0 1280 778 </string>
+						<string>313 185 938 585 0 0 1280 778 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -341,7 +342,7 @@
 										<key>_historyCapacity</key>
 										<integer>40</integer>
 										<key>bookmark</key>
-										<string>1B33A08E0D3A2FBF006B7BE1</string>
+										<string>1B33A0960D3A4309006B7BE1</string>
 										<key>history</key>
 										<array>
 											<string>1B02F5280D15D4A900EC1754</string>
@@ -449,7 +450,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {656, 313}}</string>
 								<key>RubberWindowFrame</key>
-								<string>313 184 938 585 0 0 1280 778 </string>
+								<string>313 185 938 585 0 0 1280 778 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -462,6 +463,8 @@
 							<key>Tabs</key>
 							<array>
 								<dict>
+									<key>BecomeActive</key>
+									<true/>
 									<key>ContentConfiguration</key>
 									<dict>
 										<key>PBXProjectModuleGUID</key>
@@ -474,7 +477,7 @@
 										<key>Frame</key>
 										<string>{{10, 27}, {656, 199}}</string>
 										<key>RubberWindowFrame</key>
-										<string>313 184 938 585 0 0 1280 778 </string>
+										<string>313 185 938 585 0 0 1280 778 </string>
 									</dict>
 									<key>Module</key>
 									<string>XCDetailModule</string>
@@ -672,7 +675,7 @@
 										<key>_historyCapacity</key>
 										<integer>40</integer>
 										<key>bookmark</key>
-										<string>1B33A08F0D3A2FBF006B7BE1</string>
+										<string>1B33A0970D3A4309006B7BE1</string>
 										<key>history</key>
 										<array>
 											<string>1B02F4B60D15CED100EC1754</string>
@@ -997,7 +1000,7 @@
 		<string>/Users/danielbraun/devel/sipPhone/sipPhone.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>313 184 938 585 0 0 1280 778 </string>
+	<string>313 185 938 585 0 0 1280 778 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>

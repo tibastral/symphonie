@@ -64,8 +64,11 @@
 - (ABPerson *) findByPhone:(NSString *)phone
 {
 	if (!perPhone) [self _abCachePopulate];
-	phone=[phone internationalCallNumber];
-	ABPerson *p=[perPhone objectForKey:phone];
+	NSString *iph=[phone internationalCallNumber];
+	if (!iph || ![iph length]) {
+		return NULL;
+	}
+	ABPerson *p=[perPhone objectForKey:iph];
 	return p;
 }
 @end

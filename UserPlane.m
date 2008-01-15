@@ -508,7 +508,7 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	if (_debugAudio) NSLog(@"add port rc=%d slot=%d\n", rc,cb_session_slot);
 	pjmedia_conf_connect_port(confbridge, cb_session_slot,0, 0);
 	pjmedia_conf_connect_port(confbridge, 0,cb_session_slot, 0);
-	if (getBoolProp(@"txboost", YES)) pjmedia_conf_adjust_tx_level(confbridge, cb_session_slot, 1024*2);
+	if (getBoolProp(@"txboost", YES)) pjmedia_conf_adjust_tx_level(confbridge, cb_session_slot, 512*1);
 	if (1) {
 		pj_str_t tport_name= pj_str("ton");
 		rc=pjmedia_conf_add_port(confbridge, callpool, tone_generator, &tport_name, &cb_tone_slot);

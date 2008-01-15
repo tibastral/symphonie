@@ -1909,7 +1909,7 @@
 					ppc,
 				);
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 0.2.7;
+				CURRENT_PROJECT_VERSION = 0.2.8;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
@@ -1961,7 +1961,7 @@
 					i386,
 					ppc,
 				);
-				CURRENT_PROJECT_VERSION = 0.2.7;
+				CURRENT_PROJECT_VERSION = 0.2.8;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

@@ -278,7 +278,10 @@ static int initDone=0;
 
 - (NSString *) displayCallingNumber
 {
-	return [callingNumber internationalDisplayCallNumber];
+	if (!callingNumber) return @"";
+	NSString *iph = [callingNumber internationalDisplayCallNumber];
+	if (iph && [iph length]) return iph;
+	return [NSString stringWithFormat:@"( %@ )" , callingNumber];
 }
 
 

@@ -16,6 +16,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
  */
+
+
+#include <mach/mach_init.h>
+#include <mach/thread_policy.h>
+//#include <mach/sched.h>
+
+
 #include <pjmedia/endpoint.h>
 #include <pjmedia/errno.h>
 #include <pjmedia/sdp.h>
@@ -248,6 +255,23 @@ static int PJ_THREAD_FUNC worker_proc(void *arg)
 {
     pjmedia_endpt *endpt = arg;
 
+	if (1) {
+		struct thread_time_constraint_policy ttcpolicy;
+		int ret;
+ 
+		unsigned long long Period=AudioConvertNanosToHostTime(1000000000ULL/100LL);
+		ttcpolicy.period=Period; 
+		ttcpolicy.computation=Period/4; // HZ/3300;
+		ttcpolicy.constraint=Period/2;  // HZ/2200;
+		ttcpolicy.preemptible=1;
+		
+		if ((ret=thread_policy_set(mach_thread_self(),
+					   THREAD_TIME_CONSTRAINT_POLICY, (thread_policy_t)&ttcpolicy,
+					   THREAD_TIME_CONSTRAINT_POLICY_COUNT)) != KERN_SUCCESS) {
+			fprintf(stderr, "set_realtime() failed.\n");
+		}
+	}
+	
     while (!endpt->quit_flag) {
 	pj_time_val timeout = { 0, 500 };
 	pj_ioqueue_poll(endpt->ioqueue, &timeout);

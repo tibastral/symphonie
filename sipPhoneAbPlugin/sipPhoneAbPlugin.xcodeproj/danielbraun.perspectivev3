@@ -237,8 +237,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -309,7 +307,7 @@
 							<real>199</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>226 80 1032 635 0 0 1280 778 </string>
+						<string>402 52 1032 635 0 0 1280 778 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -320,6 +318,8 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -337,7 +337,7 @@
 										<key>_historyCapacity</key>
 										<integer>40</integer>
 										<key>bookmark</key>
-										<string>1BF4C4B20D3A82C300FB112F</string>
+										<string>1B3AFFCE0D3C237A00AEFBEB</string>
 										<key>history</key>
 										<array>
 											<string>1BE265270CF0D4910098C270</string>
@@ -346,7 +346,7 @@
 											<string>1BF4C4AB0D3A82C300FB112F</string>
 											<string>1BF4C4AC0D3A82C300FB112F</string>
 											<string>1BF4C4AD0D3A82C300FB112F</string>
-											<string>1BEAC0610CFF7C9C001DEC89</string>
+											<string>1BF4C4B20D3A82C300FB112F</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -355,10 +355,8 @@
 											<string>1BE265300CF0D4910098C270</string>
 											<string>1BE265310CF0D4910098C270</string>
 											<string>1BE265320CF0D4910098C270</string>
-											<string>1BF4C4AE0D3A82C300FB112F</string>
 											<string>1BF4C4AF0D3A82C300FB112F</string>
 											<string>1BF4C4B00D3A82C300FB112F</string>
-											<string>1BF4C4B10D3A82C300FB112F</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -374,7 +372,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {811, 378}}</string>
 								<key>RubberWindowFrame</key>
-								<string>226 80 1032 635 0 0 1280 778 </string>
+								<string>402 52 1032 635 0 0 1280 778 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -399,7 +397,7 @@
 										<key>Frame</key>
 										<string>{{10, 27}, {811, 184}}</string>
 										<key>RubberWindowFrame</key>
-										<string>226 80 1032 635 0 0 1280 778 </string>
+										<string>402 52 1032 635 0 0 1280 778 </string>
 									</dict>
 									<key>Module</key>
 									<string>XCDetailModule</string>
@@ -481,11 +479,11 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>1BF4C4A60D3A828F00FB112F</string>
+				<string>1B3AFF310D3C13E400AEFBEB</string>
 				<string>1CA23ED40692098700951B8B</string>
-				<string>1BF4C4A70D3A828F00FB112F</string>
+				<string>1B3AFF320D3C13E400AEFBEB</string>
 				<string>1B802E550CEE51010021CAAD</string>
-				<string>1BF4C4A80D3A828F00FB112F</string>
+				<string>1B3AFF330D3C13E400AEFBEB</string>
 				<string>1CA23EDF0692099D00951B8B</string>
 				<string>1CA23EE00692099D00951B8B</string>
 				<string>1CA23EE10692099D00951B8B</string>
@@ -654,7 +652,7 @@
 		<string>/Users/danielbraun/devel/sipPhone/sipPhoneAbPlugin/sipPhoneAbPlugin.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>226 80 1032 635 0 0 1280 778 </string>
+	<string>402 52 1032 635 0 0 1280 778 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>

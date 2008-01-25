@@ -152,6 +152,7 @@ static pj_status_t mem_get_frame( pjmedia_port *this_port,
     }
 
     size_needed = this_port->info.bytes_per_frame;
+    if (size_needed>frame->size) size_needed=frame->size; //DB 20080124
     size_written = 0;
     endpos = player->buffer + player->buf_size;
 

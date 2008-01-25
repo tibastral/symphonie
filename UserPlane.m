@@ -175,6 +175,9 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	int ndev=pjmedia_snd_get_dev_count();
 	int inputNum=getIntProp(@"selectedInputDeviceIndex", 0);
 	int outputNum=getIntProp(@"selectedInputDeviceIndex", 0);
+	if (_debugAudio) NSLog(@"conf audio num r=%d o=%d\n", inputNum, outputNum);
+	
+
 	outputDevIdx=-1;
 	inputDevIdx=-1;
 	int i, ni, no;
@@ -186,7 +189,10 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 			ni++;
 		}
 		if (dinfo->output_count) {
-			if (no==outputNum) outputDevIdx=i;
+			if (no==outputNum) {
+				outputDevIdx=i;
+				if (_debugAudio) NSLog(@"got  outputDevIdx=%d\n", outputDevIdx);
+			}
 			no++;
 		}
 	}
@@ -213,6 +219,8 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 						    &inputOutput                          /* returned port        */
 						    );
 	}
+	if (_debugAudio) NSLog(@"snd port (%d)  outputDevIdx=%d, rc=%d\n", ring, outputDevIdx,rc);
+
 	NSAssert(!rc, @"pjmedia_snd_port_create failed");
 	//if (_debugAudio) NSLog(@"pjmedia_snd_port_create_player devid %d\n", output->play_id);
 	//PJ_DEF(const pjmedia_snd_dev_info*) pjmedia_snd_get_dev_info(unsigned index)

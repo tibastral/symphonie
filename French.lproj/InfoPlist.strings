@@ -2,16 +2,4 @@
 
 NSHumanReadableCopyright = "© Daniel Braun, 2007";
 
-/* playback started */
-"Playback, listen" = "Ecoute";
-
-/* recording started */
-"Recoding voice, speak!" = "Enregistrement";
-
-/* unknown person */
-"unknown person" = "personne inconnue";
-
-/* unknown person */
-"UNKNOWN person: %@" = "personne inconnue: %@";
-
 CFBundleHelpBookName =  "Aide symPhonie";

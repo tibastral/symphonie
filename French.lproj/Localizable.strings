@@ -1,0 +1,139 @@
+﻿/* 303/21 */
+"already on line" = "Déjà en ligne";
+
+/* @busy 486
+   Q850/17
+   busy 600
+   Q850/51 */
+"busy" = "Occupé";
+
+/* call popup */
+"call %@" = "appeler %@";
+
+/* terminated 487 */
+"Call canceled" = "Appel annulé";
+
+/* Q850/26 */
+"call cleared" = "Appel libéré";
+
+/* call failed */
+"call failed" = "Echec de l'appel";
+
+/* Q850/21
+   Q850/29 */
+"call refused" = "Appel refusé";
+
+/* cancel */
+"Cancel" = "Annulé";
+
+/* cannot build reg */
+"Cannot build register (error in config)" = "ne peut construire register (error in config)";
+
+/* dial popup */
+"dial %@ ?" = "Composer %@ ?";
+
+/* decline 603 */
+"Incoming call refuses" = "Appel entrant refusé";
+
+/* Q850/28 */
+"incorrect number" = "numéro incorrect";
+
+/* Q850/5 */
+"incorrect number (bad prefix)" = "numéro incorrect (prefixe invalide)";
+
+/* 303 */
+"incorrect password" = "Mot de passe incorrect";
+
+/* internal error */
+"internal error" = "Erreur interne";
+
+/* Q850/27 */
+"line disturbed" = "Ligne en dérangement";
+
+/* Q850/38 */
+"network disturbed" = "Réseau en dérangement";
+
+/* Q850/41 */
+"network temporarly disturbed" = "Réseau en dérangement temporaire";
+
+/* Q850/34 */
+"no channel" = "Pas de cannal disponible";
+
+/* Q850/42 */
+"no channel in network" = "Pas de cannal disponible dans le réseau";
+
+/* Q850/19
+   no reply
+   Q850/18 */
+"no reply" = "Non réponse";
+
+/* Q850/16 */
+"normal clearing" = "Libération normale";
+
+/* Q850/20 */
+"not present" = "not present";
+
+/* Q850/22 */
+"number has changed" = "Le numéro a changé";
+
+/* ok */
+"OK" = "OK";
+
+/* playback started */
+"Playback, listen" = "Lecture, écoutez";
+
+/* possibly an other SIP phone is running ? */
+"possibly an other SIP phone is running ?" = "possibly an other SIP phone is running ?";
+
+/* Q850/49 */
+"QoS not available" = "QoS not available";
+
+/* quit */
+"Quit" = "Quit";
+
+/* recording started */
+"Recoding voice, speak!" = "Enregistrement, parlez !";
+
+/* registration failed */
+"registration failed" = "Echec enregistrement";
+
+/* Registration failed */
+"Registration failed" = "Echec enregistrement";
+
+/* Q850/47 */
+"resource not available" = "Ressource non disponible";
+
+/* Q850/25 */
+"routing error" = "Erreur de routage";
+
+/* Q850/3
+   Q850/2 */
+"routing not possible" = "Routage impossible";
+
+/* Q850/50 */
+"service not subscribed" = "Service non souscrit";
+
+/* no reply */
+"SIP service not responding" = "SIP service not responding";
+
+/* initialisation failed */
+"symPhonie Initialisation failed" = "Echec initialisation symPhonie";
+
+/* Q850/1 */
+"unaffected number" = "Numéro non affecté";
+
+/* unauthorized 401,407 */
+"Unauthorized (no password?)" = "Non autorisé (pas de mot de passe?)";
+
+/* unknown person */
+"unknown person" = "personne inconnue";
+
+/* unknown person */
+"UNKNOWN person: %@" = "inconnu: %@";
+
+/* Q850/31 */
+"unspecified failure" = "Echec non spécifié";
+
+/* 404 */
+"user not found" = "Utilisateur inconnu";
+

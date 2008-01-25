@@ -3084,7 +3084,7 @@
 	};
 	1BFFDFB50D4A9C840062D314 /* English */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {595, 1960}}";
+			sepNavIntBoundsRect = "{{0, 0}, {595, 2058}}";
 			sepNavSelRange = "{2771, 0}";
 			sepNavVisRange = "{0, 318}";
 		};

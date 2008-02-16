@@ -1,4 +1,10 @@
 #!/bin/sh
-ibtool --generate-stringsfile MainMenu.strings English.lproj/MainMenu.nib
-ibtool --strings-file MainMenu.strings --write French.lproj/MainMenu.nib English.lproj/MainMenu.nib
+#ibtool --generate-stringsfile MainMenu.strings English.lproj/MainMenu.nib
+#ibtool --strings-file MainMenu.strings --write French.lproj/MainMenu.nib English.lproj/MainMenu.nib
 
+ibtool --previous-file English.lproj/prevMainMenu.nib
+       --incremental-file ./French.lproj/prevMainMenu.nib
+       --strings-file MainMenu.strings
+       --localize-incremental
+       --write ./French.lproj/MainMenu.nib
+       English.lproj/MainMenu.nib

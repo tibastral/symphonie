@@ -30,6 +30,11 @@ static int _debugMisc=0;
 static int _debugAuth=0;
 static int _debugCauses=0;
 
+
+#pragma mark -
+#pragma mark *** init, dealloc... ***
+
+
 - (id) init {
 	self = [super init];
 	if (self != nil) {
@@ -54,6 +59,64 @@ static int _debugCauses=0;
 	[callErrorMsg release];
 	[callDiagMsg release];
 	[super dealloc];
+}
+
+/*
+ * lots of init here, mostly registration for network, power status change.
+ */
+
+static void reachabilityCallback(SCNetworkReachabilityRef	target,
+				 SCNetworkConnectionFlags	flags,
+				 void *                      info);
+- (void) awakeFromNib
+{
+	NSAssert(phone, @"phone not connected");
+	[self defaultProp];
+	[prefPanel setLevel:NSModalPanelWindowLevel];
+	[audioTestPanel setLevel:NSModalPanelWindowLevel];
+	[prefPanel setAlphaValue:0.95];
+	
+	[self addPowerNotif];
+	NSNotificationCenter *notCenter;
+	notCenter = [[NSWorkspace sharedWorkspace] notificationCenter];
+	[notCenter addObserver:self selector:@selector(_wakeUp:)
+			  name:NSWorkspaceSessionDidBecomeActiveNotification object:nil];
+	[notCenter addObserver:self selector:@selector(_sessionOut:)
+			  name:NSWorkspaceSessionDidResignActiveNotification object:nil];
+	[notCenter addObserver:self selector:@selector(_wakeUp:)
+			  name:NSWorkspaceDidWakeNotification object:nil];
+	//[notCenter addObserver:self selector:@selector(_goSleep:)
+	//		  name:NSWorkspaceWillSleepNotification object:nil];
+	//[notCenter addObserver:self selector:@selector(_goOff:)
+	//		  name:NSWorkspaceWillPowerOffNotification object:nil];
+	if (0) [notCenter addObserver:self selector:@selector(_other:)
+				 name:nil object:nil];
+	if (0) [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(_other2:) 
+								       name:nil  object:nil];
+	[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(_soundChanged:) 
+								name:@"com.apple.sound.settingsChangedNotification"  object:nil];
+	
+	[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(goToFrontRow:) 
+								name:@"com.apple.FrontRow.FrontRowWillShow" object:nil];
+	[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(endFrontRow:) 
+								name:@"com.apple.FrontRow.FrontRowDidHide" object:nil];
+	SCNetworkReachabilityRef        thisTarget;
+	SCNetworkReachabilityContext    thisContext;
+	thisContext.version         = 0;
+	thisContext.info            = (void *) self;
+	thisContext.retain          = NULL;
+	thisContext.release         = NULL;
+	thisContext.copyDescription = NULL;
+	
+	thisTarget = SCNetworkReachabilityCreateWithName(NULL, "freephonie.net");
+	SCNetworkReachabilitySetCallback (thisTarget, reachabilityCallback, &thisContext);
+	if (!SCNetworkReachabilityScheduleWithRunLoop(thisTarget,  [[NSRunLoop currentRunLoop]getCFRunLoop], kCFRunLoopDefaultMode)) {
+		if (_debugMisc) NSLog (@"Failed to schedule a reacher.");
+	}
+	
+	[[NSAppleEventManager sharedAppleEventManager]
+	 setEventHandler:self andSelector:@selector(dialFromUrlEvent:withReplyEvent:)
+	 forEventClass:kInternetEventClass andEventID:kAEGetURL];	
 }
 
 - (void) defaultProp
@@ -89,10 +152,17 @@ static int _debugCauses=0;
 	getIntProp(@"selectedOutputDeviceIndex", 0);
 
 }
+
+
 - (IBAction) setDefaultNumber:(id)sender
 {
 	setProp(@"numberRulesPref", [PrefPhoneNumberConverter defaultPrefValue]);
 }
+
+#pragma mark -
+#pragma mark *** GUI stuffs ***
+
+
 - (void) openAccountPref
 {
 	[prefTabView selectTabViewItemWithIdentifier:@"account"];
@@ -104,6 +174,11 @@ static int _debugCauses=0;
 		[self openAccountPref];
 	}
 }
+
+
+#pragma mark -
+#pragma mark *** network state, sleep wakeup... ***
+
 
 - (void) _wakeUp:(NSNotification*)notif 
 {
@@ -344,6 +419,53 @@ static void PrintReachabilityFlags(
 	exit(1);
 }
 
+
+/* network change callback
+ * we actually dont check reachability but try to register at
+ * any network change - and this appears to be very fine
+ */
+static void reachabilityCallback(SCNetworkReachabilityRef	target,
+				 SCNetworkConnectionFlags	flags,
+				 void *                      info)
+{
+	if (_debugMisc) NSLog(@"callbacked\n");
+	if (_debugMisc) PrintReachabilityFlags(" for freephonie.net", flags, "");
+	AppHelper *s=(AppHelper *)info;
+	[s reachable];
+}
+
+
+/*
+ * notification on quit : unregister before quiting
+ * this is a bit tricky, because applicationShouldTerminate is invoked
+ * from a specific runloop. We HAVE to reply NSTerminateLater
+ */
+- (void)applicationWillTerminate:(NSNotification *)aNotification
+{
+	if (_debugMisc) NSLog(@"applicationWillTerminate\n");
+}
+- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
+{
+	if (_debugMisc) NSLog(@"applicationShouldTerminate\n");
+	switch ([phone state]) {
+		case sip_off:
+		case sip_ondemand:
+			return NSTerminateNow;
+			break;
+		default:
+			if (_debugMisc) NSLog(@"terminate later %d\n", [phone state]);
+			exitRequested=YES;
+			[phone unregisterPhone:self];
+			return  NSTerminateLater;
+			break;
+	}
+	return  NSTerminateLater;
+}
+
+
+
+#pragma mark -
+#pragma mark *** url handling (eg from ab plugin) ***
 /*
  * dialFromUrlEvent: dial invoqued from sipphone: or tel: url
  * mostly parse the url, invoke a popup, and dial (in dialFromUrlResponse, the popup callback)
@@ -402,93 +524,9 @@ static void PrintReachabilityFlags(
 			    contextInfo:nil];
 }
 
-/* network change callback
- * we actually dont check reachability but try to register at
- * any network change - and this appears to be very fine
- */
-static void reachabilityCallback(SCNetworkReachabilityRef	target,
-				   SCNetworkConnectionFlags	flags,
-				   void *                      info)
-{
-	if (_debugMisc) NSLog(@"callbacked\n");
-	if (_debugMisc) PrintReachabilityFlags(" for freephonie.net", flags, "");
-	AppHelper *s=(AppHelper *)info;
-	[s reachable];
-}
 
-/*
- * lots of init here, mostly registration for network, power status change.
- */
-
-- (void) awakeFromNib
-{
-	NSAssert(phone, @"phone not connected");
-	[self defaultProp];
-	[prefPanel setLevel:NSModalPanelWindowLevel];
-	[audioTestPanel setLevel:NSModalPanelWindowLevel];
-	[prefPanel setAlphaValue:0.95];
-
-	[self addPowerNotif];
-	NSNotificationCenter *notCenter;
-	notCenter = [[NSWorkspace sharedWorkspace] notificationCenter];
-	[notCenter addObserver:self selector:@selector(_wakeUp:)
-			  name:NSWorkspaceSessionDidBecomeActiveNotification object:nil];
-	[notCenter addObserver:self selector:@selector(_sessionOut:)
-			  name:NSWorkspaceSessionDidResignActiveNotification object:nil];
-	[notCenter addObserver:self selector:@selector(_wakeUp:)
-			  name:NSWorkspaceDidWakeNotification object:nil];
-	//[notCenter addObserver:self selector:@selector(_goSleep:)
-	//		  name:NSWorkspaceWillSleepNotification object:nil];
-	//[notCenter addObserver:self selector:@selector(_goOff:)
-	//		  name:NSWorkspaceWillPowerOffNotification object:nil];
-	if (0) [notCenter addObserver:self selector:@selector(_other:)
-			  name:nil object:nil];
-	if (0) [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(_other2:) 
-								       name:nil  object:nil];
-	[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(_soundChanged:) 
-								name:@"com.apple.sound.settingsChangedNotification"  object:nil];
-
-	[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(goToFrontRow:) 
-								name:@"com.apple.FrontRow.FrontRowWillShow" object:nil];
-	[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(endFrontRow:) 
-								name:@"com.apple.FrontRow.FrontRowDidHide" object:nil];
-	SCNetworkReachabilityRef        thisTarget;
-	SCNetworkReachabilityContext    thisContext;
-	thisContext.version         = 0;
-	thisContext.info            = (void *) self;
-	thisContext.retain          = NULL;
-	thisContext.release         = NULL;
-	thisContext.copyDescription = NULL;
-	
-	thisTarget = SCNetworkReachabilityCreateWithName(NULL, "freephonie.net");
-	SCNetworkReachabilitySetCallback (thisTarget, reachabilityCallback, &thisContext);
-	if (!SCNetworkReachabilityScheduleWithRunLoop(thisTarget,  [[NSRunLoop currentRunLoop]getCFRunLoop], kCFRunLoopDefaultMode)) {
-		if (_debugMisc) NSLog (@"Failed to schedule a reacher.");
-	}
-	
-	[[NSAppleEventManager sharedAppleEventManager]
-		setEventHandler:self andSelector:@selector(dialFromUrlEvent:withReplyEvent:)
-		forEventClass:kInternetEventClass andEventID:kAEGetURL];	
-}
-
-/*
- * auth info handling. mostly proxy request from user to preferances and keyring
- * and trigger re-registration on any change
- */
-
-- (NSString *) authId
-{
-	NSString *s=[self phoneNumber];
-	if (_debugAuth) NSLog(@"authId:[%@]\n", s);
-	return s;
-}
-- (NSString *) authPasswd
-{
-	NSString *s=[self password];
-	if (_debugAuth) NSLog(@"authPasswd:[%@]\n", s);
-	return s;
-}
-
+#pragma mark -
+#pragma mark *** account handling ***
 
 /*
  * get domain info, free is hardcoded for now
@@ -521,7 +559,7 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 		case 99:
 			return @"sip:localhost";
 	}
-			
+	
 }
 - (NSString *) sipDomain
 {
@@ -536,6 +574,80 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 			return @"localhost";
 	}
 }
+
+- (NSString *) phoneNumber
+{
+	return getProp(@"phoneNumber",nil);
+}
+- (void) setPhoneNumber:(NSString *)s
+{
+	[self willChangeValueForKey:@"windowTitle"];
+	setProp(@"phoneNumber",s);
+	[self didChangeValueForKey:@"windowTitle"];
+	[phone authInfoChanged];
+}
+
+
+- (int) provider
+{
+	int prov=getIntProp(@"provider",1);
+	if (_debugMisc) NSLog(@"provider %d\n", prov);
+	return prov;
+}
+
+- (int) providerTabIdx
+{
+	int p=[self provider];
+	switch (p) {
+		case 1:
+		case 2:
+			return 0;
+		case 99:
+			return 3;
+		default:
+			return 3;
+	}
+}
+
+- (void) setProvider:(int)tag
+{
+	[self willChangeValueForKey:@"isFreephonie"];
+	[self willChangeValueForKey:@"providerTabIdx"];
+	setProp(@"provider", [NSNumber numberWithInt:tag]);
+	[self didChangeValueForKey:@"isFreephonie"];
+	[self didChangeValueForKey:@"providerTabIdx"];
+	[phone authInfoChanged];
+	
+	// ignore and go back to freephonie for now
+}
+
+- (BOOL) isFreephonie
+{
+	return ([self provider]==1);
+}
+
+
+#pragma mark -
+#pragma mark *** keyring handling ***
+
+/*
+ * auth info handling. mostly proxy request from user to preferances and keyring
+ * and trigger re-registration on any change
+ */
+
+- (NSString *) authId
+{
+	NSString *s=[self phoneNumber];
+	if (_debugAuth) NSLog(@"authId:[%@]\n", s);
+	return s;
+}
+- (NSString *) authPasswd
+{
+	NSString *s=[self password];
+	if (_debugAuth) NSLog(@"authPasswd:[%@]\n", s);
+	return s;
+}
+
 
 // from apple doc
 //Call SecKeychainAddGenericPassword to add a new password to the keychain:
@@ -636,58 +748,11 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 
 	return pw;
 }
-- (NSString *) phoneNumber
-{
-	return getProp(@"phoneNumber",nil);
-}
-- (void) setPhoneNumber:(NSString *)s
-{
-	[self willChangeValueForKey:@"windowTitle"];
-	setProp(@"phoneNumber",s);
-	[self didChangeValueForKey:@"windowTitle"];
-	[phone authInfoChanged];
-}
-
-
-- (int) provider
-{
-	int prov=getIntProp(@"provider",1);
-	if (_debugMisc) NSLog(@"provider %d\n", prov);
-	return prov;
-}
-
-- (int) providerTabIdx
-{
-	int p=[self provider];
-	switch (p) {
-		case 1:
-		case 2:
-			return 0;
-		case 99:
-			return 3;
-		default:
-			return 3;
-	}
-}
-
-- (void) setProvider:(int)tag
-{
-	[self willChangeValueForKey:@"isFreephonie"];
-	[self willChangeValueForKey:@"providerTabIdx"];
-	setProp(@"provider", [NSNumber numberWithInt:tag]);
-	[self didChangeValueForKey:@"isFreephonie"];
-	[self didChangeValueForKey:@"providerTabIdx"];
-	[phone authInfoChanged];
-
-	// ignore and go back to freephonie for now
-}
-
-- (BOOL) isFreephonie
-{
-	return ([self provider]==1);
-}
 
 // misc stufs
+
+#pragma mark -
+#pragma mark *** misc ***
 
 - (BOOL) onDemandRegister;
 {
@@ -723,6 +788,33 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 	[mainWin  makeKeyAndOrderFront:self];
 	return YES;
 }
+
+
+- (NSString *) windowTitle
+{
+	if (_debugMisc) NSLog(@"window title\n");
+	return [NSString stringWithFormat:@"symPhonie (%@)", [[self phoneNumber]displayCallNumber]];
+}
+- (NSSize)drawerWillResizeContents:(NSDrawer *)sender toSize:(NSSize)contentSize
+{
+	// quite ugly, but since our drawer is larger than main window
+	// which is quite forbiden i guess, we must disallow some resizing
+	if (contentSize.width<500) contentSize.width=500;
+	return contentSize;
+}
+
+- (void)drawerWillOpen:(NSNotification *)notification
+{
+	NSDrawer *sender=[notification object];
+	NSDrawer *other=nil;
+	if (sender==drawer1) other=drawer2;
+	else if (sender==drawer2) other=drawer1;
+	[other close];	
+}
+
+
+#pragma mark -
+#pragma mark *** pause audio apps ***
 
 
 - (void) _pauseApps
@@ -763,59 +855,12 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 					 toTarget:self withObject:nil];
 	}
 }
-
 /*
- * notification on quit : unregister before quiting
- * this is a bit tricky, because applicationShouldTerminate is invoked
- * from a specific runloop. We HAVE to reply NSTerminateLater
- */
-- (void)applicationWillTerminate:(NSNotification *)aNotification
-{
-	if (_debugMisc) NSLog(@"applicationWillTerminate\n");
-}
-- (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
-{
-	if (_debugMisc) NSLog(@"applicationShouldTerminate\n");
-	switch ([phone state]) {
-		case sip_off:
-		case sip_ondemand:
-			return NSTerminateNow;
-			break;
-		default:
-			if (_debugMisc) NSLog(@"terminate later %d\n", [phone state]);
-			exitRequested=YES;
-			[phone unregisterPhone:self];
-			return  NSTerminateLater;
-			break;
-	}
-	return  NSTerminateLater;
-}
-
-/*
- * misc stuff
+ * audio test stuff
  */
 
-- (NSString *) windowTitle
-{
-	if (_debugMisc) NSLog(@"window title\n");
-	return [NSString stringWithFormat:@"symPhonie (%@)", [[self phoneNumber]displayCallNumber]];
-}
-- (NSSize)drawerWillResizeContents:(NSDrawer *)sender toSize:(NSSize)contentSize
-{
-	// quite ugly, but since our drawer is larger than main window
-	// which is quite forbiden i guess, we must disallow some resizing
-	if (contentSize.width<500) contentSize.width=500;
-	return contentSize;
-}
-
-- (void)drawerWillOpen:(NSNotification *)notification
-{
-	NSDrawer *sender=[notification object];
-	NSDrawer *other=nil;
-	if (sender==drawer1) other=drawer2;
-	else if (sender==drawer2) other=drawer1;
-	[other close];	
-}
+#pragma mark -
+#pragma mark *** audio test ***
 
 
 - (BOOL) audioTestRunning
@@ -864,6 +909,8 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 	return @"hu?";
 }
 
+#pragma mark -
+#pragma mark *** causes handling ***
 /*
  * call/registration failures
  */
@@ -1086,4 +1133,11 @@ static NSString *q850(int c)
 	return callDiagMsg;
 }
 
+#pragma mark -
+#pragma mark *** more goodies ***
+
+- (BOOL)tokenField:(NSTokenField *)tokenField hasMenuForRepresentedObject:(id)representedObjec
+{
+	return NO;
+}
 @end

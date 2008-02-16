@@ -716,7 +716,7 @@
 		vrLen = 485;
 		vrLoc = 1390;
 	};
-	1B228B890D1402BD0097D0B4 /* sipPhone.m:827 */ = {
+	1B228B890D1402BD0097D0B4 /* sipPhone.m:855 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -728,7 +728,7 @@
 		functionName = "-pollExosip:";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 827;
+		lineNumber = 855;
 		modificationTime = 223861090.259813;
 		state = 1;
 	};
@@ -1150,7 +1150,7 @@
 		fRef = 1BC968FF0CC9F78F004C0339 /* sipPhone.m */;
 		name = "sipPhone.m: 1105";
 		rLen = 0;
-		rLoc = 31986;
+		rLoc = 32273;
 		rType = 0;
 		vrLen = 411;
 		vrLoc = 31588;
@@ -1438,9 +1438,10 @@
 	};
 	1B46EFBF0CD1C36200397E41 /* AppHelper.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {595, 15414}}";
-			sepNavSelRange = "{2452, 25}";
-			sepNavVisRange = "{2210, 585}";
+			sepNavFolds = "{\n    c =     (\n                {\n            r = \"{705, 347}\";\n        },\n                {\n            r = \"{1073, 248}\";\n        },\n                {\n            r = \"{4095, 1195}\";\n        },\n                {\n            r = \"{5336, 76}\";\n        },\n                {\n            r = \"{5835, 68}\";\n        },\n                {\n            r = \"{6009, 112}\";\n        },\n                {\n            r = \"{6157, 295}\";\n        },\n                {\n            r = \"{6501, 309}\";\n        },\n                {\n            r = \"{6859, 73}\";\n        },\n                {\n            r = \"{6975, 321}\";\n        },\n                {\n            r = \"{7318, 46}\";\n        },\n                {\n            r = \"{7482, 1600}\";\n        },\n                {\n            r = \"{9110, 617}\";\n        },\n                {\n            r = \"{9771, 65}\";\n        },\n                {\n            r = \"{9880, 198}\";\n        },\n                {\n            r = \"{10127, 242}\";\n        },\n                {\n            r = \"{10419, 61}\";\n        },\n                {\n            r = \"{10731, 67}\";\n        },\n                {\n            r = \"{10846, 66}\";\n        },\n                {\n            r = \"{11319, 791}\";\n        },\n                {\n            r = \"{12133, 127}\";\n        },\n                {\n            r = \"{12371, 11}\";\n        },\n                {\n            r = \"{12679, 166}\";\n        },\n                {\n            r = \"{13107, 56}\";\n        },\n                {\n            r = \"{13248, 358}\";\n        },\n                {\n            r = \"{13979, 100}\";\n        },\n                {\n            r = \"{14192, 2144}\";\n        },\n                {\n            r = \"{16514, 290}\";\n        },\n                {\n            r = \"{16831, 194}\";\n        },\n                {\n            r = \"{17053, 179}\";\n        },\n                {\n            r = \"{18383, 90}\";\n        },\n                {\n            r = \"{18502, 91}\";\n        },\n                {\n            r = \"{18769, 573}\";\n        },\n                {\n            r = \"{19516, 895}\";\n        },\n                {\n            r = \"{20612, 405}\";\n        },\n                {\n            r = \"{21057, 447}\";\n        },\n                {\n            r = \"{21531, 192}\";\n        },\n                {\n            r = \"{21811, 27}\";\n        },\n                {\n            r = \"{21878, 145}\";\n        },\n                {\n            r = \"{22047, 16}\";\n        },\n                {\n            r = \"{23212, 295}\";\n        },\n                {\n            r = \"{23537, 460}\";\n        },\n                {\n            r = \"{24020, 146}\";\n        },\n                {\n            r = \"{24272, 37}\";\n        },\n                {\n            r = \"{24347, 207}\";\n        },\n                {\n            r = \"{24597, 112}\";\n        },\n                {\n            r = \"{24739, 77}\";\n        },\n                {\n            r = \"{24845, 32}\";\n        },\n                {\n            r = \"{24904, 64}\";\n        },\n                {\n            r = \"{24996, 233}\";\n        },\n                {\n            r = \"{25352, 1892}\";\n        },\n                {\n            r = \"{27348, 1989}\";\n        },\n                {\n            r = \"{29377, 200}\";\n        },\n                {\n            r = \"{29613, 32}\";\n        },\n                {\n            r = \"{29681, 32}\";\n        },\n                {\n            r = \"{29820, 875}\";\n        },\n                {\n            r = \"{30740, 82}\";\n        },\n                {\n            r = \"{30851, 22}\";\n        },\n                {\n            r = \"{30916, 81}\";\n        },\n                {\n            r = \"{31025, 21}\";\n        },\n                {\n            r = \"{31095, 85}\";\n        },\n                {\n            r = \"{31210, 23}\";\n        },\n                {\n            r = \"{31277, 84}\";\n        },\n                {\n            r = \"{31390, 22}\";\n        },\n                {\n            r = \"{31561, 13}\";\n        }\n    );\n    r = \"{0, 31581}\";\n}";
+			sepNavIntBoundsRect = "{{0, 0}, {782, 6048}}";
+			sepNavSelRange = "{957, 0}";
+			sepNavVisRange = "{734, 311}";
 			sepNavVisRect = "{{0, 4663}, {905, 209}}";
 		};
 	};
@@ -1450,6 +1451,220 @@
 			sepNavSelRange = "{24, 0}";
 			sepNavVisRect = "{{0, 100}, {615, 296}}";
 		};
+	};
+	1B538FDE0D66D826002C2621 /* AppHelper.m:1139 */ = {
+		isa = PBXFileBreakpoint;
+		actions = (
+		);
+		breakpointStyle = 0;
+		continueAfterActions = 0;
+		countType = 0;
+		delayBeforeContinue = 0;
+		fileReference = 1B46EFBF0CD1C36200397E41 /* AppHelper.m */;
+		functionName = "-tokenField:hasMenuForRepresentedObject:";
+		hitCount = 0;
+		ignoreCount = 0;
+		lineNumber = 1139;
+		modificationTime = 224843814.370893;
+		state = 1;
+	};
+	1B538FE00D66DC7B002C2621 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 089C165DFE840E0CC02AAC07 /* English */;
+		name = "InfoPlist.strings: 3";
+		rLen = 0;
+		rLoc = 98;
+		rType = 0;
+		vrLen = 102;
+		vrLoc = 0;
+	};
+	1B538FE10D66DC7B002C2621 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 8D1107310486CEB800E47090 /* Info.plist */;
+		name = "Info.plist: 13";
+		rLen = 20;
+		rLoc = 420;
+		rType = 0;
+		vrLen = 580;
+		vrLoc = 480;
+	};
+	1B538FE20D66DC7B002C2621 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1BFFDFB50D4A9C840062D314 /* English */;
+		name = "Localizable.strings: 140";
+		rLen = 0;
+		rLoc = 2771;
+		rType = 0;
+		vrLen = 318;
+		vrLoc = 0;
+	};
+	1B538FE30D66DC7B002C2621 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1BFFDFD50D4A9CF70062D314 /* French */;
+		name = "Localizable.strings: 86";
+		rLen = 0;
+		rLoc = 1708;
+		rType = 0;
+		vrLen = 324;
+		vrLoc = 0;
+	};
+	1B538FE40D66DC7B002C2621 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1BC968FF0CC9F78F004C0339 /* sipPhone.m */;
+		name = "sipPhone.m: 1299";
+		rLen = 56;
+		rLoc = 36134;
+		rType = 0;
+		vrLen = 1269;
+		vrLoc = 36020;
+	};
+	1B538FE50D66DC7B002C2621 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1B46EFBF0CD1C36200397E41 /* AppHelper.m */;
+		name = "AppHelper.m: 1092";
+		rLen = 0;
+		rLoc = 31575;
+		rType = 0;
+		vrLen = 477;
+		vrLoc = 24315;
+	};
+	1B538FE60D66DC7B002C2621 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1BC968FF0CC9F78F004C0339 /* sipPhone.m */;
+		name = "sipPhone.m: 491";
+		rLen = 24;
+		rLoc = 12589;
+		rType = 0;
+		vrLen = 811;
+		vrLoc = 11844;
+	};
+	1B538FE70D66DC7B002C2621 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 089C165DFE840E0CC02AAC07 /* English */;
+		name = "InfoPlist.strings: 3";
+		rLen = 0;
+		rLoc = 98;
+		rType = 0;
+		vrLen = 102;
+		vrLoc = 0;
+	};
+	1B538FE80D66DC7B002C2621 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 8D1107310486CEB800E47090 /* Info.plist */;
+		name = "Info.plist: 13";
+		rLen = 20;
+		rLoc = 420;
+		rType = 0;
+		vrLen = 580;
+		vrLoc = 480;
+	};
+	1B538FE90D66DC7B002C2621 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1BFFDFB50D4A9C840062D314 /* English */;
+		name = "Localizable.strings: 140";
+		rLen = 0;
+		rLoc = 2771;
+		rType = 0;
+		vrLen = 318;
+		vrLoc = 0;
+	};
+	1B538FEA0D66DC7B002C2621 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1BFFDFD50D4A9CF70062D314 /* French */;
+		name = "Localizable.strings: 86";
+		rLen = 0;
+		rLoc = 1708;
+		rType = 0;
+		vrLen = 324;
+		vrLoc = 0;
+	};
+	1B538FEB0D66DC7B002C2621 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1B46EFBF0CD1C36200397E41 /* AppHelper.m */;
+		name = "AppHelper.m: 1092";
+		rLen = 0;
+		rLoc = 31575;
+		rType = 0;
+		vrLen = 322;
+		vrLoc = 30504;
+	};
+	1B538FEC0D66DC7B002C2621 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1BC968FF0CC9F78F004C0339 /* sipPhone.m */;
+		name = "sipPhone.m: 1302";
+		rLen = 0;
+		rLoc = 36188;
+		rType = 0;
+		vrLen = 1269;
+		vrLoc = 36020;
+	};
+	1B538FED0D66DC7B002C2621 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1B46EFBF0CD1C36200397E41 /* AppHelper.m */;
+		name = "AppHelper.m: 1092";
+		rLen = 0;
+		rLoc = 31575;
+		rType = 0;
+		vrLen = 477;
+		vrLoc = 24315;
+	};
+	1B538FEE0D66DC7B002C2621 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1BC968FF0CC9F78F004C0339 /* sipPhone.m */;
+		name = "sipPhone.m: 1299";
+		rLen = 56;
+		rLoc = 36134;
+		rType = 0;
+		vrLen = 1269;
+		vrLoc = 36020;
+	};
+	1B538FEF0D66DC7B002C2621 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1B46EFBF0CD1C36200397E41 /* AppHelper.m */;
+		name = "AppHelper.m: 1135";
+		rLen = 0;
+		rLoc = 31464;
+		rType = 0;
+		vrLen = 557;
+		vrLoc = 30881;
+	};
+	1B538FF10D66DCE7002C2621 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "error: 'reachabilityCallback' undeclared (first use in this function)";
+		fRef = 1B46EFBF0CD1C36200397E41 /* AppHelper.m */;
+		rLen = 1;
+		rLoc = 111;
+		rType = 1;
+	};
+	1B538FF20D66DCE7002C2621 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1B46EFBF0CD1C36200397E41 /* AppHelper.m */;
+		name = "AppHelper.m: 70";
+		rLen = 0;
+		rLoc = 1550;
+		rType = 0;
+		vrLen = 410;
+		vrLoc = 1327;
+	};
+	1B538FF40D66DCEB002C2621 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1B46EFBF0CD1C36200397E41 /* AppHelper.m */;
+		name = "AppHelper.m: 70";
+		rLen = 0;
+		rLoc = 1550;
+		rType = 0;
+		vrLen = 4603;
+		vrLoc = 691;
+	};
+	1B538FF80D66DCEB002C2621 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1B46EFBF0CD1C36200397E41 /* AppHelper.m */;
+		name = "AppHelper.m: 70";
+		rLen = 0;
+		rLoc = 1550;
+		rType = 0;
+		vrLen = 311;
+		vrLoc = 1327;
 	};
 	1B6179710CE5B39C00F894EB /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -1461,7 +1676,7 @@
 		vrLen = 1246;
 		vrLoc = 887;
 	};
-	1B6233A80D04B80100E404A9 /* sipPhone.m:590 */ = {
+	1B6233A80D04B80100E404A9 /* sipPhone.m:618 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -1473,12 +1688,12 @@
 		functionName = "-registerPhone:";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 590;
+		lineNumber = 618;
 		location = symPhonie;
 		modificationTime = 223860750.697537;
 		state = 2;
 	};
-	1B6233B60D04B82C00E404A9 /* AppHelper.m:108 */ = {
+	1B6233B60D04B82C00E404A9 /* AppHelper.m:183 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -1490,11 +1705,11 @@
 		functionName = "-_wakeUp:";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 108;
+		lineNumber = 183;
 		modificationTime = 223861090.266869;
 		state = 1;
 	};
-	1B75735A0D1B0F8D007E1A15 /* AppHelper.m:359 */ = {
+	1B75735A0D1B0F8D007E1A15 /* AppHelper.m:481 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -1506,11 +1721,11 @@
 		functionName = "-dialFromUrlEvent:withReplyEvent:";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 359;
+		lineNumber = 481;
 		modificationTime = 223861090.266387;
 		state = 1;
 	};
-	1B75737A0D1B10DD007E1A15 /* AppHelper.m:352 */ = {
+	1B75737A0D1B10DD007E1A15 /* AppHelper.m:474 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -1522,7 +1737,7 @@
 		functionName = "-dialFromUrlResponse:returnCode:contextInfo:";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 352;
+		lineNumber = 474;
 		modificationTime = 223861090.264397;
 		state = 1;
 	};
@@ -1531,7 +1746,7 @@
 		fRef = 1BC968FF0CC9F78F004C0339 /* sipPhone.m */;
 		name = event;
 		rLen = 0;
-		rLoc = 6455;
+		rLoc = 6836;
 		rType = 0;
 		vrLen = 315;
 		vrLoc = 5769;
@@ -1623,7 +1838,7 @@
 		fRef = 1B46EFBF0CD1C36200397E41 /* AppHelper.m */;
 		name = "AppHelper.m: 89";
 		rLen = 25;
-		rLoc = 2452;
+		rLoc = 5257;
 		rType = 0;
 		vrLen = 585;
 		vrLoc = 2210;
@@ -1683,7 +1898,7 @@
 		fRef = 1BC968FF0CC9F78F004C0339 /* sipPhone.m */;
 		name = "sipPhone.m: 1108";
 		rLen = 0;
-		rLoc = 31985;
+		rLoc = 32272;
 		rType = 0;
 		vrLen = 654;
 		vrLoc = 31731;
@@ -1741,7 +1956,7 @@
 		fRef = 1BC968FF0CC9F78F004C0339 /* sipPhone.m */;
 		name = "sipPhone.m: 491";
 		rLen = 24;
-		rLoc = 12303;
+		rLoc = 12589;
 		rType = 0;
 		vrLen = 811;
 		vrLoc = 11844;
@@ -2022,9 +2237,10 @@
 	};
 	1BC968FF0CC9F78F004C0339 /* sipPhone.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {842, 18788}}";
-			sepNavSelRange = "{12303, 24}";
-			sepNavVisRange = "{11844, 811}";
+			sepNavFolds = "{\n    c =     (\n                {\n            r = \"{4905, 861}\";\n        },\n                {\n            r = \"{5803, 101}\";\n        },\n                {\n            r = \"{5928, 20}\";\n        },\n                {\n            r = \"{5981, 142}\";\n        },\n                {\n            r = \"{6217, 415}\";\n        },\n                {\n            r = \"{6664, 25}\";\n        },\n                {\n            r = \"{6735, 51}\";\n        },\n                {\n            r = \"{6838, 58}\";\n        },\n                {\n            r = \"{6927, 23}\";\n        },\n                {\n            r = \"{6993, 83}\";\n        },\n                {\n            r = \"{7106, 22}\";\n        },\n                {\n            r = \"{7170, 80}\";\n        },\n                {\n            r = \"{7290, 200}\";\n        },\n                {\n            r = \"{7535, 686}\";\n        },\n                {\n            r = \"{8266, 50}\";\n        },\n                {\n            r = \"{8349, 57}\";\n        },\n                {\n            r = \"{8426, 17}\";\n        },\n                {\n            r = \"{8473, 79}\";\n        },\n                {\n            r = \"{8583, 848}\";\n        },\n                {\n            r = \"{9568, 45}\";\n        },\n                {\n            r = \"{9632, 128}\";\n        },\n                {\n            r = \"{9786, 16}\";\n        },\n                {\n            r = \"{9838, 1689}\";\n        },\n                {\n            r = \"{11560, 70}\";\n        },\n                {\n            r = \"{11661, 111}\";\n        },\n                {\n            r = \"{11793, 87}\";\n        },\n                {\n            r = \"{11921, 91}\";\n        },\n                {\n            r = \"{12095, 2362}\";\n        },\n                {\n            r = \"{14487, 230}\";\n        },\n                {\n            r = \"{14786, 1216}\";\n        },\n                {\n            r = \"{16045, 218}\";\n        },\n                {\n            r = \"{16309, 1206}\";\n        },\n                {\n            r = \"{17563, 96}\";\n        },\n                {\n            r = \"{17977, 13958}\";\n        },\n                {\n            r = \"{31960, 1271}\";\n        },\n                {\n            r = \"{33272, 145}\";\n        },\n                {\n            r = \"{33457, 451}\";\n        },\n                {\n            r = \"{33951, 758}\";\n        },\n                {\n            r = \"{34749, 520}\";\n        },\n                {\n            r = \"{35366, 217}\";\n        },\n                {\n            r = \"{35605, 20}\";\n        },\n                {\n            r = \"{36343, 938}\";\n        }\n    );\n    r = \"{0, 37289}\";\n}";
+			sepNavIntBoundsRect = "{{0, 0}, {595, 4438}}";
+			sepNavSelRange = "{7452, 56}";
+			sepNavVisRange = "{7338, 332}";
 			sepNavVisRect = "{{0, 9899}, {905, 209}}";
 		};
 	};
@@ -2192,12 +2408,12 @@
 		fRef = 1BC968FF0CC9F78F004C0339 /* sipPhone.m */;
 		name = "sipPhone.m: 491";
 		rLen = 24;
-		rLoc = 12303;
+		rLoc = 12589;
 		rType = 0;
 		vrLen = 811;
 		vrLoc = 11844;
 	};
-	1BC9A0090D0F3BBE009441AC /* AppHelper.m:610 */ = {
+	1BC9A0090D0F3BBE009441AC /* AppHelper.m:722 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -2209,7 +2425,7 @@
 		functionName = "-setPassword:";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 610;
+		lineNumber = 722;
 		modificationTime = 223861090.273886;
 		state = 1;
 	};
@@ -2736,7 +2952,7 @@
 		fRef = 1B46EFBF0CD1C36200397E41 /* AppHelper.m */;
 		name = "AppHelper.m: 778";
 		rLen = 0;
-		rLoc = 22533;
+		rLoc = 24168;
 		rType = 0;
 		vrLen = 441;
 		vrLoc = 22325;
@@ -2770,9 +2986,9 @@
 	};
 	1BFFDFD50D4A9CF70062D314 /* French */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {595, 1946}}";
-			sepNavSelRange = "{2858, 0}";
-			sepNavVisRange = "{2398, 464}";
+			sepNavIntBoundsRect = "{{0, 0}, {595, 2086}}";
+			sepNavSelRange = "{1708, 0}";
+			sepNavVisRange = "{0, 324}";
 		};
 	};
 	1BFFE00B0D4AB0670062D314 /* PBXTextBookmark */ = {
@@ -2780,7 +2996,7 @@
 		fRef = 1BFFDFD50D4A9CF70062D314 /* French */;
 		name = "Localizable.strings: 138";
 		rLen = 0;
-		rLoc = 2858;
+		rLoc = 2856;
 		rType = 0;
 		vrLen = 464;
 		vrLoc = 2398;
@@ -2830,7 +3046,7 @@
 		fRef = 1BFFDFD50D4A9CF70062D314 /* French */;
 		name = "Localizable.strings: 114";
 		rLen = 0;
-		rLoc = 2289;
+		rLoc = 2287;
 		rType = 0;
 		vrLen = 453;
 		vrLoc = 2100;
@@ -2910,8 +3126,8 @@
 			1B3D42630D01D53E00AD2EF1 /* MiscDebug.m:27 */,
 			1B3D42650D01D53F00AD2EF1 /* MiscDebug.m:23 */,
 			1B3D42780D01D64B00AD2EF1 /* MiscDebug.m:14 */,
-			1B6233A80D04B80100E404A9 /* sipPhone.m:590 */,
-			1B6233B60D04B82C00E404A9 /* AppHelper.m:108 */,
+			1B6233A80D04B80100E404A9 /* sipPhone.m:618 */,
+			1B6233B60D04B82C00E404A9 /* AppHelper.m:183 */,
 			1B3043D30D0897EA00DC5A31 /* echo_port.c:46 */,
 			1B3043E40D08983D00DC5A31 /* echo_port.c:109 */,
 			1B3043E60D08984800DC5A31 /* echo_port.c:89 */,
@@ -2925,8 +3141,8 @@
 			1B30449B0D092E7F00DC5A31 /* conference.c:814 */,
 			1B3049080D0D5A7100DC5A31 /* StringCallNumber.m:167 */,
 			1B30490D0D0D5A8400DC5A31 /* StringCallNumber.m:149 */,
-			1BC9A0090D0F3BBE009441AC /* AppHelper.m:610 */,
-			1B228B890D1402BD0097D0B4 /* sipPhone.m:827 */,
+			1BC9A0090D0F3BBE009441AC /* AppHelper.m:722 */,
+			1B228B890D1402BD0097D0B4 /* sipPhone.m:855 */,
 			1BCCE3F80D14625F0063148E /* send() */,
 			1BCCE3F90D1462650063148E /* send */,
 			1BCCE4010D1462EB0063148E /* jrequest.c:162 */,
@@ -2935,12 +3151,13 @@
 			1BCCE4040D14633D0063148E /* sendto$NOCANCEL$UNIX2003 */,
 			1BCCE42C0D146A3A0063148E /* eXrefer_api.c:31 */,
 			1BCCE42E0D146A4F0063148E /* eXtransport.c:267 */,
-			1B75735A0D1B0F8D007E1A15 /* AppHelper.m:359 */,
-			1B75737A0D1B10DD007E1A15 /* AppHelper.m:352 */,
+			1B75735A0D1B0F8D007E1A15 /* AppHelper.m:481 */,
+			1B75737A0D1B10DD007E1A15 /* AppHelper.m:474 */,
 			1B3AFF840D3C20EF00AEFBEB /* ABCache.m:64 */,
 			1BFCEDF60D486A0E0083E31B /* BufferedAudioConverter::FillBuffer */,
 			1BFCEE990D486F140083E31B /* splitcomb.c:215 */,
 			1BFCEE9B0D486F1C0083E31B /* conference.c:781 */,
+			1B538FDE0D66D826002C2621 /* AppHelper.m:1139 */,
 		);
 		codeSenseManager = 1BC9676F0CC9E8E1004C0339 /* Code sense */;
 		executables = (
@@ -3117,6 +3334,26 @@
 			1B3AFFB30D3C22CE00AEFBEB = 1B3AFFB30D3C22CE00AEFBEB /* PBXTextBookmark */;
 			1B3AFFB80D3C22E500AEFBEB = 1B3AFFB80D3C22E500AEFBEB /* PBXTextBookmark */;
 			1B3AFFC70D3C234C00AEFBEB = 1B3AFFC70D3C234C00AEFBEB /* PBXTextBookmark */;
+			1B538FE00D66DC7B002C2621 /* PBXTextBookmark */ = 1B538FE00D66DC7B002C2621 /* PBXTextBookmark */;
+			1B538FE10D66DC7B002C2621 /* PBXTextBookmark */ = 1B538FE10D66DC7B002C2621 /* PBXTextBookmark */;
+			1B538FE20D66DC7B002C2621 /* PBXTextBookmark */ = 1B538FE20D66DC7B002C2621 /* PBXTextBookmark */;
+			1B538FE30D66DC7B002C2621 /* PBXTextBookmark */ = 1B538FE30D66DC7B002C2621 /* PBXTextBookmark */;
+			1B538FE40D66DC7B002C2621 /* PBXTextBookmark */ = 1B538FE40D66DC7B002C2621 /* PBXTextBookmark */;
+			1B538FE50D66DC7B002C2621 /* PBXTextBookmark */ = 1B538FE50D66DC7B002C2621 /* PBXTextBookmark */;
+			1B538FE60D66DC7B002C2621 /* PBXTextBookmark */ = 1B538FE60D66DC7B002C2621 /* PBXTextBookmark */;
+			1B538FE70D66DC7B002C2621 /* PBXTextBookmark */ = 1B538FE70D66DC7B002C2621 /* PBXTextBookmark */;
+			1B538FE80D66DC7B002C2621 /* PBXTextBookmark */ = 1B538FE80D66DC7B002C2621 /* PBXTextBookmark */;
+			1B538FE90D66DC7B002C2621 /* PBXTextBookmark */ = 1B538FE90D66DC7B002C2621 /* PBXTextBookmark */;
+			1B538FEA0D66DC7B002C2621 /* PBXTextBookmark */ = 1B538FEA0D66DC7B002C2621 /* PBXTextBookmark */;
+			1B538FEB0D66DC7B002C2621 /* PBXTextBookmark */ = 1B538FEB0D66DC7B002C2621 /* PBXTextBookmark */;
+			1B538FEC0D66DC7B002C2621 /* PBXTextBookmark */ = 1B538FEC0D66DC7B002C2621 /* PBXTextBookmark */;
+			1B538FED0D66DC7B002C2621 /* PBXTextBookmark */ = 1B538FED0D66DC7B002C2621 /* PBXTextBookmark */;
+			1B538FEE0D66DC7B002C2621 /* PBXTextBookmark */ = 1B538FEE0D66DC7B002C2621 /* PBXTextBookmark */;
+			1B538FEF0D66DC7B002C2621 /* PBXTextBookmark */ = 1B538FEF0D66DC7B002C2621 /* PBXTextBookmark */;
+			1B538FF10D66DCE7002C2621 /* PBXTextBookmark */ = 1B538FF10D66DCE7002C2621 /* PBXTextBookmark */;
+			1B538FF20D66DCE7002C2621 /* PBXTextBookmark */ = 1B538FF20D66DCE7002C2621 /* PBXTextBookmark */;
+			1B538FF40D66DCEB002C2621 /* PBXTextBookmark */ = 1B538FF40D66DCEB002C2621 /* PBXTextBookmark */;
+			1B538FF80D66DCEB002C2621 /* PBXTextBookmark */ = 1B538FF80D66DCEB002C2621 /* PBXTextBookmark */;
 			1B7B1F160D1D91FA009759B7 = 1B7B1F160D1D91FA009759B7 /* PBXBookmark */;
 			1BB2E81C0D51A27600A2F1D7 = 1BB2E81C0D51A27600A2F1D7 /* PBXTextBookmark */;
 			1BB2E8280D51ACC100A2F1D7 = 1BB2E8280D51ACC100A2F1D7 /* PBXTextBookmark */;

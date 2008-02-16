@@ -115,4 +115,8 @@
 
 - (IBAction) setDefaultNumber:(id)sender;
 
+
+- (void) defaultProp;
+- (void) addPowerNotif;
+
 @end

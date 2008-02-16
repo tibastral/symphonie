@@ -79,6 +79,10 @@ eXosip_get_sdp_body (osip_message_t * message)
 
 @implementation SipPhone
 
+
+#pragma mark -
+#pragma mark *** init, dealloc, etc ****
+
 static int initDone=0;
 
 - (id) init {
@@ -105,10 +109,84 @@ static int initDone=0;
 	[super dealloc];
 }
 
+- (void) awakeFromNib
+{
+	_debugFsm=getBoolProp(@"debugFsm", NO);
+	_debugAudio=getBoolProp(@"debugAudio", NO);
+	_debugMisc=getBoolProp(@"debugMisc", NO);
+	_debugCauses=getBoolProp(@"debugCauses", NO);
+	_debugAuth=getBoolProp(@"debugAuth", NO);
+	
+	abCache=[[ABCache alloc]init];
+	
+	abVisibleOffline=getBoolProp(@"abVisibleOffLineOnStartup",NO);
+	if ([appHelper onDemandRegister]) [self setState:sip_ondemand];
+	NSAssert(abPicker, @"unconnected abPicker");
+	//[abPicker clearSearchField:self];
+	
+	//NSView *v=[abPicker accessoryView];
+	//[abPicker setAllowsMultipleSelection:NO];
+	//[abPicker setAllowsEmptySelection:YES];
+	[abPicker deselectAll:nil];
+	//ABPickerDeselectAll(abPicker);
+#if 0
+	NSArray *cursel=[abPicker selectedGroups];
+	unsigned int i, count = [cursel count];
+	for (i = 0; i < count; i++) {
+		ABRecord * obj = (ABGroup *)[cursel objectAtIndex:i];
+		[abPicker deselectGroup:obj];
+	}
+#endif
+	
+	
+	//[abPicker setValueSelectionBehavior:ABSingleValueSelection];
+	[abPicker setTarget:self];
+	[abPicker setNameDoubleAction:@selector(abDClicked:)];
+	//Here we set up a responder for one of the four notifications,
+	//in this case to tell us when the selection in the name list
+	//has changed.
+	
+	int rc=[self _initExosip];
+	if (rc) return;
+	
+	NSNotificationCenter* center = [NSNotificationCenter defaultCenter];
+	if (0) [center addObserver:self
+			  selector:@selector(recordChange:)
+			      name:ABPeoplePickerNameSelectionDidChangeNotification
+			    object:abPicker];
+	[center addObserver:self
+		   selector:@selector(recordChange:)
+		       name:ABPeoplePickerValueSelectionDidChangeNotification
+		     object:abPicker];
+	
+	//[abPicker deselectSelectedCell];
+	
+	
+	popupInCall = [[NSWindow alloc] initWithContentRect:[popupInCallView frame]
+						  styleMask:NSBorderlessWindowMask
+						    backing:NSBackingStoreBuffered defer:YES];
+	//[popupInCall setBackgroundColor:[NSColor blackColor]];
+	[popupInCall setExcludedFromWindowsMenu:YES];
+	[popupInCall setLevel:NSScreenSaverWindowLevel];
+	[popupInCall setShowsToolbarButton:NO];
+	[popupInCall setAlphaValue:0.55];
+	[popupInCall setOpaque:NO];
+	[popupInCall setHasShadow:NO];
+	[popupInCall setMovableByWindowBackground:YES];
+	[popupInCall center];
+	[popupInCall setContentView:popupInCallView];
+	
+	//[offlineView setDefaultButtonCell
+	
+}
+
 /*
  * ============== AdressBook interaction ===============
  */
 
+
+#pragma mark -
+#pragma mark *** AddressBook ****
 
 - (void)recordChange:(NSNotification*)notif {
 	//NSImage *personImage;
@@ -151,76 +229,21 @@ static int initDone=0;
 	}
 }
 
-- (void) awakeFromNib
+
+- (BOOL) abVisible
 {
-	_debugFsm=getBoolProp(@"debugFsm", NO);
-	_debugAudio=getBoolProp(@"debugAudio", NO);
-	_debugMisc=getBoolProp(@"debugMisc", NO);
-	_debugCauses=getBoolProp(@"debugCauses", NO);
-	_debugAuth=getBoolProp(@"debugAuth", NO);
-
-	abCache=[[ABCache alloc]init];
-
-	abVisibleOffline=getBoolProp(@"abVisibleOffLineOnStartup",NO);
-	if ([appHelper onDemandRegister]) [self setState:sip_ondemand];
-	NSAssert(abPicker, @"unconnected abPicker");
-	//[abPicker clearSearchField:self];
-
-	//NSView *v=[abPicker accessoryView];
-	//[abPicker setAllowsMultipleSelection:NO];
-	//[abPicker setAllowsEmptySelection:YES];
-	[abPicker deselectAll:nil];
-	//ABPickerDeselectAll(abPicker);
-#if 0
-	NSArray *cursel=[abPicker selectedGroups];
-	unsigned int i, count = [cursel count];
-	for (i = 0; i < count; i++) {
-		ABRecord * obj = (ABGroup *)[cursel objectAtIndex:i];
-		[abPicker deselectGroup:obj];
-	}
-#endif
-	
-	
-	//[abPicker setValueSelectionBehavior:ABSingleValueSelection];
-	[abPicker setTarget:self];
-	[abPicker setNameDoubleAction:@selector(abDClicked:)];
-	//Here we set up a responder for one of the four notifications,
-	//in this case to tell us when the selection in the name list
-	//has changed.
-	
-	int rc=[self _initExosip];
-	if (rc) return;
-	
-	NSNotificationCenter* center = [NSNotificationCenter defaultCenter];
-	if (0) [center addObserver:self
-		   selector:@selector(recordChange:)
-		       name:ABPeoplePickerNameSelectionDidChangeNotification
-		     object:abPicker];
-	[center addObserver:self
-		   selector:@selector(recordChange:)
-		       name:ABPeoplePickerValueSelectionDidChangeNotification
-		     object:abPicker];
-	
-	//[abPicker deselectSelectedCell];
-
-	
-	popupInCall = [[NSWindow alloc] initWithContentRect:[popupInCallView frame]
-						  styleMask:NSBorderlessWindowMask
-						    backing:NSBackingStoreBuffered defer:YES];
-	//[popupInCall setBackgroundColor:[NSColor blackColor]];
-	[popupInCall setExcludedFromWindowsMenu:YES];
-	[popupInCall setLevel:NSScreenSaverWindowLevel];
-	[popupInCall setShowsToolbarButton:NO];
-	[popupInCall setAlphaValue:0.55];
-	[popupInCall setOpaque:NO];
-	[popupInCall setHasShadow:NO];
-	[popupInCall setMovableByWindowBackground:YES];
-	[popupInCall center];
-	[popupInCall setContentView:popupInCallView];
-	
-	//[offlineView setDefaultButtonCell
-	
+	return abVisible;
 }
+- (void) setAbVisible:(BOOL)f
+{
+	//if (f && !abVisible) 	[abPicker deselectAll:self];
+	if ((sip_registered==state)||(sip_ondemand==state)) abVisibleOffline=f;
+	abVisible=f;
+}
+
+
+#pragma mark -
+#pragma mark *** Accessors ****
 
 - (void) setSelectedNumber:(NSString *)s
 {
@@ -242,6 +265,7 @@ static int initDone=0;
 {
 	return selectedNumber;
 }
+
 - (NSString*) internationalSelectedNumber
 {
 	return [selectedNumber internationalCallNumber];
@@ -263,6 +287,7 @@ static int initDone=0;
 		selectedName=[s retain];
 	}
 }
+
 - (NSString*) callingName
 {
 	return callingName;
@@ -307,10 +332,12 @@ static int initDone=0;
 
 	}
 }
+
 - (NSString*) internationalCallingNumber
 {
 	return [callingNumber internationalCallNumber];
 }
+
 - (NSString *) callingNumber
 {
 	return [callingNumber internationalDisplayCallNumber];
@@ -327,9 +354,7 @@ static int initDone=0;
 		if (!fromAB) [self setSelectedName:@""];
 	}
 }
-/*
- * ============== phone itself ===============
- */
+
 - (int) selectedViewNumber
 {
 	int sn=0;
@@ -359,16 +384,13 @@ static int initDone=0;
 }
 
 
-- (BOOL) abVisible
-{
-	return abVisible;
-}
-- (void) setAbVisible:(BOOL)f
-{
-	//if (f && !abVisible) 	[abPicker deselectAll:self];
-	if ((sip_registered==state)||(sip_ondemand==state)) abVisibleOffline=f;
-	abVisible=f;
-}
+/*
+ * ============== phone itself ===============
+ */
+
+#pragma mark -
+#pragma mark *** phone  state helpers ***
+
 - (BOOL) isRinging
 {
 	return (state==sip_outgoing_call_ringing);
@@ -473,6 +495,11 @@ static int initDone=0;
 	if (state==sip_registered) return YES;
 	return NO;
 }
+
+
+#pragma mark -
+#pragma mark *** phone state machine ***
+
 
 - (int) _initExosip
 {
@@ -587,6 +614,7 @@ static int initDone=0;
 	}
 	return;
 }
+
 - (IBAction) registerPhone:(id) sender
 {
 	if ([appHelper onDemandRegister]) {
@@ -1143,6 +1171,7 @@ refuse_call:
 	} else if (state != sip_registered) return;
 	else [self makeOutCall];
 }
+
 - (IBAction) hangUpCall:(id) sender
 {
 	int rc;
@@ -1211,6 +1240,9 @@ refuse_call:
 }
 
 
+#pragma mark -
+#pragma mark *** misc functionalities ***
+
 - (void) setAudioTest:(BOOL) test
 {
 	if (test != audioTest) {
@@ -1228,6 +1260,8 @@ refuse_call:
 {
 	return audioTest;
 }
+
+
 
 - (IBAction) test1:(id) sender
 {
@@ -1262,6 +1296,10 @@ refuse_call:
 	[userPlane dtmf:@"111"];
 }
  */
+
+
+#pragma mark -
+#pragma mark *** dialpad handling ***
 
 static const char *padDigits[16]={
 	"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",  "*", "#", "A", "B", "C", "D"

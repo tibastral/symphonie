@@ -203,12 +203,15 @@
 		1B0BE71D0CD7F90D00ED1901 /* vq.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0BE6A80CD7F90D00ED1901 /* vq.c */; };
 		1B0BE71E0CD7F90D00ED1901 /* window.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0BE6AD0CD7F90D00ED1901 /* window.c */; };
 		1B0BE72C0CD7F90D00ED1901 /* speex_codec.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0BE6C10CD7F90D00ED1901 /* speex_codec.c */; };
+		1B2741F00D67120E00EBAB4E /* SoftwareUpdate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 1B2741EF0D67120E00EBAB4E /* SoftwareUpdate.nib */; };
 		1B30485A0D0D235300DC5A31 /* PrefPhoneNumberConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3048590D0D235300DC5A31 /* PrefPhoneNumberConverter.m */; };
 		1B46E57E0CCB5B8600397E41 /* StringCallNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B46E57D0CCB5B8600397E41 /* StringCallNumber.m */; };
 		1B46E7DD0CCB887C00397E41 /* UserPlane.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B46E7DC0CCB887C00397E41 /* UserPlane.m */; };
 		1B46ED410CCE995E00397E41 /* ABCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B46ED400CCE995E00397E41 /* ABCache.m */; };
 		1B46EE080CCF1A9800397E41 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 1B46EE070CCF1A9800397E41 /* icon.icns */; };
 		1B46EFC00CD1C36200397E41 /* AppHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B46EFBF0CD1C36200397E41 /* AppHelper.m */; };
+		1B5390370D66E69F002C2621 /* UpdateChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5390360D66E69F002C2621 /* UpdateChecker.m */; };
+		1B53903A0D66E83A002C2621 /* symPhonie.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B5390390D66E83A002C2621 /* symPhonie.plist */; };
 		1B620A1F0D1E647000641E33 /* symPhonieHelp in Resources */ = {isa = PBXBuildFile; fileRef = 1B620A1D0D1E647000641E33 /* symPhonieHelp */; };
 		1B751E260CE999E500BA8417 /* Cornemuse.mid in Resources */ = {isa = PBXBuildFile; fileRef = 1B751E250CE999E500BA8417 /* Cornemuse.mid */; };
 		1B751E8D0CE9A23600BA8417 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B751E8C0CE9A23600BA8417 /* QTKit.framework */; };
@@ -611,6 +614,7 @@
 		1B0BE6AC0CD7F90D00ED1901 /* vq_sse.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = vq_sse.h; sourceTree = "<group>"; };
 		1B0BE6AD0CD7F90D00ED1901 /* window.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = window.c; sourceTree = "<group>"; };
 		1B0BE6C10CD7F90D00ED1901 /* speex_codec.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = speex_codec.c; path = "pjproject-0.5.10.4/pjmedia/src/pjmedia-codec/speex_codec.c"; sourceTree = "<group>"; };
+		1B2741270D66FCFE00EBAB4E /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/SoftwareUpdate.nib; sourceTree = "<group>"; };
 		1B3048580D0D235300DC5A31 /* PrefPhoneNumberConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefPhoneNumberConverter.h; sourceTree = "<group>"; };
 		1B3048590D0D235300DC5A31 /* PrefPhoneNumberConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefPhoneNumberConverter.m; sourceTree = "<group>"; };
 		1B33A0EF0D3A501B006B7BE1 /* French */ = {isa = PBXFileReference; lastKnownFileType = folder; name = French; path = French.lproj/symPhonieHelp; sourceTree = "<group>"; };
@@ -629,6 +633,9 @@
 		1B46EFBE0CD1C36200397E41 /* AppHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppHelper.h; sourceTree = "<group>"; };
 		1B46EFBF0CD1C36200397E41 /* AppHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppHelper.m; sourceTree = "<group>"; };
 		1B46F36E0CD70FBA00397E41 /* English */ = {isa = PBXFileReference; explicitFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
+		1B5390350D66E69F002C2621 /* UpdateChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateChecker.h; sourceTree = "<group>"; };
+		1B5390360D66E69F002C2621 /* UpdateChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateChecker.m; sourceTree = "<group>"; };
+		1B5390390D66E83A002C2621 /* symPhonie.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = symPhonie.plist; sourceTree = "<group>"; };
 		1B620A1E0D1E647000641E33 /* English */ = {isa = PBXFileReference; lastKnownFileType = folder; name = English; path = English.lproj/symPhonieHelp; sourceTree = "<group>"; };
 		1B751E250CE999E500BA8417 /* Cornemuse.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = Cornemuse.mid; sourceTree = "<group>"; };
 		1B751E8C0CE9A23600BA8417 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/QTKit.framework; sourceTree = SYSTEM_DEVELOPER_DIR; };
@@ -826,6 +833,8 @@
 				1BFBC7380CEB819F00CAE0B9 /* InCallPopup.m */,
 				1BAA0A620CEE04BF004A9CB0 /* CallTicketHandler.h */,
 				1BAA0A630CEE04BF004A9CB0 /* CallTicketHandler.m */,
+				1B5390350D66E69F002C2621 /* UpdateChecker.h */,
+				1B5390360D66E69F002C2621 /* UpdateChecker.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1252,6 +1261,14 @@
 			name = pjmedia;
 			sourceTree = "<group>";
 		};
+		1B5390380D66E82C002C2621 /* update info */ = {
+			isa = PBXGroup;
+			children = (
+				1B5390390D66E83A002C2621 /* symPhonie.plist */,
+			);
+			name = "update info";
+			sourceTree = "<group>";
+		};
 		1BBD5A920CEE601200C5C4A1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1444,6 +1461,7 @@
 		29B97314FDCFA39411CA2CEA /* sipPhone */ = {
 			isa = PBXGroup;
 			children = (
+				1B5390380D66E82C002C2621 /* update info */,
 				1B620A1D0D1E647000641E33 /* symPhonieHelp */,
 				1BBD5A910CEE601200C5C4A1 /* sipPhoneAbPlugin.xcodeproj */,
 				1B3D420B0D01CEE800AD2EF1 /* CrashReport */,
@@ -1478,6 +1496,7 @@
 				8D1107310486CEB800E47090 /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				29B97318FDCFA39411CA2CEA /* MainMenu.nib */,
+				1B2741EF0D67120E00EBAB4E /* SoftwareUpdate.nib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1561,6 +1580,8 @@
 				1BFBC77A0CEB87C200CAE0B9 /* incallbg.tiff in Resources */,
 				1B620A1F0D1E647000641E33 /* symPhonieHelp in Resources */,
 				1BFFDFD40D4A9CEC0062D314 /* Localizable.strings in Resources */,
+				1B53903A0D66E83A002C2621 /* symPhonie.plist in Resources */,
+				1B2741F00D67120E00EBAB4E /* SoftwareUpdate.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1860,6 +1881,7 @@
 				1BFBC7390CEB819F00CAE0B9 /* InCallPopup.m in Sources */,
 				1BAA0A640CEE04BF004A9CB0 /* CallTicketHandler.m in Sources */,
 				1B30485A0D0D235300DC5A31 /* PrefPhoneNumberConverter.m in Sources */,
+				1B5390370D66E69F002C2621 /* UpdateChecker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1882,6 +1904,14 @@
 				1B0B9B7D0CF898A700E011F3 /* French */,
 			);
 			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		1B2741EF0D67120E00EBAB4E /* SoftwareUpdate.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1B2741270D66FCFE00EBAB4E /* English */,
+			);
+			name = SoftwareUpdate.nib;
 			sourceTree = "<group>";
 		};
 		1B620A1D0D1E647000641E33 /* symPhonieHelp */ = {

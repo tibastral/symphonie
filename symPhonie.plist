@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>downloadUrl</key>
+	<string>http://page-appart.net/symphonie/download/files/symPhonie_0_2_20080131.dmg</string>
+	<key>history</key>
+	<array>
+		<dict>
+			<key>change</key>
+			<string>version checking added, several fixes</string>
+			<key>version</key>
+			<string>0.2.10</string>
+		</dict>
+		<dict>
+			<key>change</key>
+			<string>no info available</string>
+			<key>version</key>
+			<string>0.2.9</string>
+		</dict>
+	</array>
+	<key>infoDate</key>
+	<date>2008-02-16T09:49:52Z</date>
+	<key>infoMessage</key>
+	<string>This is beta, don't forget to report bugs!</string>
+	<key>osMaxRelease</key>
+	<dict>
+		<key>A</key>
+		<integer>10</integer>
+		<key>B</key>
+		<integer>5</integer>
+		<key>C</key>
+		<integer>99</integer>
+	</dict>
+	<key>osMinRelease</key>
+	<dict>
+		<key>A</key>
+		<integer>10</integer>
+		<key>B</key>
+		<integer>4</integer>
+		<key>C</key>
+		<integer>0</integer>
+	</dict>
+	<key>softwareUrl</key>
+	<string>http://page-appart.net/symphonie/index.html</string>
+	<key>version</key>
+	<dict>
+		<key>A</key>
+		<integer>0</integer>
+		<key>B</key>
+		<integer>2</integer>
+		<key>C</key>
+		<integer>10</integer>
+	</dict>
+</dict>
+</plist>

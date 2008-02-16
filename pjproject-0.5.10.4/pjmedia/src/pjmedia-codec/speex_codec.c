@@ -788,7 +788,7 @@ static pj_status_t spx_codec_decode( pjmedia_codec *codec,
 
     output->type = PJMEDIA_FRAME_TYPE_AUDIO;
     output->size = speex_bits_nbytes(&spx->dec_bits);
-    pj_assert(output->size <= (int)output_buf_len);
+    pj_assert(output->size <= (unsigned int)output_buf_len);
     output->timestamp.u64 = input->timestamp.u64;
 
 

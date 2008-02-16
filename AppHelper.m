@@ -22,6 +22,7 @@
 #include <IOKit/pwr_mgt/IOPMLib.h>
 #include <IOKit/IOMessage.h>
 
+#import "UpdateChecker.h"
 
 @implementation AppHelper
 
@@ -70,6 +71,10 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 				 void *                      info);
 - (void) awakeFromNib
 {
+	UpdateChecker *upc=[[UpdateChecker alloc]init];
+	//[upc getUpdateInfos];
+	// XXX
+	
 	NSAssert(phone, @"phone not connected");
 	[self defaultProp];
 	[prefPanel setLevel:NSModalPanelWindowLevel];

@@ -1,5 +1,5 @@
 ﻿/* Localized versions of Info.plist keys */
 
-NSHumanReadableCopyright = "© Daniel Braun, 2007";
+NSHumanReadableCopyright = "© Daniel Braun, 2007-2008";
 
 CFBundleHelpBookName =  "Aide symPhonie";

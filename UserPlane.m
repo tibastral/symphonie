@@ -174,7 +174,7 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 #endif
 	int ndev=pjmedia_snd_get_dev_count();
 	int inputNum=getIntProp(@"selectedInputDeviceIndex", 0);
-	int outputNum=getIntProp(@"selectedInputDeviceIndex", 0);
+	int outputNum=getIntProp(@"selectedOutputDeviceIndex", 0);
 	if (_debugAudio) NSLog(@"conf audio num r=%d o=%d\n", inputNum, outputNum);
 	
 

@@ -83,10 +83,10 @@
 "Playback, listen" = "Lecture, écoutez";
 
 /* possibly an other SIP phone is running ? */
-"possibly an other SIP phone is running ?" = "possibly an other SIP phone is running ?";
+"possibly an other SIP phone is running ?" = "peut-être un autre SIP phone tourne ?";
 
 /* Q850/49 */
-"QoS not available" = "QoS not available";
+"QoS not available" = "QoS non disponible";
 
 /* quit */
 "Quit" = "Quit";

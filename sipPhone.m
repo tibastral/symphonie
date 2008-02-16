@@ -1105,6 +1105,7 @@ refuse_call:
 	osip_message_t *invite = NULL;
 	
 	int rc;
+	if (_debugMisc || _debugFsm) NSLog(@"call sip:%@@%@\n", [self internationalSelectedNumber], [appHelper sipDomain]);
 	rc = eXosip_call_build_initial_invite(&invite,
 						  [[NSString stringWithFormat:@"sip:%@@%@", [self internationalSelectedNumber], [appHelper sipDomain]]cString],
 						 [[appHelper sipFrom]cString],

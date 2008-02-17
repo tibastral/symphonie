@@ -1235,8 +1235,9 @@ static NSString *q850(int c)
 				NSString *s2=[s displayCallNumber];
 				//if (!s2) s2=s; // useless
 				if (!s2) continue;
-				[app addObject:[NSString stringWithFormat:@"%@ - %@",
-						s2, fn]];
+				[app addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+						s2, @"phone",
+						fn, @"name",nil]];
 				//NSLog(@"got %@\n", s);
 				nmatch++;
 				if (nmatch>16) break;
@@ -1252,8 +1253,9 @@ static NSString *q850(int c)
 			NSString * s = [ap objectAtIndex:i];
 			if ([s hasPrefix:z]) {
 				NSString *fn=[[abc findByPhone:s]fullName];
-				[app addObject:[NSString stringWithFormat:@"%@ - %@",
-						[s displayCallNumber], fn]];
+				[app addObject:[NSDictionary dictionaryWithObjectsAndKeys:
+							       [s displayCallNumber], @"phone",
+							       fn, @"name", nil]];
 				nmatch++;
 				if (nmatch>16) break;
 				
@@ -1280,10 +1282,11 @@ static NSString *q850(int c)
 {
 	int i=[si firstIndex];
 	if (NSNotFound==i) return;
-	NSString *r=[matchPhones objectAtIndex:i];
+	NSDictionary *r=[matchPhones objectAtIndex:i];
 	NSLog(@"select %@\n", r);
+	NSAssert([r isKindOfClass:[NSDictionary class]], @"bad class");
 	[phone willChangeValueForKey:@"selectedNumber"];
-	[phone setSelectedNumber:r update:NO];
+	[phone setSelectedNumber:[r objectForKey:@"phone"] update:NO];
 	[phone didChangeValueForKey:@"selectedNumber"];
 	NSLog(@"selected\n");
 }

@@ -91,12 +91,12 @@ static BOOL isMoreRecent(int a1, int a2, int a3, int b1, int b2, int b3)
 		NSLog(@"error loading update info: %@\n", err);
 		return;
 	}
-	NSLog(@"got update info %@\n", properties);
+	//NSLog(@"got update info %@\n", properties);
 	NSBundle *mb=[NSBundle mainBundle];
 	//- (id)objectForInfoDictionaryKey:(NSString *)key
 	NSString *curVersion=[mb objectForInfoDictionaryKey:@"CFBundleVersion"];
 	//NSDictionary *bi=[mb infoDictionary];
-	NSLog(@"cv %@\n", curVersion);
+	//NSLog(@"cv %@\n", curVersion);
 	NSArray *vi=[curVersion componentsSeparatedByString:@"."];
 	if ([vi count] != 3) {
 		NSLog(@"cur version %@ bad format\n", curVersion);

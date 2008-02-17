@@ -14,15 +14,18 @@ enum callDir {
 	calldirOut
 };
 	
+@class SipPhone;
 @interface CallTicketHandler : NSObject {
 	IBOutlet NSArrayController *historyController;
+	IBOutlet SipPhone *phone;
 	NSString *number;
 	NSString *name;
 	NSDate *startCall;
-	NSData *startOnline;
+	NSDate *startOnline;
 	enum callDir callDir;
+	NSIndexSet *selectedEntries;
 }
-- (void) addToHistoryEvent:(NSString *)event forNum:(NSString *)num duration:(NSTimeInterval)dur;
+//- (void) addToHistoryEvent:(NSString *)event forNum:(NSString *)num duration:(NSTimeInterval)dur;
 
 - (IBAction) testEntry:(id)sender;
 
@@ -33,5 +36,5 @@ enum callDir {
 - (void) tickOnline;
 - (void) tickHangupCause:(int) cause info:(NSString *)info;
 
-
+- (void) setSelectedEntries:(NSIndexSet *)si;
 @end

@@ -1199,6 +1199,8 @@ static NSString *q850(int c)
 	return matchPhones;
 }
 
+#define MAXLIST 32
+
 - (void) updateCompletionList: (NSString *)number
 {
 	if (!number || ![number length]) {
@@ -1206,7 +1208,7 @@ static NSString *q850(int c)
 		return;
 	}
 	int nmatch=0;
-	NSMutableArray *app=[NSMutableArray arrayWithCapacity:16];
+	NSMutableArray *app=[NSMutableArray arrayWithCapacity:MAXLIST];
 
 	NSString *z=[number internationalCallNumber];
 	if (![z length]) {
@@ -1214,11 +1216,20 @@ static NSString *q850(int c)
 		//return;
 		ABAddressBook *ab=[ABAddressBook sharedAddressBook];
 		
-		ABSearchElement *se=[ABPerson searchElementForProperty:kABFirstNameProperty/*kABFirstNamePhoneticProperty*/
+		ABSearchElement *se1=[ABPerson searchElementForProperty:kABFirstNameProperty/*kABFirstNamePhoneticProperty*/
 									label:nil
 									  key:nil
 									value:number
-								   comparison:kABContainsSubStringCaseInsensitive];		
+								   comparison:kABContainsSubStringCaseInsensitive];
+		ABSearchElement *se2=[ABPerson searchElementForProperty:kABLastNameProperty
+								 label:nil
+								   key:nil
+								 value:number
+							    comparison:kABContainsSubStringCaseInsensitive];
+			
+		ABSearchElement *se=[ABSearchElement searchElementForConjunction:kABSearchOr
+									children:[NSArray arrayWithObjects:se1, se2, nil]];
+		//ABSearchElement *se=se2;
 		NSArray *ma=[ab recordsMatchingSearchElement:se];
 		// assume s is name
 		//NSArray *ap=
@@ -1240,7 +1251,7 @@ static NSString *q850(int c)
 						fn, @"name",nil]];
 				//NSLog(@"got %@\n", s);
 				nmatch++;
-				if (nmatch>16) break;
+				if (nmatch>MAXLIST) break;
 			}
 			
 		}
@@ -1257,12 +1268,12 @@ static NSString *q850(int c)
 							       [s displayCallNumber], @"phone",
 							       fn, @"name", nil]];
 				nmatch++;
-				if (nmatch>16) break;
+				if (nmatch>MAXLIST) break;
 				
 			}
 		}
 	}
-	if (([app count]>16) || (![app count])) {
+	if (([app count]>MAXLIST) || (![app count])) {
 		[self setMatchPhones:nil];
 	}
 	[self setMatchPhones:app];
@@ -1271,7 +1282,7 @@ static NSString *q850(int c)
 - (BOOL) showCompletion
 {
 	int n=[matchPhones count];
-	return ((n>0) && (n<16));
+	return ((n>0) && (n<MAXLIST));
 }
 
 - (NSIndexSet *) matchPhoneSelect

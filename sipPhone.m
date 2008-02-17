@@ -277,6 +277,15 @@ static int initDone=0;
 
 - (void) setSelectedNumber:(NSString *)s
 {
+	switch (state) {
+		case sip_ondemand:
+		case sip_off:
+		case sip_registered:
+			break;
+		default:
+			//NSAssert(0, @"should not change here");
+			return;
+	}
 	[self setSelectedNumber:s update:YES];
 }
 - (NSString*) selectedNumber
@@ -466,12 +475,14 @@ static int initDone=0;
 		[callDate release];
 		callDate=[[NSDate date]retain];
 		pollcount=0;
+		[tickets tickOnline];
 		[self didChangeValueForKey:@"callDuration"];
 		[self didChangeValueForKey:@"callDurationTxt"];
 	}
 	if ((state==sip_off) || (state==sip_ondemand)) {
 		[appHelper phoneIsOff:YES];
 	}
+
 	[self didChangeValueForKey:@"canChangeRegistrationScheme"];
 	[self didChangeValueForKey:@"isRinging"];
 	[self didChangeValueForKey:@"isIdle"];
@@ -953,7 +964,9 @@ static int initDone=0;
 					eXosip_call_send_answer (je->tid, 180, answer);
 					EXOSIP_UNLOCK ();
 					[self setState:sip_incoming_call_ringing];
-
+					[tickets tickStartInRing];
+					[tickets setForeignName:[self callingName]];
+					[tickets setForeignNum:[self callingNumber]];
 					break;
 refuse_call:
 					EXOSIP_LOCK ();
@@ -1036,6 +1049,7 @@ refuse_call:
 							break;
 						default:
 							[appHelper sipError:status_code phrase:reason_phrase reason:reason domain:1];
+							[tickets tickHangupCause:status_code info: reason ? [NSString stringWithCString:reason] : nil];
 							break;
 					}
 					if (je->response != NULL) {
@@ -1063,10 +1077,12 @@ refuse_call:
 				case EXOSIP_CALL_SERVERFAILURE:
 					NSLog(@"EXOSIP_CALL_SERVERFAILURE\n");
 					[appHelper sipError:status_code phrase:reason_phrase reason:reason domain:1];
+					[tickets tickHangupCause:status_code info: reason ? [NSString stringWithCString:reason] : nil];
 					break;
 				case EXOSIP_CALL_GLOBALFAILURE:
 					NSLog(@"EXOSIP_CALL_GLOBALFAILURE\n");
 					[appHelper sipError:status_code phrase:reason_phrase reason:reason domain:1];
+					[tickets tickHangupCause:status_code info: reason ? [NSString stringWithCString:reason] : nil];
 					break;
 				case EXOSIP_CALL_ANSWERED:
 					[appHelper resetErrorForDomain:1];
@@ -1119,6 +1135,7 @@ refuse_call:
 						[appHelper setError:NSLocalizedString(@"call failed", @"call failed")
 							       diag:NSLocalizedString(@"SIP service not responding", @"no reply")
 						    openAccountPref:NO domain:1];
+						[tickets tickHangupCause:0 info:NSLocalizedString(@"SIP service not responding", @"no reply")];
 					} else {
 					}
 					if (state>sip_registered) [self terminateCall:self];
@@ -1128,6 +1145,7 @@ refuse_call:
 					break;
 				case EXOSIP_CALL_CLOSED:
 					[appHelper sipError:status_code phrase:reason_phrase reason:reason domain:1];
+					[tickets tickHangupCause:status_code info: reason ? [NSString stringWithCString:reason] : nil];
 					[userPlane endUserPlane];
 					rc=eXosip_default_action(je);
 					if (state>sip_registered) [self terminateCall:self]; // XXX
@@ -1165,6 +1183,11 @@ refuse_call:
 	[callDate release];
 	callDate=[[NSDate date]retain];
 	[appHelper resetErrorForDomain:1];
+	
+	[tickets tickStartOutCall];
+	[tickets setForeignNum:[self internationalDisplaySelectedNumber]];
+	[tickets setForeignName:[self selectedName]];
+	
 	osip_message_t *invite = NULL;
 	
 	int rc;
@@ -1223,7 +1246,10 @@ refuse_call:
 			EXOSIP_UNLOCK();
 			if (rc<0) NSLog(@"hangup failed %d/%d rc=%d\n", _cid, _did, rc);
 			else {
+				if (sip_online==state) [tickets tickHangupCause:0 info:nil];
+				else [tickets tickHangupCause:-2 info:nil];
 				[self setState:sip_initiated_clearing];
+
 			}
 			break;
 		default:

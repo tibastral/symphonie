@@ -777,6 +777,7 @@
 		1BC969F80CCA0134004C0339 /* sdp_message.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = sdp_message.h; path = "libosip2-2.2.2/include/osipparser2/sdp_message.h"; sourceTree = "<group>"; };
 		1BE262CE0CEFA48D0098C270 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1BE5078D0D68883700548993 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SoftwareUpdate.xib; sourceTree = "<group>"; };
+		1BE507900D68893B00548993 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/SoftwareUpdate.xib; sourceTree = "<group>"; };
 		1BFBC7370CEB819F00CAE0B9 /* InCallPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InCallPopup.h; sourceTree = "<group>"; };
 		1BFBC7380CEB819F00CAE0B9 /* InCallPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InCallPopup.m; sourceTree = "<group>"; };
 		1BFBC7790CEB87C200CAE0B9 /* incallbg.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = incallbg.tiff; sourceTree = "<group>"; };
@@ -1928,6 +1929,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				1BE5078D0D68883700548993 /* English */,
+				1BE507900D68893B00548993 /* French */,
 			);
 			name = SoftwareUpdate.xib;
 			sourceTree = "<group>";

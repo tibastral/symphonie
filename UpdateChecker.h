@@ -3,7 +3,7 @@
 //  sipPhone
 //
 //  Created by Daniel Braun on 16/02/08.
-//  Copyright 2008 __MyCompanyName__. All rights reserved.
+//  Copyright 2008 Daniel Braun. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>

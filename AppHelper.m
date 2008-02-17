@@ -41,7 +41,9 @@ static int _debugCauses=0;
 	if (self != nil) {
 		PhoneNumberConverter *pc=[[PrefPhoneNumberConverter alloc]init];
 		[pc setIsDefault];
-		if (1) NSLog(@"build %s\n", __DATE__);
+		if (1) NSLog(@"build %s %@ (s:%d.%d.%d)\n", __DATE__, 
+			     [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"],
+			sizeof(int), sizeof(long), sizeof(void *));
 		onDemandRegister=NO; //XXX
 		pauseAppScript=[[BundledScript bundledScript:@"sipPhoneAppCtl"]retain];
 		if (0) [pauseAppScript runEvent:@"doNothing" withArgs:nil];
@@ -1233,7 +1235,7 @@ static NSString *q850(int c)
 		NSArray *ma=[ab recordsMatchingSearchElement:se];
 		// assume s is name
 		//NSArray *ap=
-		NSLog(@"cound %d\n",[ma count]);
+		//NSLog(@"cound %d\n",[ma count]);
 		int i, count = [ma count];
 		for (i = 0; i < count; i++) {
 			ABPerson * person = [ma objectAtIndex:i];
@@ -1294,12 +1296,12 @@ static NSString *q850(int c)
 	int i=[si firstIndex];
 	if (NSNotFound==i) return;
 	NSDictionary *r=[matchPhones objectAtIndex:i];
-	NSLog(@"select %@\n", r);
+	//NSLog(@"select %@\n", r);
 	NSAssert([r isKindOfClass:[NSDictionary class]], @"bad class");
 	[phone willChangeValueForKey:@"selectedNumber"];
 	[phone setSelectedNumber:[r objectForKey:@"phone"] update:NO];
 	[phone didChangeValueForKey:@"selectedNumber"];
-	NSLog(@"selected\n");
+	//NSLog(@"selected\n");
 }
 
 @end

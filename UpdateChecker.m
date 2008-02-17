@@ -3,7 +3,7 @@
 //  sipPhone
 //
 //  Created by Daniel Braun on 16/02/08.
-//  Copyright 2008 __MyCompanyName__. All rights reserved.
+//  Copyright 2008 Daniel Braun. All rights reserved.
 //
 
 #import "UpdateChecker.h"
@@ -112,7 +112,7 @@ static BOOL isMoreRecent(int a1, int a2, int a3, int b1, int b2, int b3)
 	minor=[[vi objectAtIndex:1]intValue];
 	level=[[vi objectAtIndex:2]intValue];
 	if (isMoreRecent(nmajor, nminor, nlevel, major, minor, level)) {
-		NSLog(@"newer release %d.%d.%d is available\n", nmajor, nminor, nlevel);
+		NSLog(@"newer release %d.%d.%d is available (%@)\n", nmajor, nminor, nlevel, curVersion);
 		NSArray *histoChange=[properties valueForKeyPath:@"history"];
 		int i, count = [histoChange count];
 		[history release];
@@ -126,6 +126,8 @@ static BOOL isMoreRecent(int a1, int a2, int a3, int b1, int b2, int b3)
 		NSNib *nib=[[NSNib alloc] initWithNibNamed:@"SoftwareUpdate" bundle:mb];
 		BOOL ok=[nib instantiateNibWithOwner:self topLevelObjects:nil];
 		if (!ok) NSLog(@"failed loading SoftwareUpdate\n");
+	} else {
+		NSLog(@"software is up to date\n");
 	}
 
 }

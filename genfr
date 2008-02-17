@@ -3,9 +3,12 @@
 #ibtool --strings-file MainMenu.strings --write French.lproj/MainMenu.nib English.lproj/MainMenu.nib
 #ibtool --generate-stringsfile MainMenu.strings French.lproj/MainMenu.nib
 
+# ibtool --previous-file orig.nib --incremental-file trans.nib --localize-incremental --write newTrans.nib mod.nib
+#      ibtool will leverage orig.nib against changes in mod.nib and localizations from trans.nib, and write the new translated nib.
+
+
 ibtool --previous-file English.lproj/prevMainMenu.nib \
        --incremental-file ./French.lproj/prevMainMenu.nib \
        --localize-incremental \
        --write ./French.lproj/MainMenu.nib \
-       --errors \
        English.lproj/MainMenu.nib

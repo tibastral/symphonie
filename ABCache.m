@@ -26,7 +26,7 @@
 - (void) _abCachePopulate
 {
 	if (perPhone) return;
-	perPhone=[[NSMutableDictionary dictionaryWithCapacity:200]retain];
+	perPhone=[[NSMutableDictionary dictionaryWithCapacity:400]retain];
 	ABAddressBook *ab=[ABAddressBook sharedAddressBook];
 	NSArray *people=[ab people];
 	unsigned int i, count = [people count];
@@ -70,6 +70,12 @@
 	}
 	ABPerson *p=[perPhone objectForKey:iph];
 	return p;
+}
+
+- (NSArray *) allPhones
+{
+	if (!perPhone) [self _abCachePopulate];
+	return [perPhone allKeys];
 }
 @end
 

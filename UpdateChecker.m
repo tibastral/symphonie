@@ -10,12 +10,30 @@
 
 
 @implementation UpdateChecker
+
+
+
+static inline id getProp(NSString *k, id defaultValue)
+{
+	id pref=[[NSUserDefaultsController sharedUserDefaultsController] values];
+	id v=[pref valueForKey:k]; 
+	if (!v && defaultValue) {
+		[pref setValue:defaultValue forKey:k];
+		v=defaultValue;
+	}
+	return v;
+}
+static inline BOOL getBoolProp(NSString *k, BOOL defaultValue)
+{
+	return [getProp(k, [NSNumber numberWithBool:defaultValue]) boolValue];
+}
+
 - (id) init
 {
 	self = [super init];
 	if (self != nil) {
 		receivedData=[[NSMutableData dataWithCapacity:(1024*2)] retain];
-		[self getUpdateInfos];
+		if (getBoolProp(@"checkForUpdate", YES))[self getUpdateInfos];
 
 	}
 	return self;

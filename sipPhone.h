@@ -88,9 +88,12 @@ typedef enum {
 	NSString *remoteSdp;
 	UserPlane *userPlane;
 	BOOL audioTest;		// should be moved to AppHelper
+	NSDate *callDate;
+	int pollcount;
+	int maxDuration;
 }
 
-
+- (ABCache *)abCache;
 
 - (void) setState:(sipState_t) s;
 - (sipState_t) state;
@@ -104,6 +107,7 @@ typedef enum {
 
 // called / calling number, usable in bindings, with different formats
 - (void) setSelectedNumber:(NSString *)s;
+- (void) setSelectedNumber:(NSString *)s update:(BOOL)upd;
 - (NSString*) selectedNumber;
 - (NSString*) internationalSelectedNumber;
 - (NSString*) internationalDisplaySelectedNumber;
@@ -153,6 +157,11 @@ typedef enum {
 - (BOOL) audioTest;
 
 - (IBAction) dialPad:(id)sender;
+
+- (int) callDuration;
+- (NSString *) callDurationTxt;
+- (int) maxDuration;
+- (void) setMaxDuration:(int)v;
 
 // used for debug only
 - (IBAction) pretendRegistered:(id) sender;

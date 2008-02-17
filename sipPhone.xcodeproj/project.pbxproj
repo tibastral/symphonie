@@ -204,6 +204,7 @@
 		1B0BE71E0CD7F90D00ED1901 /* window.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0BE6AD0CD7F90D00ED1901 /* window.c */; };
 		1B0BE72C0CD7F90D00ED1901 /* speex_codec.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0BE6C10CD7F90D00ED1901 /* speex_codec.c */; };
 		1B2741F00D67120E00EBAB4E /* SoftwareUpdate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 1B2741EF0D67120E00EBAB4E /* SoftwareUpdate.nib */; };
+		1B2742750D67300500EBAB4E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1B2742730D67300500EBAB4E /* MainMenu.xib */; };
 		1B30485A0D0D235300DC5A31 /* PrefPhoneNumberConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3048590D0D235300DC5A31 /* PrefPhoneNumberConverter.m */; };
 		1B46E57E0CCB5B8600397E41 /* StringCallNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B46E57D0CCB5B8600397E41 /* StringCallNumber.m */; };
 		1B46E7DD0CCB887C00397E41 /* UserPlane.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B46E7DC0CCB887C00397E41 /* UserPlane.m */; };
@@ -318,7 +319,6 @@
 		1BFBC7390CEB819F00CAE0B9 /* InCallPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFBC7380CEB819F00CAE0B9 /* InCallPopup.m */; };
 		1BFBC77A0CEB87C200CAE0B9 /* incallbg.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 1BFBC7790CEB87C200CAE0B9 /* incallbg.tiff */; };
 		1BFFDFD40D4A9CEC0062D314 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1BFFDFD30D4A9CEC0062D314 /* Localizable.strings */; };
-		8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 29B97318FDCFA39411CA2CEA /* MainMenu.nib */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -615,6 +615,8 @@
 		1B0BE6AD0CD7F90D00ED1901 /* window.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = window.c; sourceTree = "<group>"; };
 		1B0BE6C10CD7F90D00ED1901 /* speex_codec.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = speex_codec.c; path = "pjproject-0.5.10.4/pjmedia/src/pjmedia-codec/speex_codec.c"; sourceTree = "<group>"; };
 		1B2741270D66FCFE00EBAB4E /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/SoftwareUpdate.nib; sourceTree = "<group>"; };
+		1B2742740D67300500EBAB4E /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		1B2742760D67302900EBAB4E /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		1B3048580D0D235300DC5A31 /* PrefPhoneNumberConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefPhoneNumberConverter.h; sourceTree = "<group>"; };
 		1B3048590D0D235300DC5A31 /* PrefPhoneNumberConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefPhoneNumberConverter.m; sourceTree = "<group>"; };
 		1B33A0EF0D3A501B006B7BE1 /* French */ = {isa = PBXFileReference; lastKnownFileType = folder; name = French; path = French.lproj/symPhonieHelp; sourceTree = "<group>"; };
@@ -774,7 +776,6 @@
 		1BC969F60CCA0134004C0339 /* osip_rfc3264.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = osip_rfc3264.h; path = "libosip2-2.2.2/include/osipparser2/osip_rfc3264.h"; sourceTree = "<group>"; };
 		1BC969F70CCA0134004C0339 /* osip_uri.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = osip_uri.h; path = "libosip2-2.2.2/include/osipparser2/osip_uri.h"; sourceTree = "<group>"; };
 		1BC969F80CCA0134004C0339 /* sdp_message.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = sdp_message.h; path = "libosip2-2.2.2/include/osipparser2/sdp_message.h"; sourceTree = "<group>"; };
-		1BE262410CEF970E0098C270 /* French */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = French; path = French.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		1BE262CE0CEFA48D0098C270 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1BFBC7370CEB819F00CAE0B9 /* InCallPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InCallPopup.h; sourceTree = "<group>"; };
 		1BFBC7380CEB819F00CAE0B9 /* InCallPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InCallPopup.m; sourceTree = "<group>"; };
@@ -782,7 +783,6 @@
 		1BFFDFB50D4A9C840062D314 /* English */ = {isa = PBXFileReference; explicitFileType = text; fileEncoding = 2483028224; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1BFFDFD50D4A9CF70062D314 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/Localizable.strings; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		29B97319FDCFA39411CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* sipPhone_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sipPhone_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* symPhonie.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = symPhonie.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1487,6 +1487,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1B2742730D67300500EBAB4E /* MainMenu.xib */,
 				1BFFDFD30D4A9CEC0062D314 /* Localizable.strings */,
 				1BFBC7790CEB87C200CAE0B9 /* incallbg.tiff */,
 				1B751E250CE999E500BA8417 /* Cornemuse.mid */,
@@ -1495,7 +1496,6 @@
 				1B0B9B7B0CF8989000E011F3 /* Credits.rtf */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
-				29B97318FDCFA39411CA2CEA /* MainMenu.nib */,
 				1B2741EF0D67120E00EBAB4E /* SoftwareUpdate.nib */,
 			);
 			name = Resources;
@@ -1570,7 +1570,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BB0E7DA0CE83B6400207E64 /* sipPhoneAppCtl.scpt in Resources */,
-				8D11072A0486CEB800E47090 /* MainMenu.nib in Resources */,
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1B46EE080CCF1A9800397E41 /* icon.icns in Resources */,
 				1B0B9B7C0CF8989000E011F3 /* Credits.rtf in Resources */,
@@ -1582,6 +1581,7 @@
 				1BFFDFD40D4A9CEC0062D314 /* Localizable.strings in Resources */,
 				1B53903A0D66E83A002C2621 /* symPhonie.plist in Resources */,
 				1B2741F00D67120E00EBAB4E /* SoftwareUpdate.nib in Resources */,
+				1B2742750D67300500EBAB4E /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1914,6 +1914,15 @@
 			name = SoftwareUpdate.nib;
 			sourceTree = "<group>";
 		};
+		1B2742730D67300500EBAB4E /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1B2742740D67300500EBAB4E /* English */,
+				1B2742760D67302900EBAB4E /* French */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
 		1B620A1D0D1E647000641E33 /* symPhonieHelp */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1932,15 +1941,6 @@
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
-		29B97318FDCFA39411CA2CEA /* MainMenu.nib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				29B97319FDCFA39411CA2CEA /* English */,
-				1BE262410CEF970E0098C270 /* French */,
-			);
-			name = MainMenu.nib;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -1953,7 +1953,7 @@
 					ppc,
 				);
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 0.2.9;
+				CURRENT_PROJECT_VERSION = 0.2.10;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
@@ -2005,7 +2005,7 @@
 					i386,
 					ppc,
 				);
-				CURRENT_PROJECT_VERSION = 0.2.9;
+				CURRENT_PROJECT_VERSION = 0.2.10;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

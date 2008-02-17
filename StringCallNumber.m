@@ -17,6 +17,7 @@ static PhoneNumberConverter *defaultConverter=NULL;
 {
 	[_nationalPrefix release];
 	[_internationalPrefix release];
+	[_internationalPrefix2 release];
 	[_converterDef release];
 	if (self==defaultConverter) defaultConverter=NULL;
 	[super dealloc];
@@ -29,6 +30,7 @@ static PhoneNumberConverter *defaultConverter=NULL;
 	if (self != nil) {
 		_nationalPrefix=@"0";
 		_internationalPrefix=@"+33";
+		_internationalPrefix2=@"0033";
 		_converterDef=[[NSArray arrayWithObjects:
 			       @"I # ## ## ## ##",
 			       @"0 82# ### ###",
@@ -68,6 +70,11 @@ static PhoneNumberConverter *defaultConverter=NULL;
 {
 	return _internationalPrefix;
 }
+- (NSString *) internationalPrefix2
+{
+	return _internationalPrefix2;
+}
+
 - (void) setInternationalPrefix:(NSString *)num	// e.g; +33
 {
 	if (num != _internationalPrefix) {
@@ -75,6 +82,14 @@ static PhoneNumberConverter *defaultConverter=NULL;
 		_internationalPrefix=[num retain];
 	}
 }
+- (void) setInternationalPrefix2:(NSString *)num	// e.g; +33
+{
+	if (num != _internationalPrefix2) {
+		[_internationalPrefix2 release];
+		_internationalPrefix2=[num retain];
+	}
+}
+
 - (void) setNationalPrefix:(NSString *)num		// e.g. 0
 {
 	if (num != _nationalPrefix) {
@@ -120,10 +135,11 @@ static NSString * _callNumber(NSString *str)
 - (NSString *) internationalCallNumberFor:(NSString *)n
 {
 	NSString *s=_callNumber(n);
-	NSString *np, *ip;
+	NSString *np, *ip, *ip2;
 	np=[self nationalPrefix];
 	ip=[self internationalPrefix];
-	if (np && ip && [s hasPrefix:np]) {
+	ip2=[self internationalPrefix2];
+	if (np && ip && ([s hasPrefix:np] && ![s hasPrefix:@"+"] && ![s hasPrefix:@"00"])) {
 		NSString *r=[s substringFromIndex:[np length]];
 		r=[ip stringByAppendingString:r];
 		return r;
@@ -133,11 +149,12 @@ static NSString * _callNumber(NSString *str)
 - (NSString *) nationalCallNumberFor:(NSString *)n
 {
 	NSString *s=_callNumber(n);
-	NSString *np, *ip;
+	NSString *np, *ip, *ip2;
 	np=[self nationalPrefix];
 	ip=[self internationalPrefix];
+	ip2=[self internationalPrefix2];
 	
-	if (np && ip && [s hasPrefix:ip]) {
+	if (np && ip && ([s hasPrefix:ip] || ([s hasPrefix:ip2]))) {
 		NSString *r=[s substringFromIndex:[ip length]];
 		r=[np stringByAppendingString:r];
 		return r;
@@ -223,7 +240,8 @@ static NSString * _callNumber(NSString *str)
 - (NSString *) internationalDisplayCallNumberFor:(NSString *)n
 {
 	n=[self callNumberFor:n];
-	return [self _applyFormatFor:n];
+	NSString *s= [self _applyFormatFor:n];
+	return s;
 }
 
 @end

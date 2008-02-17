@@ -39,7 +39,7 @@
 	int audioTestStatus;
 	IBOutlet NSPanel *audioTestPanel;
 	BOOL dtmfVisible;
-	
+	NSMutableArray *matchPhones;
 	// failure notification messages
 	NSString *regErrorMsg;
 	NSString *regDiagMsg;
@@ -115,8 +115,8 @@
 
 - (IBAction) setDefaultNumber:(id)sender;
 
-
+- (BOOL) showCompletion;
 - (void) defaultProp;
 - (void) addPowerNotif;
-
+- (void) updateCompletionList: (NSString *)number;
 @end

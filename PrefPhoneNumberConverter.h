@@ -16,9 +16,11 @@
 
 - (void) setConverterDef:(NSArray *)def;
 - (void) setInternationalPrefix:(NSString *)num;	// e.g; +33
+- (void) setInternationalPrefix2:(NSString *)num;	// e.g; +33
 - (void) setNationalPrefix:(NSString *)n;		// e.g. 0
 - (NSString *) nationalPrefix;
 - (NSString *) internationalPrefix;
+- (NSString *) internationalPrefix2;
 - (NSArray *) converterDef;
 
 + (NSArray *) defaultPrefValue;

@@ -44,7 +44,8 @@ static int _debugCauses=0;
 		if (1) NSLog(@"build %s\n", __DATE__);
 		onDemandRegister=NO; //XXX
 		pauseAppScript=[[BundledScript bundledScript:@"sipPhoneAppCtl"]retain];
-		[pauseAppScript runEvent:@"doNothing" withArgs:nil];
+		if (0) [pauseAppScript runEvent:@"doNothing" withArgs:nil];
+		matchPhones=[[NSArray array]retain];
 	}
 	return self;
 }
@@ -71,7 +72,7 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 				 void *                      info);
 - (void) awakeFromNib
 {
-	UpdateChecker *upc=[[UpdateChecker alloc]init];
+	[[UpdateChecker alloc]init];
 	//[upc getUpdateInfos];
 	// XXX
 	
@@ -144,6 +145,7 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 	getProp(@"numberRulesPref", [PrefPhoneNumberConverter defaultPrefValue]);
 	getProp(@"numberNationalPrefix", @"0");
 	getProp(@"numberInternationalPrefix", @"+33");
+	getProp(@"numberInternationalPrefix", @"0033");
 	getIntProp(@"numberNationalPreference", 0);
 
 	float v1=getFloatProp(@"audioOutputVolume", -8);
@@ -505,7 +507,7 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 	// if not, used name value provided in URL, and advised the user
 	// that user is unknown
 	
-	ABCache *abc=[phone valueForKey:@"abCache"];
+	ABCache *abc=[phone abCache];
 	NSString *knownName=[[abc findByPhone:dnum] fullName];
 	if (knownName) {
 		[phone setValue:knownName forKey:@"selectedName"];
@@ -1141,8 +1143,149 @@ static NSString *q850(int c)
 #pragma mark -
 #pragma mark *** more goodies ***
 
+- (void)controlTextDidChange:(NSNotification *)aNotification
+{
+}
+
 - (BOOL)tokenField:(NSTokenField *)tokenField hasMenuForRepresentedObject:(id)representedObjec
 {
 	return NO;
 }
+
+- (NSArray *)tokenField:(NSTokenField *)tokenField completionsForSubstring:(NSString *)substring indexOfToken:(int)tokenIndex indexOfSelectedItem:(int *)selectedIndex
+{
+	if ([substring length]>26) {
+		ABCache *abc=[phone abCache];
+		NSArray *ap=[abc allPhones];
+		NSMutableArray *app=[NSMutableArray arrayWithCapacity:10];
+		int i, count = [ap count];
+		NSString *z=[substring internationalCallNumber];
+		for (i = 0; i < count; i++) {
+			NSString * s = [ap objectAtIndex:i];
+			if ([s hasPrefix:z]) {
+				[app addObject:[s displayCallNumber]];
+			}
+		}
+		if ([app count]>16) return nil;
+		if (![app count]) return nil;
+		if (selectedIndex) *selectedIndex=-1;
+		return app;
+	}
+	return nil;
+}
+
+- (NSString *)tokenField:(NSTokenField *)tokenField displayStringForRepresentedObject:(id)representedObject
+{
+	return nil;
+}
+
+- (NSMenu *)tokenField:(NSTokenField *)tokenField menuForRepresentedObject:(id)representedObject
+{
+	return nil;
+}
+
+- (void) setMatchPhones:(NSArray *)a
+{
+	if (a != matchPhones) {
+		[self willChangeValueForKey:@"showCompletion"];
+		[matchPhones release];
+		matchPhones=[a retain];
+		[self didChangeValueForKey:@"showCompletion"];
+	}
+}
+
+- (NSArray *) matchPhones
+{
+	return matchPhones;
+}
+
+- (void) updateCompletionList: (NSString *)number
+{
+	if (!number || ![number length]) {
+		[self setMatchPhones:nil];
+		return;
+	}
+	int nmatch=0;
+	NSMutableArray *app=[NSMutableArray arrayWithCapacity:16];
+
+	NSString *z=[number internationalCallNumber];
+	if (![z length]) {
+		[self setMatchPhones:nil];
+		//return;
+		ABAddressBook *ab=[ABAddressBook sharedAddressBook];
+		
+		ABSearchElement *se=[ABPerson searchElementForProperty:kABFirstNameProperty/*kABFirstNamePhoneticProperty*/
+									label:nil
+									  key:nil
+									value:number
+								   comparison:kABContainsSubStringCaseInsensitive];		
+		NSArray *ma=[ab recordsMatchingSearchElement:se];
+		// assume s is name
+		//NSArray *ap=
+		NSLog(@"cound %d\n",[ma count]);
+		int i, count = [ma count];
+		for (i = 0; i < count; i++) {
+			ABPerson * person = [ma objectAtIndex:i];
+			ABMultiValue *phones = [person valueForProperty:kABPhoneProperty];
+			NSString *fn=[person fullName];
+			int j, k;
+			k=[phones count];
+			for (j=0; j<k; j++) {
+				NSString *s=[phones valueAtIndex:j];
+				NSString *s2=[s displayCallNumber];
+				//if (!s2) s2=s; // useless
+				if (!s2) continue;
+				[app addObject:[NSString stringWithFormat:@"%@ - %@",
+						s2, fn]];
+				//NSLog(@"got %@\n", s);
+				nmatch++;
+				if (nmatch>16) break;
+			}
+			
+		}
+	} else {
+		ABCache *abc=[phone abCache];
+		NSArray *ap=[abc allPhones];
+		int i, count = [ap count];
+		
+		for (i = 0; i < count; i++) {
+			NSString * s = [ap objectAtIndex:i];
+			if ([s hasPrefix:z]) {
+				NSString *fn=[[abc findByPhone:s]fullName];
+				[app addObject:[NSString stringWithFormat:@"%@ - %@",
+						[s displayCallNumber], fn]];
+				nmatch++;
+				if (nmatch>16) break;
+				
+			}
+		}
+	}
+	if (([app count]>16) || (![app count])) {
+		[self setMatchPhones:nil];
+	}
+	[self setMatchPhones:app];
+}
+
+- (BOOL) showCompletion
+{
+	int n=[matchPhones count];
+	return ((n>0) && (n<16));
+}
+
+- (NSIndexSet *) matchPhoneSelect
+{
+	return [NSIndexSet indexSet];
+}
+- (void) setMatchPhoneSelect:(NSIndexSet*)si
+{
+	int i=[si firstIndex];
+	if (NSNotFound==i) return;
+	NSString *r=[matchPhones objectAtIndex:i];
+	NSLog(@"select %@\n", r);
+	[phone willChangeValueForKey:@"selectedNumber"];
+	[phone setSelectedNumber:r update:NO];
+	[phone didChangeValueForKey:@"selectedNumber"];
+	NSLog(@"selected\n");
+}
+
 @end

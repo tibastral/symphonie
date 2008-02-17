@@ -51,6 +51,11 @@ static NSArray *defRules=nil;
 {
 	setProp(@"numberInternationalPrefix", num);
 }
+- (void) setInternationalPrefix2:(NSString *)num
+{
+	setProp(@"numberInternationalPrefix2", num);
+}
+
 - (void) setNationalPrefix:(NSString *)n
 {
 	setProp(@"numberNationalPrefix", n);
@@ -63,6 +68,11 @@ static NSArray *defRules=nil;
 {
 	return getProp(@"numberInternationalPrefix", @"+33");
 }
+- (NSString *) internationalPrefix2
+{
+	return getProp(@"numberInternationalPrefix2", @"0033");
+}
+
 - (NSArray *) converterDef
 {
 	NSArray *p=getProp(@"numberRulesPref", [PrefPhoneNumberConverter defaultPrefValue]);

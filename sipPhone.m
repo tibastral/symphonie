@@ -95,6 +95,7 @@ static int initDone=0;
 	return self;
 }
 - (void) dealloc {
+	[callDate release];
 	[serviceRoute release];
 	[abCache release];
 	[selectedNumber release];
@@ -188,6 +189,10 @@ static int initDone=0;
 #pragma mark -
 #pragma mark *** AddressBook ****
 
+- (ABCache *)abCache
+{
+	return abCache;
+}
 - (void)recordChange:(NSNotification*)notif {
 	//NSImage *personImage;
 	NSString *personName;
@@ -237,7 +242,7 @@ static int initDone=0;
 - (void) setAbVisible:(BOOL)f
 {
 	//if (f && !abVisible) 	[abPicker deselectAll:self];
-	if ((sip_registered==state)||(sip_ondemand==state)) abVisibleOffline=f;
+	// removed :if ((sip_registered==state)||(sip_ondemand==state)) abVisibleOffline=f;
 	abVisible=f;
 }
 
@@ -245,21 +250,34 @@ static int initDone=0;
 #pragma mark -
 #pragma mark *** Accessors ****
 
-- (void) setSelectedNumber:(NSString *)s
+- (void) setSelectedNumber:(NSString *)s update:(BOOL)upd
 {
-	[appHelper resetErrorForDomain:1];
+	if (upd) [appHelper resetErrorForDomain:1];
 
 	if (selectedNumber != s) {
-
+		NSAssert(!s ||	[s isKindOfClass:[NSString class]], @"bad class for selectednumber\n");
 		[self willChangeValueForKey:@"internationalSelectedNumber"];
 		[self willChangeValueForKey:@"internationalDisplaySelectedNumber"];
 		[selectedNumber release];
 		selectedNumber=[s retain];
-		[self setFromAB:NO];
+		ABPerson *callPerson=[abCache findByPhone:selectedNumber];
+		if (callPerson) {
+			NSString *personName=[callPerson fullName];
+			[self setSelectedName:personName];
+			[self setFromAB:YES];
+		} else {
+			[self setFromAB:NO];
+		}
+		if (upd) [appHelper updateCompletionList:selectedNumber];
 		[self didChangeValueForKey:@"internationalDisplaySelectedNumber"];
 		[self didChangeValueForKey:@"internationalSelectedNumber"];
 
 	}
+}
+
+- (void) setSelectedNumber:(NSString *)s
+{
+	[self setSelectedNumber:s update:YES];
 }
 - (NSString*) selectedNumber
 {
@@ -272,6 +290,8 @@ static int initDone=0;
 }
 - (NSString*) internationalDisplaySelectedNumber
 {
+	if (!selectedNumber) return nil;
+	NSAssert([selectedNumber isKindOfClass:[NSString class]], @"bad selected number");
 	return [selectedNumber internationalDisplayCallNumber];
 }
 
@@ -319,12 +339,7 @@ static int initDone=0;
 		[callingNumber release];
 		callingNumber=[s retain];
 		ABPerson *caller=[abCache findByPhone:callingNumber];
-		NSString *n1=[caller valueForProperty:kABFirstNameProperty];
-		NSString *n2=[caller valueForProperty:kABLastNameProperty];
-		NSString *personName;
-		if (!n2) personName=n1;
-		else if (!n1) personName=n2;
-		else personName  = [NSString stringWithFormat:@"%@ %@",n1,n2];
+		NSString *personName=[caller fullName];
 		[self setCallingName:personName];
 		
 		[self didChangeValueForKey:@"displayCallingNumber"];
@@ -444,6 +459,15 @@ static int initDone=0;
 	}
 	if ((state==sip_online) && (olds != sip_incoming_call_ringing)) {
 		if (getBoolProp(@"suspendMultimedia", YES)) [appHelper pauseApps];
+	}
+	if (state==sip_online) {
+		[self willChangeValueForKey:@"callDuration"];
+		[self willChangeValueForKey:@"callDurationTxt"];
+		[callDate release];
+		callDate=[[NSDate date]retain];
+		pollcount=0;
+		[self didChangeValueForKey:@"callDuration"];
+		[self didChangeValueForKey:@"callDurationTxt"];
 	}
 	if ((state==sip_off) || (state==sip_ondemand)) {
 		[appHelper phoneIsOff:YES];
@@ -693,6 +717,16 @@ static int initDone=0;
 
 	static int __fe=0;
 	static int __fa=0;
+	
+	pollcount=(pollcount+1)%10;
+	if (state==sip_online) {
+		if (!pollcount) {
+			[self willChangeValueForKey:@"callDuration"];
+			[self willChangeValueForKey:@"callDurationTxt"];
+			[self didChangeValueForKey:@"callDuration"];
+			[self didChangeValueForKey:@"callDurationTxt"];
+		}
+	}
 	for (;;) {
 		je = eXosip_event_wait (0, 0);
 		EXOSIP_LOCK();
@@ -1128,8 +1162,9 @@ refuse_call:
 		NSLog(@"bad state %d for ocall\n", state);
 		return;
 	}
+	[callDate release];
+	callDate=[[NSDate date]retain];
 	[appHelper resetErrorForDomain:1];
-
 	osip_message_t *invite = NULL;
 	
 	int rc;
@@ -1166,6 +1201,8 @@ refuse_call:
 
 - (IBAction) dialOutCall:(id) sender
 {
+	if ([sender isKindOfClass:[NSButton class]]) {
+	}
 	if (state==sip_ondemand) {
 		[self registerPhoneOnDemand:YES dur:1800];
 	} else if (state != sip_registered) return;
@@ -1349,4 +1386,45 @@ static const char *padDigits[16]={
 	
 }
 
+- (int) callDuration
+{
+	if (!callDate) return nil;
+	NSTimeInterval t= -[callDate timeIntervalSinceNow];
+	int v=(int)(t+0.5);
+	int mv;
+	if (0 && (v>3600)) mv=3600*12;
+	else if (v>600) mv=3600;
+	else if (v>300) mv=600;
+	else if (v>60) mv=300;
+	else mv=60;
+	if (v>mv) mv=v;
+	if (mv != maxDuration) [self setMaxDuration:mv];
+	return v;
+}
+
+- (int) maxDuration
+{
+	return maxDuration;
+}
+- (void) setMaxDuration:(int)v
+{
+	maxDuration=v;
+}
+
+- (NSString *) callDurationTxt
+{
+	int h;
+	int m;
+	int s;
+	int v=[self callDuration];
+	h=v/3600;
+	v=v%3600;
+	m=v/60;
+	v=v%60;
+	s=v;
+	if (h) {
+		return [NSString stringWithFormat:@"%d h %d'%2.2d", h, m, s];
+	}
+	return [NSString stringWithFormat:@"%d'%2.2d", m, s];
+}
 @end

@@ -16,6 +16,7 @@
 }
 
 - (ABPerson *) findByPhone:(NSString *)phone;
+- (NSArray *) allPhones;
 @end
 
 @interface ABPerson (DBExt)

@@ -41,6 +41,14 @@ void _externalAssert(int l, char *f, char *e)
 		[self _initMedia];
 		outputDevIdx=-1;
 		inputDevIdx=-1;
+		[[NSUserDefaultsController sharedUserDefaultsController] addObserver:self
+									  forKeyPath:@"values.audioOutputVolume"
+									     options:NSKeyValueObservingOptionNew
+									     context:nil];
+		[[NSUserDefaultsController sharedUserDefaultsController] addObserver:self
+									  forKeyPath:@"values.audioInputGain"
+									     options:NSKeyValueObservingOptionNew
+									     context:nil];	
 	}
 	
 	return self;
@@ -375,6 +383,8 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 		input=NULL;
 	}
 #endif
+	outputDevIdx=-1;
+	inputDevIdx=-1;
 	[self stopRing];
 	if (callpool) pj_pool_reset(callpool);
 }
@@ -697,5 +707,21 @@ static pj_status_t recordEnded(pjmedia_port *port, void *usr_data)
 						   pjmedia_snd_port_connect(inputOutput, tone_generator);
 #endif
 }
+
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+	if (inputDevIdx<0) return;
+	if (outputDevIdx<0) return;
+	if ([keyPath isEqualToString:@"values.audioInputGain"]) {
+		double newg=getFloatProp(@"audioInputGain", 100);
+		setVolume(_GlobMacDevIds[inputDevIdx], 1, newg);
+	} else if ([keyPath isEqualToString:@"values.audioOutputVolume"]) {
+		double newg=getFloatProp(@"audioOutputVolume", 100);
+		setVolume(_GlobMacDevIds[outputDevIdx], 0, newg);
+	}
+}
+
+
 
 @end

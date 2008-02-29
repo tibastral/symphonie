@@ -307,7 +307,7 @@
 							<real>199</real>
 						</array>
 						<key>RubberWindowFrame</key>
-						<string>402 52 1032 635 0 0 1280 778 </string>
+						<string>193 105 1032 635 0 0 1280 778 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -337,7 +337,7 @@
 										<key>_historyCapacity</key>
 										<integer>40</integer>
 										<key>bookmark</key>
-										<string>1B3AFFD50D3C918600AEFBEB</string>
+										<string>1B1D85630D7767AD004826B0</string>
 										<key>history</key>
 										<array>
 											<string>1BE265270CF0D4910098C270</string>
@@ -346,7 +346,7 @@
 											<string>1BF4C4AB0D3A82C300FB112F</string>
 											<string>1BF4C4AC0D3A82C300FB112F</string>
 											<string>1BF4C4AD0D3A82C300FB112F</string>
-											<string>1BF4C4B20D3A82C300FB112F</string>
+											<string>1B3AFFD50D3C918600AEFBEB</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -372,7 +372,7 @@
 								<key>Frame</key>
 								<string>{{0, 0}, {811, 378}}</string>
 								<key>RubberWindowFrame</key>
-								<string>402 52 1032 635 0 0 1280 778 </string>
+								<string>193 105 1032 635 0 0 1280 778 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -397,7 +397,7 @@
 										<key>Frame</key>
 										<string>{{10, 27}, {811, 184}}</string>
 										<key>RubberWindowFrame</key>
-										<string>402 52 1032 635 0 0 1280 778 </string>
+										<string>193 105 1032 635 0 0 1280 778 </string>
 									</dict>
 									<key>Module</key>
 									<string>XCDetailModule</string>
@@ -479,11 +479,11 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>1B3AFF310D3C13E400AEFBEB</string>
+				<string>1B1D855F0D7766E7004826B0</string>
 				<string>1CA23ED40692098700951B8B</string>
-				<string>1B3AFF320D3C13E400AEFBEB</string>
+				<string>1B1D85600D7766E7004826B0</string>
 				<string>1B802E550CEE51010021CAAD</string>
-				<string>1B3AFF330D3C13E400AEFBEB</string>
+				<string>1B1D85610D7766E7004826B0</string>
 				<string>1CA23EDF0692099D00951B8B</string>
 				<string>1CA23EE00692099D00951B8B</string>
 				<string>1CA23EE10692099D00951B8B</string>
@@ -652,7 +652,7 @@
 		<string>/Users/danielbraun/devel/sipPhone/sipPhoneAbPlugin/sipPhoneAbPlugin.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>402 52 1032 635 0 0 1280 778 </string>
+	<string>193 105 1032 635 0 0 1280 778 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>

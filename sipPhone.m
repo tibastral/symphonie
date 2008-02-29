@@ -226,14 +226,21 @@ static int initDone=0;
 	//[personImage release];
 }
 
-- (IBAction) abDClicked:(id)this
+- (IBAction) abDClicked:(id)sender
 {
 	NSLog(@"double click\n");
 	if (getBoolProp(@"doubleClickCall",NO)) {
 		[self dialOutCall:self];
 	}
 }
-
+- (IBAction) historyDClicked:(id)sender
+{
+	[self abDClicked:sender];
+}
+- (IBAction) completionDClicked:(id)sender
+{
+	[self abDClicked:sender];
+}
 
 - (BOOL) abVisible
 {

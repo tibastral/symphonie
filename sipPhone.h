@@ -99,6 +99,10 @@ typedef enum {
 - (sipState_t) state;
 
 - (int) selectedViewNumber;	// bound to tabview - selects the current view (unreg, offline,...)
+- (IBAction) abDClicked:(id)sender;
+- (IBAction) historyDClicked:(id)sender;
+- (IBAction) completionDClicked:(id)sender;
+
 
 // some flags, usable in bindings, that depends on state
 - (BOOL) isRinging;

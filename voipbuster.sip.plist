@@ -20,5 +20,9 @@
 	<string>sip:sip.voipbuster.com</string>
 	<key>sipRegistrationDuration</key>
 	<integer>1800</integer>
+	<key>urlImage</key>
+	<string>http://www.voipbuster.com/images/logo.gif</string>
+	<key>urlMain</key>
+	<string>http://www.voipbuster.com</string>
 </dict>
 </plist>

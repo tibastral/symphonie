@@ -5,24 +5,24 @@
 	<key>alternateIsAlternate</key>
 	<false/>
 	<key>guiAccountHint</key>
-	<string>InPhonex 7 digits number</string>
+	<string></string>
 	<key>guiAccountIsPhone</key>
-	<true/>
+	<false/>
 	<key>guiPasswordHint</key>
-	<string>InPhonex password</string>
+	<string></string>
 	<key>name</key>
-	<string>InPhonex</string>
+	<string>keyyo</string>
 	<key>sipDomain</key>
-	<string>sip.inphonex.com</string>
+	<string>keyyo.net</string>
 	<key>sipFrom</key>
-	<string>sip:%@@sip.inphonex.com</string>
+	<string>sip:%@@keyyo.net</string>
 	<key>sipProxy</key>
-	<string>sip:sip.inphonex.com</string>
+	<string>sip:keyyo.net</string>
 	<key>sipRegistrationDuration</key>
-	<integer>300</integer>
+	<integer>1800</integer>
 	<key>urlImage</key>
-	<string>http://www.inphonex.com/images/inphonexlogo.gif</string>
+	<string>http://www.keyyo.fr/fr/images_fr/logo_keyyo.gif</string>
 	<key>urlMain</key>
-	<string>http://www.inphonex.com/</string>
+	<string>http://www.keyyo.fr</string>
 </dict>
 </plist>

@@ -20,5 +20,9 @@
 	<string>sip:sip.voipcheap.com</string>
 	<key>sipRegistrationDuration</key>
 	<integer>1800</integer>
+	<key>urlImage</key>
+	<string>http://www.voipcheap.com/images/vc_header_logo.gif</string>
+	<key>urlMain</key>
+	<string>http://www.voipcheap.com</string>
 </dict>
 </plist>

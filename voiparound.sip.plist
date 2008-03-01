@@ -20,5 +20,9 @@
 	<string>sip:sip.voiparound.com</string>
 	<key>sipRegistrationDuration</key>
 	<integer>55</integer>
+	<key>urlImage</key>
+	<string>http://www.freecall.com/images/header_01.jpg</string>
+	<key>urlMain</key>
+	<string>http://www.freecall.com</string>
 </dict>
 </plist>

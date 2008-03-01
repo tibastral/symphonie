@@ -20,5 +20,9 @@
 	<string>sip:proxy01.sipphone.com</string>
 	<key>sipRegistrationDuration</key>
 	<integer>1800</integer>
+	<key>urlImage</key>
+	<string>http://gizmoproject.com/images/img-calls-free.jpg</string>
+	<key>urlMain</key>
+	<string>http://gizmoproject.com</string>
 </dict>
 </plist>

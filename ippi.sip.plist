@@ -4,27 +4,25 @@
 <dict>
 	<key>alternateIsAlternate</key>
 	<false/>
-	<key>alternateSelection</key>
-	<string>wifiName</string>
-	<key>alternateSetting</key>
-	<string>freephonie</string>
-	<key>alternateValue</key>
-	<string>freephonie</string>
 	<key>guiAccountHint</key>
-	<string>Your 09 5x xx xx xx  phone number   (not the France Telecom number)</string>
+	<string></string>
 	<key>guiAccountIsPhone</key>
-	<true/>
+	<false/>
 	<key>guiPasswordHint</key>
-	<string>Your SIP account password   (not your main free account)</string>
+	<string></string>
 	<key>name</key>
-	<string>free</string>
+	<string>IPPI</string>
 	<key>sipDomain</key>
-	<string>freephonie.net</string>
+	<string>ippi.fr</string>
 	<key>sipFrom</key>
-	<string>sip:%@@freephonie.net</string>
+	<string>sip:%@@ippi.fr</string>
 	<key>sipProxy</key>
-	<string>sip:freephonie.net</string>
+	<string>sip:ippi.fr</string>
 	<key>sipRegistrationDuration</key>
 	<integer>1800</integer>
+	<key>urlImage</key>
+	<string>http://www.ippi.fr/images/elements/logo_ippi.jpg</string>
+	<key>urlMain</key>
+	<string>http://www.ippi.fr/</string>
 </dict>
 </plist>

@@ -604,9 +604,11 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 }	
 - (NSString *) sipFrom
 {
+	NSString *p=[self phoneNumber];
+	if (!p) return nil;
 	NSString *s=[providerInfo valueForKey:@"sipFrom"];
 	if (!s) return s;
-	return [NSString stringWithFormat:s, [self phoneNumber]];
+	return [NSString stringWithFormat:s, p];
 	
 }
 - (NSString *) sipContact
@@ -665,6 +667,7 @@ static OSStatus StorePasswordKeychain(NSString *account, NSString* password);
 	if (!name) {
 		name=getProp(@"providerName", @"free");
 	}
+	[phone unregisterPhone:self];
 	[self willChangeValueForKey:@"providerTabIdx"];
 	[self setProviderInfo:[providers objectForKey:name]];
 	setProp(@"providerName", name);

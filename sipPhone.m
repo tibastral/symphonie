@@ -629,9 +629,11 @@ static int initDone=0;
 	NSString *from=[appHelper sipFrom];
 	NSString *proxy=[appHelper sipProxy];
 	NSString *contact=[appHelper sipContact];
-	if (!from) return;
-	if (!proxy) return;
-	if (!contact) return;
+	if (!from || !proxy || !contact) {
+		[appHelper sipError:-2 phrase:"cannot send register" reason:nil domain:0];
+		[self setState:sip_off];
+		return;
+	}
 	EXOSIP_LOCK ();
 	_rid = eXosip_register_build_initial_register ([from cString], [proxy cString], [contact cString],
 						     dur, &reg);
@@ -641,6 +643,7 @@ static int initDone=0;
 		//NSAssert(0, @"registered failed\n");
 		NSLog(@"register failed (buid initial reg) %d", _rid);
 		[appHelper sipError:-2 phrase:"cannot send register" reason:nil domain:0];
+		[self setState:sip_off];
 		return;
 	}
 	//NSLog(@"password %@\n",[appHelper authPasswd]);

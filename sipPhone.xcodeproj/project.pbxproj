@@ -323,6 +323,9 @@
 		1BECBE6F0D795E3E004CCDF3 /* voipbuster.sip.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1BECBE6A0D795E3E004CCDF3 /* voipbuster.sip.plist */; };
 		1BECBE700D795E3E004CCDF3 /* voipcheap.sip.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1BECBE6B0D795E3E004CCDF3 /* voipcheap.sip.plist */; };
 		1BECBE710D795E3E004CCDF3 /* wengo.sip.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1BECBE6C0D795E3E004CCDF3 /* wengo.sip.plist */; };
+		1BECBE930D796110004CCDF3 /* inphonex.sip.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1BECBE920D796110004CCDF3 /* inphonex.sip.plist */; };
+		1BECBE950D796123004CCDF3 /* ippi.sip.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1BECBE940D796123004CCDF3 /* ippi.sip.plist */; };
+		1BECBF180D796C8C004CCDF3 /* keyyo.sip.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1BECBF170D796C8C004CCDF3 /* keyyo.sip.plist */; };
 		1BFBC7390CEB819F00CAE0B9 /* InCallPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFBC7380CEB819F00CAE0B9 /* InCallPopup.m */; };
 		1BFBC77A0CEB87C200CAE0B9 /* incallbg.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 1BFBC7790CEB87C200CAE0B9 /* incallbg.tiff */; };
 		1BFFDFD40D4A9CEC0062D314 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1BFFDFD30D4A9CEC0062D314 /* Localizable.strings */; };
@@ -792,6 +795,9 @@
 		1BECBE6A0D795E3E004CCDF3 /* voipbuster.sip.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = voipbuster.sip.plist; sourceTree = "<group>"; };
 		1BECBE6B0D795E3E004CCDF3 /* voipcheap.sip.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = voipcheap.sip.plist; sourceTree = "<group>"; };
 		1BECBE6C0D795E3E004CCDF3 /* wengo.sip.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = wengo.sip.plist; sourceTree = "<group>"; };
+		1BECBE920D796110004CCDF3 /* inphonex.sip.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = inphonex.sip.plist; sourceTree = "<group>"; };
+		1BECBE940D796123004CCDF3 /* ippi.sip.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ippi.sip.plist; sourceTree = "<group>"; };
+		1BECBF170D796C8C004CCDF3 /* keyyo.sip.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = keyyo.sip.plist; sourceTree = "<group>"; };
 		1BFBC7370CEB819F00CAE0B9 /* InCallPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InCallPopup.h; sourceTree = "<group>"; };
 		1BFBC7380CEB819F00CAE0B9 /* InCallPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InCallPopup.m; sourceTree = "<group>"; };
 		1BFBC7790CEB87C200CAE0B9 /* incallbg.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = incallbg.tiff; sourceTree = "<group>"; };
@@ -1476,8 +1482,11 @@
 		1BEB4A670D78C2E700DC7D23 /* SIP configs */ = {
 			isa = PBXGroup;
 			children = (
+				1BECBF170D796C8C004CCDF3 /* keyyo.sip.plist */,
 				1BEB4A5E0D78BEB100DC7D23 /* free.sip.plist */,
 				1BEB4A680D78C31000DC7D23 /* freephonie.sip.plist */,
+				1BECBE940D796123004CCDF3 /* ippi.sip.plist */,
+				1BECBE920D796110004CCDF3 /* inphonex.sip.plist */,
 				1BECBE690D795E3E004CCDF3 /* voiparound.sip.plist */,
 				1BECBE6A0D795E3E004CCDF3 /* voipbuster.sip.plist */,
 				1BECBE6B0D795E3E004CCDF3 /* voipcheap.sip.plist */,
@@ -1619,6 +1628,9 @@
 				1BECBE6F0D795E3E004CCDF3 /* voipbuster.sip.plist in Resources */,
 				1BECBE700D795E3E004CCDF3 /* voipcheap.sip.plist in Resources */,
 				1BECBE710D795E3E004CCDF3 /* wengo.sip.plist in Resources */,
+				1BECBE930D796110004CCDF3 /* inphonex.sip.plist in Resources */,
+				1BECBE950D796123004CCDF3 /* ippi.sip.plist in Resources */,
+				1BECBF180D796C8C004CCDF3 /* keyyo.sip.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1991,7 +2003,7 @@
 					ppc,
 				);
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 0.2.10;
+				CURRENT_PROJECT_VERSION = 0.2.11;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
@@ -2043,7 +2055,7 @@
 					i386,
 					ppc,
 				);
-				CURRENT_PROJECT_VERSION = 0.2.10;
+				CURRENT_PROJECT_VERSION = 0.2.11;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

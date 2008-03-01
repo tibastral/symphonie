@@ -26,5 +26,9 @@
 	<string>sip:freephonie.net</string>
 	<key>sipRegistrationDuration</key>
 	<integer>1800</integer>
+	<key>urlImage</key>
+	<string>http://www.free.fr/im/mast_free2.gif</string>
+	<key>urlMain</key>
+	<string>http://www.free.fr/</string>
 </dict>
 </plist>

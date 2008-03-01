@@ -20,5 +20,9 @@
 	<string>sip:voip.wengo.fr</string>
 	<key>sipRegistrationDuration</key>
 	<integer>55</integer>
+	<key>urlImage</key>
+	<string>http://www.openwengo.org/static/eng_eng/images/elements/spiralewengo.gif</string>
+	<key>urlMain</key>
+	<string>http://www.wengophone.fr/index.php</string>
 </dict>
 </plist>

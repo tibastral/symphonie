@@ -8,6 +8,12 @@
 	<array>
 		<dict>
 			<key>change</key>
+			<string>support for several providers</string>
+			<key>version</key>
+			<string>0.2.11</string>
+		</dict>
+		<dict>
+			<key>change</key>
 			<string>version checking added, several fixes</string>
 			<key>version</key>
 			<string>0.2.10</string>
@@ -20,7 +26,7 @@
 		</dict>
 	</array>
 	<key>infoDate</key>
-	<date>2008-02-16T09:49:52Z</date>
+	<date>2008-02-29T23:00:00Z</date>
 	<key>infoMessage</key>
 	<string>This is beta, don't forget to report bugs!</string>
 	<key>osMaxRelease</key>
@@ -50,7 +56,7 @@
 		<key>B</key>
 		<integer>2</integer>
 		<key>C</key>
-		<integer>10</integer>
+		<integer>11</integer>
 	</dict>
 </dict>
 </plist>

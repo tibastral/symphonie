@@ -316,6 +316,9 @@
 		1BC969540CC9FAB7004C0339 /* port_sema.c in Sources */ = {isa = PBXBuildFile; fileRef = 1BC9693D0CC9FAB7004C0339 /* port_sema.c */; };
 		1BC969550CC9FAB7004C0339 /* port_thread.c in Sources */ = {isa = PBXBuildFile; fileRef = 1BC9693E0CC9FAB7004C0339 /* port_thread.c */; };
 		1BE5078E0D68883700548993 /* SoftwareUpdate.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BE5078C0D68883700548993 /* SoftwareUpdate.xib */; };
+		1BEB4A5F0D78BEB100DC7D23 /* free.sip.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1BEB4A5E0D78BEB100DC7D23 /* free.sip.plist */; };
+		1BEB4A690D78C31000DC7D23 /* freephonie.sip.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1BEB4A680D78C31000DC7D23 /* freephonie.sip.plist */; };
+		1BEB4A6C0D78C3A900DC7D23 /* gizmo.sip.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1BEB4A6B0D78C3A900DC7D23 /* gizmo.sip.plist */; };
 		1BFBC7390CEB819F00CAE0B9 /* InCallPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BFBC7380CEB819F00CAE0B9 /* InCallPopup.m */; };
 		1BFBC77A0CEB87C200CAE0B9 /* incallbg.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 1BFBC7790CEB87C200CAE0B9 /* incallbg.tiff */; };
 		1BFFDFD40D4A9CEC0062D314 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1BFFDFD30D4A9CEC0062D314 /* Localizable.strings */; };
@@ -778,6 +781,9 @@
 		1BE262CE0CEFA48D0098C270 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1BE5078D0D68883700548993 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SoftwareUpdate.xib; sourceTree = "<group>"; };
 		1BE507900D68893B00548993 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/SoftwareUpdate.xib; sourceTree = "<group>"; };
+		1BEB4A5E0D78BEB100DC7D23 /* free.sip.plist */ = {isa = PBXFileReference; explicitFileType = text.plist; fileEncoding = 4; path = free.sip.plist; sourceTree = "<group>"; };
+		1BEB4A680D78C31000DC7D23 /* freephonie.sip.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = freephonie.sip.plist; sourceTree = "<group>"; };
+		1BEB4A6B0D78C3A900DC7D23 /* gizmo.sip.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = gizmo.sip.plist; sourceTree = "<group>"; };
 		1BFBC7370CEB819F00CAE0B9 /* InCallPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InCallPopup.h; sourceTree = "<group>"; };
 		1BFBC7380CEB819F00CAE0B9 /* InCallPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InCallPopup.m; sourceTree = "<group>"; };
 		1BFBC7790CEB87C200CAE0B9 /* incallbg.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = incallbg.tiff; sourceTree = "<group>"; };
@@ -1459,6 +1465,16 @@
 			name = includes;
 			sourceTree = "<group>";
 		};
+		1BEB4A670D78C2E700DC7D23 /* SIP configs */ = {
+			isa = PBXGroup;
+			children = (
+				1BEB4A5E0D78BEB100DC7D23 /* free.sip.plist */,
+				1BEB4A680D78C31000DC7D23 /* freephonie.sip.plist */,
+				1BEB4A6B0D78C3A900DC7D23 /* gizmo.sip.plist */,
+			);
+			name = "SIP configs";
+			sourceTree = "<group>";
+		};
 		29B97314FDCFA39411CA2CEA /* sipPhone */ = {
 			isa = PBXGroup;
 			children = (
@@ -1488,6 +1504,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1BEB4A670D78C2E700DC7D23 /* SIP configs */,
 				1BE5078C0D68883700548993 /* SoftwareUpdate.xib */,
 				1B2742730D67300500EBAB4E /* MainMenu.xib */,
 				1BFFDFD30D4A9CEC0062D314 /* Localizable.strings */,
@@ -1583,6 +1600,9 @@
 				1B53903A0D66E83A002C2621 /* symPhonie.plist in Resources */,
 				1B2742750D67300500EBAB4E /* MainMenu.xib in Resources */,
 				1BE5078E0D68883700548993 /* SoftwareUpdate.xib in Resources */,
+				1BEB4A5F0D78BEB100DC7D23 /* free.sip.plist in Resources */,
+				1BEB4A690D78C31000DC7D23 /* freephonie.sip.plist in Resources */,
+				1BEB4A6C0D78C3A900DC7D23 /* gizmo.sip.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

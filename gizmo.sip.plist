@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>alternateIsAlternate</key>
+	<false/>
+	<key>guiAccountHint</key>
+	<string></string>
+	<key>guiAccountIsPhone</key>
+	<false/>
+	<key>guiPasswordHint</key>
+	<string></string>
+	<key>name</key>
+	<string>gizmo</string>
+	<key>sipDomain</key>
+	<string>proxy01.sipphone.com</string>
+	<key>sipFrom</key>
+	<string>sip:%@@proxy01.sipphone.com</string>
+	<key>sipProxy</key>
+	<string>sip:proxy01.sipphone.com</string>
+</dict>
+</plist>

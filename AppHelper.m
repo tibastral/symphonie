@@ -48,6 +48,7 @@ static int _debugCauses=0;
 		pauseAppScript=[[BundledScript bundledScript:@"sipPhoneAppCtl"]retain];
 		if (0) [pauseAppScript runEvent:@"doNothing" withArgs:nil];
 		matchPhones=[[NSArray array]retain];
+		[self getSipProviders];
 	}
 	return self;
 }
@@ -80,6 +81,7 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 	
 	NSAssert(phone, @"phone not connected");
 	[self defaultProp];
+	[self setProvider:nil];
 	[prefPanel setLevel:NSModalPanelWindowLevel];
 	[audioTestPanel setLevel:NSModalPanelWindowLevel];
 	[prefPanel setAlphaValue:0.95];
@@ -141,7 +143,8 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 	getBoolProp(@"abVisibleOffLineOnStartup",NO);
 	[self setOnDemandRegister:getBoolProp(@"onDemandRegister",NO)];
 	getBoolProp(@"doubleClickCall",NO);
-	getIntProp(@"provider",1);
+	//getIntProp(@"provider",1);
+	getProp(@"providerName", @"free");
 	getBoolProp(@"txboost", YES);
 	
 	getProp(@"numberRulesPref", [PrefPhoneNumberConverter defaultPrefValue]);
@@ -542,98 +545,197 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
  * TODO: user provider to find these info
  */
 
-- (NSString *) sipFrom
+- (void) getSipProviders
 {
-	int provider=[self provider];
-	switch (provider) {
-		default:
-		case 1: 
-		case 2:
-			return [NSString stringWithFormat:@"sip:%@@freephonie.net",[self phoneNumber]]; 
-			break;
-		case 99: // test
-			return [NSString stringWithFormat:@"sip:%@@localhost",[self phoneNumber]]; 
-			break;
+	[providers release];
+	providers=[[NSMutableDictionary dictionaryWithCapacity:10]retain];
+	NSBundle *mb=[NSBundle mainBundle];
+	NSArray *f=[mb pathsForResourcesOfType:@".sip.plist" inDirectory:nil];
+	int i, count = [f count];
+	for (i = 0; i < count; i++) {
+		NSString * plist = [f objectAtIndex:i];
+		NSLog(@"get %@\n", plist);
+		NSError *err;
+		NSData *data=[NSData dataWithContentsOfFile:plist options:0 error:&err];
+		if (!data) {
+			NSLog(@"error reading %@: %@\n", plist, err);
+			continue;
+		}
+		NSString *errstr;
+		NSDictionary *prov=[ NSPropertyListSerialization propertyListFromData:data 
+							      mutabilityOption:NSPropertyListImmutable 
+									format:NULL 
+							      errorDescription:&errstr];
+		if (!prov) {
+			NSLog(@"error parsing %@: %@\n", plist, err);
+			continue;
+		}
+		NSString *n=[prov objectForKey:@"name"];
+		if (!n) {
+			NSLog(@"no name for %@\n", plist);
+			continue;
+		}
+		[providers setObject:prov forKey:n];
 	}
-}
-- (NSString *) sipProxy
-{
-	int provider=[self provider];
-	switch (provider) {
-		default:
-		case 1: 
-			return @"sip:freephonie.net";
-		case 2:
-			return @"sip:172.17.20.241";
-		case 99:
-			return @"sip:localhost";
-	}
-	
-}
-- (NSString *) sipDomain
-{
-	int provider=[self provider];
-	switch (provider) {
-		default:
-		case 1:
-			return @"freephonie.net";
-		case 2:
-			return @"172.17.20.241";
-		case 99:
-			return @"localhost";
+	[providersNames release];
+	providersNames=[[providers allKeys]retain];
+	// resolve alternate
+	count = [providersNames count];
+	for (i = 0; i < count; i++) {
+		NSString *k = [providersNames objectAtIndex:i];
+		NSMutableDictionary *d=[providers objectForKey:k];
+		BOOL alt=[[d objectForKey:@"alternateIsAlternate"]boolValue];
+		if (!alt) continue;
+		NSString *p=[d objectForKey:@"alternateParent"];
+		NSDictionary *pi=[providers objectForKey:p];
+		if (!pi) continue;
+		NSMutableDictionary *m=[pi mutableCopy];
+		[m addEntriesFromDictionary:d];
+		
+		[providers setObject:m forKey:k];
 	}
 }
 
+- (NSString *) sipFullName
+{
+	NSString *s=[providerInfo valueForKey:@"providerName"];
+	if (!s) s=[providerInfo valueForKey:@"name"];
+	return [NSString stringWithFormat:@"%@/%@", s,[self phoneNumber]];
+}	
+- (NSString *) sipFrom
+{
+	NSString *s=[providerInfo valueForKey:@"sipFrom"];
+	if (!s) return s;
+	return [NSString stringWithFormat:s, [self phoneNumber]];
+	
+}
+- (NSString *) sipContact
+{
+	return [self sipFrom];
+}
+
+- (NSString *) sipProxy
+{
+	NSString *s=[providerInfo valueForKey:@"sipProxy"];
+	return s;
+}
+- (NSString *) sipDomain
+{
+	NSString *s=[providerInfo valueForKey:@"sipDomain"];
+	return s;
+}
+
+- (NSString *) propNamePhoneNumber
+{
+	NSString *s=[providerInfo valueForKey:@"providerName"];
+	if (!s) s=[providerInfo valueForKey:@"name"];
+	if (!s) s=@"dummy";
+	return [NSString  stringWithFormat:@"phoneNumber.%@", s];
+}
 - (NSString *) phoneNumber
 {
-	return getProp(@"phoneNumber",nil);
+	return getProp([self propNamePhoneNumber],nil);
 }
 - (void) setPhoneNumber:(NSString *)s
 {
 	[self willChangeValueForKey:@"windowTitle"];
-	setProp(@"phoneNumber",s);
+	setProp([self propNamePhoneNumber], s);
 	[self didChangeValueForKey:@"windowTitle"];
 	[phone authInfoChanged];
 }
 
 
-- (int) provider
+- (NSString *) provider
 {
-	int prov=getIntProp(@"provider",1);
-	if (_debugMisc) NSLog(@"provider %d\n", prov);
-	return prov;
-}
-
-- (int) providerTabIdx
-{
-	int p=[self provider];
-	switch (p) {
-		case 1:
-		case 2:
-			return 0;
-		case 99:
-			return 3;
-		default:
-			return 3;
+	NSString *s=getProp(@"providerName", @"free");
+	if (_debugMisc) NSLog(@"provider %s\n", s);
+	if (![providers objectForKey:s]) {
+		s=nil;
 	}
+	return s;
 }
 
-- (void) setProvider:(int)tag
+static NSString *GetPasswordKeychain (NSString *account,
+				      SecKeychainItemRef *itemRef);
+static OSStatus StorePasswordKeychain(NSString *account, NSString* password);
+
+
+- (void) setProvider:(NSString *)name
 {
-	[self willChangeValueForKey:@"isFreephonie"];
+	if (!name) {
+		name=getProp(@"providerName", @"free");
+	}
 	[self willChangeValueForKey:@"providerTabIdx"];
-	setProp(@"provider", [NSNumber numberWithInt:tag]);
-	[self didChangeValueForKey:@"isFreephonie"];
+	[self setProviderInfo:[providers objectForKey:name]];
+	setProp(@"providerName", name);
 	[self didChangeValueForKey:@"providerTabIdx"];
+	if ([name isEqualToString:@"free"]) {
+		//compat: migrate passwd
+		NSString *phon=[self phoneNumber];
+		if (!phon) {
+			phon=getProp(@"phoneNumber", nil);
+			if (phon) {
+				[self setPhoneNumber:phon];
+			}
+		}
+		NSString *pw=[self password];
+		if (!pw) {
+			SecKeychainItemRef ir=NULL;
+			pw=GetPasswordKeychain([self phoneNumber], &ir);
+			if (pw) {
+				StorePasswordKeychain([self sipFullName], pw);
+			}
+		}
+	}
 	[phone authInfoChanged];
 	
 	// ignore and go back to freephonie for now
 }
 
-- (BOOL) isFreephonie
+
+
+- (void) setProviderInfo:(id)d
 {
-	return ([self provider]==1);
+	if (d != providerInfo) {
+		[self willChangeValueForKey:@"accountPhoneLabel"];
+		[self willChangeValueForKey:@"passwordHint"];
+		[self willChangeValueForKey:@"accountHint"];
+		[self willChangeValueForKey:@"phoneNumber"];
+		[self willChangeValueForKey:@"password"];
+		[self willChangeValueForKey:@"windowTitle"];
+		[providerInfo release];
+		providerInfo=[d retain];
+		[self didChangeValueForKey:@"accountPhoneLabel"];
+		[self didChangeValueForKey:@"passwordHint"];
+		[self didChangeValueForKey:@"accountHint"];
+		[self didChangeValueForKey:@"phoneNumber"];
+		[self didChangeValueForKey:@"password"];
+		[self didChangeValueForKey:@"windowTitle"];
+	}
 }
+- (id) providerInfo
+{
+	return providerInfo;
+}
+- (NSString *) accountPhoneLabel
+{
+	BOOL isphone=[[providerInfo valueForKey:@"guiAccountIsPhone"]boolValue];
+	if (isphone) {
+		return NSLocalizedString(@"Phone number:", "Phone number:");
+	}
+	return NSLocalizedString(@"Account name:", "Account name:");
+}
+
+- (NSString *) accountHint
+{
+	return [providerInfo valueForKey:@"guiAccountHint"];
+}
+- (NSString *) passwordHint
+{
+	return [providerInfo valueForKey:@"guiPasswordHint"];
+}
+
+	
 
 
 #pragma mark -
@@ -733,7 +835,7 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 	OSStatus status;
 	//SecKeychainRef kref;
 	if (_debugAuth) NSLog(@"set passwd %@\n", s);
-	NSString *ph=[self phoneNumber];
+	NSString *ph=[self sipFullName];
 	if (!ph) return;
 	SecKeychainItemRef ir=nil;
 	GetPasswordKeychain(ph, &ir);
@@ -749,7 +851,7 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 }
 - (NSString *) password
 {
-	NSString *ph=[self phoneNumber];
+	NSString *ph=[self sipFullName];
 	if (!ph) return nil;
 	SecKeychainItemRef ir=nil;
 	NSString *pw=GetPasswordKeychain(ph, &ir);
@@ -802,7 +904,17 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 - (NSString *) windowTitle
 {
 	if (_debugMisc) NSLog(@"window title\n");
-	return [NSString stringWithFormat:@"symPhonie (%@)", [[self phoneNumber]displayCallNumber]];
+	NSString *k=[providerInfo valueForKey:@"name"];
+	if (!k) goto unconfigured;
+	NSString *p=[self phoneNumber];
+	if (!p) goto unconfigured;
+	if ([[providerInfo valueForKey:@"guiAccountIsPhone"]boolValue]) {
+		p=[p displayCallNumber];
+	}
+	return [NSString stringWithFormat:@"%@: %@",k, p];
+unconfigured:
+	if (k) return [NSString stringWithFormat:@"%@: unconfigured",k];
+	return @"unconfigured";
 }
 - (NSSize)drawerWillResizeContents:(NSDrawer *)sender toSize:(NSSize)contentSize
 {

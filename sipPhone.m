@@ -566,8 +566,10 @@ static int initDone=0;
 	eXosip_set_user_agent("symPhonie Mac Softphone");
 	
 	int localport=5060;
-	if (99==[appHelper provider]) localport=5062;
-	//if (2==[appHelper provider]) localport=5062;
+	NSNumber *specPort=[[appHelper providerInfo]valueForKey:@"localPort"];
+	if (specPort && [specPort respondsToSelector:@selector(intValue)]) {
+		localport=[specPort intValue];
+	}
 
 	rc = eXosip_listen_addr (IPPROTO_UDP, NULL, localport, AF_INET, 0);
 	if (rc!=0) {
@@ -614,6 +616,7 @@ static int initDone=0;
 	eXosip_clear_authentication_info();
 	eXosip_add_authentication_info([[appHelper authId]cString], [[appHelper authId]cString], [[appHelper authPasswd]cString],
 			       NULL, NULL);
+	[self registerPhone:self];
 }
 
 - (IBAction) registerPhoneOnDemand:(BOOL) onDemand dur:(int)dur;
@@ -623,8 +626,14 @@ static int initDone=0;
 	
 	[appHelper resetErrorForDomain:0];
 	//NSAssert(state==sip_off, @"bad state for registerPhone");
+	NSString *from=[appHelper sipFrom];
+	NSString *proxy=[appHelper sipProxy];
+	NSString *contact=[appHelper sipContact];
+	if (!from) return;
+	if (!proxy) return;
+	if (!contact) return;
 	EXOSIP_LOCK ();
-	_rid = eXosip_register_build_initial_register ([[appHelper sipFrom]cString], [[appHelper sipProxy]cString], [[appHelper sipFrom]cString],
+	_rid = eXosip_register_build_initial_register ([from cString], [proxy cString], [contact cString],
 						     dur, &reg);
 	if (_rid < 0)
 	{
@@ -887,7 +896,7 @@ static int initDone=0;
 						case sip_register2call_retry:
 						case sip_register2call_in_progress:
 							[self setState:sip_registered];
-							if (_debugFsm) NSLog(@"now registered, mazke call\n");
+							if (_debugFsm) NSLog(@"now registered, make call\n");
 							[self makeOutCall];
 							break;
 						case sip_unregister_in_progress:

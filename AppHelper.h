@@ -40,6 +40,9 @@
 	IBOutlet NSPanel *audioTestPanel;
 	BOOL dtmfVisible;
 	NSMutableArray *matchPhones;
+	NSMutableArray *providersNames;
+	NSMutableDictionary *providers;
+	NSDictionary *providerInfo;
 	// failure notification messages
 	NSString *regErrorMsg;
 	NSString *regDiagMsg;
@@ -57,14 +60,16 @@
 - (NSString *) authId;
 - (NSString *) authPasswd;
 - (NSString *) sipFrom;
+- (NSString *) sipContact;
 - (NSString *) sipProxy;
 - (NSString *) sipDomain;
+- (void) getSipProviders;
+- (void) setProviderInfo:(id) info;
+- (id) providerInfo;
 
-- (int) provider;
-- (void) setProvider:(int)tag;
-- (BOOL) isFreephonie;
+- (NSString *) provider;
+- (void) setProvider:(NSString *)n;
 
-- (int) providerTabIdx;
 
 // password handling, AppHelper handles keyring storage
 // and other preference settinig handling (gui is bound

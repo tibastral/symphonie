@@ -11,13 +11,13 @@
 	<key>guiPasswordHint</key>
 	<string></string>
 	<key>name</key>
-	<string>gizmo</string>
+	<string>VoIPBuster</string>
 	<key>sipDomain</key>
-	<string>proxy01.sipphone.com</string>
+	<string>sip.voipbuster.com</string>
 	<key>sipFrom</key>
-	<string>sip:%@@proxy01.sipphone.com</string>
+	<string>sip:%@@sip.voipbuster.com</string>
 	<key>sipProxy</key>
-	<string>sip:proxy01.sipphone.com</string>
+	<string>sip:sip.voipbuster.com</string>
 	<key>sipRegistrationDuration</key>
 	<integer>1800</integer>
 </dict>

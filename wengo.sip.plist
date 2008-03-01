@@ -11,14 +11,14 @@
 	<key>guiPasswordHint</key>
 	<string></string>
 	<key>name</key>
-	<string>gizmo</string>
+	<string>Wengo/Neuf</string>
 	<key>sipDomain</key>
-	<string>proxy01.sipphone.com</string>
+	<string>voip.wengo.fr</string>
 	<key>sipFrom</key>
-	<string>sip:%@@proxy01.sipphone.com</string>
+	<string>sip:%@@voip.wengo.fr</string>
 	<key>sipProxy</key>
-	<string>sip:proxy01.sipphone.com</string>
+	<string>sip:voip.wengo.fr</string>
 	<key>sipRegistrationDuration</key>
-	<integer>1800</integer>
+	<integer>55</integer>
 </dict>
 </plist>

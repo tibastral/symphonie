@@ -5,20 +5,20 @@
 	<key>alternateIsAlternate</key>
 	<false/>
 	<key>guiAccountHint</key>
-	<string></string>
+	<string>InPhonex 7 digits number</string>
 	<key>guiAccountIsPhone</key>
-	<false/>
+	<true/>
 	<key>guiPasswordHint</key>
-	<string></string>
+	<string>InPhonex password</string>
 	<key>name</key>
-	<string>gizmo</string>
+	<string>InPhonex</string>
 	<key>sipDomain</key>
-	<string>proxy01.sipphone.com</string>
+	<string>sip.inphonex.com</string>
 	<key>sipFrom</key>
-	<string>sip:%@@proxy01.sipphone.com</string>
+	<string>sip:%@@sip.inphonex.com</string>
 	<key>sipProxy</key>
-	<string>sip:proxy01.sipphone.com</string>
+	<string>sip:sip.inphonex.com</string>
 	<key>sipRegistrationDuration</key>
-	<integer>1800</integer>
+	<integer>300</integer>
 </dict>
 </plist>

@@ -3,12 +3,12 @@
 <plist version="1.0">
 <dict>
 	<key>downloadUrl</key>
-	<string>http://page-appart.net/symphonie/download/files/symPhonie_0_2_20080131.dmg</string>
+	<string>http://page-appart.net/symphonie/tmp/files/symPhonie_0_2_11.dmg</string>
 	<key>history</key>
 	<array>
 		<dict>
 			<key>change</key>
-			<string>support for several providers</string>
+			<string>support for several providers. MOSTLY UNTESTED!</string>
 			<key>version</key>
 			<string>0.2.11</string>
 		</dict>

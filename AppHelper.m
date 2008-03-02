@@ -650,7 +650,7 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 - (NSString *) provider
 {
 	NSString *s=getProp(@"providerName", @"free");
-	if (_debugMisc) NSLog(@"provider %s\n", s);
+	if (_debugMisc) NSLog(@"provider %@\n", s);
 	if (![providers objectForKey:s]) {
 		s=nil;
 	}
@@ -1097,6 +1097,9 @@ static NSString *q850(int c)
 	      cause ? cause : @"", 
 	      reason_phrase ? reason_phrase : "");
 	BOOL abnormal=YES;
+	if (reason_phrase) cause=[NSString stringWithFormat:@"%d:%s", status_code, reason_phrase];
+	else cause=[NSString stringWithFormat:@"%d", status_code];
+
 	switch (status_code) {
 		case -2:
 			cause=NSLocalizedString(@"Cannot build register (error in config)", @"cannot build reg");

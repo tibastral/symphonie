@@ -11,7 +11,7 @@
 	<key>guiPasswordHint</key>
 	<string></string>
 	<key>name</key>
-	<string>IPPI</string>
+	<string>IPPI  (untested)</string>
 	<key>sipDomain</key>
 	<string>ippi.fr</string>
 	<key>sipFrom</key>

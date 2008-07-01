@@ -11,7 +11,7 @@
 	<key>guiPasswordHint</key>
 	<string></string>
 	<key>name</key>
-	<string>VoIPBuster</string>
+	<string>VoIPBuster (untested)</string>
 	<key>sipDomain</key>
 	<string>sip.voipbuster.com</string>
 	<key>sipFrom</key>

@@ -6,6 +6,8 @@
 	<true/>
 	<key>alternateParent</key>
 	<string>free</string>
+	<key>alternateWifi</key>
+	<string>freephonie</string>
 	<key>name</key>
 	<string>free over freephonie wifi</string>
 	<key>providerName</key>

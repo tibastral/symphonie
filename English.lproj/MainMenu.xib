@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="7.02">
 	<data>
 		<int key="IBDocument.SystemTarget">1040</int>
-		<string key="IBDocument.SystemVersion">9C7010</string>
-		<string key="IBDocument.InterfaceBuilderVersion">658</string>
-		<string key="IBDocument.AppKitVersion">949.26</string>
+		<string key="IBDocument.SystemVersion">9E17</string>
+		<string key="IBDocument.InterfaceBuilderVersion">670</string>
+		<string key="IBDocument.AppKitVersion">949.33</string>
 		<string key="IBDocument.HIToolboxVersion">352.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="300"/>
+			<integer value="302"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -172,7 +172,7 @@
 														<string>NeXT TIFF v4.0 pasteboard type</string>
 													</object>
 												</object>
-												<string key="NSFrame">{{42, 146}, {121, 44}}</string>
+												<string key="NSFrame">{{14, 130}, {82, 32}}</string>
 												<reference key="NSSuperview" ref="819118417"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSImageCell" key="NSCell" id="296006695">
@@ -197,7 +197,7 @@
 										<characters key="NS.bytes">2</characters>
 									</object>
 									<object class="NSView" key="NSView" id="532723579">
-										<nil key="NSNextResponder"/>
+										<reference key="NSNextResponder" ref="159530580"/>
 										<int key="NSvFlags">256</int>
 										<object class="NSMutableArray" key="NSSubviews">
 											<bool key="EncodedWithXMLCoder">YES</bool>
@@ -472,6 +472,7 @@
 														<int key="NSsFlags">512</int>
 														<reference key="NSTarget" ref="673013246"/>
 														<string key="NSAction">_doScroller:</string>
+														<double key="NSCurValue">7.246377e-02</double>
 														<double key="NSPercent">9.857143e-01</double>
 													</object>
 													<object class="NSScroller" id="80522391">
@@ -485,7 +486,7 @@
 														<double key="NSPercent">9.940120e-01</double>
 													</object>
 												</object>
-												<string key="NSFrame">{{17, 93}, {168, 71}}</string>
+												<string key="NSFrame">{{18, 93}, {168, 71}}</string>
 												<reference key="NSSuperview" ref="532723579"/>
 												<reference key="NSNextKeyView" ref="26689883"/>
 												<int key="NSsFlags">562</int>
@@ -509,7 +510,7 @@
 														<string>NeXT TIFF v4.0 pasteboard type</string>
 													</object>
 												</object>
-												<string key="NSFrame">{{38, 117}, {130, 36}}</string>
+												<string key="NSFrame">{{14, 130}, {82, 32}}</string>
 												<reference key="NSSuperview" ref="532723579"/>
 												<bool key="NSEnabled">YES</bool>
 												<object class="NSImageCell" key="NSCell" id="162732646">
@@ -524,6 +525,7 @@
 											</object>
 										</object>
 										<string key="NSFrame">{{10, 7}, {208, 275}}</string>
+										<reference key="NSSuperview" ref="159530580"/>
 									</object>
 									<string key="NSLabel">id</string>
 									<reference key="NSColor" ref="601887832"/>
@@ -778,15 +780,6 @@
 													<reference key="NSTextColor" ref="586378859"/>
 												</object>
 											</object>
-											<object class="NSProgressIndicator" id="998519215">
-												<reference key="NSNextResponder" ref="20942465"/>
-												<int key="NSvFlags">1280</int>
-												<object class="NSPSMatrix" key="NSDrawMatrix"/>
-												<string key="NSFrame">{{50, 113}, {137, 20}}</string>
-												<reference key="NSSuperview" ref="20942465"/>
-												<int key="NSpiFlags">16392</int>
-												<double key="NSMaxValue">1.000000e+02</double>
-											</object>
 											<object class="NSSlider" id="261274756">
 												<reference key="NSNextResponder" ref="20942465"/>
 												<int key="NSvFlags">268</int>
@@ -872,7 +865,7 @@
 								</object>
 								<object class="NSTabViewItem" id="392948481">
 									<object class="NSView" key="NSView" id="420336077">
-										<reference key="NSNextResponder" ref="159530580"/>
+										<nil key="NSNextResponder"/>
 										<int key="NSvFlags">256</int>
 										<object class="NSMutableArray" key="NSSubviews">
 											<bool key="EncodedWithXMLCoder">YES</bool>
@@ -999,7 +992,6 @@
 											</object>
 										</object>
 										<string key="NSFrame">{{10, 7}, {208, 275}}</string>
-										<reference key="NSSuperview" ref="159530580"/>
 									</object>
 									<string key="NSLabel">cl</string>
 									<reference key="NSColor" ref="601887832"/>
@@ -1131,13 +1123,13 @@
 									<reference key="NSTabView" ref="159530580"/>
 								</object>
 							</object>
-							<reference key="NSSelectedTabViewItem" ref="392948481"/>
+							<reference key="NSSelectedTabViewItem" ref="1068111869"/>
 							<reference key="NSFont" ref="594808160"/>
 							<int key="NSTvFlags">4</int>
 							<bool key="NSAllowTruncatedLabels">YES</bool>
 							<object class="NSMutableArray" key="NSSubviews">
 								<bool key="EncodedWithXMLCoder">YES</bool>
-								<reference ref="420336077"/>
+								<reference ref="532723579"/>
 							</object>
 						</object>
 						<object class="NSButton" id="69440784">
@@ -1964,7 +1956,7 @@
 											</object>
 											<object class="NSMutableArray" key="dict.values">
 												<bool key="EncodedWithXMLCoder">YES</bool>
-												<string>annuler</string>
+												<string>cancel</string>
 												<integer value="1" id="9"/>
 											</object>
 										</object>
@@ -4670,6 +4662,7 @@ ARcABAAAAAEAAAACARwAAwAAAAEAAQAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 				<string key="NSWindowTitle">Audio Test</string>
 				<string key="NSWindowClass">NSPanel</string>
 				<nil key="NSViewClass"/>
+				<string key="NSWindowContentMaxSize">{3.40282e+38, 3.40282e+38}</string>
 				<object class="NSView" key="NSWindowView" id="828455541">
 					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
@@ -7536,39 +7529,6 @@ ARcABAAAAAEAAAACARwAAwAAAAEAAQAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">maxValue: maxDuration</string>
-						<reference key="source" ref="998519215"/>
-						<reference key="destination" ref="217477710"/>
-						<object class="NSNibBindingConnector" key="connector" id="647808213">
-							<reference key="NSSource" ref="998519215"/>
-							<reference key="NSDestination" ref="217477710"/>
-							<string key="NSLabel">maxValue: maxDuration</string>
-							<string key="NSBinding">maxValue</string>
-							<string key="NSKeyPath">maxDuration</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">7731</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: callDuration</string>
-						<reference key="source" ref="998519215"/>
-						<reference key="destination" ref="217477710"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="998519215"/>
-							<reference key="NSDestination" ref="217477710"/>
-							<string key="NSLabel">value: callDuration</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">callDuration</string>
-							<reference key="NSPreviousConnector" ref="647808213"/>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">7732</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: callDurationTxt</string>
 						<reference key="source" ref="751986525"/>
 						<reference key="destination" ref="217477710"/>
@@ -8079,12 +8039,12 @@ ARcABAAAAAEAAAACARwAAwAAAAEAAQAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 							<reference ref="684448363"/>
 							<reference ref="1053721365"/>
 							<reference ref="848341569"/>
-							<reference ref="487095366"/>
 							<reference ref="866440957"/>
 							<reference ref="565769100"/>
 							<reference ref="356791242"/>
-							<reference ref="673013246"/>
+							<reference ref="487095366"/>
 							<reference ref="679014550"/>
+							<reference ref="673013246"/>
 						</object>
 						<reference key="parent" ref="1068111869"/>
 					</object>
@@ -8303,7 +8263,6 @@ ARcABAAAAAEAAAACARwAAwAAAAEAAQAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 							<reference ref="332085160"/>
 							<reference ref="751986525"/>
 							<reference ref="456035279"/>
-							<reference ref="998519215"/>
 							<reference ref="261274756"/>
 							<reference ref="385310897"/>
 							<reference ref="228853739"/>
@@ -11254,11 +11213,6 @@ ARcABAAAAAEAAAACARwAAwAAAAEAAQAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						<reference key="parent" ref="751986525"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">7727</int>
-						<reference key="object" ref="998519215"/>
-						<reference key="parent" ref="20942465"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">7734</int>
 						<reference key="object" ref="509792055"/>
 						<reference key="parent" ref="278056699"/>
@@ -11624,6 +11578,7 @@ ARcABAAAAAEAAAACARwAAwAAAAEAAQAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 					<string>1878.ImportedFromIB2</string>
 					<string>1883.IBPluginDependency</string>
 					<string>1883.ImportedFromIB2</string>
+					<string>1883.windowTemplate.maxSize</string>
 					<string>1884.IBPluginDependency</string>
 					<string>1884.ImportedFromIB2</string>
 					<string>1885.IBPluginDependency</string>
@@ -12119,7 +12074,6 @@ ARcABAAAAAEAAAACARwAAwAAAAEAAQAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 					<string>7723.IBPluginDependency</string>
 					<string>7723.ImportedFromIB2</string>
 					<string>7725.IBPluginDependency</string>
-					<string>7727.IBPluginDependency</string>
 					<string>7752.IBPluginDependency</string>
 					<string>7753.IBPluginDependency</string>
 					<string>7755.IBPluginDependency</string>
@@ -12273,6 +12227,7 @@ ARcABAAAAAEAAAACARwAAwAAAAEAAQAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="9"/>
+					<string>{3.40282e+38, 3.40282e+38}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -12781,7 +12736,6 @@ ARcABAAAAAEAAAACARwAAwAAAAEAAQAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="9"/>
-					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>

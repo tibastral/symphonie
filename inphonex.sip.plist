@@ -11,7 +11,7 @@
 	<key>guiPasswordHint</key>
 	<string>InPhonex password</string>
 	<key>name</key>
-	<string>InPhonex</string>
+	<string>InPhonex  (untested)</string>
 	<key>sipDomain</key>
 	<string>sip.inphonex.com</string>
 	<key>sipFrom</key>

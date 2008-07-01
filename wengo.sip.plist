@@ -11,7 +11,7 @@
 	<key>guiPasswordHint</key>
 	<string></string>
 	<key>name</key>
-	<string>Wengo/Neuf</string>
+	<string>Wengo/Neuf (untested)</string>
 	<key>sipDomain</key>
 	<string>voip.wengo.fr</string>
 	<key>sipFrom</key>

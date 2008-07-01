@@ -11,7 +11,7 @@
 	<key>guiPasswordHint</key>
 	<string></string>
 	<key>name</key>
-	<string>voipcheap</string>
+	<string>voipcheap (untested)</string>
 	<key>sipDomain</key>
 	<string>sip.voipcheap.com</string>
 	<key>sipFrom</key>

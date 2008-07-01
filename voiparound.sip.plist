@@ -11,7 +11,7 @@
 	<key>guiPasswordHint</key>
 	<string></string>
 	<key>name</key>
-	<string>Freecall (voiparround)</string>
+	<string>Freecall (voiparround) (untested)</string>
 	<key>sipDomain</key>
 	<string>sip.voiparound.com</string>
 	<key>sipFrom</key>

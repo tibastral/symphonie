@@ -625,7 +625,6 @@
 		1B0BE6AD0CD7F90D00ED1901 /* window.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = window.c; sourceTree = "<group>"; };
 		1B0BE6C10CD7F90D00ED1901 /* speex_codec.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = speex_codec.c; path = "pjproject-0.5.10.4/pjmedia/src/pjmedia-codec/speex_codec.c"; sourceTree = "<group>"; };
 		1B2742740D67300500EBAB4E /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		1B2742760D67302900EBAB4E /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		1B3048580D0D235300DC5A31 /* PrefPhoneNumberConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefPhoneNumberConverter.h; sourceTree = "<group>"; };
 		1B3048590D0D235300DC5A31 /* PrefPhoneNumberConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefPhoneNumberConverter.m; sourceTree = "<group>"; };
 		1B33A0EF0D3A501B006B7BE1 /* French */ = {isa = PBXFileReference; lastKnownFileType = folder; name = French; path = French.lproj/symPhonieHelp; sourceTree = "<group>"; };
@@ -1959,7 +1958,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				1B2742740D67300500EBAB4E /* English */,
-				1B2742760D67302900EBAB4E /* French */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";

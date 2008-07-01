@@ -11,7 +11,7 @@
 	<key>guiPasswordHint</key>
 	<string></string>
 	<key>name</key>
-	<string>gizmo</string>
+	<string>gizmo (untested)</string>
 	<key>sipDomain</key>
 	<string>proxy01.sipphone.com</string>
 	<key>sipFrom</key>

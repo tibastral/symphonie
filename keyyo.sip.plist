@@ -11,7 +11,7 @@
 	<key>guiPasswordHint</key>
 	<string></string>
 	<key>name</key>
-	<string>keyyo</string>
+	<string>keyyo (untested)</string>
 	<key>sipDomain</key>
 	<string>keyyo.net</string>
 	<key>sipFrom</key>

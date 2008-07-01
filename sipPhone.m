@@ -1053,11 +1053,35 @@ refuse_call:
 					break;
 				case EXOSIP_CALL_PROCEEDING:
 					if (_debugFsm) NSLog(@"call proceeding \n");
+					if (0) {
+						NSString *rsdp=eXosip_get_sdp_body(je->response);
+						NSLog(@"at call proceeding, got sdp=%@\n", rsdp);
+						if (rsdp && 1) {
+							[self willChangeValueForKey:@"remoteSdp"];
+							[remoteSdp release];
+							remoteSdp=[rsdp retain];
+							[self didChangeValueForKey:@"remoteSdp"];
+							BOOL ok=[userPlane setupWithtLocalSdp:localSdp remoteSdp:remoteSdp outCall:YES negociatedLocal:nil];
+							if (!ok) NSLog(@"userplane setup problem\n");
+						}
+					}
 					break;
 				case EXOSIP_CALL_RINGING:
 					[self setState:sip_outgoing_call_ringing];
 					if (je->did) _did=je->did;
-						break;
+					if (1) {
+						NSString *rsdp=eXosip_get_sdp_body(je->response);
+						NSLog(@"at call ring, got sdp=%@\n", rsdp);
+						if (rsdp && 1) {
+							[self willChangeValueForKey:@"remoteSdp"];
+							[remoteSdp release];
+							remoteSdp=[rsdp retain];
+							[self didChangeValueForKey:@"remoteSdp"];
+							BOOL ok=[userPlane setupWithtLocalSdp:localSdp remoteSdp:remoteSdp outCall:YES negociatedLocal:nil];
+							if (!ok) NSLog(@"userplane setup problem\n");
+						}
+					}
+					break;
 				case EXOSIP_CALL_REQUESTFAILURE:
 					if (_debugFsm) NSLog(@"EXOSIP_CALL_REQUESTFAILURE %d / %s\n",
 					      je->response ?  je->response->status_code : -1,
@@ -1107,16 +1131,16 @@ refuse_call:
 					[appHelper resetErrorForDomain:1];
 					if (_debugFsm) NSLog(@"call answered\n");
 					if (je->did) _did=je->did;
-						
+					
 #if 0
-						if (je->response) {
-							remote_sdp = eXosip_get_sdp_info (je->response);
-						}
-							if (!remote_sdp) {
-								[self cancelCall];
-								break;
-							}
-							conn = eXosip_get_audio_connection (remote_sdp);
+					if (je->response) {
+						remote_sdp = eXosip_get_sdp_info (je->response);
+					}
+					if (!remote_sdp) {
+						[self cancelCall];
+						break;
+					}
+					conn = eXosip_get_audio_connection (remote_sdp);
 					remote_med = eXosip_get_audio_media (remote_sdp);
 #endif
 					[self willChangeValueForKey:@"remoteSdp"];

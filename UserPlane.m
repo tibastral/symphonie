@@ -458,6 +458,10 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 	const pjmedia_sdp_session *nlocal_sdp;
 	const pjmedia_sdp_session *nremote_sdp;
 
+	if (rtp_session) {
+		NSLog(@"userplane already established\n");
+		return YES;
+	}
 	int rc;
 	rc=pjmedia_sdp_parse(callpool, (char *) [local cString], [local length], &local_sdp);
 	NSAssert(!rc, @"failed parsing sdp");

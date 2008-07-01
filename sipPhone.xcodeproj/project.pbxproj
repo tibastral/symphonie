@@ -2066,8 +2066,11 @@
 				FRAMEWORK_SEARCH_PATHS_QUOTED_1 = "\"$(DEVELOPER_DIR)/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_2 = "\"$(DEVELOPER_DIR)/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks\"";
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(DEVELOPER_DIR)/SDKs/MacOSX10.4u.sdk/System/Library/Frameworks\"";
+				GCC_ENABLE_SSE3_EXTENSIONS = NO;
+				GCC_ENABLE_SUPPLEMENTAL_SSE3_INSTRUCTIONS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
+				GCC_VERSION = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = NO;
 				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
@@ -2089,6 +2092,7 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/pjproject-0.5.10.4/pjmedia/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)/pjproject-0.5.10.4/pjlib/lib\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_3 = "\"$(SRCROOT)/pjproject-0.5.10.4/pjlib-util/lib\"";
+				LLVM_LTO = YES;
 				PRODUCT_NAME = symPhonie;
 				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/libeXosip2-2.2.3/include $(PROJECT_DIR)/libosip2-2.2.2/include $(inherited) $(PROJECT_DIR)/pjproject/pjlib/include $(PROJECT_DIR)/pjproject/pjlib-util/include $(PROJECT_DIR)/pjproject/pjmedia/src/pjmedia-codec/ $(PROJECT_DIR)/pjproject/pjmedia/src/pjmedia/portaudio/ $(PROJECT_DIR)/pjproject/pjmedia/include/";
 				VERSIONING_SYSTEM = "apple-generic";

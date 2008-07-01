@@ -82,7 +82,7 @@ static NSArray *defRules=nil;
 	for (i = 0; i < count; i++) {
 		NSDictionary * dr = [p objectAtIndex:i];
 		NSString *r=[dr objectForKey:@"rule"];
-		[res addObject:r];
+		if (r) [res addObject:r];
 	}
 	return res;
 }

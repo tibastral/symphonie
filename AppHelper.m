@@ -35,7 +35,30 @@ static int _debugCauses=0;
 #pragma mark -
 #pragma mark *** init, dealloc... ***
 
+static void scCallback(  SCDynamicStoreRef store, 
+		       CFArrayRef changedKeys, 
+		       void *info)
+{
+	NSLog(@"sc callback\n");
+}
 
+- (void) testSC
+{
+	SCDynamicStoreContext dynamicStoreContext ={ 0, NULL, NULL, NULL, NULL };
+	SCDynamicStoreRef scdref=SCDynamicStoreCreate ( NULL, (CFStringRef) @"symPhonie",
+						scCallback, 
+						&dynamicStoreContext );  
+	CFPropertyListRef pv=SCDynamicStoreCopyValue (scdref, (CFStringRef) @"State:/Network/Global/IPv4");
+	CFPropertyListRef pv2=SCDynamicStoreCopyValue (scdref, (CFStringRef) @"State:/Network/Global/IPv6");
+	CFPropertyListRef pv3=SCDynamicStoreCopyValue (scdref, (CFStringRef) @"State:/Network/Global/DNS");
+	CFPropertyListRef pv4=SCDynamicStoreCopyValue (scdref, (CFStringRef) @"State:/Network/Global/Proxies");
+	CFPropertyListRef pv5=SCDynamicStoreCopyValue (scdref, (CFStringRef) @"State:/Network/Interface");
+	CFPropertyListRef pv6=SCDynamicStoreCopyValue (scdref, (CFStringRef) @"State:/Network/Interface/en1/Link");
+	CFPropertyListRef pv7=SCDynamicStoreCopyValue (scdref, (CFStringRef) @"State:/Network/Interface/en1/IPv4");
+	CFPropertyListRef pv8=SCDynamicStoreCopyValue (scdref, (CFStringRef) @"State:/Network/Interface/en1");
+
+	NSLog(@"hop\n");
+}
 - (id) init {
 	self = [super init];
 	if (self != nil) {
@@ -73,8 +96,15 @@ static int _debugCauses=0;
 static void reachabilityCallback(SCNetworkReachabilityRef	target,
 				 SCNetworkConnectionFlags	flags,
 				 void *                      info);
+/*
+static void networkConnectionCallback( SCNetworkConnectionRef connection, 
+				      SCNetworkConnectionStatus status, 
+				      void *info);
+ */
 - (void) awakeFromNib
 {
+	[self testSC];
+
 	[[UpdateChecker alloc]init];
 	//[upc getUpdateInfos];
 	// XXX

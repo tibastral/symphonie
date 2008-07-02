@@ -315,6 +315,7 @@
 		1BC969530CC9FAB7004C0339 /* port_fifo.c in Sources */ = {isa = PBXBuildFile; fileRef = 1BC9693C0CC9FAB7004C0339 /* port_fifo.c */; };
 		1BC969540CC9FAB7004C0339 /* port_sema.c in Sources */ = {isa = PBXBuildFile; fileRef = 1BC9693D0CC9FAB7004C0339 /* port_sema.c */; };
 		1BC969550CC9FAB7004C0339 /* port_thread.c in Sources */ = {isa = PBXBuildFile; fileRef = 1BC9693E0CC9FAB7004C0339 /* port_thread.c */; };
+		1BD607830E1B50D6006F730E /* NetworkState.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BD607820E1B50D6006F730E /* NetworkState.m */; };
 		1BE5078E0D68883700548993 /* SoftwareUpdate.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BE5078C0D68883700548993 /* SoftwareUpdate.xib */; };
 		1BEB4A5F0D78BEB100DC7D23 /* free.sip.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1BEB4A5E0D78BEB100DC7D23 /* free.sip.plist */; };
 		1BEB4A690D78C31000DC7D23 /* freephonie.sip.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1BEB4A680D78C31000DC7D23 /* freephonie.sip.plist */; };
@@ -784,6 +785,8 @@
 		1BC969F60CCA0134004C0339 /* osip_rfc3264.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = osip_rfc3264.h; path = "libosip2-2.2.2/include/osipparser2/osip_rfc3264.h"; sourceTree = "<group>"; };
 		1BC969F70CCA0134004C0339 /* osip_uri.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = osip_uri.h; path = "libosip2-2.2.2/include/osipparser2/osip_uri.h"; sourceTree = "<group>"; };
 		1BC969F80CCA0134004C0339 /* sdp_message.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = sdp_message.h; path = "libosip2-2.2.2/include/osipparser2/sdp_message.h"; sourceTree = "<group>"; };
+		1BD607810E1B50D6006F730E /* NetworkState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkState.h; sourceTree = "<group>"; };
+		1BD607820E1B50D6006F730E /* NetworkState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkState.m; sourceTree = "<group>"; };
 		1BE262CE0CEFA48D0098C270 /* French */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = French; path = French.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1BE5078D0D68883700548993 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SoftwareUpdate.xib; sourceTree = "<group>"; };
 		1BE507900D68893B00548993 /* French */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = French; path = French.lproj/SoftwareUpdate.xib; sourceTree = "<group>"; };
@@ -855,6 +858,8 @@
 				1BAA0A630CEE04BF004A9CB0 /* CallTicketHandler.m */,
 				1B5390350D66E69F002C2621 /* UpdateChecker.h */,
 				1B5390360D66E69F002C2621 /* UpdateChecker.m */,
+				1BD607810E1B50D6006F730E /* NetworkState.h */,
+				1BD607820E1B50D6006F730E /* NetworkState.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1930,6 +1935,7 @@
 				1BAA0A640CEE04BF004A9CB0 /* CallTicketHandler.m in Sources */,
 				1B30485A0D0D235300DC5A31 /* PrefPhoneNumberConverter.m in Sources */,
 				1B5390370D66E69F002C2621 /* UpdateChecker.m in Sources */,
+				1BD607830E1B50D6006F730E /* NetworkState.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

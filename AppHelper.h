@@ -7,6 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
+
+#include <CoreFoundation/CoreFoundation.h>
+#include <SystemConfiguration/SystemConfiguration.h>
+
 #import "UserPlane.h"
 @class SipPhone;
 @class BundledScript;
@@ -45,6 +49,7 @@
 	NSMutableDictionary *providers;
 	NSDictionary *providerInfo;
 	BOOL networkAvailable;
+	SCDynamicStoreRef scdref;
 	// failure notification messages
 	NSString *regErrorMsg;
 	NSString *regDiagMsg;

@@ -13,9 +13,6 @@
 #import "PrefPhoneNumberConverter.h"
 #import "ABCache.h"
 #import <Security/Security.h>
-
-#include <CoreFoundation/CoreFoundation.h>
-#include <SystemConfiguration/SystemConfiguration.h>
 #import <Carbon/Carbon.h>
 
 
@@ -40,6 +37,17 @@ static void scCallback(  SCDynamicStoreRef store,
 		       void *info)
 {
 	NSLog(@"sc callback\n");
+	NSArray *ck=(NSArray *)changedKeys;
+	int i, count = [ck count];
+	for (i = 0; i < count; i++) {
+		NSString *k = [ck objectAtIndex:i];
+		CFPropertyListRef pv=SCDynamicStoreCopyValue (store, (CFStringRef)k);
+		NSLog(@"for %@, SSID %@, net=%@\n", k, [(id)pv valueForKey:@"BSSID"], [(id)pv valueForKey:@"SSID_STR"]);
+		NSData *bssid=[[[(id)pv valueForKey:@"BSSID"]retain]autorelease];
+		NSString *ssidStr=[[[(id)pv valueForKey:@"SSID_STR"]retain]autorelease];
+		CFRelease(pv);
+	}
+
 }
 
 #if 0
@@ -80,6 +88,7 @@ static void scCallback(  SCDynamicStoreRef store,
 }
 - (void) dealloc 
 {
+	if (scdref) CFRelease(scdref);
 	[clrMsgTimer0 invalidate];
 	[clrMsgTimer0 release];
 	[clrMsgTimer1 invalidate];
@@ -154,12 +163,42 @@ static void networkConnectionCallback( SCNetworkConnectionRef connection,
 	thisContext.release         = NULL;
 	thisContext.copyDescription = NULL;
 	
+	
+	static SCDynamicStoreContext dynamicStoreContext ={ 0, NULL, NULL, NULL, NULL };
+	scdref=SCDynamicStoreCreate ( NULL, (CFStringRef) @"symPhonie",
+						       scCallback, 
+						       &dynamicStoreContext );
+	CFStringRef itfkey=SCDynamicStoreKeyCreateNetworkInterface(NULL, kSCDynamicStoreDomainState);
+	CFPropertyListRef itfs=SCDynamicStoreCopyValue(scdref, itfkey);
+	CFRelease(itfkey);
+	if (!itfs) goto wifi_done;
+	NSArray *itf=[(id)itfs valueForKey:@"Interfaces"];
+	if (!itf) goto wifi_done;
+	NSMutableArray *notif=[NSMutableArray arrayWithCapacity:5];
+	int i, count = [itf count];
+	for (i = 0; i < count; i++) {
+		NSString * iface = [itf objectAtIndex:i];
+		CFStringRef ik=SCDynamicStoreKeyCreateNetworkInterfaceEntity(NULL, kSCDynamicStoreDomainState, (CFStringRef) iface, kSCEntNetAirPort);
+		[notif addObject:(NSString *)ik];
+		CFRelease(ik);
+	}
+	BOOL ok=SCDynamicStoreSetNotificationKeys(scdref, (CFArrayRef)notif, NULL);
+	if (!ok) {
+		NSLog(@"SCDynamicStoreSetNotificationKeys failed :%d : %s\n", SCError(), SCErrorString(SCError()));
+		goto wifi_done;
+	}
+	CFRunLoopSourceRef rls=SCDynamicStoreCreateRunLoopSource(NULL, scdref, 0);
+	CFRunLoopAddSource([[NSRunLoop currentRunLoop]getCFRunLoop], rls, kCFRunLoopCommonModes);
+	CFRelease(rls);
+	
+wifi_done:	
 	thisTarget = SCNetworkReachabilityCreateWithName(NULL, "reachabiltyForSymphonie");
 	SCNetworkReachabilitySetCallback (thisTarget, reachabilityCallback, &thisContext);
 	if (!SCNetworkReachabilityScheduleWithRunLoop(thisTarget,  [[NSRunLoop currentRunLoop]getCFRunLoop], kCFRunLoopDefaultMode)) {
 		if (_debugMisc) NSLog (@"Failed to schedule a reacher.");
 	}
-	
+
+	// dial url
 	[[NSAppleEventManager sharedAppleEventManager]
 	 setEventHandler:self andSelector:@selector(dialFromUrlEvent:withReplyEvent:)
 	 forEventClass:kInternetEventClass andEventID:kAEGetURL];	
@@ -507,7 +546,7 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 		CFPropertyListRef pv=SCDynamicStoreCopyValue (scdref, 
 			(CFStringRef) [NSString stringWithFormat:@"State:/Network/Interface/%@/AirPort", iface]);
 	retry1:
-		NSLog(@"for %@: %@\n", iface, pv);
+		//NSLog(@"for %@: %@\n", iface, pv);
 		if (pv) {
 			NSLog(@"SSID %@, net=%@\n", [(id)pv valueForKey:@"BSSID"], [(id)pv valueForKey:@"SSID_STR"]);
 			bssid=[[[(id)pv valueForKey:@"BSSID"]retain]autorelease];

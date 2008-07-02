@@ -8,7 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">352.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="302"/>
+			<integer value="445"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -39,7 +39,7 @@
 				<string key="NSWindowContentMaxSize">{3.40282e+38, 3.40282e+38}</string>
 				<string key="NSWindowContentMinSize">{213, 107}</string>
 				<object class="NSView" key="NSWindowView" id="578696819">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1309,7 +1309,6 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{260, 382}</string>
-					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
 				<string key="NSMinSize">{213, 129}</string>
@@ -2641,7 +2640,7 @@ ARcABAAAAAEAAAACARwAAwAAAAEAAQAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 				<string key="NSWindowContentMaxSize">{3.40282e+38, 3.40282e+38}</string>
 				<string key="NSWindowContentMinSize">{213, 107}</string>
 				<object class="NSView" key="NSWindowView" id="120369482">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -4179,6 +4178,7 @@ ARcABAAAAAEAAAACARwAAwAAAAEAAQAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						</object>
 					</object>
 					<string key="NSFrameSize">{532, 336}</string>
+					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
 				<string key="NSMinSize">{213, 129}</string>
@@ -7950,6 +7950,59 @@ ARcABAAAAAEAAAACARwAAwAAAAEAAQAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 						</object>
 					</object>
 					<int key="connectionID">7817</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">editable: accountEditable</string>
+						<reference key="source" ref="561531631"/>
+						<reference key="destination" ref="1059790007"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="561531631"/>
+							<reference key="NSDestination" ref="1059790007"/>
+							<string key="NSLabel">editable: accountEditable</string>
+							<string key="NSBinding">editable</string>
+							<string key="NSKeyPath">accountEditable</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">7819</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">editable: accountEditable</string>
+						<reference key="source" ref="824559459"/>
+						<reference key="destination" ref="1059790007"/>
+						<object class="NSNibBindingConnector" key="connector" id="2248">
+							<reference key="NSSource" ref="824559459"/>
+							<reference key="NSDestination" ref="1059790007"/>
+							<string key="NSLabel">editable: accountEditable</string>
+							<string key="NSBinding">editable</string>
+							<string key="NSKeyPath">accountEditable</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">7821</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: accountEditable</string>
+						<reference key="source" ref="824559459"/>
+						<reference key="destination" ref="1059790007"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="824559459"/>
+							<reference key="NSDestination" ref="1059790007"/>
+							<string key="NSLabel">enabled: accountEditable</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">accountEditable</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NSNegateBoolean</string>
+							</object>
+							<reference key="NSPreviousConnector" ref="2248"/>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">7824</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -11811,6 +11864,7 @@ ARcABAAAAAEAAAACARwAAwAAAAEAAQAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 					<string>429.ImportedFromIB2</string>
 					<string>430.IBPluginDependency</string>
 					<string>430.ImportedFromIB2</string>
+					<string>443.IBEditorWindowLastContentRect</string>
 					<string>443.IBPluginDependency</string>
 					<string>443.IBWindowTemplateEditedContentRect</string>
 					<string>443.ImportedFromIB2</string>
@@ -12467,8 +12521,9 @@ ARcABAAAAAEAAAACARwAAwAAAAEAAQAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 					<reference ref="9"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="9"/>
+					<string>{{0, 409}, {532, 336}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{31, 408}, {532, 336}}</string>
+					<string>{{0, 409}, {532, 336}}</string>
 					<reference ref="9"/>
 					<string>{{31, 408}, {532, 336}}</string>
 					<reference ref="9"/>
@@ -12792,7 +12847,7 @@ ARcABAAAAAEAAAACARwAAwAAAAEAAQAAAVIAAwAAAAEAAQAAAVMAAwAAAAIAAQABAAAAAA</bytes>
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">7817</int>
+			<int key="maxID">7824</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

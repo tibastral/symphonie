@@ -154,8 +154,8 @@ typedef enum {
 - (IBAction) terminateCall:(id) sender;
 
 
-- (void) authInfoChanged; // invoked by AppHelper when user/passwd had been changed,
-			  // thus sipPhone shall re-register
+- (void) authInfoChangedWithNetwork:(BOOL)net; // invoked by AppHelper when user/passwd had been changed,
+						// thus sipPhone shall re-register
 
 - (void) setAudioTest:(BOOL) test;
 - (BOOL) audioTest;

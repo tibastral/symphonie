@@ -42,6 +42,7 @@ static void scCallback(  SCDynamicStoreRef store,
 	NSLog(@"sc callback\n");
 }
 
+#if 0
 - (void) testSC
 {
 	SCDynamicStoreContext dynamicStoreContext ={ 0, NULL, NULL, NULL, NULL };
@@ -59,6 +60,8 @@ static void scCallback(  SCDynamicStoreRef store,
 
 	NSLog(@"hop\n");
 }
+#endif
+
 - (id) init {
 	self = [super init];
 	if (self != nil) {
@@ -103,7 +106,7 @@ static void networkConnectionCallback( SCNetworkConnectionRef connection,
  */
 - (void) awakeFromNib
 {
-	[self testSC];
+	//[self testSC];
 
 	[[UpdateChecker alloc]init];
 	//[upc getUpdateInfos];
@@ -140,6 +143,9 @@ static void networkConnectionCallback( SCNetworkConnectionRef connection,
 								name:@"com.apple.FrontRow.FrontRowWillShow" object:nil];
 	[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(endFrontRow:) 
 								name:@"com.apple.FrontRow.FrontRowDidHide" object:nil];
+	[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(ssidChange:) 
+								name:@"com.apple.airport.ssid.changed" object:nil];
+	
 	SCNetworkReachabilityRef        thisTarget;
 	SCNetworkReachabilityContext    thisContext;
 	thisContext.version         = 0;
@@ -148,7 +154,7 @@ static void networkConnectionCallback( SCNetworkConnectionRef connection,
 	thisContext.release         = NULL;
 	thisContext.copyDescription = NULL;
 	
-	thisTarget = SCNetworkReachabilityCreateWithName(NULL, "freephonie.net");
+	thisTarget = SCNetworkReachabilityCreateWithName(NULL, "reachabiltyForSymphonie");
 	SCNetworkReachabilitySetCallback (thisTarget, reachabilityCallback, &thisContext);
 	if (!SCNetworkReachabilityScheduleWithRunLoop(thisTarget,  [[NSRunLoop currentRunLoop]getCFRunLoop], kCFRunLoopDefaultMode)) {
 		if (_debugMisc) NSLog (@"Failed to schedule a reacher.");
@@ -401,6 +407,13 @@ static void MySleepCallBack( void * refCon, io_service_t service, natural_t mess
  * since frontrow can get exclusive audio access, and.. is on the front
  */
 
+- (void) ssidChange: (NSNotification*) notif
+{
+	NSDictionary *userInfo=[notif userInfo];
+	NSLog(@"ssidchange: %@ : ssid:%@\n", [notif name], [userInfo objectForKey:@"SSID_STR"]);
+
+	
+}
 - (void) goToFrontRow:(NSNotification*)notif 
 {
 	if (_debugMisc) NSLog(@"going to front row %@\n", [notif name]);
@@ -449,11 +462,11 @@ static void PrintReachabilityFlags(
 		);
 }
 
-- (void) reachable
+- (void) reachable:(BOOL) reachable  bssid:(NSData *)bssid ssidStr:(NSString *)ssidStr
 {
 	NSAssert(phone, @"hu");
-	//SCNetworkProtocolGetConfiguration(<#SCNetworkProtocolRef protocol#>)
-	[phone registerPhone:self];
+	networkAvailable=reachable;
+	if (networkAvailable) [phone registerPhone:self];
 }
 
 - (void) quitFromAlertResponse:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo
@@ -471,9 +484,53 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 				 void *                      info)
 {
 	if (_debugMisc) NSLog(@"callbacked\n");
-	if (_debugMisc) PrintReachabilityFlags(" for freephonie.net", flags, "");
+	//if (_debugMisc) PrintReachabilityFlags(" for freephonie.net", flags, "");
+	NSData *bssid=nil;
+	NSString *ssidStr=nil;
+
 	AppHelper *s=(AppHelper *)info;
-	[s reachable];
+
+	SCDynamicStoreContext dynamicStoreContext ={ 0, NULL, NULL, NULL, NULL };
+	SCDynamicStoreRef scdref=SCDynamicStoreCreate ( NULL, (CFStringRef) @"symPhonie",
+						       scCallback, 
+						       &dynamicStoreContext ); 
+	CFPropertyListRef itfs=SCDynamicStoreCopyValue(scdref, (CFStringRef)@"State:/Network/Interface");
+	if (!itfs) goto wifi_done;
+	NSArray *itf=[(id)itfs valueForKey:@"Interfaces"];
+	if (!itf) goto wifi_done;
+
+
+	int i, count = [itf count];
+	for (i = 0; i < count; i++) {
+		int retry=5;
+		NSString *iface = [itf objectAtIndex:i];
+		CFPropertyListRef pv=SCDynamicStoreCopyValue (scdref, 
+			(CFStringRef) [NSString stringWithFormat:@"State:/Network/Interface/%@/AirPort", iface]);
+	retry1:
+		NSLog(@"for %@: %@\n", iface, pv);
+		if (pv) {
+			NSLog(@"SSID %@, net=%@\n", [(id)pv valueForKey:@"BSSID"], [(id)pv valueForKey:@"SSID_STR"]);
+			bssid=[[[(id)pv valueForKey:@"BSSID"]retain]autorelease];
+			ssidStr=[[[(id)pv valueForKey:@"SSID_STR"]retain]autorelease];
+			CFRelease(pv);
+			if ([ssidStr isEqualToString:@""] && (retry>0)) {
+				// it seems that reachability call is called before
+				// AirPort info is actually available..
+				NSLog(@"strange bssid, retrying\n");
+				retry--;
+				usleep(250000);
+				pv=SCDynamicStoreCopyValue (scdref, 
+					(CFStringRef) [NSString stringWithFormat:@"State:/Network/Interface/%@/AirPort", iface]);
+				goto retry1;
+			}
+			break;
+		}
+		if (pv) CFRelease(pv);
+	}
+	CFRelease(itfs);
+	CFRelease(scdref);
+wifi_done:
+	[s reachable:(flags & kSCNetworkFlagsReachable) ? YES: NO bssid:bssid ssidStr:ssidStr];
 }
 
 
@@ -572,7 +629,7 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 
 /*
  * get domain info, free is hardcoded for now
- * TODO: user provider to find these info
+ * 
  */
 
 - (void) getSipProviders
@@ -691,7 +748,14 @@ static NSString *GetPasswordKeychain (NSString *account,
 				      SecKeychainItemRef *itemRef);
 static OSStatus StorePasswordKeychain(NSString *account, NSString* password);
 
-
+- (BOOL) accountEditable
+{
+	BOOL alt=[[providerInfo valueForKey:@"alternateIsAlternate"]boolValue];
+	if (alt) return NO;
+	BOOL noaccount=[[providerInfo valueForKey:@"noAccountInfo"]boolValue];
+	if (noaccount) return NO;
+	return YES;
+}
 - (void) setProvider:(NSString *)name
 {
 	if (!name) {
@@ -699,9 +763,11 @@ static OSStatus StorePasswordKeychain(NSString *account, NSString* password);
 	}
 	[phone unregisterPhone:self];
 	[self willChangeValueForKey:@"providerTabIdx"];
+	[self willChangeValueForKey:@"accountEditable"];
 	[self setProviderInfo:[providers objectForKey:name]];
 	setProp(@"providerName", name);
 	[self didChangeValueForKey:@"providerTabIdx"];
+	[self didChangeValueForKey:@"accountEditable"];
 	if ([name isEqualToString:@"free"]) {
 		//compat: migrate passwd
 		NSString *phon=[self phoneNumber];
@@ -720,7 +786,7 @@ static OSStatus StorePasswordKeychain(NSString *account, NSString* password);
 			}
 		}
 	}
-	[phone authInfoChanged];
+	[phone authInfoChangedWithNetwork:networkAvailable];
 	
 	// ignore and go back to freephonie for now
 }
@@ -906,8 +972,10 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 {
 	if (f != onDemandRegister) {
 		onDemandRegister=f;
-		if (onDemandRegister) [phone unregisterPhone:self];
-		else [phone registerPhone:self];
+		if (networkAvailable) {
+			if (onDemandRegister) [phone unregisterPhone:self];
+			else [phone registerPhone:self];
+		}
 	}
 }
 

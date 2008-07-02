@@ -39,10 +39,12 @@
 	int audioTestStatus;
 	IBOutlet NSPanel *audioTestPanel;
 	BOOL dtmfVisible;
+	
 	NSMutableArray *matchPhones;
 	NSMutableArray *providersNames;
 	NSMutableDictionary *providers;
 	NSDictionary *providerInfo;
+	BOOL networkAvailable;
 	// failure notification messages
 	NSString *regErrorMsg;
 	NSString *regDiagMsg;

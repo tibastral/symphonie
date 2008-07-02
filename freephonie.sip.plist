@@ -6,8 +6,10 @@
 	<true/>
 	<key>alternateParent</key>
 	<string>free</string>
-	<key>alternateWifi</key>
+	<key>onlyOnSsid</key>
 	<string>freephonie</string>
+	<key>noOtherConfigOnThisSsid</key>
+	<true/>
 	<key>name</key>
 	<string>free over freephonie wifi</string>
 	<key>providerName</key>

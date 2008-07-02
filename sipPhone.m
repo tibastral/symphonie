@@ -610,13 +610,13 @@ static int initDone=0;
 }
 
 
-- (void) authInfoChanged
+- (void) authInfoChangedWithNetwork:(BOOL)net
 {
 	if (_debugAuth) NSLog(@"authInfoChanged\n");
 	eXosip_clear_authentication_info();
 	eXosip_add_authentication_info([[appHelper authId]cString], [[appHelper authId]cString], [[appHelper authPasswd]cString],
 			       NULL, NULL);
-	[self registerPhone:self];
+	if (net) [self registerPhone:self];
 }
 
 - (IBAction) registerPhoneOnDemand:(BOOL) onDemand dur:(int)dur;

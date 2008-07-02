@@ -20,6 +20,7 @@
 #include <IOKit/IOMessage.h>
 
 #import "UpdateChecker.h"
+#import "NetworkState.h"
 
 @implementation AppHelper
 
@@ -31,44 +32,6 @@ static int _debugCauses=0;
 
 #pragma mark -
 #pragma mark *** init, dealloc... ***
-
-static void scCallback(  SCDynamicStoreRef store, 
-		       CFArrayRef changedKeys, 
-		       void *info)
-{
-	NSLog(@"sc callback\n");
-	NSArray *ck=(NSArray *)changedKeys;
-	int i, count = [ck count];
-	for (i = 0; i < count; i++) {
-		NSString *k = [ck objectAtIndex:i];
-		CFPropertyListRef pv=SCDynamicStoreCopyValue (store, (CFStringRef)k);
-		NSLog(@"for %@, SSID %@, net=%@\n", k, [(id)pv valueForKey:@"BSSID"], [(id)pv valueForKey:@"SSID_STR"]);
-		NSData *bssid=[[[(id)pv valueForKey:@"BSSID"]retain]autorelease];
-		NSString *ssidStr=[[[(id)pv valueForKey:@"SSID_STR"]retain]autorelease];
-		CFRelease(pv);
-	}
-
-}
-
-#if 0
-- (void) testSC
-{
-	SCDynamicStoreContext dynamicStoreContext ={ 0, NULL, NULL, NULL, NULL };
-	SCDynamicStoreRef scdref=SCDynamicStoreCreate ( NULL, (CFStringRef) @"symPhonie",
-						scCallback, 
-						&dynamicStoreContext );  
-	CFPropertyListRef pv=SCDynamicStoreCopyValue (scdref, (CFStringRef) @"State:/Network/Global/IPv4");
-	CFPropertyListRef pv2=SCDynamicStoreCopyValue (scdref, (CFStringRef) @"State:/Network/Global/IPv6");
-	CFPropertyListRef pv3=SCDynamicStoreCopyValue (scdref, (CFStringRef) @"State:/Network/Global/DNS");
-	CFPropertyListRef pv4=SCDynamicStoreCopyValue (scdref, (CFStringRef) @"State:/Network/Global/Proxies");
-	CFPropertyListRef pv5=SCDynamicStoreCopyValue (scdref, (CFStringRef) @"State:/Network/Interface");
-	CFPropertyListRef pv6=SCDynamicStoreCopyValue (scdref, (CFStringRef) @"State:/Network/Interface/en1/Link");
-	CFPropertyListRef pv7=SCDynamicStoreCopyValue (scdref, (CFStringRef) @"State:/Network/Interface/en1/IPv4");
-	CFPropertyListRef pv8=SCDynamicStoreCopyValue (scdref, (CFStringRef) @"State:/Network/Interface/en1");
-
-	NSLog(@"hop\n");
-}
-#endif
 
 - (id) init {
 	self = [super init];
@@ -88,7 +51,7 @@ static void scCallback(  SCDynamicStoreRef store,
 }
 - (void) dealloc 
 {
-	if (scdref) CFRelease(scdref);
+	[netState release];
 	[clrMsgTimer0 invalidate];
 	[clrMsgTimer0 release];
 	[clrMsgTimer1 invalidate];
@@ -104,10 +67,11 @@ static void scCallback(  SCDynamicStoreRef store,
 /*
  * lots of init here, mostly registration for network, power status change.
  */
-
+#ifdef REACH
 static void reachabilityCallback(SCNetworkReachabilityRef	target,
 				 SCNetworkConnectionFlags	flags,
 				 void *                      info);
+#endif
 /*
 static void networkConnectionCallback( SCNetworkConnectionRef connection, 
 				      SCNetworkConnectionStatus status, 
@@ -155,49 +119,17 @@ static void networkConnectionCallback( SCNetworkConnectionRef connection,
 	[[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(ssidChange:) 
 								name:@"com.apple.airport.ssid.changed" object:nil];
 	
-	SCNetworkReachabilityRef        thisTarget;
-	SCNetworkReachabilityContext    thisContext;
-	thisContext.version         = 0;
-	thisContext.info            = (void *) self;
-	thisContext.retain          = NULL;
-	thisContext.release         = NULL;
-	thisContext.copyDescription = NULL;
 	
+	netState=[[NetworkState alloc]initWithClient:self];
 	
-	static SCDynamicStoreContext dynamicStoreContext ={ 0, NULL, NULL, NULL, NULL };
-	scdref=SCDynamicStoreCreate ( NULL, (CFStringRef) @"symPhonie",
-						       scCallback, 
-						       &dynamicStoreContext );
-	CFStringRef itfkey=SCDynamicStoreKeyCreateNetworkInterface(NULL, kSCDynamicStoreDomainState);
-	CFPropertyListRef itfs=SCDynamicStoreCopyValue(scdref, itfkey);
-	CFRelease(itfkey);
-	if (!itfs) goto wifi_done;
-	NSArray *itf=[(id)itfs valueForKey:@"Interfaces"];
-	if (!itf) goto wifi_done;
-	NSMutableArray *notif=[NSMutableArray arrayWithCapacity:5];
-	int i, count = [itf count];
-	for (i = 0; i < count; i++) {
-		NSString * iface = [itf objectAtIndex:i];
-		CFStringRef ik=SCDynamicStoreKeyCreateNetworkInterfaceEntity(NULL, kSCDynamicStoreDomainState, (CFStringRef) iface, kSCEntNetAirPort);
-		[notif addObject:(NSString *)ik];
-		CFRelease(ik);
-	}
-	BOOL ok=SCDynamicStoreSetNotificationKeys(scdref, (CFArrayRef)notif, NULL);
-	if (!ok) {
-		NSLog(@"SCDynamicStoreSetNotificationKeys failed :%d : %s\n", SCError(), SCErrorString(SCError()));
-		goto wifi_done;
-	}
-	CFRunLoopSourceRef rls=SCDynamicStoreCreateRunLoopSource(NULL, scdref, 0);
-	CFRunLoopAddSource([[NSRunLoop currentRunLoop]getCFRunLoop], rls, kCFRunLoopCommonModes);
-	CFRelease(rls);
-	
-wifi_done:	
+#ifdef REACH
+
 	thisTarget = SCNetworkReachabilityCreateWithName(NULL, "reachabiltyForSymphonie");
 	SCNetworkReachabilitySetCallback (thisTarget, reachabilityCallback, &thisContext);
 	if (!SCNetworkReachabilityScheduleWithRunLoop(thisTarget,  [[NSRunLoop currentRunLoop]getCFRunLoop], kCFRunLoopDefaultMode)) {
 		if (_debugMisc) NSLog (@"Failed to schedule a reacher.");
 	}
-
+#endif
 	// dial url
 	[[NSAppleEventManager sharedAppleEventManager]
 	 setEventHandler:self andSelector:@selector(dialFromUrlEvent:withReplyEvent:)
@@ -462,6 +394,7 @@ static void MySleepCallBack( void * refCon, io_service_t service, natural_t mess
 	if (_debugMisc) NSLog(@"ending  front row %@\n", [notif name]);
 }
 
+#ifdef REACH
 
 static void PrintReachabilityFlags(
 				   const char *                hostname, 
@@ -500,6 +433,7 @@ static void PrintReachabilityFlags(
 		comment
 		);
 }
+#endif
 
 - (void) reachable:(BOOL) reachable  bssid:(NSData *)bssid ssidStr:(NSString *)ssidStr
 {
@@ -513,6 +447,8 @@ static void PrintReachabilityFlags(
 	exit(1);
 }
 
+
+#ifdef REACH
 
 /* network change callback
  * we actually dont check reachability but try to register at
@@ -571,7 +507,7 @@ static void reachabilityCallback(SCNetworkReachabilityRef	target,
 wifi_done:
 	[s reachable:(flags & kSCNetworkFlagsReachable) ? YES: NO bssid:bssid ssidStr:ssidStr];
 }
-
+#endif
 
 /*
  * notification on quit : unregister before quiting

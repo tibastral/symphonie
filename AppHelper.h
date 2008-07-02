@@ -8,14 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 
-#include <CoreFoundation/CoreFoundation.h>
-#include <SystemConfiguration/SystemConfiguration.h>
+
 
 #import "UserPlane.h"
 @class SipPhone;
 @class BundledScript;
 @class CallTicketHandler;
-
+@class NetworkState;
 /*
  * AppHelper handles most/all of the non-telecom part of the phone.
  * (SipPhone class focuses on telecom stuf, AppHelper on "accessories"
@@ -49,7 +48,7 @@
 	NSMutableDictionary *providers;
 	NSDictionary *providerInfo;
 	BOOL networkAvailable;
-	SCDynamicStoreRef scdref;
+	NetworkState *netState;
 	// failure notification messages
 	NSString *regErrorMsg;
 	NSString *regDiagMsg;

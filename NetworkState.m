@@ -7,9 +7,127 @@
 //
 
 #import "NetworkState.h"
+#import "Properties.h"
+
+static int _debugSC=NO;
+
+@interface NetworkState()
+- (void) _ifaceChanged;
+@end
+
+
+@interface IfaceDescr : NSObject {
+	NetworkState *parent; // not retained
+	BOOL _isvalid;
+	BOOL touched;
+	NSArray *addresses;
+	BOOL isAirport;
+	NSString *ssidStr;
+	NSData *bssid;
+	BOOL validAirport;
+}
+- (id) initWithParent:(NetworkState *)p;
+- (void) setAddresses:(NSArray *)_addresses;
+- (void) setSsid:(NSString *)_s bssid:(NSData *)b busy:(NSNumber *)busy;
+- (BOOL) isValid;
+@end
+
+@implementation IfaceDescr
+- (void) dealloc
+{
+	[addresses release];
+	[ssidStr release];
+	[bssid release];
+	[super dealloc];
+}
+
+- (id) initWithParent:(NetworkState *)p;
+{
+	self = [super init];
+	if (self != nil) {
+		parent=p;
+	}
+	return self;
+}
+- (BOOL) isValid
+{
+	if (!touched) return _isvalid;
+	BOOL v=YES;
+	if (!addresses || ![addresses count]) {
+		if (_debugSC) NSLog(@"    ...invalid for no adress\n");
+		v=NO;
+	} else {
+		// check for 169...
+		int i, count = [addresses count];
+		BOOL hasRealIP=NO;
+		for (i = 0; i < count; i++) {
+			NSString *a = [addresses objectAtIndex:i];
+			if (![a hasPrefix:@"169."] && ![a hasPrefix:@"127."]) hasRealIP=YES;
+		}
+		if (!hasRealIP) {
+			if (_debugSC) NSLog(@"    ...invalid for no real adress\n");
+			v=NO;
+		}
+	}
+	if (isAirport && !validAirport) {
+		if (_debugSC) NSLog(@"    ...invalid for airport is busy\n");
+		v=NO;
+	}
+	touched=NO;
+	_isvalid=v;
+	 return _isvalid;
+}
+
+- (void) setAddresses:(NSArray *)_addresses
+{
+	[addresses release];
+	addresses=[_addresses retain];
+	touched=YES;
+	[parent _ifaceChanged];
+}
+- (void) setSsid:(NSString *)_s bssid:(NSData *)b busy:(NSNumber *)busy
+{
+	isAirport=YES;
+	[ssidStr release];
+	ssidStr=[_s retain];
+#if 0
+	if (!bssid || !b || ![b isEqualToData:bssid]) {
+		[addresses release];
+		addresses=nil;
+	}
+#endif
+	[bssid release];
+	bssid=[b retain];
+	BOOL bv=[busy boolValue];
+	if (busy && !bv) {
+		validAirport=YES;
+	} else if (!busy) {
+		// consider as non valid if busy flag not present (init state of airport??) ?? finaly no
+		validAirport=YES;
+	} else {
+		validAirport=NO;
+	}
+	if ([bssid length] != 6) validAirport=NO;
+	touched=YES;
+	[parent _ifaceChanged];
+}
+
+@end
+
+
 
 
 @implementation NetworkState
+- (IfaceDescr *) descrFor:(NSString *)name
+{
+	IfaceDescr *desc=[ifaces objectForKey:name];
+	if (!desc) {
+		desc=[[IfaceDescr alloc]initWithParent:self];
+		[ifaces setObject:desc forKey:name];
+		[desc autorelease];
+	}
+	return desc;
+}
 
 #pragma mark -
 #pragma mark ** mark misc carbon helper **
@@ -87,23 +205,26 @@ static void processScInfo(const void *_key,
 			const void *_value,
 			void *context)
 {
-	NetworkState *this=(NetworkState *) context;
+	NetworkState *ns=(NetworkState *) context;
 	NSString *key=(NSString *)_key;
 	id pv=(id) _value;
 	
 	
-	NSLog(@"for %@: %@\n", key, pv);
-	if ([key hasSuffix:kSCEntNetAirPort]) {
+	if (_debugSC) NSLog(@"for %@: %@\n", key, pv);
+	if ([key hasSuffix:(id)kSCEntNetAirPort]) {
 		NSArray *ne=[key componentsSeparatedByString:@"/"];
 		NSString *iface=[ne objectAtIndex:[ne count]-2];
-		NSLog(@"for %@, busy=%@ SSID %@, net=%@\n", iface, [(id)pv valueForKey:@"Busy"], [(id)pv valueForKey:@"BSSID"], [(id)pv valueForKey:@"SSID_STR"]);
-		NSData *bssid=[[[(id)pv valueForKey:@"BSSID"]retain]autorelease];
-		NSString *ssidStr=[[[(id)pv valueForKey:@"SSID_STR"]retain]autorelease];
+		IfaceDescr *idesc=[ns descrFor:iface];
+		if (_debugSC) NSLog(@"for %@, busy=%@ SSID %@, net=%@\n", iface, [(id)pv valueForKey:@"Busy"], [(id)pv valueForKey:@"BSSID"], [(id)pv valueForKey:@"SSID_STR"]);
+		NSData *bssid=[(id)pv valueForKey:@"BSSID"];
+		NSString *ssidStr=[(id)pv valueForKey:@"SSID_STR"];
 		NSNumber *busy= [(id)pv valueForKey:@"Busy"];
-	} else if ([key hasSuffix:kSCEntNetIPv4]) {
-		NSArray *addresses=[pv valueForKey:@"Addresses"];
+		[idesc setSsid:ssidStr bssid:bssid busy:busy];
+	} else if ([key hasSuffix:(id)kSCEntNetIPv4]) {
 		NSString *iface=[pv valueForKey:@"InterfaceName"];
-		NSLog(@"hu");
+		IfaceDescr *idesc=[ns descrFor:iface];
+		NSArray *addresses=[pv valueForKey:@"Addresses"];
+		[idesc setAddresses:addresses];
 	}
 }	
 	
@@ -111,7 +232,7 @@ static void scCallback(  SCDynamicStoreRef store,
 		       CFArrayRef changedKeys, 
 		       void *info)
 {
-	//NSLog(@"sc callback\n");
+	if (_debugSC) NSLog(@"sc callback\n");
 	CFDictionaryRef valueDict = SCDynamicStoreCopyMultiple(store,
 							       changedKeys,
 							       NULL);
@@ -120,12 +241,31 @@ static void scCallback(  SCDynamicStoreRef store,
 	
 	CFDictionaryApplyFunction(valueDict,
                                   processScInfo,
-                                  NULL);
+                                  info);
 	CFQRelease(valueDict);
 }
 
 #pragma mark -
 #pragma mark ** init and callback register **
+
+- (id) init
+{
+	_debugSC=getBoolProp(@"debugSC", NO);
+	self = [super init];
+	if (self != nil) {
+		ifaces=[[NSMutableDictionary dictionaryWithCapacity:10]retain];
+	}
+	return self;
+}
+
+- (void) dealloc
+{
+	[ifaces release];
+	// more to do with sc
+	NSAssert(0, @"should not be deallocated");
+	[super dealloc];
+}
+
 
 - (id) initWithClient:(NSObject  <NetworkStateClient> *) _client
 {
@@ -162,7 +302,7 @@ static void scCallback(  SCDynamicStoreRef store,
 	
 	CFDictionaryApplyFunction(valueDict,
                                   processScInfo,
-                                  NULL);
+                                  (void *)self);
 	 
 
 	BOOL ok=SCDynamicStoreSetNotificationKeys(scdref, NULL, patterns);
@@ -199,7 +339,30 @@ static void scCallback(  SCDynamicStoreRef store,
 wifi_done:	
 	return self;
 }
+
+
+- (void) ifaceProcessChanges
+{
+	changed=NO;
+	NSArray *ifs=[ifaces allKeys];
+	int i, count = [ifs count];
+	NSLog(@"got %d ifaces:\n", count);
+	for (i = 0; i < count; i++) {
+		NSString * ifn = [ifs objectAtIndex:i];
+		IfaceDescr * ifd = [ifaces objectForKey:ifn];
+		NSLog(@"    %@: %s\n", ifn, [ifd isValid] ? "OK" :"invalid");
+	}
+}
+- (void) _ifaceChanged
+{
+	if (!changed) {
+		changed=YES;
+		[self performSelectorOnMainThread:@selector(ifaceProcessChanges) withObject:nil waitUntilDone:NO];
+	}
+}
 - (void) registerLocation:(NSString *)name ssid:(NSString *)ssid interface:(NSString *)iface
 {
 }
+
+
 @end

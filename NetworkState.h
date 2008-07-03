@@ -18,6 +18,8 @@
 @interface NetworkState : NSObject {
 	SCDynamicStoreRef scdref;
 	NSObject  <NetworkStateClient> * client;
+	NSMutableDictionary *ifaces;
+	BOOL changed;
 }
 
 - (id) initWithClient:(NSObject  <NetworkStateClient> *) client;

@@ -338,7 +338,7 @@
 										<key>_historyCapacity</key>
 										<integer>40</integer>
 										<key>bookmark</key>
-										<string>1BD608780E1C94FD006F730E</string>
+										<string>1BD608F10E1CA527006F730E</string>
 										<key>history</key>
 										<array>
 											<string>1B36F3B20DFAF8960051C38A</string>
@@ -364,8 +364,8 @@
 											<string>1BD607850E1B50FF006F730E</string>
 											<string>1BD607860E1B50FF006F730E</string>
 											<string>1BD6079E0E1B53CF006F730E</string>
-											<string>1BD608010E1C284E006F730E</string>
-											<string>1BD6086E0E1C9224006F730E</string>
+											<string>1BD608EF0E1CA521006F730E</string>
+											<string>1BD608EE0E1CA51C006F730E</string>
 										</array>
 										<key>nextStack</key>
 										<array>
@@ -632,7 +632,7 @@
 										<key>_historyCapacity</key>
 										<integer>40</integer>
 										<key>bookmark</key>
-										<string>1BD608790E1C94FD006F730E</string>
+										<string>1BD608F20E1CA527006F730E</string>
 										<key>history</key>
 										<array>
 											<string>1B36F3B20DFAF8960051C38A</string>
@@ -658,12 +658,8 @@
 											<string>1BD605FF0E1A0788006F730E</string>
 											<string>1BD607920E1B5222006F730E</string>
 											<string>1BD607A90E1B544E006F730E</string>
-											<string>1BD6080E0E1C2A82006F730E</string>
-											<string>1BD6085F0E1C37D9006F730E</string>
-										</array>
-										<key>nextStack</key>
-										<array>
-											<string>1BD608300E1C301C006F730E</string>
+											<string>1BD6088E0E1C9BED006F730E</string>
+											<string>1BD6088F0E1C9BED006F730E</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -696,6 +692,7 @@
 											<string>1BD607AC0E1B544E006F730E</string>
 											<string>1BD607AD0E1B544E006F730E</string>
 											<string>1BD608100E1C2A82006F730E</string>
+											<string>1BD608900E1C9BED006F730E</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -804,8 +801,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXProjectModuleGUID</key>
@@ -818,7 +813,7 @@
 						<key>Frame</key>
 						<string>{{0, 0}, {935, 152}}</string>
 						<key>RubberWindowFrame</key>
-						<string>111 131 935 585 0 0 1280 778 </string>
+						<string>110 134 935 585 0 0 1280 778 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXDebugCLIModule</string>
@@ -894,10 +889,10 @@
 							<key>Frame</key>
 							<string>{{385, 0}, {550, 172}}</string>
 							<key>RubberWindowFrame</key>
-							<string>111 131 935 585 0 0 1280 778 </string>
+							<string>110 134 935 585 0 0 1280 778 </string>
 						</dict>
 						<key>RubberWindowFrame</key>
-						<string>111 131 935 585 0 0 1280 778 </string>
+						<string>110 134 935 585 0 0 1280 778 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXDebugSessionModule</string>
@@ -955,13 +950,14 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>1BD608F30E1CA527006F730E</string>
 		<string>1BD605A70E19F741006F730E</string>
 		<string>1BD605A80E19F741006F730E</string>
-		<string>/Users/danielbraun/devel/sipPhone/sipPhone.xcodeproj</string>
 		<string>1BD608730E1C9234006F730E</string>
+		<string>/Users/danielbraun/devel/sipPhone/sipPhone.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>111 131 935 585 0 0 1280 778 </string>
+	<string>110 134 935 585 0 0 1280 778 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>

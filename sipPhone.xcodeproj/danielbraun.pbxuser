@@ -4616,16 +4616,16 @@
 	};
 	1BD607810E1B50D6006F730E /* NetworkState.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {858, 519}}";
+			sepNavIntBoundsRect = "{{0, 0}, {858, 542}}";
 			sepNavSelRange = "{657, 0}";
 			sepNavVisRange = "{0, 668}";
 		};
 	};
 	1BD607820E1B50D6006F730E /* NetworkState.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {924, 2688}}";
-			sepNavSelRange = "{2130, 0}";
-			sepNavVisRange = "{1942, 496}";
+			sepNavIntBoundsRect = "{{0, 0}, {984, 3080}}";
+			sepNavSelRange = "{1841, 0}";
+			sepNavVisRange = "{2772, 830}";
 		};
 	};
 	1BD607850E1B50FF006F730E /* PlistBookmark */ = {
@@ -4910,7 +4910,7 @@
 		comments = "error: label 'wifi_done' used but not defined";
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		rLen = 1;
-		rLoc = 170;
+		rLoc = 178;
 		rType = 1;
 	};
 	1BD607AC0E1B544E006F730E /* PBXTextBookmark */ = {
@@ -4938,7 +4938,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 66";
 		rLen = 0;
-		rLoc = 5117;
+		rLoc = 5438;
 		rType = 0;
 		vrLen = 911;
 		vrLoc = 1405;
@@ -4958,12 +4958,12 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 66";
 		rLen = 0;
-		rLoc = 5117;
+		rLoc = 5438;
 		rType = 0;
 		vrLen = 911;
 		vrLoc = 1405;
 	};
-	1BD607B30E1B5485006F730E /* NetworkState.m:122 */ = {
+	1BD607B30E1B5485006F730E /* NetworkState.m:130 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -4975,7 +4975,7 @@
 		functionName = "-initWithClient:";
 		hitCount = 1;
 		ignoreCount = 0;
-		lineNumber = 122;
+		lineNumber = 130;
 		location = symPhonie;
 		modificationTime = 236730477.525742;
 		state = 1;
@@ -4995,7 +4995,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 66";
 		rLen = 0;
-		rLoc = 5117;
+		rLoc = 5438;
 		rType = 0;
 		vrLen = 911;
 		vrLoc = 1405;
@@ -5015,7 +5015,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 66";
 		rLen = 0;
-		rLoc = 5117;
+		rLoc = 5438;
 		rType = 0;
 		vrLen = 911;
 		vrLoc = 1405;
@@ -5035,7 +5035,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 66";
 		rLen = 0;
-		rLoc = 5117;
+		rLoc = 5438;
 		rType = 0;
 		vrLen = 911;
 		vrLoc = 1405;
@@ -5064,7 +5064,7 @@
 		isa = PBXTextBookmark;
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		rLen = 0;
-		rLoc = 105;
+		rLoc = 113;
 		rType = 1;
 	};
 	1BD607C50E1B554F006F730E /* PBXTextBookmark */ = {
@@ -5072,7 +5072,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 66";
 		rLen = 0;
-		rLoc = 5117;
+		rLoc = 5438;
 		rType = 0;
 		vrLen = 449;
 		vrLoc = 1867;
@@ -5092,7 +5092,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 36";
 		rLen = 0;
-		rLoc = 2583;
+		rLoc = 2904;
 		rType = 0;
 		vrLen = 239;
 		vrLoc = 704;
@@ -5112,7 +5112,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 26";
 		rLen = 0;
-		rLoc = 2451;
+		rLoc = 2772;
 		rType = 0;
 		vrLen = 497;
 		vrLoc = 240;
@@ -5122,7 +5122,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 26";
 		rLen = 0;
-		rLoc = 2451;
+		rLoc = 2772;
 		rType = 0;
 		vrLen = 677;
 		vrLoc = 155;
@@ -5142,7 +5142,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 26";
 		rLen = 0;
-		rLoc = 2451;
+		rLoc = 2772;
 		rType = 0;
 		vrLen = 649;
 		vrLoc = 187;
@@ -5162,7 +5162,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 26";
 		rLen = 0;
-		rLoc = 2451;
+		rLoc = 2772;
 		rType = 0;
 		vrLen = 689;
 		vrLoc = 187;
@@ -5182,7 +5182,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 26";
 		rLen = 0;
-		rLoc = 2451;
+		rLoc = 2772;
 		rType = 0;
 		vrLen = 685;
 		vrLoc = 187;
@@ -5201,7 +5201,7 @@
 		isa = PBXTextBookmark;
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		rLen = 0;
-		rLoc = 116;
+		rLoc = 124;
 		rType = 1;
 	};
 	1BD607DC0E1B566E006F730E /* PBXTextBookmark */ = {
@@ -5209,7 +5209,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 26";
 		rLen = 0;
-		rLoc = 2451;
+		rLoc = 2772;
 		rType = 0;
 		vrLen = 333;
 		vrLoc = 812;
@@ -5229,7 +5229,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 27";
 		rLen = 0;
-		rLoc = 2451;
+		rLoc = 2772;
 		rType = 0;
 		vrLen = 349;
 		vrLoc = 869;
@@ -5249,7 +5249,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 20";
 		rLen = 0;
-		rLoc = 2094;
+		rLoc = 2415;
 		rType = 0;
 		vrLen = 374;
 		vrLoc = 157;
@@ -5259,7 +5259,7 @@
 		comments = "error: 'p' undeclared (first use in this function)";
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		rLen = 0;
-		rLoc = 116;
+		rLoc = 124;
 		rType = 1;
 	};
 	1BD607E30E1B567A006F730E /* PBXTextBookmark */ = {
@@ -5267,7 +5267,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 27";
 		rLen = 0;
-		rLoc = 2451;
+		rLoc = 2772;
 		rType = 0;
 		vrLen = 775;
 		vrLoc = 79;
@@ -5287,7 +5287,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 27";
 		rLen = 0;
-		rLoc = 2451;
+		rLoc = 2772;
 		rType = 0;
 		vrLen = 691;
 		vrLoc = 188;
@@ -5307,12 +5307,12 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 27";
 		rLen = 0;
-		rLoc = 2451;
+		rLoc = 2772;
 		rType = 0;
 		vrLen = 689;
 		vrLoc = 188;
 	};
-	1BD607ED0E1B598A006F730E /* NetworkState.m:106 */ = {
+	1BD607ED0E1B598A006F730E /* NetworkState.m:114 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -5324,7 +5324,7 @@
 		functionName = "scCallback()";
 		hitCount = 1;
 		ignoreCount = 0;
-		lineNumber = 106;
+		lineNumber = 114;
 		location = symPhonie;
 		modificationTime = 236730523.99583;
 		state = 1;
@@ -5344,7 +5344,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 27";
 		rLen = 0;
-		rLoc = 2451;
+		rLoc = 2772;
 		rType = 0;
 		vrLen = 732;
 		vrLoc = 188;
@@ -5354,7 +5354,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 26";
 		rLen = 0;
-		rLoc = 2451;
+		rLoc = 2772;
 		rType = 0;
 		vrLen = 349;
 		vrLoc = 869;
@@ -5371,7 +5371,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 27";
 		rLen = 0;
-		rLoc = 2451;
+		rLoc = 2772;
 		rType = 0;
 		vrLen = 349;
 		vrLoc = 871;
@@ -5391,7 +5391,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 26";
 		rLen = 0;
-		rLoc = 2451;
+		rLoc = 2772;
 		rType = 0;
 		vrLen = 349;
 		vrLoc = 869;
@@ -5440,7 +5440,7 @@
 		isa = PBXTextBookmark;
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		rLen = 0;
-		rLoc = 116;
+		rLoc = 124;
 		rType = 1;
 	};
 	1BD607FD0E1C2848006F730E /* PBXTextBookmark */ = {
@@ -5458,7 +5458,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 39";
 		rLen = 0;
-		rLoc = 2583;
+		rLoc = 2904;
 		rType = 0;
 		vrLen = 441;
 		vrLoc = 923;
@@ -5478,7 +5478,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 21";
 		rLen = 0;
-		rLoc = 2451;
+		rLoc = 2772;
 		rType = 0;
 		vrLen = 553;
 		vrLoc = 188;
@@ -5498,7 +5498,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 21";
 		rLen = 0;
-		rLoc = 2451;
+		rLoc = 2772;
 		rType = 0;
 		vrLen = 620;
 		vrLoc = 157;
@@ -5508,7 +5508,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 27";
 		rLen = 0;
-		rLoc = 2451;
+		rLoc = 2772;
 		rType = 0;
 		vrLen = 732;
 		vrLoc = 188;
@@ -5518,7 +5518,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 21";
 		rLen = 0;
-		rLoc = 2451;
+		rLoc = 2772;
 		rType = 0;
 		vrLen = 413;
 		vrLoc = 777;
@@ -5528,7 +5528,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 21";
 		rLen = 0;
-		rLoc = 2451;
+		rLoc = 2772;
 		rType = 0;
 		vrLen = 372;
 		vrLoc = 777;
@@ -5538,7 +5538,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 27";
 		rLen = 0;
-		rLoc = 2451;
+		rLoc = 2772;
 		rType = 0;
 		vrLen = 735;
 		vrLoc = 188;
@@ -5548,7 +5548,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 21";
 		rLen = 0;
-		rLoc = 2451;
+		rLoc = 2772;
 		rType = 0;
 		vrLen = 357;
 		vrLoc = 920;
@@ -5565,7 +5565,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 21";
 		rLen = 0;
-		rLoc = 2451;
+		rLoc = 2772;
 		rType = 0;
 		vrLen = 357;
 		vrLoc = 920;
@@ -5585,7 +5585,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 21";
 		rLen = 0;
-		rLoc = 2451;
+		rLoc = 2772;
 		rType = 0;
 		vrLen = 457;
 		vrLoc = 692;
@@ -5605,7 +5605,7 @@
 		comments = "error: 'err' undeclared (first use in this function)";
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		rLen = 1;
-		rLoc = 136;
+		rLoc = 144;
 		rType = 1;
 	};
 	1BD608100E1C2A82006F730E /* PBXTextBookmark */ = {
@@ -5623,7 +5623,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 53";
 		rLen = 45;
-		rLoc = 3063;
+		rLoc = 3384;
 		rType = 0;
 		vrLen = 651;
 		vrLoc = 1149;
@@ -5633,7 +5633,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 21";
 		rLen = 0;
-		rLoc = 2451;
+		rLoc = 2772;
 		rType = 0;
 		vrLen = 457;
 		vrLoc = 692;
@@ -5643,7 +5643,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 53";
 		rLen = 0;
-		rLoc = 3080;
+		rLoc = 3401;
 		rType = 0;
 		vrLen = 879;
 		vrLoc = 1149;
@@ -5653,7 +5653,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 21";
 		rLen = 0;
-		rLoc = 2451;
+		rLoc = 2772;
 		rType = 0;
 		vrLen = 346;
 		vrLoc = 777;
@@ -5663,7 +5663,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 84";
 		rLen = 0;
-		rLoc = 3097;
+		rLoc = 3418;
 		rType = 0;
 		vrLen = 479;
 		vrLoc = 928;
@@ -5673,7 +5673,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 21";
 		rLen = 0;
-		rLoc = 2451;
+		rLoc = 2772;
 		rType = 0;
 		vrLen = 431;
 		vrLoc = 692;
@@ -5683,7 +5683,7 @@
 		comments = "error: syntax error before 'OSStatus'";
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		rLen = 0;
-		rLoc = 120;
+		rLoc = 128;
 		rType = 1;
 	};
 	1BD608200E1C2CCE006F730E /* PBXTextBookmark */ = {
@@ -5691,7 +5691,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 45";
 		rLen = 0;
-		rLoc = 2515;
+		rLoc = 2836;
 		rType = 0;
 		vrLen = 498;
 		vrLoc = 709;
@@ -5701,7 +5701,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 21";
 		rLen = 0;
-		rLoc = 2451;
+		rLoc = 2772;
 		rType = 0;
 		vrLen = 346;
 		vrLoc = 777;
@@ -5711,7 +5711,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 45";
 		rLen = 0;
-		rLoc = 2515;
+		rLoc = 2836;
 		rType = 0;
 		vrLen = 498;
 		vrLoc = 709;
@@ -5721,7 +5721,7 @@
 		comments = "warning: unused variable 'busy'";
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		rLen = 0;
-		rLoc = 116;
+		rLoc = 124;
 		rType = 1;
 	};
 	1BD608270E1C2D36006F730E /* PBXTextBookmark */ = {
@@ -5729,7 +5729,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 30";
 		rLen = 0;
-		rLoc = 2451;
+		rLoc = 2772;
 		rType = 0;
 		vrLen = 498;
 		vrLoc = 709;
@@ -5739,7 +5739,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 30";
 		rLen = 0;
-		rLoc = 2451;
+		rLoc = 2772;
 		rType = 0;
 		vrLen = 291;
 		vrLoc = 709;
@@ -5749,7 +5749,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 30";
 		rLen = 0;
-		rLoc = 2451;
+		rLoc = 2772;
 		rType = 0;
 		vrLen = 638;
 		vrLoc = 362;
@@ -5759,7 +5759,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 30";
 		rLen = 0;
-		rLoc = 2451;
+		rLoc = 2772;
 		rType = 0;
 		vrLen = 291;
 		vrLoc = 709;
@@ -5779,7 +5779,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 108";
 		rLen = 33;
-		rLoc = 3893;
+		rLoc = 4214;
 		rType = 0;
 		vrLen = 486;
 		vrLoc = 2366;
@@ -5809,7 +5809,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 96";
 		rLen = 0;
-		rLoc = 2930;
+		rLoc = 3251;
 		rType = 0;
 		vrLen = 525;
 		vrLoc = 2062;
@@ -5819,7 +5819,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 96";
 		rLen = 0;
-		rLoc = 2930;
+		rLoc = 3251;
 		rType = 0;
 		vrLen = 728;
 		vrLoc = 1937;
@@ -5829,7 +5829,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 96";
 		rLen = 0;
-		rLoc = 2930;
+		rLoc = 3251;
 		rType = 0;
 		vrLen = 693;
 		vrLoc = 1886;
@@ -5839,7 +5839,7 @@
 		comments = "error: syntax error before 'OSStatus'";
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		rLen = 1;
-		rLoc = 136;
+		rLoc = 144;
 		rType = 1;
 	};
 	1BD608370E1C303A006F730E /* PBXTextBookmark */ = {
@@ -5847,7 +5847,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 97";
 		rLen = 0;
-		rLoc = 2999;
+		rLoc = 3320;
 		rType = 0;
 		vrLen = 928;
 		vrLoc = 1937;
@@ -5857,7 +5857,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 97";
 		rLen = 0;
-		rLoc = 2999;
+		rLoc = 3320;
 		rType = 0;
 		vrLen = 928;
 		vrLoc = 1937;
@@ -5867,7 +5867,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 97";
 		rLen = 0;
-		rLoc = 2999;
+		rLoc = 3320;
 		rType = 0;
 		vrLen = 710;
 		vrLoc = 1937;
@@ -5877,7 +5877,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 97";
 		rLen = 0;
-		rLoc = 2999;
+		rLoc = 3320;
 		rType = 0;
 		vrLen = 785;
 		vrLoc = 1865;
@@ -5887,7 +5887,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 97";
 		rLen = 0;
-		rLoc = 2999;
+		rLoc = 3320;
 		rType = 0;
 		vrLen = 710;
 		vrLoc = 1937;
@@ -5897,7 +5897,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 97";
 		rLen = 0;
-		rLoc = 2999;
+		rLoc = 3320;
 		rType = 0;
 		vrLen = 736;
 		vrLoc = 1911;
@@ -5907,7 +5907,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 97";
 		rLen = 0;
-		rLoc = 2999;
+		rLoc = 3320;
 		rType = 0;
 		vrLen = 785;
 		vrLoc = 1865;
@@ -5917,7 +5917,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 98";
 		rLen = 0;
-		rLoc = 2999;
+		rLoc = 3320;
 		rType = 0;
 		vrLen = 720;
 		vrLoc = 1911;
@@ -5927,7 +5927,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 98";
 		rLen = 0;
-		rLoc = 2999;
+		rLoc = 3320;
 		rType = 0;
 		vrLen = 868;
 		vrLoc = 1865;
@@ -5946,7 +5946,7 @@
 		isa = PBXTextBookmark;
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		rLen = 0;
-		rLoc = 116;
+		rLoc = 124;
 		rType = 1;
 	};
 	1BD6084B0E1C3436006F730E /* PBXTextBookmark */ = {
@@ -5954,7 +5954,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 97";
 		rLen = 0;
-		rLoc = 2999;
+		rLoc = 3320;
 		rType = 0;
 		vrLen = 489;
 		vrLoc = 2263;
@@ -5974,7 +5974,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 86";
 		rLen = 0;
-		rLoc = 2583;
+		rLoc = 2904;
 		rType = 0;
 		vrLen = 486;
 		vrLoc = 2331;
@@ -5994,7 +5994,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 84";
 		rLen = 64;
-		rLoc = 2516;
+		rLoc = 2837;
 		rType = 0;
 		vrLen = 554;
 		vrLoc = 2149;
@@ -6004,7 +6004,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 84";
 		rLen = 64;
-		rLoc = 2516;
+		rLoc = 2837;
 		rType = 0;
 		vrLen = 698;
 		vrLoc = 2062;
@@ -6030,7 +6030,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 96";
 		rLen = 64;
-		rLoc = 2516;
+		rLoc = 2837;
 		rType = 0;
 		vrLen = 551;
 		vrLoc = 2530;
@@ -6039,7 +6039,7 @@
 		isa = PBXTextBookmark;
 		comments = "error: 'k' undeclared (first use in this function)";
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
-		rLen = 1;
+		rLen = 0;
 		rLoc = 95;
 		rType = 1;
 	};
@@ -6048,7 +6048,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 96";
 		rLen = 0;
-		rLoc = 1692;
+		rLoc = 1841;
 		rType = 0;
 		vrLen = 892;
 		vrLoc = 3347;
@@ -6058,7 +6058,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 122";
 		rLen = 64;
-		rLoc = 2516;
+		rLoc = 2837;
 		rType = 0;
 		vrLen = 700;
 		vrLoc = 2581;
@@ -6068,7 +6068,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 96";
 		rLen = 0;
-		rLoc = 1692;
+		rLoc = 1841;
 		rType = 0;
 		vrLen = 712;
 		vrLoc = 3347;
@@ -6087,7 +6087,7 @@
 		isa = PBXTextBookmark;
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		rLen = 0;
-		rLoc = 108;
+		rLoc = 114;
 		rType = 1;
 	};
 	1BD608660E1C38AC006F730E /* PBXTextBookmark */ = {
@@ -6095,7 +6095,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 97";
 		rLen = 0;
-		rLoc = 1654;
+		rLoc = 1789;
 		rType = 0;
 		vrLen = 435;
 		vrLoc = 1507;
@@ -6115,7 +6115,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 109";
 		rLen = 0;
-		rLoc = 2130;
+		rLoc = 2440;
 		rType = 0;
 		vrLen = 226;
 		vrLoc = 1418;
@@ -6135,7 +6135,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 109";
 		rLen = 0;
-		rLoc = 2130;
+		rLoc = 2440;
 		rType = 0;
 		vrLen = 405;
 		vrLoc = 1992;
@@ -6145,7 +6145,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 109";
 		rLen = 0;
-		rLoc = 2130;
+		rLoc = 2440;
 		rType = 0;
 		vrLen = 496;
 		vrLoc = 1942;
@@ -6155,7 +6155,7 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 98";
 		rLen = 0;
-		rLoc = 1703;
+		rLoc = 1841;
 		rType = 0;
 		vrLen = 768;
 		vrLoc = 3292;
@@ -6165,10 +6165,90 @@
 		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
 		name = "NetworkState.m: 109";
 		rLen = 0;
-		rLoc = 2130;
+		rLoc = 2440;
 		rType = 0;
 		vrLen = 496;
 		vrLoc = 1942;
+	};
+	1BD6086E0E1C9224006F730E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
+		name = "NetworkState.m: 109";
+		rLen = 0;
+		rLoc = 2440;
+		rType = 0;
+		vrLen = 405;
+		vrLoc = 1992;
+	};
+	1BD6086F0E1C9226006F730E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
+		name = "NetworkState.m: 109";
+		rLen = 0;
+		rLoc = 2440;
+		rType = 0;
+		vrLen = 522;
+		vrLoc = 1942;
+	};
+	1BD608700E1C9226006F730E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
+		name = "NetworkState.m: 98";
+		rLen = 0;
+		rLoc = 1841;
+		rType = 0;
+		vrLen = 771;
+		vrLoc = 3292;
+	};
+	1BD608740E1C923C006F730E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
+		name = "NetworkState.m: 109";
+		rLen = 0;
+		rLoc = 2440;
+		rType = 0;
+		vrLen = 491;
+		vrLoc = 1989;
+	};
+	1BD608750E1C9240006F730E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
+		name = "NetworkState.m: 109";
+		rLen = 0;
+		rLoc = 2440;
+		rType = 0;
+		vrLen = 520;
+		vrLoc = 1942;
+	};
+	1BD608760E1C9240006F730E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
+		name = "NetworkState.m: 98";
+		rLen = 0;
+		rLoc = 1841;
+		rType = 0;
+		vrLen = 771;
+		vrLoc = 3292;
+	};
+	1BD608780E1C94FD006F730E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
+		name = "NetworkState.m: 115";
+		rLen = 0;
+		rLoc = 2440;
+		rType = 0;
+		vrLen = 619;
+		vrLoc = 1685;
+	};
+	1BD608790E1C94FD006F730E /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1BD607820E1B50D6006F730E /* NetworkState.m */;
+		name = "NetworkState.m: 99";
+		rLen = 0;
+		rLoc = 1841;
+		rType = 0;
+		vrLen = 830;
+		vrLoc = 2772;
 	};
 	1BDEA4E60E19731900CB52A0 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
@@ -6362,8 +6442,8 @@
 			1BD606F20E1AE087006F730E /* sipPhone.m:672 */,
 			1BD6073F0E1B4858006F730E /* AppHelper.m:124 */,
 			1BD607490E1B4B47006F730E /* AppHelper.m:124 */,
-			1BD607B30E1B5485006F730E /* NetworkState.m:122 */,
-			1BD607ED0E1B598A006F730E /* NetworkState.m:106 */,
+			1BD607B30E1B5485006F730E /* NetworkState.m:130 */,
+			1BD607ED0E1B598A006F730E /* NetworkState.m:114 */,
 			1BD608540E1C35CE006F730E /* NetworkState.m:86 */,
 		);
 		codeSenseManager = 1BC9676F0CC9E8E1004C0339 /* Code sense */;
@@ -6983,6 +7063,14 @@
 			1BD6086B0E1C38AE006F730E /* PBXTextBookmark */ = 1BD6086B0E1C38AE006F730E /* PBXTextBookmark */;
 			1BD6086C0E1C38AE006F730E /* PBXTextBookmark */ = 1BD6086C0E1C38AE006F730E /* PBXTextBookmark */;
 			1BD6086D0E1C38B1006F730E /* PBXTextBookmark */ = 1BD6086D0E1C38B1006F730E /* PBXTextBookmark */;
+			1BD6086E0E1C9224006F730E /* PBXTextBookmark */ = 1BD6086E0E1C9224006F730E /* PBXTextBookmark */;
+			1BD6086F0E1C9226006F730E /* PBXTextBookmark */ = 1BD6086F0E1C9226006F730E /* PBXTextBookmark */;
+			1BD608700E1C9226006F730E /* PBXTextBookmark */ = 1BD608700E1C9226006F730E /* PBXTextBookmark */;
+			1BD608740E1C923C006F730E /* PBXTextBookmark */ = 1BD608740E1C923C006F730E /* PBXTextBookmark */;
+			1BD608750E1C9240006F730E /* PBXTextBookmark */ = 1BD608750E1C9240006F730E /* PBXTextBookmark */;
+			1BD608760E1C9240006F730E /* PBXTextBookmark */ = 1BD608760E1C9240006F730E /* PBXTextBookmark */;
+			1BD608780E1C94FD006F730E /* PBXTextBookmark */ = 1BD608780E1C94FD006F730E /* PBXTextBookmark */;
+			1BD608790E1C94FD006F730E /* PBXTextBookmark */ = 1BD608790E1C94FD006F730E /* PBXTextBookmark */;
 			1BDEA4E60E19731900CB52A0 = 1BDEA4E60E19731900CB52A0 /* PBXTextBookmark */;
 			1BDEA4E70E19731900CB52A0 = 1BDEA4E70E19731900CB52A0 /* PBXTextBookmark */;
 			1BDEA4E90E19731900CB52A0 = 1BDEA4E90E19731900CB52A0 /* PBXTextBookmark */;

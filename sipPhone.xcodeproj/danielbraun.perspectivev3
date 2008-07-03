@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>ActivePerspectiveName</key>
-	<string>Project</string>
+	<string>Debug</string>
 	<key>AllowedModules</key>
 	<array>
 		<dict>
@@ -236,8 +236,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -313,8 +311,6 @@
 							<string>MainColumn</string>
 							<real>260</real>
 						</array>
-						<key>RubberWindowFrame</key>
-						<string>111 131 935 585 0 0 1280 778 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXSmartGroupTreeModule</string>
@@ -342,7 +338,7 @@
 										<key>_historyCapacity</key>
 										<integer>40</integer>
 										<key>bookmark</key>
-										<string>1BD6086B0E1C38AE006F730E</string>
+										<string>1BD608780E1C94FD006F730E</string>
 										<key>history</key>
 										<array>
 											<string>1B36F3B20DFAF8960051C38A</string>
@@ -369,7 +365,7 @@
 											<string>1BD607860E1B50FF006F730E</string>
 											<string>1BD6079E0E1B53CF006F730E</string>
 											<string>1BD608010E1C284E006F730E</string>
-											<string>1BD6086A0E1C38AC006F730E</string>
+											<string>1BD6086E0E1C9224006F730E</string>
 										</array>
 										<key>nextStack</key>
 										<array>
@@ -439,8 +435,6 @@
 							<dict>
 								<key>Frame</key>
 								<string>{{0, 0}, {653, 296}}</string>
-								<key>RubberWindowFrame</key>
-								<string>111 131 935 585 0 0 1280 778 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
@@ -480,8 +474,6 @@
 									<dict>
 										<key>Frame</key>
 										<string>{{10, 27}, {653, 216}}</string>
-										<key>RubberWindowFrame</key>
-										<string>111 131 935 585 0 0 1280 778 </string>
 									</dict>
 									<key>Module</key>
 									<string>PBXProjectFindModule</string>
@@ -640,7 +632,7 @@
 										<key>_historyCapacity</key>
 										<integer>40</integer>
 										<key>bookmark</key>
-										<string>1BD6086C0E1C38AE006F730E</string>
+										<string>1BD608790E1C94FD006F730E</string>
 										<key>history</key>
 										<array>
 											<string>1B36F3B20DFAF8960051C38A</string>
@@ -812,6 +804,8 @@
 			<key>Layout</key>
 			<array>
 				<dict>
+					<key>BecomeActive</key>
+					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXProjectModuleGUID</key>
@@ -823,6 +817,8 @@
 					<dict>
 						<key>Frame</key>
 						<string>{{0, 0}, {935, 152}}</string>
+						<key>RubberWindowFrame</key>
+						<string>111 131 935 585 0 0 1280 778 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXDebugCLIModule</string>
@@ -897,7 +893,11 @@
 							</array>
 							<key>Frame</key>
 							<string>{{385, 0}, {550, 172}}</string>
+							<key>RubberWindowFrame</key>
+							<string>111 131 935 585 0 0 1280 778 </string>
 						</dict>
+						<key>RubberWindowFrame</key>
+						<string>111 131 935 585 0 0 1280 778 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXDebugSessionModule</string>
@@ -936,7 +936,7 @@
 	<key>PerspectivesBarVisible</key>
 	<true/>
 	<key>PinnedNavigatorIdentifier</key>
-	<string>1BD606AF0E1AD2D6006F730E</string>
+	<string>1BD608730E1C9234006F730E</string>
 	<key>ShelfIsVisible</key>
 	<false/>
 	<key>StatusbarIsVisible</key>
@@ -958,6 +958,7 @@
 		<string>1BD605A70E19F741006F730E</string>
 		<string>1BD605A80E19F741006F730E</string>
 		<string>/Users/danielbraun/devel/sipPhone/sipPhone.xcodeproj</string>
+		<string>1BD608730E1C9234006F730E</string>
 	</array>
 	<key>WindowString</key>
 	<string>111 131 935 585 0 0 1280 778 </string>

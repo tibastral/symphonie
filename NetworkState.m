@@ -93,10 +93,18 @@ static void processScInfo(const void *_key,
 	
 	
 	NSLog(@"for %@: %@\n", key, pv);
-	NSLog(@"for %@, busy=%@ SSID %@, net=%@\n", key, [(id)pv valueForKey:@"Busy"], [(id)pv valueForKey:@"BSSID"], [(id)pv valueForKey:@"SSID_STR"]);
-	NSData *bssid=[[[(id)pv valueForKey:@"BSSID"]retain]autorelease];
-	NSString *ssidStr=[[[(id)pv valueForKey:@"SSID_STR"]retain]autorelease];
-	NSNumber *busy= [(id)pv valueForKey:@"Busy"];
+	if ([key hasSuffix:kSCEntNetAirPort]) {
+		NSArray *ne=[key componentsSeparatedByString:@"/"];
+		NSString *iface=[ne objectAtIndex:[ne count]-2];
+		NSLog(@"for %@, busy=%@ SSID %@, net=%@\n", iface, [(id)pv valueForKey:@"Busy"], [(id)pv valueForKey:@"BSSID"], [(id)pv valueForKey:@"SSID_STR"]);
+		NSData *bssid=[[[(id)pv valueForKey:@"BSSID"]retain]autorelease];
+		NSString *ssidStr=[[[(id)pv valueForKey:@"SSID_STR"]retain]autorelease];
+		NSNumber *busy= [(id)pv valueForKey:@"Busy"];
+	} else if ([key hasSuffix:kSCEntNetIPv4]) {
+		NSArray *addresses=[pv valueForKey:@"Addresses"];
+		NSString *iface=[pv valueForKey:@"InterfaceName"];
+		NSLog(@"hu");
+	}
 }	
 	
 static void scCallback(  SCDynamicStoreRef store, 

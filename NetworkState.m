@@ -34,6 +34,7 @@ static int _debugHL=NO;
 - (BOOL) isAirport;
 - (NSData *)bssid;
 - (NSString *)ssidStr;
+- (NSArray *)addresses;
 @end
 
 @implementation IfaceDescr
@@ -88,6 +89,10 @@ static int _debugHL=NO;
 	addresses=[_addresses retain];
 	touched=YES;
 	[parent _ifaceChanged];
+}
+- (NSArray *)addresses
+{
+	return addresses;
 }
 - (void) setSsid:(NSString *)_s bssid:(NSData *)b busy:(NSNumber *)busy
 {
@@ -389,6 +394,7 @@ wifi_done:
 {
 	[self willChangeValueForKey:@"bssid"];
 	[self willChangeValueForKey:@"ssidStr"];
+	[self willChangeValueForKey:@"mainIp"];
 	[self willChangeValueForKey:@"interfaceType"];
 	[self willChangeValueForKey:@"networkAvailable"];
 	changed=NO;
@@ -415,6 +421,7 @@ wifi_done:
 	}
 	[self didChangeValueForKey:@"bssid"];
 	[self didChangeValueForKey:@"ssidStr"];
+	[self didChangeValueForKey:@"mainIp"];
 	[self didChangeValueForKey:@"interfaceType"];
 	[self didChangeValueForKey:@"networkAvailable"];
 }
@@ -459,6 +466,21 @@ wifi_done:
 	NSAssert([mi isValid], @"_mainInterface should only return valid interfaces");
 	return [mi ssidStr];
 }
+
+- (NSString *) mainIp
+{
+	IfaceDescr *mi=[self _mainInterface];
+	if (!mi) return nil;
+	NSAssert([mi isValid], @"_mainInterface should only return valid interfaces");
+	NSArray *addresses=[mi addresses];
+	NSAssert(addresses, @"should not happen on valid interface");
+	if (![addresses count]) {
+		return nil;
+	}
+	// currently simply take 1st address
+	return [addresses objectAtIndex:0];
+}
+
 - (NSString *) interfaceType
 {
 	IfaceDescr *mi=[self _mainInterface];

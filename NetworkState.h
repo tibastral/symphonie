@@ -30,6 +30,7 @@
 - (BOOL) networkAvailable;
 - (NSData *) bssid;
 - (NSString *) ssidStr;
+- (NSString *) mainIp;
 - (NSString *) interfaceType;
 
 @end

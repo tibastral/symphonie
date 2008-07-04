@@ -11,18 +11,25 @@
 
 
 @protocol NetworkStateClient
-- (void) networkAvailable:(BOOL)av bssid:(NSData *)ssid ssidString:(NSString *)ssidStr;
+- (void) networkAvailable:(BOOL)av;
 - (void) computerLocationChanged:(NSString *)location;
 @end
 
 @interface NetworkState : NSObject {
 	SCDynamicStoreRef scdref;
-	NSObject  <NetworkStateClient> * client;
+	IBOutlet NSObject  <NetworkStateClient> * client;
 	NSMutableDictionary *ifaces;
 	BOOL changed;
+	BOOL reachability;
 }
-
+- (id) init;
 - (id) initWithClient:(NSObject  <NetworkStateClient> *) client;
+- (void) setClient:(NSObject  <NetworkStateClient> *) client;
 - (void) registerLocation:(NSString *)name ssid:(NSString *)ssid interface:(NSString *)iface; //....
+
+- (BOOL) networkAvailable;
+- (NSData *) bssid;
+- (NSString *) ssidStr;
+- (NSString *) interfaceType;
 
 @end

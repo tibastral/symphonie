@@ -67,11 +67,7 @@ static int _debugCauses=0;
 /*
  * lots of init here, mostly registration for network, power status change.
  */
-#ifdef REACH
-static void reachabilityCallback(SCNetworkReachabilityRef	target,
-				 SCNetworkConnectionFlags	flags,
-				 void *                      info);
-#endif
+
 /*
 static void networkConnectionCallback( SCNetworkConnectionRef connection, 
 				      SCNetworkConnectionStatus status, 
@@ -120,9 +116,9 @@ static void networkConnectionCallback( SCNetworkConnectionRef connection,
 								name:@"com.apple.airport.ssid.changed" object:nil];
 	
 	
-	netState=[[NetworkState alloc]initWithClient:self];
-	
-#ifdef REACH
+	//netState=[[NetworkState alloc]initWithClient:self];
+	// now in mib
+#if 0
 
 	thisTarget = SCNetworkReachabilityCreateWithName(NULL, "reachabiltyForSymphonie");
 	SCNetworkReachabilitySetCallback (thisTarget, reachabilityCallback, &thisContext);
@@ -394,120 +390,21 @@ static void MySleepCallBack( void * refCon, io_service_t service, natural_t mess
 	if (_debugMisc) NSLog(@"ending  front row %@\n", [notif name]);
 }
 
-#ifdef REACH
-
-static void PrintReachabilityFlags(
-				   const char *                hostname, 
-				   SCNetworkConnectionFlags    flags, 
-				   const char *                comment
-				   )
-// Prints a line that records a reachability transition. 
-// This includes the current time, the new state of the 
-// reachability flags (from the flags parameter), and the 
-// name of the host (from the hostname parameter).
-{
-	time_t      now;
-	struct tm   nowLocal;
-	char        nowLocalStr[30];
-	
-	assert(hostname != NULL);
-	
-	if (comment == NULL) {
-		comment = "";
-	}
-	
-	(void) time(&now);
-	(void) localtime_r(&now, &nowLocal);
-	(void) strftime(nowLocalStr, sizeof(nowLocalStr), "%X", &nowLocal);
-	
-	fprintf(stdout, "%s %c%c%c%c%c%c%c %s%s\n",
-		nowLocalStr,
-		(flags & kSCNetworkFlagsTransientConnection)  ? 't' : '-',
-		(flags & kSCNetworkFlagsReachable)            ? 'r' : '-',
-		(flags & kSCNetworkFlagsConnectionRequired)   ? 'c' : '-',
-		(flags & kSCNetworkFlagsConnectionAutomatic)  ? 'C' : '-',
-		(flags & kSCNetworkFlagsInterventionRequired) ? 'i' : '-',
-		(flags & kSCNetworkFlagsIsLocalAddress)       ? 'l' : '-',
-		(flags & kSCNetworkFlagsIsDirect)             ? 'd' : '-',
-		hostname,
-		comment
-		);
-}
-#endif
-
-- (void) reachable:(BOOL) reachable  bssid:(NSData *)bssid ssidStr:(NSString *)ssidStr
+- (void) networkAvailable:(BOOL) av
 {
 	NSAssert(phone, @"hu");
-	networkAvailable=reachable;
-	if (networkAvailable) [phone registerPhone:self];
+	networkAvailable=av;
+	if (1 || networkAvailable) [phone registerPhone:self];
+}
+- (void) computerLocationChanged:(NSString *)location
+{
+	// TODO
 }
 
 - (void) quitFromAlertResponse:(NSAlert *)alert returnCode:(int)returnCode contextInfo:(void *)contextInfo
 {
 	exit(1);
 }
-
-
-#ifdef REACH
-
-/* network change callback
- * we actually dont check reachability but try to register at
- * any network change - and this appears to be very fine
- */
-static void reachabilityCallback(SCNetworkReachabilityRef	target,
-				 SCNetworkConnectionFlags	flags,
-				 void *                      info)
-{
-	if (_debugMisc) NSLog(@"callbacked\n");
-	//if (_debugMisc) PrintReachabilityFlags(" for freephonie.net", flags, "");
-	NSData *bssid=nil;
-	NSString *ssidStr=nil;
-
-	AppHelper *s=(AppHelper *)info;
-
-	SCDynamicStoreContext dynamicStoreContext ={ 0, NULL, NULL, NULL, NULL };
-	SCDynamicStoreRef scdref=SCDynamicStoreCreate ( NULL, (CFStringRef) @"symPhonie",
-						       scCallback, 
-						       &dynamicStoreContext ); 
-	CFPropertyListRef itfs=SCDynamicStoreCopyValue(scdref, (CFStringRef)@"State:/Network/Interface");
-	if (!itfs) goto wifi_done;
-	NSArray *itf=[(id)itfs valueForKey:@"Interfaces"];
-	if (!itf) goto wifi_done;
-
-
-	int i, count = [itf count];
-	for (i = 0; i < count; i++) {
-		int retry=5;
-		NSString *iface = [itf objectAtIndex:i];
-		CFPropertyListRef pv=SCDynamicStoreCopyValue (scdref, 
-			(CFStringRef) [NSString stringWithFormat:@"State:/Network/Interface/%@/AirPort", iface]);
-	retry1:
-		//NSLog(@"for %@: %@\n", iface, pv);
-		if (pv) {
-			NSLog(@"SSID %@, net=%@\n", [(id)pv valueForKey:@"BSSID"], [(id)pv valueForKey:@"SSID_STR"]);
-			bssid=[[[(id)pv valueForKey:@"BSSID"]retain]autorelease];
-			ssidStr=[[[(id)pv valueForKey:@"SSID_STR"]retain]autorelease];
-			CFRelease(pv);
-			if ([ssidStr isEqualToString:@""] && (retry>0)) {
-				// it seems that reachability call is called before
-				// AirPort info is actually available..
-				NSLog(@"strange bssid, retrying\n");
-				retry--;
-				usleep(250000);
-				pv=SCDynamicStoreCopyValue (scdref, 
-					(CFStringRef) [NSString stringWithFormat:@"State:/Network/Interface/%@/AirPort", iface]);
-				goto retry1;
-			}
-			break;
-		}
-		if (pv) CFRelease(pv);
-	}
-	CFRelease(itfs);
-	CFRelease(scdref);
-wifi_done:
-	[s reachable:(flags & kSCNetworkFlagsReachable) ? YES: NO bssid:bssid ssidStr:ssidStr];
-}
-#endif
 
 /*
  * notification on quit : unregister before quiting
@@ -705,7 +602,7 @@ wifi_done:
 	[self willChangeValueForKey:@"windowTitle"];
 	setProp([self propNamePhoneNumber], s);
 	[self didChangeValueForKey:@"windowTitle"];
-	[phone authInfoChanged];
+	[phone authInfoChangedWithNetwork:networkAvailable];
 }
 
 
@@ -919,7 +816,7 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 		//NSAssert(!ir, @"strange");
 		status=StorePasswordKeychain(ph,s);
 	}
-	[phone authInfoChanged];
+	[phone authInfoChangedWithNetwork:networkAvailable];
 	if (onDemandRegister) [phone unregisterPhone:self];
 	else [phone registerPhone:self];
 }

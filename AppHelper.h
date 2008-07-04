@@ -11,6 +11,8 @@
 
 
 #import "UserPlane.h"
+#import "NetworkState.h"
+
 @class SipPhone;
 @class BundledScript;
 @class CallTicketHandler;
@@ -20,7 +22,7 @@
  * (SipPhone class focuses on telecom stuf, AppHelper on "accessories"
  */ 
  
-@interface AppHelper : NSObject <AudioTestHelper> {
+@interface AppHelper : NSObject <AudioTestHelper, NetworkStateClient> {
 	IBOutlet NSPanel *prefPanel;
 	IBOutlet NSTabView *prefTabView;
 	IBOutlet NSWindow *mainWin;

@@ -10,6 +10,7 @@
 #import "Properties.h"
 
 static int _debugSC=NO;
+static int _debugHL=NO;
 
 @interface NetworkState()
 - (void) _ifaceChanged;
@@ -30,6 +31,9 @@ static int _debugSC=NO;
 - (void) setAddresses:(NSArray *)_addresses;
 - (void) setSsid:(NSString *)_s bssid:(NSData *)b busy:(NSNumber *)busy;
 - (BOOL) isValid;
+- (BOOL) isAirport;
+- (NSData *)bssid;
+- (NSString *)ssidStr;
 @end
 
 @implementation IfaceDescr
@@ -111,6 +115,21 @@ static int _debugSC=NO;
 	touched=YES;
 	[parent _ifaceChanged];
 }
+- (BOOL) isAirport
+{
+	return isAirport;
+}
+
+- (NSData *)bssid
+{
+	return bssid;
+}
+- (NSString *)ssidStr
+{
+	return ssidStr;
+}
+
+
 
 @end
 
@@ -251,6 +270,7 @@ static void scCallback(  SCDynamicStoreRef store,
 - (id) init
 {
 	_debugSC=getBoolProp(@"debugSC", NO);
+	_debugHL=getBoolProp(@"debugHL", NO);
 	self = [super init];
 	if (self != nil) {
 		ifaces=[[NSMutableDictionary dictionaryWithCapacity:10]retain];
@@ -266,13 +286,13 @@ static void scCallback(  SCDynamicStoreRef store,
 	[super dealloc];
 }
 
-
-- (id) initWithClient:(NSObject  <NetworkStateClient> *) _client
+- (void) registerWithSc
 {
-	self=[self init];
-	if (!self) return self;
-	client=[_client retain];
-	
+	NSAssert(client, @"should have client");
+	if (scdref) {
+		NSLog(@"already registered with sc\n");
+		return;
+	}
 	static SCDynamicStoreContext dynamicStoreContext ={ 0, NULL, NULL, NULL, NULL };
 	dynamicStoreContext.info=(void *) self;
 	scdref=SCDynamicStoreCreate ( NULL, (CFStringRef) @"symPhonie",
@@ -281,7 +301,7 @@ static void scCallback(  SCDynamicStoreRef store,
 #if 1
 	CFStringRef pattern[2];
 	pattern[0] = SCDynamicStoreKeyCreateNetworkInterfaceEntity(NULL,
-				kSCDynamicStoreDomainState, kSCCompAnyRegex, kSCEntNetAirPort);
+								   kSCDynamicStoreDomainState, kSCCompAnyRegex, kSCEntNetAirPort);
         OSStatus err = MoreSCError(pattern);
 	if (err != noErr) goto wifi_done;
 	
@@ -291,26 +311,26 @@ static void scCallback(  SCDynamicStoreRef store,
 	if (err != noErr) goto wifi_done;
 	
 	CFArrayRef patterns = CFArrayCreate(NULL, (const void **) pattern, 2, 
-				 &kCFTypeArrayCallBacks);
+					    &kCFTypeArrayCallBacks);
 	err = CFQError(patterns);
 	if (err != noErr) goto wifi_done;
 	CFDictionaryRef valueDict = SCDynamicStoreCopyMultiple(scdref,
-                                               NULL,
-                                               patterns);
+							       NULL,
+							       patterns);
 	err = MoreSCError(pattern);
 	if (err != noErr) goto wifi_done;
 	
 	CFDictionaryApplyFunction(valueDict,
                                   processScInfo,
                                   (void *)self);
-	 
-
+	
+	
 	BOOL ok=SCDynamicStoreSetNotificationKeys(scdref, NULL, patterns);
 	CFQRelease(pattern[0]);
 	CFQRelease(pattern[1]);
 	CFQRelease(patterns);
 	CFQRelease(valueDict);
-
+	
 	
 #else	
 	CFStringRef itfkey=SCDynamicStoreKeyCreateNetworkInterface(NULL, kSCDynamicStoreDomainState);
@@ -337,21 +357,66 @@ static void scCallback(  SCDynamicStoreRef store,
 	CFRunLoopAddSource([[NSRunLoop currentRunLoop]getCFRunLoop], rls, kCFRunLoopCommonModes);
 	CFRelease(rls);
 wifi_done:	
+	return;
+}
+
+- (void) awakeFromNib
+{
+	if (client) [self registerWithSc];
+}
+
+- (void) setClient:(NSObject  <NetworkStateClient> *) aClient
+{
+	if (client) {
+		[client release];
+		client=[aClient retain];
+		return;
+	}
+	client=[aClient retain];
+	if (client) [self registerWithSc];
+}
+
+- (id) initWithClient:(NSObject  <NetworkStateClient> *) _client
+{
+	self=[self init];
+	[self setClient:_client];
 	return self;
 }
 
 
+
 - (void) ifaceProcessChanges
 {
+	[self willChangeValueForKey:@"bssid"];
+	[self willChangeValueForKey:@"ssidStr"];
+	[self willChangeValueForKey:@"interfaceType"];
+	[self willChangeValueForKey:@"networkAvailable"];
 	changed=NO;
 	NSArray *ifs=[ifaces allKeys];
 	int i, count = [ifs count];
 	NSLog(@"got %d ifaces:\n", count);
+	int nvalid=0;
 	for (i = 0; i < count; i++) {
 		NSString * ifn = [ifs objectAtIndex:i];
 		IfaceDescr * ifd = [ifaces objectForKey:ifn];
-		NSLog(@"    %@: %s\n", ifn, [ifd isValid] ? "OK" :"invalid");
+		BOOL valid=[ifd isValid];
+		NSLog(@"    %@: %s\n", ifn, valid ? "OK" :"invalid");
+		if (valid) nvalid++;
 	}
+	BOOL oldreachability=reachability;
+	reachability=nvalid ? YES : NO;
+	
+	if (reachability && !oldreachability) {
+		// network now usable
+		[client networkAvailable:YES];
+	} else if (! reachability && oldreachability) {
+		// network no more usable
+		[client networkAvailable:NO];
+	}
+	[self didChangeValueForKey:@"bssid"];
+	[self didChangeValueForKey:@"ssidStr"];
+	[self didChangeValueForKey:@"interfaceType"];
+	[self didChangeValueForKey:@"networkAvailable"];
 }
 - (void) _ifaceChanged
 {
@@ -364,5 +429,49 @@ wifi_done:
 {
 }
 
+
+- (IfaceDescr *) _mainInterface
+{
+	// currently simply return the first valid iface
+	NSArray *ifn=[ifaces allKeys];
+	int i, count = [ifn count];
+	for (i = 0; i < count; i++) {
+		NSString *n=[ifn objectAtIndex:i];
+		IfaceDescr * iface = [ifaces objectForKey:n];
+		if ([iface isValid]) return iface;
+	}
+	return nil;
+}
+- (NSData *) bssid
+{
+	IfaceDescr *mi=[self _mainInterface];
+	if (!mi) return nil;
+	if (![mi isAirport]) return nil;
+	NSAssert([mi isValid], @"_mainInterface should only return valid interfaces");
+	return [mi bssid];
+}
+
+- (NSString *) ssidStr
+{
+	IfaceDescr *mi=[self _mainInterface];
+	if (!mi) return nil;
+	if (![mi isAirport]) return nil;
+	NSAssert([mi isValid], @"_mainInterface should only return valid interfaces");
+	return [mi ssidStr];
+}
+- (NSString *) interfaceType
+{
+	IfaceDescr *mi=[self _mainInterface];
+	if (!mi) return nil;
+	NSAssert([mi isValid], @"_mainInterface should only return valid interfaces");
+	if ([mi isAirport]) return @"AirPort";
+	return @"Other";
+}
+- (BOOL) networkAvailable
+{
+	IfaceDescr *mi=[self _mainInterface];
+	if (!mi) return NO;
+	return YES;
+}
 
 @end

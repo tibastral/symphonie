@@ -289,13 +289,13 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>31</integer>
+									<integer>30</integer>
 									<integer>8</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 52}, {260, 526}}</string>
+							<string>{{0, 55}, {260, 526}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -326,7 +326,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1BC967680CC9E8E1004C0339</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>NetworkState.m</string>
+								<string>NetworkState.h</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -334,11 +334,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1BC967690CC9E8E1004C0339</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>NetworkState.m</string>
+										<string>NetworkState.h</string>
 										<key>_historyCapacity</key>
 										<integer>40</integer>
 										<key>bookmark</key>
-										<string>1BD608F10E1CA527006F730E</string>
+										<string>1BD609540E1DEF89006F730E</string>
 										<key>history</key>
 										<array>
 											<string>1B36F3B20DFAF8960051C38A</string>
@@ -363,13 +363,9 @@
 											<string>1BD606D90E1ADE01006F730E</string>
 											<string>1BD607850E1B50FF006F730E</string>
 											<string>1BD607860E1B50FF006F730E</string>
-											<string>1BD6079E0E1B53CF006F730E</string>
-											<string>1BD608EF0E1CA521006F730E</string>
-											<string>1BD608EE0E1CA51C006F730E</string>
-										</array>
-										<key>nextStack</key>
-										<array>
-											<string>1BD608300E1C301C006F730E</string>
+											<string>1BD6093C0E1DEDB5006F730E</string>
+											<string>1BD6094A0E1DEEF9006F730E</string>
+											<string>1BD6094B0E1DEEF9006F730E</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -421,6 +417,10 @@
 											<string>1BD607A10E1B53CF006F730E</string>
 											<string>1BD607A20E1B53CF006F730E</string>
 											<string>1BD607A30E1B53CF006F730E</string>
+											<string>1BD609060E1D8CA6006F730E</string>
+											<string>1BD609190E1DEA0F006F730E</string>
+											<string>1BD6092E0E1DECD9006F730E</string>
+											<string>1BD6094C0E1DEEF9006F730E</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -632,7 +632,7 @@
 										<key>_historyCapacity</key>
 										<integer>40</integer>
 										<key>bookmark</key>
-										<string>1BD608F20E1CA527006F730E</string>
+										<string>1BD609550E1DEF89006F730E</string>
 										<key>history</key>
 										<array>
 											<string>1B36F3B20DFAF8960051C38A</string>
@@ -658,8 +658,8 @@
 											<string>1BD605FF0E1A0788006F730E</string>
 											<string>1BD607920E1B5222006F730E</string>
 											<string>1BD607A90E1B544E006F730E</string>
-											<string>1BD6088E0E1C9BED006F730E</string>
-											<string>1BD6088F0E1C9BED006F730E</string>
+											<string>1BD609230E1DEB19006F730E</string>
+											<string>1BD609240E1DEB19006F730E</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -813,7 +813,7 @@
 						<key>Frame</key>
 						<string>{{0, 0}, {935, 152}}</string>
 						<key>RubberWindowFrame</key>
-						<string>110 134 935 585 0 0 1280 778 </string>
+						<string>310 118 935 585 0 0 1280 778 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXDebugCLIModule</string>
@@ -889,10 +889,10 @@
 							<key>Frame</key>
 							<string>{{385, 0}, {550, 172}}</string>
 							<key>RubberWindowFrame</key>
-							<string>110 134 935 585 0 0 1280 778 </string>
+							<string>310 118 935 585 0 0 1280 778 </string>
 						</dict>
 						<key>RubberWindowFrame</key>
-						<string>110 134 935 585 0 0 1280 778 </string>
+						<string>310 118 935 585 0 0 1280 778 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXDebugSessionModule</string>
@@ -931,7 +931,7 @@
 	<key>PerspectivesBarVisible</key>
 	<true/>
 	<key>PinnedNavigatorIdentifier</key>
-	<string>1BD608730E1C9234006F730E</string>
+	<string>1BD609110E1D8D88006F730E</string>
 	<key>ShelfIsVisible</key>
 	<false/>
 	<key>StatusbarIsVisible</key>
@@ -950,14 +950,15 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>1BD608F30E1CA527006F730E</string>
+		<string>1BD609520E1DEF44006F730E</string>
+		<string>1BD609530E1DEF44006F730E</string>
 		<string>1BD605A70E19F741006F730E</string>
 		<string>1BD605A80E19F741006F730E</string>
-		<string>1BD608730E1C9234006F730E</string>
+		<string>1BD609110E1D8D88006F730E</string>
 		<string>/Users/danielbraun/devel/sipPhone/sipPhone.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
-	<string>110 134 935 585 0 0 1280 778 </string>
+	<string>310 118 935 585 0 0 1280 778 </string>
 	<key>WindowToolsV3</key>
 	<array>
 		<dict>

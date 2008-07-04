@@ -8,6 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
+/*
+ * handling of a single call ticket
+ */
+
 enum callDir {
 	calldirUndef=0,
 	calldirIn,

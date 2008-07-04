@@ -8,6 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
+/*
+ * runs an apple script located in bundle
+ * contains several tools to facilitate applescript integration
+ */
 
 @interface BundledScript : NSObject {
 	NSAppleScript* appleScript;

@@ -3,7 +3,7 @@
 //  symPhonie
 //
 //  Created by Daniel Braun on 20/10/07.
-//  Copyright 2007 Daniel Braun. All rights reserved.
+//  Copyright 2007 Daniel Braun. All rights reserved
 //
 
 #import <Cocoa/Cocoa.h>
@@ -48,29 +48,25 @@ typedef enum {
 @class AppHelper;
 @class CallTicketHandler;
 
+
+/*
+ * SipPhone: main telecom class: the global finate state machine
+ * every telecom stuf (except SDP handling which is un UserPlane)
+ * is handled here. And everything that is not telecom is typically
+ * moved to AppHelper (though there are still some non telecom stuff here)
+ */
+
 @interface SipPhone : NSObject {
 	IBOutlet AppHelper *appHelper;
-	IBOutlet NSWindow *mainWin;
-	IBOutlet NSView *popupInCallView;
-	IBOutlet ABPeoplePickerView *abPicker;
-	//IBOutlet NSTabView *callView;
-	IBOutlet CallTicketHandler *tickets;
-	NSWindow *popupInCall;
-	IBOutlet NSTextField *numberTextView;
-	IBOutlet NSButton *callbutton;
-	IBOutlet NSView *offlineView;
-
+	
 	sipState_t state;
 	int _rid;
 	int _cid;
 	int _did;
 	int _tid;
-	NSString *serviceRoute;
 	NSTimer *pollTimer;
-	//NSRunLoop *mainloop;
-
 	
-	//NSString *editedPassword;
+	NSString *serviceRoute;
 	// called number (out call), and its AB name
 	NSString *selectedNumber;
 	NSString *selectedName;
@@ -78,10 +74,6 @@ typedef enum {
 	NSString *callingNumber;
 	NSString *callingName;
 	
-	BOOL fromAB;	// true if selectedNumber comes from AddressBook (and has not been changed)
-	ABCache *abCache;
-	BOOL abVisible;		// bound to ABPeoplePickerView drawer visibility
-	BOOL abVisibleOffline;  // remind picker visibility when in "offline" state
 	
 	// userplane stuffs
 	NSString *localSdp;
@@ -91,7 +83,22 @@ typedef enum {
 	NSDate *callDate;
 	int pollcount;
 	int maxDuration;
+	
+	IBOutlet NSWindow *mainWin;
+	IBOutlet NSView *popupInCallView;
+	IBOutlet ABPeoplePickerView *abPicker;
+	IBOutlet CallTicketHandler *tickets;
+	NSWindow *popupInCall;
+	IBOutlet NSTextField *numberTextView;
+	IBOutlet NSButton *callbutton;
+	IBOutlet NSView *offlineView;
+	
+	BOOL fromAB;	// true if selectedNumber comes from AddressBook (and has not been changed)
+	ABCache *abCache;
+	BOOL abVisible;		// bound to ABPeoplePickerView drawer visibility
+	BOOL abVisibleOffline;  // remind picker visibility when in "offline" state
 }
+
 
 - (ABCache *)abCache;
 

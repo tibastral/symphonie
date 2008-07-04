@@ -6,6 +6,10 @@
 //  Copyright 2007 Daniel Braun. All rights reserved.
 //
 
+/*
+ * cache of adress book. mostly needed to provide easy per phone number search
+ */
+
 #import <Cocoa/Cocoa.h>
 #import <AddressBook/AddressBook.h>
 

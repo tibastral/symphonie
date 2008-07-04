@@ -9,6 +9,12 @@
 #import <Cocoa/Cocoa.h>
 #include "pjmedia.h"
 
+/*
+ * handing of user plane (also call media plane in sip terminology)
+ * user plane is implemented by phmedia lib
+ * and UserPlane makes the glue
+ * SDP handling, is processed here (actually mostly handled by pjmedia lib)
+ */
 @class QTMovie;
 
 @protocol AudioTestHelper

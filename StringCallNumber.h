@@ -8,6 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
+/*
+ * convertion of phone call for
+ * - pretty printing
+ * - replacing eg of national prefix (eg "0") by international one (eg "+33")
+ */
+
 @interface PhoneNumberConverter : NSObject
 {
 	NSString *_nationalPrefix;

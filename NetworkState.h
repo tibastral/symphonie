@@ -6,6 +6,12 @@
 //  Copyright 2008 Ercom. All rights reserved.
 //
 
+
+/*
+ * handle network state notification
+ * also handles home/foreign detection
+ */
+
 #import <Cocoa/Cocoa.h>
 #include <SystemConfiguration/SystemConfiguration.h>
 

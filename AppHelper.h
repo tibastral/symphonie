@@ -17,9 +17,21 @@
 @class BundledScript;
 @class CallTicketHandler;
 @class NetworkState;
+
+
 /*
  * AppHelper handles most/all of the non-telecom part of the phone.
- * (SipPhone class focuses on telecom stuf, AppHelper on "accessories"
+ * (SipPhone class focuses on telecom stuf, AppHelper on "accessories"),
+ * and is more or less an global controler.
+ * - gui control
+ * - network, wake/sleep, etc notification handling
+ * - dial from url
+ * - account info management & account selection
+ * - keyring storage of passwords
+ * - DVD reader and friends pausing
+ * - etc...
+ *
+ * thus a lot of stuff with little corelation
  */ 
  
 @interface AppHelper : NSObject <AudioTestHelper, NetworkStateClient> {

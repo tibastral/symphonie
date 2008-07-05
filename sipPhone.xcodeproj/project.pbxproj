@@ -1224,7 +1224,7 @@
 			name = pj;
 			sourceTree = "<group>";
 		};
-		1B3D420B0D01CEE800AD2EF1 /* CrashReport */ = {
+		1B3D420B0D01CEE800AD2EF1 /* CrashReport (currently unused) */ = {
 			isa = PBXGroup;
 			children = (
 				1B3D420E0D01CF0900AD2EF1 /* UKCrashReporter.m */,
@@ -1232,7 +1232,7 @@
 				1B3D423A0D01D3CA00AD2EF1 /* MiscDebug.h */,
 				1B3D423B0D01D3CA00AD2EF1 /* MiscDebug.m */,
 			);
-			name = CrashReport;
+			name = "CrashReport (currently unused)";
 			sourceTree = "<group>";
 		};
 		1B46E4460CCB46EE00397E41 /* pjmedia */ = {
@@ -1506,7 +1506,7 @@
 				1B5390380D66E82C002C2621 /* update info */,
 				1B620A1D0D1E647000641E33 /* symPhonieHelp */,
 				1BBD5A910CEE601200C5C4A1 /* sipPhoneAbPlugin.xcodeproj */,
-				1B3D420B0D01CEE800AD2EF1 /* CrashReport */,
+				1B3D420B0D01CEE800AD2EF1 /* CrashReport (currently unused) */,
 				1BC967730CC9EA72004C0339 /* Lib */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,

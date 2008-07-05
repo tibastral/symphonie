@@ -3,7 +3,7 @@
 //  sipPhone
 //
 //  Created by Daniel Braun on 02/07/08.
-//  Copyright 2008 Ercom. All rights reserved.
+//  Copyright 2008 Daniel Braun. All rights reserved.
 //
 
 

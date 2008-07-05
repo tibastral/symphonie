@@ -3,7 +3,7 @@
 //  sipPhone
 //
 //  Created by Daniel Braun on 02/07/08.
-//  Copyright 2008 Ercom. All rights reserved.
+//  Copyright 2008 Daniel Braun. All rights reserved.
 //
 
 #import "NetworkState.h"
@@ -234,7 +234,8 @@ static void processScInfo(const void *_key,
 	id pv=(id) _value;
 	
 	
-	if (_debugSC) NSLog(@"for %@: %@\n", key, pv);
+	if (_debugSC || _debugHL) NSLog(@"for %@: %@\n", key, pv);
+	//else if (_debugHL) NSLog(@"process keys %@\n", key);
 	if ([key hasSuffix:(id)kSCEntNetAirPort]) {
 		NSArray *ne=[key componentsSeparatedByString:@"/"];
 		NSString *iface=[ne objectAtIndex:[ne count]-2];

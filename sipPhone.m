@@ -947,10 +947,45 @@ static int initDone=0;
 			// ------------------
 			
 			if (_cid != je->cid) {
+				// XXX issue#7 should check state, and/or use specific _cid value when idle, 
+				// and refuse new call here !!!!
+				// why do we accept call ??
 				if (je->type==EXOSIP_CALL_INVITE) {
-					if (_debugFsm) NSLog(@"incoming new call\n");
+					int refuseCause=0;
 					if (!je->request) goto refuse_call;
 					if (!je->request->from) goto refuse_call;
+
+					if (_debugFsm) NSLog(@"incoming new call cid:%d/%d\n", _cid, je->cid);
+					switch (state) {
+						default:
+						case sip_off:
+						case sip_unregister_in_progress:
+						case sip_unregister_retry:
+						case sip_register2call_in_progress:
+						case sip_register2call_retry:
+						case sip_register_in_progress:
+						case sip_register_retry:
+						case sip_ondemand:
+							refuseCause=SIP_NOT_FOUND;
+							break;
+						case sip_outgoing_call_sent:
+						case sip_outgoing_call_ringing:
+						case sip_online:
+						case sip_initiated_clearing:
+						case sip_incoming_call_ringing:
+						case sip_incoming_call_acccepted:
+							refuseCause=SIP_BUSY_HERE;
+							break;
+						case sip_registered:
+							break; // in call ok here
+					}
+					if (refuseCause) {
+						NSLog(@"xxxxxxxxxxxxx!\n");
+						EXOSIP_LOCK ();
+						eXosip_call_send_answer (je->tid, refuseCause, NULL);
+						EXOSIP_UNLOCK ();
+						continue;
+					}
 					char *f=je->request->from->displayname;
 					if (!f) goto refuse_call;
 					[self setCallingNumber:[NSString stringWithCString:f]];
@@ -989,7 +1024,7 @@ static int initDone=0;
 					break;
 refuse_call:
 					EXOSIP_LOCK ();
-					eXosip_call_send_answer (je->tid, 415, NULL);
+					eXosip_call_send_answer (je->tid, SIP_BAD_REQUEST, NULL);
 					EXOSIP_UNLOCK ();
 					
 				}

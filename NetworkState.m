@@ -26,6 +26,7 @@ static int _debugHL=NO;
 	NSString *ssidStr;
 	NSData *bssid;
 	BOOL validAirport;
+	NSString *networkSignature;
 }
 - (id) initWithParent:(NetworkState *)p;
 - (void) setAddresses:(NSArray *)_addresses;
@@ -35,6 +36,7 @@ static int _debugHL=NO;
 - (NSData *)bssid;
 - (NSString *)ssidStr;
 - (NSArray *)addresses;
+- (NSString *) networkSignature;
 @end
 
 @implementation IfaceDescr
@@ -43,6 +45,7 @@ static int _debugHL=NO;
 	[addresses release];
 	[ssidStr release];
 	[bssid release];
+	[networkSignature release];
 	[super dealloc];
 }
 
@@ -133,8 +136,16 @@ static int _debugHL=NO;
 {
 	return ssidStr;
 }
-
-
+- (NSString *) networkSignature
+{
+	return networkSignature;
+}
+- (void) setNetworkSignature:(NSString *)ns
+{
+	if (ns == networkSignature) return;
+	[networkSignature release];
+	networkSignature=[ns retain];
+}
 
 @end
 
@@ -250,6 +261,8 @@ static void processScInfo(const void *_key,
 		IfaceDescr *idesc=[ns descrFor:iface];
 		NSArray *addresses=[pv valueForKey:@"Addresses"];
 		[idesc setAddresses:addresses];
+		NSString *sig=[pv valueForKey:@"NetworkSignature"];
+		[idesc setNetworkSignature:sig];
 	}
 }	
 	
@@ -396,6 +409,7 @@ wifi_done:
 	[self willChangeValueForKey:@"bssid"];
 	[self willChangeValueForKey:@"ssidStr"];
 	[self willChangeValueForKey:@"mainIp"];
+	[self willChangeValueForKey:@"networkSignature"];
 	[self willChangeValueForKey:@"interfaceType"];
 	[self willChangeValueForKey:@"networkAvailable"];
 	changed=NO;
@@ -423,6 +437,7 @@ wifi_done:
 	[self didChangeValueForKey:@"bssid"];
 	[self didChangeValueForKey:@"ssidStr"];
 	[self didChangeValueForKey:@"mainIp"];
+	[self didChangeValueForKey:@"networkSignature"];
 	[self didChangeValueForKey:@"interfaceType"];
 	[self didChangeValueForKey:@"networkAvailable"];
 }
@@ -496,5 +511,15 @@ wifi_done:
 	if (!mi) return NO;
 	return YES;
 }
-
+- (NSString *) dnsIp
+{
+	return @"not yet available, on progress...";
+}
+- (NSString *) networkSignature
+{
+	IfaceDescr *mi=[self _mainInterface];
+	if (!mi) return nil;
+	NSAssert([mi isValid], @"_mainInterface should only return valid interfaces");
+	return [mi networkSignature];
+}
 @end

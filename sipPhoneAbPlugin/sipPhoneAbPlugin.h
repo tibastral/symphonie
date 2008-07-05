@@ -3,7 +3,7 @@
 //  sipPhoneAbPlugin
 //
 //  Created by Daniel Braun on 16/11/07.
-//  Copyright __MyCompanyName__ 2007. All rights reserved.
+//  Copyright Daniel Braun 2007. All rights reserved.
 //
 
 #import <AddressBook/AddressBook.h>

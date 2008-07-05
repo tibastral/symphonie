@@ -38,6 +38,8 @@
 - (NSData *) bssid;
 - (NSString *) ssidStr;
 - (NSString *) mainIp;
+- (NSString *) dnsIp;
+- (NSString *) networkSignature;
 - (NSString *) interfaceType;
 
 @end

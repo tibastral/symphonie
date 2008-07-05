@@ -7,7 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "MiscDebug.h"
+//#import "MiscDebug.h"
 int main(int argc, char *argv[])
 {
 #if 0	

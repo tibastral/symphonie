@@ -12,6 +12,7 @@
  * also handles home/foreign detection
  */
 
+
 #import <Cocoa/Cocoa.h>
 #include <SystemConfiguration/SystemConfiguration.h>
 

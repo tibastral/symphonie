@@ -623,9 +623,16 @@ static OSStatus StorePasswordKeychain(NSString *account, NSString* password);
 - (BOOL) accountEditable
 {
 	BOOL alt=[[providerInfo valueForKey:@"alternateIsAlternate"]boolValue];
-	if (alt) return NO;
+	if (alt) {
+		if (_debugMisc) NSLog(@"accountEditable: NO (alternate)\n");
+		return NO;
+	}
 	BOOL noaccount=[[providerInfo valueForKey:@"noAccountInfo"]boolValue];
-	if (noaccount) return NO;
+	if (noaccount) {
+		if (_debugMisc) NSLog(@"accountEditable: NO (noAccountInfo)\n");
+		return NO;
+	}
+	if (_debugMisc) NSLog(@"accountEditable: YES\n");
 	return YES;
 }
 - (void) setProvider:(NSString *)name
@@ -738,7 +745,8 @@ static OSStatus StorePasswordKeychain(NSString *account, NSString* password)
 	OSStatus status;
 	const char *passwordUTF8 = [password UTF8String];
 	const char *accountUTF8 = [account UTF8String];
-
+	if (!passwordUTF8 || passwordUTF8[0]) return 1001;
+	if (!accountUTF8 || accountUTF8[0]) return 1002;
 	status = SecKeychainAddGenericPassword (
 						NULL,            // default keychain
 						9,              // length of service name
@@ -758,6 +766,7 @@ static NSString *GetPasswordKeychain (NSString *account,
 {
 	OSStatus status1 ;
 	const char *accountUTF8 = [account UTF8String];
+	if (!accountUTF8) return NULL;
 	char *passwd=NULL;
 	UInt32 plen=0;
 

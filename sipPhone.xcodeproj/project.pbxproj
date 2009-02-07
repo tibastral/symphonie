@@ -212,6 +212,7 @@
 		1B46EFC00CD1C36200397E41 /* AppHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B46EFBF0CD1C36200397E41 /* AppHelper.m */; };
 		1B5390370D66E69F002C2621 /* UpdateChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5390360D66E69F002C2621 /* UpdateChecker.m */; };
 		1B53903A0D66E83A002C2621 /* symPhonie.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B5390390D66E83A002C2621 /* symPhonie.plist */; };
+		1B5D66DC0F3D8F6900717139 /* 3starsnet.sip.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1B5D66DB0F3D8F6900717139 /* 3starsnet.sip.plist */; };
 		1B620A1F0D1E647000641E33 /* symPhonieHelp in Resources */ = {isa = PBXBuildFile; fileRef = 1B620A1D0D1E647000641E33 /* symPhonieHelp */; };
 		1B751E260CE999E500BA8417 /* Cornemuse.mid in Resources */ = {isa = PBXBuildFile; fileRef = 1B751E250CE999E500BA8417 /* Cornemuse.mid */; };
 		1B751E8D0CE9A23600BA8417 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B751E8C0CE9A23600BA8417 /* QTKit.framework */; };
@@ -647,6 +648,7 @@
 		1B5390350D66E69F002C2621 /* UpdateChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateChecker.h; sourceTree = "<group>"; };
 		1B5390360D66E69F002C2621 /* UpdateChecker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateChecker.m; sourceTree = "<group>"; };
 		1B5390390D66E83A002C2621 /* symPhonie.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = symPhonie.plist; sourceTree = "<group>"; };
+		1B5D66DB0F3D8F6900717139 /* 3starsnet.sip.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = 3starsnet.sip.plist; sourceTree = "<group>"; };
 		1B620A1E0D1E647000641E33 /* English */ = {isa = PBXFileReference; lastKnownFileType = folder; name = English; path = English.lproj/symPhonieHelp; sourceTree = "<group>"; };
 		1B751E250CE999E500BA8417 /* Cornemuse.mid */ = {isa = PBXFileReference; lastKnownFileType = audio.midi; path = Cornemuse.mid; sourceTree = "<group>"; };
 		1B751E8C0CE9A23600BA8417 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = SDKs/MacOSX10.4u.sdk/System/Library/Frameworks/QTKit.framework; sourceTree = SYSTEM_DEVELOPER_DIR; };
@@ -1486,6 +1488,7 @@
 		1BEB4A670D78C2E700DC7D23 /* SIP configs */ = {
 			isa = PBXGroup;
 			children = (
+				1B5D66DB0F3D8F6900717139 /* 3starsnet.sip.plist */,
 				1BECBF170D796C8C004CCDF3 /* keyyo.sip.plist */,
 				1BEB4A5E0D78BEB100DC7D23 /* free.sip.plist */,
 				1BEB4A680D78C31000DC7D23 /* freephonie.sip.plist */,
@@ -1635,6 +1638,7 @@
 				1BECBE930D796110004CCDF3 /* inphonex.sip.plist in Resources */,
 				1BECBE950D796123004CCDF3 /* ippi.sip.plist in Resources */,
 				1BECBF180D796C8C004CCDF3 /* keyyo.sip.plist in Resources */,
+				1B5D66DC0F3D8F6900717139 /* 3starsnet.sip.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

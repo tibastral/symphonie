@@ -27,7 +27,7 @@
 	<key>sipRegistrationDuration</key>
 	<integer>1800</integer>
 	<key>urlImage</key>
-	<string>http://portail.free.fr/im/mast_free2.gif</string>
+	<string>http://img3.free.fr/2008/portail/im/chrom_logo.png</string>
 	<key>urlMain</key>
 	<string>http://www.free.fr/</string>
 </dict>

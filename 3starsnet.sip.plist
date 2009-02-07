@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>alternateIsAlternate</key>
+	<false/>
+	<key>guiAccountHint</key>
+	<string></string>
+	<key>guiAccountIsPhone</key>
+	<false/>
+	<key>guiPasswordHint</key>
+	<string></string>
+	<key>name</key>
+	<string>threestar</string>
+	<key>sipDomain</key>
+	<string>sip.3starsnet.com</string>
+	<key>sipFrom</key>
+	<string>sip:%@@sip.3starsnet.com</string>
+	<key>sipProxy</key>
+	<string>sip:sip.3starsnet.com</string>
+	<key>sipRegistrationDuration</key>
+	<integer>1800</integer>
+	<key>urlImage</key>
+	<string>http://3starsnet.com/refresh/images/3stars_logob.png</string>
+	<key>urlMain</key>
+	<string>http://3starsnet.com</string>
+</dict>
+</plist>

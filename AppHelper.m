@@ -745,8 +745,8 @@ static OSStatus StorePasswordKeychain(NSString *account, NSString* password)
 	OSStatus status;
 	const char *passwordUTF8 = [password UTF8String];
 	const char *accountUTF8 = [account UTF8String];
-	if (!passwordUTF8 || passwordUTF8[0]) return 1001;
-	if (!accountUTF8 || accountUTF8[0]) return 1002;
+	if (!passwordUTF8 || !passwordUTF8[0]) return 1001;
+	if (!accountUTF8 || !accountUTF8[0]) return 1002;
 	status = SecKeychainAddGenericPassword (
 						NULL,            // default keychain
 						9,              // length of service name
@@ -824,6 +824,9 @@ static OSStatus ChangePasswordKeychain (SecKeychainItemRef itemRef, NSString *pa
 	} else {
 		//NSAssert(!ir, @"strange");
 		status=StorePasswordKeychain(ph,s);
+	}
+	if (status != noErr) {
+		NSLog(@"store passwd (%s) : error %d\n", ir?"ChangePasswordKeychain":"StorePasswordKeychain", status);
 	}
 	[phone authInfoChangedWithNetwork:networkAvailable];
 	if (onDemandRegister) [phone unregisterPhone:self];

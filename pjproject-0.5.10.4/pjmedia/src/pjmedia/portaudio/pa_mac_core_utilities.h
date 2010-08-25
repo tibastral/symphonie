@@ -200,8 +200,8 @@ PaError setBestSampleRateForDevice( const AudioDeviceID device,
 */
 PaError setBestFramesPerBuffer( const AudioDeviceID device,
                                        const bool isOutput,
-                                       unsigned long requestedFramesPerBuffer, 
-                                       unsigned long *actualFramesPerBuffer );
+                                       UInt32 requestedFramesPerBuffer, 
+                                       UInt32  *actualFramesPerBuffer );
 
 #ifdef PA_OLD_CORE_AUDIO
 #	define kAudioUnitErr_PropertyNotInUse			10850

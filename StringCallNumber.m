@@ -112,7 +112,7 @@ static NSString * _callNumber(NSString *str)
 {
 	char szTmp[128];
 	if ([str length]>=sizeof(szTmp)) return nil;
-	const char *s=[str cString];
+	const char *s=[str UTF8String];
 	if (!s) return nil;
 	int i;
 	for (i=0; *s && (i<127); s++) {
@@ -123,7 +123,7 @@ static NSString * _callNumber(NSString *str)
 		i++;
 	}
 	szTmp[i]='\0';
-	NSString *sr=[NSString stringWithCString:szTmp];
+	NSString *sr=[NSString stringWithUTF8String:szTmp];
 	
 	return sr;
 }
@@ -165,8 +165,8 @@ static NSString * _callNumber(NSString *str)
 
 - (NSString *) _match:(NSString *)num template:(NSString *) template
 {
-	const char *cnum=[num cString];
-	const char *ct=[template cString];
+	const char *cnum=[num UTF8String];
+	const char *ct=[template UTF8String];
 	if (!ct) return NULL;
 	if (!cnum) return NULL;
 	unsigned int l=strlen(ct);
@@ -181,7 +181,7 @@ static NSString * _callNumber(NSString *str)
 			continue;
 		} 
 		if ('I'==*pt) {
-			const char *z=[[self internationalPrefix] cString];
+			const char *z=[[self internationalPrefix] UTF8String];
 			if (!z) continue;
 			if (!strncmp(z, pn, strlen(z))) {
 				strcpy(r, z);
@@ -217,7 +217,7 @@ static NSString * _callNumber(NSString *str)
 	*r='\0';
 	if (*pn) return NULL;
 	if (r==szRes) return NULL;	
-	return [NSString stringWithCString:szRes];
+	return [NSString stringWithUTF8String:szRes];
 }
 
 - (NSString *) _applyFormatFor:(NSString *)n

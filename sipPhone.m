@@ -70,9 +70,9 @@ eXosip_get_sdp_body (osip_message_t * message)
 	while (!osip_list_eol (message->bodies, pos)) {		
 		oldbody = (osip_body_t *) osip_list_get (message->bodies, pos);
 		pos++;
-		if (!res) res=[NSString stringWithCString:oldbody->body];
+		if (!res) res=[NSString stringWithUTF8String:oldbody->body];
 		else res=[res stringByAppendingString:
-			[NSString stringWithCString:oldbody->body]];
+			[NSString stringWithUTF8String:oldbody->body]];
 	}
 	return res;
 }
@@ -614,7 +614,7 @@ static int initDone=0;
 {
 	if (_debugAuth) NSLog(@"authInfoChanged\n");
 	eXosip_clear_authentication_info();
-	eXosip_add_authentication_info([[appHelper authId]cString], [[appHelper authId]cString], [[appHelper authPasswd]cString],
+	eXosip_add_authentication_info([[appHelper authId]UTF8String], [[appHelper authId]UTF8String], [[appHelper authPasswd]UTF8String],
 			       NULL, NULL);
 	if (net) [self registerPhone:self];
 }
@@ -635,7 +635,7 @@ static int initDone=0;
 		return;
 	}
 	EXOSIP_LOCK ();
-	_rid = eXosip_register_build_initial_register ([from cString], [proxy cString], [contact cString],
+	_rid = eXosip_register_build_initial_register ([from UTF8String], [proxy UTF8String], [contact UTF8String],
 						     dur, &reg);
 	if (_rid < 0)
 	{
@@ -648,7 +648,7 @@ static int initDone=0;
 	}
 	//NSLog(@"password %@\n",[appHelper authPasswd]);
 	eXosip_clear_authentication_info();
-	eXosip_add_authentication_info([[appHelper authId]cString], [[appHelper authId]cString], [[appHelper authPasswd]cString],
+	eXosip_add_authentication_info([[appHelper authId]UTF8String], [[appHelper authId]UTF8String], [[appHelper authPasswd]UTF8String],
 					    NULL, NULL);
 	
 	if (0) osip_message_set_supported (reg, "100rel");
@@ -698,8 +698,8 @@ static int initDone=0;
 	{
 		//NSAssert(0, @"registered failed\n");
 		NSLog(@"unregister failed (build) rc=%d, _rid=%d\n", rc);
-		_rid = eXosip_register_build_initial_register ([[appHelper sipFrom]cString], [[appHelper sipProxy]cString],
-							       [[appHelper sipFrom]cString],
+		_rid = eXosip_register_build_initial_register ([[appHelper sipFrom]UTF8String], [[appHelper sipProxy]UTF8String],
+							       [[appHelper sipFrom]UTF8String],
 							       0, &reg);
 	}
 	
@@ -927,7 +927,7 @@ static int initDone=0;
 								NSLog(@"no srv route/empty path\n");
 							} else {
 								if (_debugFsm) NSLog(@"got srvroute %s\n", hservroute->hvalue);
-								if (!serviceRoute) serviceRoute=[NSString stringWithCString:hservroute->hvalue];
+								if (!serviceRoute) serviceRoute=[NSString stringWithUTF8String:hservroute->hvalue];
 								else serviceRoute=[serviceRoute stringByAppendingFormat:@",%s", hservroute->hvalue];
 							}
 							pos++;
@@ -988,7 +988,7 @@ static int initDone=0;
 					}
 					char *f=je->request->from->displayname;
 					if (!f) goto refuse_call;
-					[self setCallingNumber:[NSString stringWithCString:f]];
+					[self setCallingNumber:[NSString stringWithUTF8String:f]];
 					
 					_cid=je->cid;
 					_did=je->did;
@@ -1012,7 +1012,7 @@ static int initDone=0;
 					[self didChangeValueForKey:@"localSdp"];
 					osip_message_t *answer=NULL;
 					eXosip_call_build_answer(_tid, 180, &answer);
-					osip_message_set_body (answer, [localSdp cString], [localSdp length]);
+					osip_message_set_body (answer, [localSdp UTF8String], [localSdp length]);
 					osip_message_set_content_type (answer, "application/sdp");
 					EXOSIP_LOCK ();
 					eXosip_call_send_answer (je->tid, 180, answer);
@@ -1127,7 +1127,7 @@ refuse_call:
 							break;
 						default:
 							[appHelper sipError:status_code phrase:reason_phrase reason:reason domain:1];
-							[tickets tickHangupCause:status_code info: reason ? [NSString stringWithCString:reason] : nil];
+							[tickets tickHangupCause:status_code info: reason ? [NSString stringWithUTF8String:reason] : nil];
 							break;
 					}
 					if (je->response != NULL) {
@@ -1155,12 +1155,12 @@ refuse_call:
 				case EXOSIP_CALL_SERVERFAILURE:
 					NSLog(@"EXOSIP_CALL_SERVERFAILURE\n");
 					[appHelper sipError:status_code phrase:reason_phrase reason:reason domain:1];
-					[tickets tickHangupCause:status_code info: reason ? [NSString stringWithCString:reason] : nil];
+					[tickets tickHangupCause:status_code info: reason ? [NSString stringWithUTF8String:reason] : nil];
 					break;
 				case EXOSIP_CALL_GLOBALFAILURE:
 					NSLog(@"EXOSIP_CALL_GLOBALFAILURE\n");
 					[appHelper sipError:status_code phrase:reason_phrase reason:reason domain:1];
-					[tickets tickHangupCause:status_code info: reason ? [NSString stringWithCString:reason] : nil];
+					[tickets tickHangupCause:status_code info: reason ? [NSString stringWithUTF8String:reason] : nil];
 					break;
 				case EXOSIP_CALL_ANSWERED:
 					[appHelper resetErrorForDomain:1];
@@ -1223,7 +1223,7 @@ refuse_call:
 					break;
 				case EXOSIP_CALL_CLOSED:
 					[appHelper sipError:status_code phrase:reason_phrase reason:reason domain:1];
-					[tickets tickHangupCause:status_code info: reason ? [NSString stringWithCString:reason] : nil];
+					[tickets tickHangupCause:status_code info: reason ? [NSString stringWithUTF8String:reason] : nil];
 					[userPlane endUserPlane];
 					rc=eXosip_default_action(je);
 					if (state>sip_registered) [self terminateCall:self]; // XXX
@@ -1271,9 +1271,9 @@ refuse_call:
 	int rc;
 	if (_debugMisc || _debugFsm) NSLog(@"call sip:%@@%@\n", [self internationalSelectedNumber], [appHelper sipDomain]);
 	rc = eXosip_call_build_initial_invite(&invite,
-						  [[NSString stringWithFormat:@"sip:%@@%@", [self internationalSelectedNumber], [appHelper sipDomain]]cString],
-						 [[appHelper sipFrom]cString],
-						 [serviceRoute cString],
+						  [[NSString stringWithFormat:@"sip:%@@%@", [self internationalSelectedNumber], [appHelper sipDomain]]UTF8String],
+						 [[appHelper sipFrom]UTF8String],
+						 [serviceRoute UTF8String],
 						 "phone call");
 	if (rc) return;
 	osip_message_set_supported (invite, "100rel");
@@ -1285,7 +1285,7 @@ refuse_call:
 	localSdp=[[userPlane setupAndGetLocalSdp] retain];
 	[self didChangeValueForKey:@"localSdp"];
 
-	osip_message_set_body (invite, [localSdp cString], [localSdp length]);
+	osip_message_set_body (invite, [localSdp UTF8String], [localSdp length]);
 	osip_message_set_content_type (invite, "application/sdp");
 	
 	
@@ -1371,7 +1371,7 @@ refuse_call:
 	[self setSelectedName:callingName];
 	osip_message_t *answer=NULL;
 	eXosip_call_build_answer(_tid, 200, &answer);
-	osip_message_set_body (answer, [localSdp cString], [localSdp length]);
+	osip_message_set_body (answer, [localSdp UTF8String], [localSdp length]);
 	osip_message_set_content_type (answer, "application/sdp");
 	EXOSIP_LOCK ();
 	int rc=eXosip_call_send_answer (_tid, 200, answer);
@@ -1474,16 +1474,16 @@ static const char *padDigits[16]={
 			}
 			s=[self selectedNumber];
 			if (!s) {
-				s=[NSString stringWithCString:padDigits[tag]];
+				s=[NSString stringWithUTF8String:padDigits[tag]];
 			} else {
-				s=[s stringByAppendingString:[NSString stringWithCString:padDigits[tag]]];
+				s=[s stringByAppendingString:[NSString stringWithUTF8String:padDigits[tag]]];
 			}
 			[self setSelectedNumber:s];
 			break;
 		case sip_online:
 			// DTMF
 			if (tag<0) return;
-			s=[NSString stringWithCString:padDigits[tag]];
+			s=[NSString stringWithUTF8String:padDigits[tag]];
 			[userPlane dtmf:s];
 			break;
 	}
@@ -1492,7 +1492,7 @@ static const char *padDigits[16]={
 
 - (int) callDuration
 {
-	if (!callDate) return nil;
+	if (!callDate) return 0;
 	NSTimeInterval t= -[callDate timeIntervalSinceNow];
 	int v=(int)(t+0.5);
 	int mv;

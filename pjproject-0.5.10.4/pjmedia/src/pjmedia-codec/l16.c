@@ -547,9 +547,11 @@ static pj_status_t l16_encode(pjmedia_codec *codec,
 			      unsigned output_buf_len, 
 			      struct pjmedia_frame *output)
 {
-    const pj_int16_t *samp = (const pj_int16_t*) input->buf;
-    const pj_int16_t *samp_end = samp + input->size/sizeof(pj_int16_t);
+#if defined(PJ_IS_LITTLE_ENDIAN) && PJ_IS_LITTLE_ENDIAN!=0
+	const pj_int16_t *samp = (const pj_int16_t*) input->buf;
+	const pj_int16_t *samp_end = samp + input->size/sizeof(pj_int16_t);
     pj_int16_t *samp_out = (pj_int16_t*) output->buf;    
+#endif
 
 
     PJ_UNUSED_ARG(codec);
@@ -579,10 +581,11 @@ static pj_status_t l16_decode(pjmedia_codec *codec,
 			      unsigned output_buf_len, 
 			      struct pjmedia_frame *output)
 {
+#if defined(PJ_IS_LITTLE_ENDIAN) && PJ_IS_LITTLE_ENDIAN!=0
     const pj_int16_t *samp = (const pj_int16_t*) input->buf;
     const pj_int16_t *samp_end = samp + input->size/sizeof(pj_int16_t);
     pj_int16_t *samp_out = (pj_int16_t*) output->buf;    
-
+#endif
 
     PJ_UNUSED_ARG(codec);
 

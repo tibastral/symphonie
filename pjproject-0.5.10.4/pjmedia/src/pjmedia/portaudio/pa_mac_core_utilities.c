@@ -522,8 +522,8 @@ PaError setBestSampleRateForDevice( const AudioDeviceID device,
 */
 PaError setBestFramesPerBuffer( const AudioDeviceID device,
                                        const bool isOutput,
-                                       unsigned long requestedFramesPerBuffer, 
-                                       unsigned long *actualFramesPerBuffer )
+                                       UInt32 requestedFramesPerBuffer, 
+                                       UInt32 *actualFramesPerBuffer )
 {
    UInt32 afpb;
    const bool isInput = !isOutput;

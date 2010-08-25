@@ -782,7 +782,7 @@ static NSString *GetPasswordKeychain (NSString *account,
 						  );
 	if (noErr== status1) {
 		passwd[plen]='\0';
-		NSString *r=[NSString stringWithCString:passwd encoding:NSUTF8StringEncoding];
+		NSString *r=[NSString stringWithUTF8String:passwd];
 		SecKeychainItemFreeContent (NULL,           //No attribute data to release
 					    passwd    //Release data buffer allocated by
 							    //SecKeychainFindGenericPassword
@@ -1254,7 +1254,8 @@ static NSString *q850(int c)
 	return NO;
 }
 
-- (NSArray *)tokenField:(NSTokenField *)tokenField completionsForSubstring:(NSString *)substring indexOfToken:(int)tokenIndex indexOfSelectedItem:(int *)selectedIndex
+- (NSArray *)tokenField:(NSTokenField *)tokenField completionsForSubstring:(NSString *)substring 
+	   indexOfToken:(NSInteger)tokenIndex indexOfSelectedItem:(NSInteger *)selectedIndex
 {
 	if ([substring length]>26) {
 		ABCache *abc=[phone abCache];
@@ -1393,7 +1394,7 @@ static NSString *q850(int c)
 }
 - (void) setMatchPhoneSelect:(NSIndexSet*)si
 {
-	int i=[si firstIndex];
+	NSInteger i=[si firstIndex];
 	if (NSNotFound==i) return;
 	NSDictionary *r=[matchPhones objectAtIndex:i];
 	//NSLog(@"select %@\n", r);

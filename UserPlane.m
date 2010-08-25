@@ -446,7 +446,7 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 		rc=pjmedia_sdp_print(local_sdp, szTmp, sizeof(szTmp)-1)	;
 		NSAssert(rc>0, @"faild sdp print");
 		szTmp[rc]='\0';
-		return [NSString stringWithCString:szTmp];
+		return [NSString stringWithUTF8String:szTmp];
 	}
 	return 0;
 }
@@ -463,9 +463,9 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 		return YES;
 	}
 	int rc;
-	rc=pjmedia_sdp_parse(callpool, (char *) [local cString], [local length], &local_sdp);
+	rc=pjmedia_sdp_parse(callpool, (char *) [local UTF8String], [local length], &local_sdp);
 	NSAssert(!rc, @"failed parsing sdp");
-	rc=pjmedia_sdp_parse(callpool, (char *) [remote cString], [remote length], &remote_sdp);
+	rc=pjmedia_sdp_parse(callpool, (char *) [remote UTF8String], [remote length], &remote_sdp);
 	NSAssert(!rc, @"failed parsing remote sdp");
 
 	// negociate sdp
@@ -492,7 +492,7 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 		rc=pjmedia_sdp_print(nlocal_sdp, szTmp, sizeof(szTmp)-1);
 		NSAssert(rc>0, @"faild sdp print");
 		szTmp[rc]='\0';
-		*pNL=[NSString stringWithCString:szTmp];
+		*pNL=[NSString stringWithUTF8String:szTmp];
 	}
 	
 	pjmedia_session_info sess_info;
@@ -560,7 +560,7 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 		dinfo=pjmedia_snd_get_dev_info(i);
 		if (_debugAudio) NSLog(@"dev %d: %s\n", i, dinfo->name);
 		if (dinfo->input_count) {
-			[res addObject:[NSString stringWithCString:dinfo->name encoding:NSUTF8StringEncoding]];
+			[res addObject:[NSString stringWithUTF8String:dinfo->name]];
 		}
 	}
 	
@@ -578,7 +578,7 @@ static void setVolume(AudioDeviceID dev,int isInput, float v)
 		dinfo=pjmedia_snd_get_dev_info(i);
 		if (_debugAudio) NSLog(@"dev %d: %s\n", i, dinfo->name);
 		if (dinfo->output_count) {
-			[res addObject:[NSString stringWithCString:dinfo->name encoding:NSUTF8StringEncoding]];
+			[res addObject:[NSString stringWithUTF8String:dinfo->name]];
 		}
 	}
 	if (0) { // for debug
@@ -690,7 +690,7 @@ static pj_status_t recordEnded(pjmedia_port *port, void *usr_data)
 
 - (void) dtmf:(NSString *)dtmf
 {
-	pj_str_t pdigits= pj_str( ( char *) [dtmf cString]);
+	pj_str_t pdigits= pj_str( ( char *) [dtmf UTF8String]);
 
 	pj_status_t rc=pjmedia_session_dial_dtmf(rtp_session,0, &pdigits);
 	if (_debugAudio) NSLog(@"dial dtfm rc=0x%X\n", rc);

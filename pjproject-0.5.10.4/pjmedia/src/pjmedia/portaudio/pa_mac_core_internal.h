@@ -129,8 +129,8 @@ typedef struct PaMacCoreStream
     AudioDeviceID outputDevice;
     size_t userInChan;
     size_t userOutChan;
-    size_t inputFramesPerBuffer;
-    size_t outputFramesPerBuffer;
+    UInt32 inputFramesPerBuffer;
+    UInt32 outputFramesPerBuffer;
     PaMacBlio blio;
     /* We use this ring buffer when input and out devs are different. */
     RingBuffer inputRingBuffer;

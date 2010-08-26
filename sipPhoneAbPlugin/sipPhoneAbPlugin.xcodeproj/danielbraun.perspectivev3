@@ -210,19 +210,17 @@
 			<array>
 				<string>XCToolbarPerspectiveControl</string>
 				<string>NSToolbarSeparatorItem</string>
-				<string>active-target-popup</string>
-				<string>active-buildstyle-popup</string>
+				<string>active-combo-popup</string>
 				<string>action</string>
 				<string>servicesModuleRefactoring</string>
-				<string>takeSnapshot</string>
-				<string>servicesModuleSnapshots</string>
 				<string>NSToolbarFlexibleSpaceItem</string>
+				<string>debugger-enable-breakpoints</string>
 				<string>buildOrClean</string>
-				<string>build-and-goOrGo</string>
-				<string>go-run</string>
-				<string>go-debug</string>
+				<string>build-and-go</string>
+				<string>clean</string>
+				<string>com.apple.ide.PBXToolbarStopButton</string>
 				<string>get-info</string>
-				<string>toggle-editor</string>
+				<string>researchAssistant</string>
 				<string>NSToolbarFlexibleSpaceItem</string>
 				<string>com.apple.pbx.toolbar.searchfield</string>
 			</array>
@@ -245,7 +243,6 @@
 						<array>
 							<string>1C37FBAC04509CD000000102</string>
 							<string>1C37FAAC04509CD000000102</string>
-							<string>1C08E77C0454961000C914BD</string>
 							<string>1C37FABC05509CD000000102</string>
 							<string>1C37FABC05539CD112110102</string>
 							<string>E2644B35053B69B200211256</string>
@@ -286,8 +283,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>4</integer>
-									<integer>1</integer>
+									<integer>11</integer>
+									<integer>10</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -325,7 +322,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1B802E550CEE51010021CAAD</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>sipPhoneAbPlugin.h</string>
+								<string>sipPhoneAbPlugin.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -333,11 +330,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1B802E560CEE51010021CAAD</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>sipPhoneAbPlugin.h</string>
+										<string>sipPhoneAbPlugin.m</string>
 										<key>_historyCapacity</key>
 										<integer>40</integer>
 										<key>bookmark</key>
-										<string>1BEE3CCD0E1F6DB2001AAF41</string>
+										<string>1B70AAF41225AD9D004114E1</string>
 										<key>history</key>
 										<array>
 											<string>1BE265270CF0D4910098C270</string>
@@ -345,23 +342,8 @@
 											<string>1BF4C4AC0D3A82C300FB112F</string>
 											<string>1BEE3CC40E1F6DB2001AAF41</string>
 											<string>1BEE3CC50E1F6DB2001AAF41</string>
-											<string>1BEE3CC60E1F6DB2001AAF41</string>
-											<string>1BEE3CC70E1F6DB2001AAF41</string>
-										</array>
-										<key>prevStack</key>
-										<array>
-											<string>1BE2652D0CF0D4910098C270</string>
-											<string>1BE2652E0CF0D4910098C270</string>
-											<string>1BE265300CF0D4910098C270</string>
-											<string>1BE265310CF0D4910098C270</string>
-											<string>1BE265320CF0D4910098C270</string>
-											<string>1BF4C4AF0D3A82C300FB112F</string>
-											<string>1BF4C4B00D3A82C300FB112F</string>
-											<string>1BEE3CC80E1F6DB2001AAF41</string>
-											<string>1BEE3CC90E1F6DB2001AAF41</string>
-											<string>1BEE3CCA0E1F6DB2001AAF41</string>
-											<string>1BEE3CCB0E1F6DB2001AAF41</string>
-											<string>1BEE3CCC0E1F6DB2001AAF41</string>
+											<string>1B70AA92122596AE004114E1</string>
+											<string>1B70AA93122596AE004114E1</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -375,18 +357,18 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {811, 378}}</string>
+								<string>{{0, 0}, {811, 370}}</string>
 								<key>RubberWindowFrame</key>
 								<string>192 105 1032 635 0 0 1280 778 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>378pt</string>
+							<string>370pt</string>
 						</dict>
 						<dict>
 							<key>Proportion</key>
-							<string>211pt</string>
+							<string>219pt</string>
 							<key>Tabs</key>
 							<array>
 								<dict>
@@ -400,7 +382,7 @@
 									<key>GeometryConfiguration</key>
 									<dict>
 										<key>Frame</key>
-										<string>{{10, 27}, {811, 184}}</string>
+										<string>{{10, 27}, {811, 192}}</string>
 										<key>RubberWindowFrame</key>
 										<string>192 105 1032 635 0 0 1280 778 </string>
 									</dict>
@@ -447,7 +429,7 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>XCMainBuildResultsModuleGUID</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>Build</string>
+										<string>Build Results</string>
 										<key>XCBuildResultsTrigger_Collapse</key>
 										<integer>1021</integer>
 										<key>XCBuildResultsTrigger_Open</key>
@@ -456,7 +438,7 @@
 									<key>GeometryConfiguration</key>
 									<dict>
 										<key>Frame</key>
-										<string>{{10, 31}, {603, 297}}</string>
+										<string>{{10, 27}, {811, 192}}</string>
 									</dict>
 									<key>Module</key>
 									<string>PBXBuildResultsModule</string>
@@ -484,16 +466,18 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>1BEE3CCE0E1F6DB2001AAF41</string>
+				<string>1B70A9BC1225945E004114E1</string>
 				<string>1CA23ED40692098700951B8B</string>
-				<string>1BEE3CCF0E1F6DB2001AAF41</string>
+				<string>1B70A9BD1225945E004114E1</string>
 				<string>1B802E550CEE51010021CAAD</string>
-				<string>1BEE3CD00E1F6DB2001AAF41</string>
+				<string>1B70A9BE1225945E004114E1</string>
 				<string>1CA23EDF0692099D00951B8B</string>
 				<string>1CA23EE00692099D00951B8B</string>
 				<string>1CA23EE10692099D00951B8B</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
+			<key>ToolbarConfigUserDefaultsMinorVersion</key>
+			<string>2</string>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.defaultV3</string>
 		</dict>

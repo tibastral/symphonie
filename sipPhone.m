@@ -127,8 +127,18 @@ static int initDone=0;
 	
 	//NSView *v=[abPicker accessoryView];
 	//[abPicker setAllowsMultipleSelection:NO];
+	abPicker.allowsGroupSelection=YES;
+#if 0
+	NSArray *psel=[abPicker selectedRecords];
+	ABRecord *p;
+	for (p in psel) {
+		[abPicker deselectRecord:p];
+	}
+	psel=[abPicker selectedValues];
+#endif
+	if (0) [abPicker deselectAll:nil];
 	//[abPicker setAllowsEmptySelection:YES];
-	[abPicker deselectAll:nil];
+	
 	//ABPickerDeselectAll(abPicker);
 #if 0
 	NSArray *cursel=[abPicker selectedGroups];
@@ -197,6 +207,8 @@ static int initDone=0;
 	//NSImage *personImage;
 	NSString *personName;
 	NSArray *array;
+	
+	if (!abVisible) return;
 	
 	array = [abPicker selectedRecords];
 	NSArray *a2=[abPicker selectedValues];

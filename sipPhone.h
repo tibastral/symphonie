@@ -11,6 +11,11 @@
 
 #import <AddressBook/ABPeoplePickerView.h>
 
+
+#if __LP64__
+#error exosip is not 64bits clean, compile in 32bits
+#endif
+
 @class UserPlane;
 
 /*

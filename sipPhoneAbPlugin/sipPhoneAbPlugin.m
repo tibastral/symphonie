@@ -24,7 +24,7 @@
 	ABMultiValue* phones = [person valueForProperty:kABPhoneProperty];
 	int k=[phones count];
 	if (k<1) return nil;
-	unsigned int idx=[phones indexForIdentifier:identifier];
+	NSUInteger idx=[phones indexForIdentifier:identifier];
 	if ( NSNotFound ==idx) idx=0;
 	NSString *value=[phones valueAtIndex:idx];
 	return intl ? [value internationalCallNumber] : value ;
